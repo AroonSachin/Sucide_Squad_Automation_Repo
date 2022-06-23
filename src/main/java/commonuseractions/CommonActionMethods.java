@@ -1,25 +1,25 @@
 package commonuseractions;
 
-import java.time.Duration;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CommonActionMethods {
 	
-	
-	
-		
+	static  Logger logger = Logger.getLogger(CommonActionMethods.class);
 	
 	   
 	public static void clickMethod(WebElement elements,String value)  {
 		try {
 					
 			elements.click( );
+			logger.info("element is clicked ");
+			
 				
 			
 		} catch (Exception e) {
+			
+			logger.info("element is not clicked ");
 			
 			
 			
@@ -29,9 +29,11 @@ public class CommonActionMethods {
 			try {
 				keys.click();
 				keys.sendKeys(enter);
+				logger.info(enter);
 				
 				
 			} catch (Exception e) {
+				
 				
 				
 				
@@ -51,4 +53,4 @@ public class CommonActionMethods {
 	
 	
 
-}
+
