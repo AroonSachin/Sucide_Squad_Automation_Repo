@@ -1,42 +1,40 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.UnreachableBrowserException;
-
-import utils.drivermanager.Chromedrivermanager;
-import utils.drivermanager.Firefoxdrivermanager;
-import utils.drivermanager.Safaridrivermanager;
-
+/**
+ * The class creates a thread for the given driver.
+ * 
+ * @author aroon
+ */
 public class DriverFactory {
+	// This line creates a seperate thread for the given driver
+	static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
-	public static WebDriver launchBrowser(String browser, String browsertype) {
-		WebDriver driver;
-
-		browserList browsername = browserList.valueOf(browser.toUpperCase());
-
-		switch (browsername) {
-
-		case CHROME:
-			driver = new Chromedrivermanager().createDriver(browsertype);
-			break;
-
-		case FIREFOX:
-			driver = new Firefoxdrivermanager().createDriver(browsertype);
-			break;
-
-		case SAFARI:
-			driver = new Safaridrivermanager().createDriver(browsertype);
-			break;
-		default:
-			throw new UnreachableBrowserException(browsertype);
-		}
-		return driver;
+	/**
+	 * This method sets the driver to the threadlocal to create a thread of that
+	 * driver.
+	 * 
+	 * @param driverparam
+	 */
+	public static void setDriver(WebDriver driverparam) {
+		driver.set(driverparam);
 	}
 
-	public enum browserList {
+	/**
+	 * This method gets the driver with its respective thread id.
+	 * 
+	 * @return
+	 */
+	public static WebDriver getDriver() {
+		return driver.get();
+	}
 
-		CHROME, FIREFOX, SAFARI
-
+	/**
+	 * This method quits the driver and removes the thread.
+	 */
+	public static void closeDriver() {
+		driver.get().quit();
+		driver.remove();
 	}
 
 }
