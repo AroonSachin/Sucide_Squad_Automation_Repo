@@ -100,6 +100,7 @@ public class CommonActionMethods {
 	}
 
 	/**
+	 * @author vbaskar
 	 * @This method is used to take a screenshot
 	 * @param Snaps
 	 */
@@ -121,43 +122,60 @@ public class CommonActionMethods {
 		}
 
 	}
+
 	/**
+	 * @author vbaskar
 	 * @This method is used for windowhandle
 	 */
 	public static void windowHandle() {
 		try {
-			String hand=driver.getWindowHandle();
+			String hand = driver.getWindowHandle();
 			List<String> wind = (List<String>) driver.getWindowHandles();
-			for (String window:wind) {
-				if(!window.equalsIgnoreCase(hand)) {
+			for (String window : wind) {
+				if (!window.equalsIgnoreCase(hand)) {
 					driver.switchTo().window(window);
 				}
 			}
-			
+			logMessage("windowhandle is sucessful");
 		} catch (Exception e) {
-			
+			logErrorMessage("windowhandle is not sucessful");
 		}
-		
+
 	}
+
 	/**
-	 * @This method is used for frame windowhandle 
+	 * @author vbaskar
+	 * @This method is used for frame windowhandle
 	 * @param iframe
 	 */
-	
+
 	public static void frameHandle(WebElement iframe) {
-		
-		driver.switchTo().frame(iframe);
-		
+		try {
+
+			driver.switchTo().frame(iframe);
+
+			logMessage("framehandle is sucessful");
+
+		} catch (Exception e) {
+			logErrorMessage("no such frame exception");
+
+		}
+
 	}
+
 	/**
+	 * @author vbaskar
 	 * @This method is used for defaultwindow
 	 */
 	public static void defaultwindow() {
-		driver.switchTo().defaultContent();
+		try {
+			driver.switchTo().defaultContent();
+			logMessage("defaultwindow is sucessful");
+
+		} catch (Exception e) {
+			logErrorMessage("defaultwindow is not sucessful");
+		}
+
 	}
-	
-	
-	
-	
 
 }
