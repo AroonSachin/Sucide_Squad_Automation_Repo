@@ -23,7 +23,7 @@ public class Browserfactory {
 	 * @param browsertype
 	 * @return WebDriver
 	 */
-	public WebDriver createBrowser(String browser, String browsertype) {
+	public static WebDriver createBrowser(String browser, String browsertype) {
 		WebDriver driver = null;
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
@@ -55,6 +55,8 @@ public class Browserfactory {
 		// To lauch Safari.
 		case "SAFARI":
 			if (browsertype.equalsIgnoreCase("headless")) {
+				WebDriverManager.safaridriver().setup();
+				driver = new SafariDriver();
 				System.out.println("Headless not supported in safari");
 			} else {
 				WebDriverManager.safaridriver().setup();
