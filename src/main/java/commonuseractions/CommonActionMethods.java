@@ -68,7 +68,7 @@ public class CommonActionMethods {
 	 */
 	public static void sendKeysMethod(WebElement keys, String enter) {
 		try {
-			keys.click();
+
 			keys.sendKeys(enter);
 			logMessage(enter + "enter the value ");
 
@@ -81,12 +81,12 @@ public class CommonActionMethods {
 
 	/**
 	 * @author vbaskar
-	 * @This method is for select the dropdown class
+	 * @This method is for selectByVisibleText
 	 * @param element
 	 * @param text
 	 */
 
-	public static void selectClass(WebElement element, String text) {
+	public static void selectByVisible(WebElement element, String text) {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
@@ -94,6 +94,42 @@ public class CommonActionMethods {
 
 		} catch (Exception e) {
 			logErrorMessage(text + "Element not selected");
+
+		}
+
+	}
+
+	/**
+	 * @author vbaskar
+	 * @This method is for selectByValue
+	 * @param element
+	 * @param text
+	 */
+	public static void selectByValue(WebElement element, String text) {
+		try {
+			Select sel = new Select(element);
+			sel.selectByValue(text);
+			logMessage(text + "is selected in dropdown");
+
+		} catch (Exception e) {
+			logErrorMessage(text + "Element not selected");
+		}
+	}
+
+	/**
+	 * @author vbaskar
+	 * @This method is for selectByIndex
+	 * @param element
+	 * @param Index
+	 */
+	public static void selectByIndex(WebElement element, int Index) {
+		try {
+			Select sel = new Select(element);
+			sel.selectByIndex(Index);
+			logMessage(Index + "is selected in dropdown");
+
+		} catch (Exception e) {
+			logErrorMessage(Index + "Element not selected");
 
 		}
 
@@ -145,14 +181,52 @@ public class CommonActionMethods {
 
 	/**
 	 * @author vbaskar
-	 * @This method is used for frame windowhandle
+	 * @This method is used for frameByElement
 	 * @param iframe
 	 */
 
-	public static void frameHandle(WebElement iframe) {
+	public static void frameByElement(WebElement element) {
 		try {
 
-			driver.switchTo().frame(iframe);
+			driver.switchTo().frame(element);
+
+			logMessage("framehandle is sucessful");
+
+		} catch (Exception e) {
+			logErrorMessage("no such frame exception");
+
+		}
+
+	}
+
+	/**
+	 * @author vbaskar
+	 * @This method is used for frameByIndex
+	 * @param Index
+	 */
+	public static void frameByIndex(int Index) {
+		try {
+
+			driver.switchTo().frame(Index);
+
+			logMessage("framehandle is sucessful");
+
+		} catch (Exception e) {
+			logErrorMessage("no such frame exception");
+
+		}
+
+	}
+
+	/**
+	 * @author vbaskar
+	 * @This method is used for frameByNameorID
+	 * @param nameORid
+	 */
+	public static void frameByNameorID(String nameORid) {
+		try {
+
+			driver.switchTo().frame(nameORid);
 
 			logMessage("framehandle is sucessful");
 
