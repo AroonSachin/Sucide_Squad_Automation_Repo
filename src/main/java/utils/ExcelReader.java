@@ -30,7 +30,9 @@ public ExcelReader(String Excelpath, String sheetname, int rowNum) throws IOExce
 			title = sheet.getRow(0).getCell(j).getStringCellValue();    //fetches the header name from the sheet
 			value = sheet.getRow(rowNum).getCell(j).getStringCellValue(); //fetches the value of the header from the sheet
 			dataMap.put(title, value);                                    //Stores the header name and the value in the map
+		    
 		}
+		System.out.println(dataMap);
 	} catch (Exception e) {
 		System.err.println("Error during reading input file");
 		throw new Error(e.getStackTrace().toString());
