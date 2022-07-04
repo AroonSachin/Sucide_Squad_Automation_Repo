@@ -24,7 +24,7 @@ local.properties
 *.ear
 *.nar
 hs_err_pid*
-/test-output
+test-output/
 ##############################
 ## Maven
 ##############################
