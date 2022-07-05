@@ -1,8 +1,11 @@
 package commonuseractions;
 
+import utils.Browserfactory;
+import utils.DriverFactory;
 import java.io.File;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -20,8 +23,6 @@ import org.openqa.selenium.support.ui.Select;
  */
 
 public class CommonActionMethods {
-
-	static WebDriver driver;
 
 	public static Logger log = Logger.getLogger(CommonActionMethods.class);
 
@@ -44,6 +45,25 @@ public class CommonActionMethods {
 		log.error(MessageStopExecution);
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);
+	}
+
+	/**
+	 * 
+	 * @This method is used to invoke the browser
+	 * @param browser-string     value about the action being performed
+	 * @param browsertype-string value about the action being performed
+	 * @param url-string         value about the action being performed
+	 */
+
+	public static void invokeBrowser(String browser, String browsertype, String url) {
+		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
+		DriverFactory.getDriver();
+		logMessage(browser + "browser invoked");
+		DriverFactory.getDriver().manage().window().maximize();
+		logMessage("window maximized");
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		DriverFactory.getDriver().get(url);
+		logMessage(url + "url launched");
 	}
 
 	/**
@@ -151,7 +171,7 @@ public class CommonActionMethods {
 	 */
 	public static void takeSnapShot() throws Exception {
 		try {
-			File SrcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(SrcFile, new File("./Snaps/" + System.currentTimeMillis() + ".png"));
 			logMessage("Screenshot taken-stored in the given path");
 		} catch (Exception e) {
@@ -166,11 +186,11 @@ public class CommonActionMethods {
 	 */
 	public static void windowHandle() throws Exception {
 		try {
-			String hand = driver.getWindowHandle();
-			List<String> wind = (List<String>) driver.getWindowHandles();
+			String hand = DriverFactory.getDriver().getWindowHandle();
+			List<String> wind = (List<String>) DriverFactory.getDriver().getWindowHandles();
 			for (String window : wind) {
 				if (!window.equalsIgnoreCase(hand)) {
-					driver.switchTo().window(window);
+					DriverFactory.getDriver().switchTo().window(window);
 				}
 			}
 			logMessage("windowhandle is successful");
@@ -190,7 +210,7 @@ public class CommonActionMethods {
 
 	public static void frameByElement(WebElement element) throws Exception {
 		try {
-			driver.switchTo().frame(element);
+			DriverFactory.getDriver().switchTo().frame(element);
 			logMessage("framehandle is successful by webelement");
 
 		} catch (Exception e) {
@@ -208,7 +228,7 @@ public class CommonActionMethods {
 	 */
 	public static void frameByIndex(int Index) throws Exception {
 		try {
-			driver.switchTo().frame(Index);
+			DriverFactory.getDriver().switchTo().frame(Index);
 			logMessage("framehandle is successful by index");
 
 		} catch (Exception e) {
@@ -226,7 +246,7 @@ public class CommonActionMethods {
 	 */
 	public static void frameByNameorID(String nameORid) throws Exception {
 		try {
-			driver.switchTo().frame(nameORid);
+			DriverFactory.getDriver().switchTo().frame(nameORid);
 			logMessage("framehandle is successful by name or id");
 
 		} catch (Exception e) {
@@ -243,7 +263,7 @@ public class CommonActionMethods {
 	 */
 	public static void defaultwindow() throws Exception {
 		try {
-			driver.switchTo().defaultContent();
+			DriverFactory.getDriver().switchTo().defaultContent();
 			logMessage("defaultwindow is sucessful");
 
 		} catch (Exception e) {
@@ -258,7 +278,7 @@ public class CommonActionMethods {
 	 */
 
 	public static String getTitle() {
-		String title = driver.getTitle();
+		String title = DriverFactory.getDriver().getTitle();
 		return title;
 	}
 
@@ -267,7 +287,7 @@ public class CommonActionMethods {
 	 * @return
 	 */
 	public static String getURL() {
-		String url = driver.getCurrentUrl();
+		String url = DriverFactory.getDriver().getCurrentUrl();
 		return url;
 	}
 
@@ -332,6 +352,27 @@ public class CommonActionMethods {
 		} catch (Exception e) {
 			logErrorMessage(ElementName + "is not enabled in catch block ");
 
+		}
+
+	}
+
+	/**
+	 * @This method is used to check the variable are equal
+	 * @param intial-object   value about the action being performed
+	 * @param end-object      value about the action being performed
+	 * @param obj1name-string value about the action being performed
+	 * @param obj2name-string value about the action being performed
+	 * @throws Exception
+	 */
+	public static void checkEquality(Object intial, Object end) throws Exception {
+		try {
+			if (intial.equals(end)) {
+				logMessage(intial + "&" + end + "is equal");
+			} else {
+				logErrorMessage(intial + "&" + end + "is not equal");
+			}
+		} catch (Exception e) {
+			logErrorMessage(intial + "&" + end + "is not equal");
 		}
 
 	}
