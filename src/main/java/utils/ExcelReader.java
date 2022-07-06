@@ -2,54 +2,54 @@ package utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-//import org.apache.poi.ss.usermodel.Sheet;
-//import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-public class ExcelReader
-{
-private static Map<String, String> dataMap = new HashMap<String, String>();
 
-public ExcelReader(String Excelpath, String sheetname, int rowNum) throws IOException {
+/**
+ * 
+ *
+ * @author svenkateshwaran This class is used to read the excel data
+ *
+ */
+public class ExcelReader {
+	public String path;
+	public FileInputStream fis = null;
+	public FileOutputStream fileOut = null;
+	private XSSFWorkbook workbook = null;
+	private XSSFSheet sheet = null;
 
-	dataMap.clear();
-	try {
-		FileInputStream fs = new FileInputStream(new File(Excelpath));
-		XSSFWorkbook workbook = new XSSFWorkbook(fs);                  //Read the excel work book
-		XSSFSheet sheet = workbook.getSheet(sheetname);                //read the excel sheet based on sheet name
-		String title = "";
-		String value = "";
-		
-
-		for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
-			title = sheet.getRow(0).getCell(j).getStringCellValue();    //fetches the header name from the sheet
-			value = sheet.getRow(rowNum).getCell(j).getStringCellValue(); //fetches the value of the header from the sheet
-			dataMap.put(title, value);                                    //Stores the header name and the value in the map
-		    
-		}
-		System.out.println(dataMap);
-	} catch (Exception e) {
-		System.err.println("Error during reading input file");
-		throw new Error(e.getStackTrace().toString());
+	public ExcelReader(String excelname, String sheetName) throws Exception {
+		workbook = new XSSFWorkbook(new FileInputStream(
+				new File(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + excelname)));
+		sheet = workbook.getSheet(sheetName);
 	}
-}
 
-public static int getRowCount(String Excelpath, String sheetname) throws IOException
-{
-	FileInputStream fs = new FileInputStream(new File(Excelpath));
-	XSSFWorkbook workbook = new XSSFWorkbook(fs);                  //Read the excel work book
-	XSSFSheet sheet = workbook.getSheet(sheetname);
-	return sheet.getLastRowNum()+1;
-}
+	public Map<String, String> xlReader(int rowNum) throws IOException {
+		Map<String, String> dataMap = new HashMap<String, String>();
+		try {
+			String title = "";
+			String value = "";
+			for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
+				title = sheet.getRow(0).getCell(j).getStringCellValue();
+				value = sheet.getRow(rowNum).getCell(j).getStringCellValue();
+				dataMap.put(title, value);
+			}
+		} catch (Exception e) {
 
-public static Map<String, String> hashmap() {
-	return dataMap;
-}
-}
-	
+			e.printStackTrace();
+			throw new Error(e.getStackTrace().toString());
+		}
+		
+		return dataMap;
+	}
 
+	public int getRowCount() {
+		int rows = sheet.getLastRowNum() + 1;
+		return rows;
+	}
+
+}
