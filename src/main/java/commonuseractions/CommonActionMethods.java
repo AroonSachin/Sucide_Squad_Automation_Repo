@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -31,6 +32,7 @@ public class CommonActionMethods {
 	 * @param message -string value about the action being performed
 	 */
 	public static void logMessage(String message) {
+		BasicConfigurator.configure();
 		log.info(message);
 	}
 
@@ -42,6 +44,7 @@ public class CommonActionMethods {
 	 */
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
+		BasicConfigurator.configure();
 		log.error(MessageStopExecution);
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);
