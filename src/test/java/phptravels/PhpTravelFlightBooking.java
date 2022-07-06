@@ -1,5 +1,7 @@
 package phptravels;
 
-public class PhpTravelFlightBooking {
 
-}
+ 
+
+public class PhpTravelFlightBooking {
+} 
