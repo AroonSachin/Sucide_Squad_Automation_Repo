@@ -70,5 +70,7 @@ public class LoginPage extends CommonActionMethods {
 
 	@FindBy(xpath = "//button[@id='submitAccount']")
 	public static WebElement registerbutton;
+	
+	
 
 }
