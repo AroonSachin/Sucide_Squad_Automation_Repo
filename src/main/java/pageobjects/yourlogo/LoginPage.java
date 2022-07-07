@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import commonuseractions.CommonActionMethods;
+import utils.DriverFactory;
 
 public class LoginPage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@class='header_user_info']//a")
@@ -70,6 +71,39 @@ public class LoginPage extends CommonActionMethods {
 
 	@FindBy(xpath = "//button[@id='submitAccount']")
 	public static WebElement registerbutton;
+	
+	public LoginPage() {
+
+		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
+
+	}
+	private void method() {
+		
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
