@@ -28,6 +28,7 @@ public class CommonActionMethods {
 	public static Logger log = Logger.getLogger(CommonActionMethods.class);
 
 	/**
+	 * 
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
@@ -51,7 +52,6 @@ public class CommonActionMethods {
 	}
 
 	/**
-	 * 
 	 * @This method is used to invoke the browser
 	 * @param browser-string     value about the action being performed
 	 * @param browsertype-string value about the action being performed
