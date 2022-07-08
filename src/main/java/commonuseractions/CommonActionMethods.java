@@ -2,7 +2,9 @@ package commonuseractions;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.*;
 import org.apache.commons.io.FileUtils;
@@ -370,5 +372,36 @@ public class CommonActionMethods {
 		}
 
 	}
+	
+	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
+		Map<String, String> map = new HashMap<>();
+
+		return map;
+	});
+
+	public static Map<String, String> getInputData() {
+		return inputdata.get();
+	}
+
+	
+	/**
+	 * This method for getting the data from the hash map and returns the value
+	 * 
+	 * @param Name It is the name of the column
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getdata(String Name) throws Exception {
+
+		String data = "";
+		if (inputdata.get().containsKey(Name)) {
+			data = inputdata.get().get(Name);
+		} else {
+			logMessage("Given Column name is not available in the Excel " + Name);
+		}
+		return data;
+
+	}
+
 
 }
