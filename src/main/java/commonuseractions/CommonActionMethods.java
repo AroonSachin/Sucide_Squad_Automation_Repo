@@ -1,5 +1,4 @@
 package commonuseractions;
-
 import utils.Browserfactory;
 import utils.DriverFactory;
 import java.io.File;
@@ -7,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.logging.log4j.*;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -25,15 +21,13 @@ import org.openqa.selenium.support.ui.Select;
  */
 
 public class CommonActionMethods {
-
-	public static Logger log = Logger.getLogger(CommonActionMethods.class);
+	public static Logger log = LogManager.getLogger(CommonActionMethods.class.getName());
 
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
-	public static void logMessage(String message) {
-		BasicConfigurator.configure();
+	public static void logMessage(String message) {		
 		log.info(message);
 	}
 
@@ -45,7 +39,6 @@ public class CommonActionMethods {
 	 */
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
-		BasicConfigurator.configure();
 		log.error(MessageStopExecution);
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);
