@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
  * @author aroon
  */
 public class DriverFactory {
-	// This line creates a seperate thread for the given driver
+	// This line creates a separate thread for the given driver
 	static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
 	/**

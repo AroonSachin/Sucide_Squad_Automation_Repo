@@ -18,3 +18,4 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 		new Homepage().SearchFlight();
 	}
 } 
+
