@@ -1,5 +1,7 @@
 package pageobjects.phptravels;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -19,6 +21,9 @@ public class Homepage extends CommonActionMethods{
 	static
 	WebElement descity;
 	
+	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
+	List<WebElement> depcitylist;
+	
 	
 	
 	public Homepage() {
@@ -31,6 +36,7 @@ public class Homepage extends CommonActionMethods{
 		logMessage("Current page title:"+getTitle());
 		clickMethod(flightbutton,"Flight button");
 		sendKeysMethod(depcity, "MAA");
+		listDrop(depcitylist," Chennai Intl");
 		sendKeysMethod(descity, "LAS");
 		
 	}

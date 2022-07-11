@@ -403,6 +403,21 @@ public class CommonActionMethods {
 		return data;
 
 	}
+	public static void listDrop(List<WebElement> listelement,String Toselect) throws Exception {
+		List<WebElement> elementlist = listelement; 
+		for (WebElement element:elementlist) {
+			String name = element.getText();
+			if (name.equals(Toselect)) {
+				clickMethod(element, Toselect);
+				logMessage(Toselect+"is clicked");
+				break;
+			}else {
+				logErrorMessage(Toselect+"  is not found in the list");
+				break;
+			}
+		}
+		
+	}
 
 
 }
