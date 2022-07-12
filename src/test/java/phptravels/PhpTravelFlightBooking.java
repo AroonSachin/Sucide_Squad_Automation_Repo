@@ -16,7 +16,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 	
 	@Test
 	public void searchFlight() throws Exception {
-		logMessage("hii");
 		new Homepage().SearchFlight();
 	}
 } 
