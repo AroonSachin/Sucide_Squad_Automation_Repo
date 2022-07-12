@@ -21,14 +21,14 @@ import org.apache.log4j.*;
  */
 
 public class CommonActionMethods {
-	static String configFilename ="C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\log4j.properties";
+	static String configFilename ="log4j.properties";
 	public static Logger log =LogManager.getLogger(CommonActionMethods.class );
+	 
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
 	public static void logMessage(String message) {	
-		PropertyConfigurator.configure(configFilename);
 		log.info(message);
 	}
 
@@ -40,7 +40,6 @@ public class CommonActionMethods {
 	 */
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
-		PropertyConfigurator.configure(configFilename);
 		log.error(MessageStopExecution);
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);
@@ -55,6 +54,7 @@ public class CommonActionMethods {
 	 */
 
 	public static void invokeBrowser(String browser, String browsertype, String url) {
+		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
 		logMessage(browser + "browser invoked");
@@ -63,6 +63,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + "url launched");
+		
 	}
 
 	/**
