@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.*;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -28,7 +29,8 @@ public class CommonActionMethods {
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
-	public static void logMessage(String message) {		
+	public static void logMessage(String message) {	
+		DOMConfigurator.configure("log4j2.xml");
 		log.info(message);
 	}
 
