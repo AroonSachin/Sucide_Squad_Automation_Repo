@@ -6,13 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.apache.logging.log4j.*;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
+import org.apache.log4j.*;
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -21,12 +21,14 @@ import org.openqa.selenium.support.ui.Select;
  */
 
 public class CommonActionMethods {
-	public static Logger log = LogManager.getLogger(CommonActionMethods.class.getName());
+	static String configFilename ="C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\log4j.properties";
+	public static Logger log =LogManager.getLogger(CommonActionMethods.class );
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
-	public static void logMessage(String message) {		
+	public static void logMessage(String message) {	
+		PropertyConfigurator.configure(configFilename);
 		log.info(message);
 	}
 
@@ -38,6 +40,7 @@ public class CommonActionMethods {
 	 */
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
+		PropertyConfigurator.configure(configFilename);
 		log.error(MessageStopExecution);
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);

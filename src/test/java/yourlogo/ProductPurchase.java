@@ -10,7 +10,7 @@ public class ProductPurchase extends CommonActionMethods {
 	@BeforeMethod
 	
 	  public void bro() {
-		invokeBrowser("chrome", "normal", "http://automationpractice.com/index.php");
+		invokeBrowser("chrome", "normal", "https://www.javatpoint.com/log4j-properties");
 	}
 
 @Test
