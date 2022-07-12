@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.apache.logging.log4j.*;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
+import org.apache.log4j.*;
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -22,15 +21,15 @@ import org.openqa.selenium.support.ui.Select;
  */
 
 public class CommonActionMethods {
-	public static Logger log = LogManager.getLogger(CommonActionMethods.class.getName());
-
+	static String configFilename ="log4j.properties";
+	public static Logger log =LogManager.getLogger(CommonActionMethods.class );
+	 
 	/**
 	 * 
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
 	public static void logMessage(String message) {	
-		DOMConfigurator.configure("log4j2.xml");
 		log.info(message);
 	}
 
@@ -55,6 +54,7 @@ public class CommonActionMethods {
 	 */
 
 	public static void invokeBrowser(String browser, String browsertype, String url) {
+		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
 		logMessage(browser + "browser invoked");
@@ -63,6 +63,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + "url launched");
+		
 	}
 
 	/**
