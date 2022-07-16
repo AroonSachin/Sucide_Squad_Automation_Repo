@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import commonuseractions.CommonActionMethods;
+import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
 
 public class PhpTravelFlightBooking extends CommonActionMethods{
@@ -17,6 +18,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 	@Test
 	public void searchFlight() throws Exception {
 		new Homepage().SearchFlight();
+		new Flightchoosepage().chooseFlight();
 	}
 } 
 
