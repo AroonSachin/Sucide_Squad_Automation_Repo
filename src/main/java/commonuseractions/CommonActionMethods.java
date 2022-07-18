@@ -1,7 +1,9 @@
 package commonuseractions;
+
 import utils.Browserfactory;
 import utils.DriverFactory;
 import java.io.File;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +13,11 @@ import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.log4j.*;
+
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -21,15 +26,15 @@ import org.apache.log4j.*;
  */
 
 public class CommonActionMethods {
-	static String configFilename ="log4j.properties";
-	public static Logger log =LogManager.getLogger(CommonActionMethods.class );
-	 
+	static String configFilename = "log4j.properties";
+	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+
 	/**
 	 * 
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
-	public static void logMessage(String message) {	
+	public static void logMessage(String message) {
 		log.info(message);
 	}
 
@@ -63,7 +68,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + "url launched");
-		
+
 	}
 
 	/**
@@ -376,7 +381,7 @@ public class CommonActionMethods {
 		}
 
 	}
-	
+
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 
@@ -387,7 +392,6 @@ public class CommonActionMethods {
 		return inputdata.get();
 	}
 
-	
 	/**
 	 * This method for getting the data from the hash map and returns the value
 	 * 
@@ -406,18 +410,23 @@ public class CommonActionMethods {
 		return data;
 
 	}
-	public static void listDrop(List<WebElement> listelement,String Toselect) throws Exception {
-		 
-		for (WebElement element:listelement) {
+
+	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
+
+		for (WebElement element : listelement) {
 			String name = element.getText();
-			if (name.equals(Toselect)) {
+			if (name.contains(Toselect)) {
 				clickMethod(element, Toselect);
-				logMessage(Toselect+"  is clicked");
+				logMessage(Toselect + "  is clicked");
 				break;
 			}
 		}
-		
+
 	}
 
+	public static void webWait(WebElement ele) {
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
+	}
 
 }
