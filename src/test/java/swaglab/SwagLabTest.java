@@ -16,12 +16,19 @@ import utils.ExcelReader;
  */
 
 public class SwagLabTest extends CommonActionMethods {
-	private ExcelReader xlRead = null;
-	private int xlRowCount = 0;
+	//private ExcelReader xlRead = null;
+	//private int xlRowCount = 0;
 
 	@DataProvider(name = "automation")
-	public Iterator<Object[]> getTestData() throws Exception {
-		xlRead = new ExcelReader("bio.xlsx", "Test");
+	public static Iterator<Object[]> getTestData() throws Exception {
+		ExcelReader xlRead = null;
+		int xlRowCount = 0;
+		try {
+			xlRead = new ExcelReader("bio.xlsx", "Test");
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		xlRowCount = xlRead.getRowCount();
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
 		for (int i = 1; i < xlRowCount; i++) {
