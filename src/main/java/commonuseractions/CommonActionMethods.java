@@ -1,9 +1,11 @@
 package commonuseractions;
+
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,8 +17,11 @@ import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.log4j.*;
+
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -25,8 +30,8 @@ import org.apache.log4j.*;
  */
 
 public class CommonActionMethods {
-	static String configFilename ="log4j.properties";
-	public static Logger log =LogManager.getLogger(CommonActionMethods.class );
+	static String configFilename = "log4j.properties";
+	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 
@@ -36,13 +41,12 @@ public class CommonActionMethods {
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
-	
-	 
+
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
-	public static void logMessage(String message) {	
+	public static void logMessage(String message) {
 		log.info(message);
 	}
 
@@ -77,7 +81,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + " url launched");
-		
+
 	}
 
 	/**
@@ -315,7 +319,6 @@ public class CommonActionMethods {
 
 	public static void isDisplayed(WebElement element, String ElementName) throws Exception {
 		try {
-			
 
 			if (element.isDisplayed()) {
 				logMessage(ElementName + " is displayed ");
@@ -391,11 +394,7 @@ public class CommonActionMethods {
 		}
 
 	}
-	
-	
-	
 
-	
 	/**
 	 * This method for getting the data from the hash map and returns the value
 	 * 
@@ -414,50 +413,56 @@ public class CommonActionMethods {
 		return data;
 
 	}
-	
 
 	/**
 	 * This method is to get the text data from excel
+	 * 
 	 * @param sheetname
 	 * @return
 	 * @throws Exception
 	 */
-		 public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
-			 ExcelReader xlRead = null;
-			int xlRowCount = 0;
+	public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
+		ExcelReader xlRead = null;
+		int xlRowCount = 0;
 
-			xlRead = new ExcelReader("database.xlsx", sheetname);
-			xlRowCount = xlRead.getRowCount();
-			ArrayList<Object[]> data = new ArrayList<Object[]>();
-			for (int i = 1; i < xlRowCount; i++) {
-				data.add(new Object[] { xlRead.xlReader(i) });
-			}
-	         
-			return data.iterator();
+		xlRead = new ExcelReader("database.xlsx", sheetname);
+		xlRowCount = xlRead.getRowCount();
+		ArrayList<Object[]> data = new ArrayList<Object[]>();
+		for (int i = 1; i < xlRowCount; i++) {
+			data.add(new Object[] { xlRead.xlReader(i) });
+		}
+
+		return data.iterator();
 	}
-		 
-		 
-		 
-		 
-		/**
-		 * This method is to get text of the element 
-		 * @param element
-		 * @param name
-		 * @return 
-		 * @throws Exception
-		 */
-		 public static String getTextElement(WebElement element, String name) throws Exception
-		 { 
-			 String text="";
-			 try {
-				text=element.getText();
-			} catch (Exception e) {
-				
-				logErrorMessage(" The object  " + name + " is not displayed");
-			}
-			 return text;
-			
-		 }
 
+	/**
+	 * This method is to get text of the element
+	 * 
+	 * @param element
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getTextElement(WebElement element, String name) throws Exception {
+		String text = "";
+		try {
+			text = element.getText();
+		} catch (Exception e) {
+
+			logErrorMessage(" The object  " + name + " is not displayed");
+		}
+		return text;
+
+	}
+	
+	/**
+	 * This method waits for the given element until it is clickable
+	 * @param ele
+	 */
+	
+	public static void webWait(WebElement ele) {
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
+	}
 
 }

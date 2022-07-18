@@ -1,4 +1,4 @@
-package swaglabs;
+package pageobjects.swaglabs;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -49,8 +49,7 @@ public class HomePage extends CommonActionMethods{
 public void verifyLogin() throws Exception
 {
 	clickMethod(hamburgerButton, "hamburger");
-	WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(),Duration.ofSeconds(30));
-	wait.until(ExpectedConditions.visibilityOf(logout));
+	webWait(logout);
 	isDisplayed(logout, "Logout button");
 }
 
@@ -74,12 +73,6 @@ public void sortPrice() throws Exception
 	selectByValue(filterprice, "lohi");
 }
 
-public void getCart() throws Exception
-{
-	productName.set(getTextElement(itemName.get(0), "item name"));
-	productPrice.set(getTextElement(itemPrice.get(0), "item price"));
-	
-}
 
 
 

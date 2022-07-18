@@ -1,4 +1,4 @@
-package swaglabs;
+package pageobjects.swaglabs;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
