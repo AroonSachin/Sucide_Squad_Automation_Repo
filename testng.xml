@@ -3,7 +3,8 @@
 <suite name="Suite">
 	<test thread-count="2" name="Test" parallel="methods">
 		<classes>
-			<class name="swaglab.SwagLabTest" />
+
+			<class name="swaglab.Runner"></class>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
