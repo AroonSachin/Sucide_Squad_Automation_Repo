@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -59,6 +58,10 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 		new Paxdetailspage().pedMonth(getdata("pedmonth"));
 		new Paxdetailspage().pedDay(getdata("pedday"));
 		new Paxdetailspage().pedYear(getdata("pedyear"));
+		new Paxdetailspage().firstName(getdata("firstname"));
+		new Paxdetailspage().lastName(getdata("lastname"));
+		new Paxdetailspage().passportID(getdata("passportid"));
+		new Paxdetailspage().clickBook();
 		}
 	}
 } 

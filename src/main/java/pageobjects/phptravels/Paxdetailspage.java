@@ -36,6 +36,12 @@ public class Paxdetailspage extends CommonActionMethods {
 
 	@FindBy(xpath = "//div[@class='form-content ']//select[@name='country_code']")
 	WebElement percountry;
+	
+	@FindBy(xpath = "//label[@for='agreechb']")
+	WebElement TCbox;
+	
+	@FindBy(id = "booking")
+	WebElement confirmbooking;
 
 	/**
 	 * Constructor to store the elements which are located above.
@@ -59,6 +65,11 @@ public class Paxdetailspage extends CommonActionMethods {
 		selectByVisibleText(percountry, "India");
 		selectByVisibleText(pernationality, "India");
 	}
+	/**
+	 * This method selects the given title to the passengers
+	 * @param paxtitle
+	 * @throws Exception
+	 */
 	public void title(String paxtitle) throws Exception {
 		int titleitrt = 1;
 		String titlearr[] = splitString(paxtitle);
@@ -69,6 +80,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			titleitrt++;
 		}
 	}
+	/**
+	 * This method select's the given nation of the passengers
+	 * @param paxnationality
+	 * @throws Exception
+	 */
 	public void nationality(String paxnationality) throws Exception {
 		int natitrt = 1; 
 		
@@ -78,6 +94,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			natitrt++;
 		}
 	}
+	/**
+	 * this method selects the month of birth of the passengers
+	 * @param DOBmonth
+	 * @throws Exception
+	 */
 	public void dobMonth(String DOBmonth) throws Exception {
 		int dobmnthitrt = 1;
 		for (String dom:splitString(DOBmonth)) {
@@ -86,6 +107,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			dobmnthitrt++;
 		}
 	}
+	/**
+	 * this method selects the Day of birth of the passenger
+	 * @param DOBday
+	 * @throws Exception
+	 */
 	public void dobday(String DOBday) throws Exception {
 		int dobdayitrt= 1;
 		for (String dod:splitString(DOBday)) {
@@ -94,6 +120,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			dobdayitrt++;
 		}
 	}
+	/**
+	 * this method selects the year of birth of the passenger.
+	 * @param DOByear
+	 * @throws Exception
+	 */
 	public void dobYear(String DOByear) throws Exception {
 		int dobdayitrt = 1;
 		for(String doy:splitString(DOByear)) {
@@ -102,6 +133,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			dobdayitrt++;
 		}
 	}
+	/**
+	 * This method selects the passport issuence month.
+	 * @param PIDmonth
+	 * @throws Exception
+	 */
 	public void pidMonth(String PIDmonth) throws Exception {
 		int pidmnthitrt = 1;
 		for (String pidm:splitString(PIDmonth)) {
@@ -110,6 +146,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			pidmnthitrt++;
 		}
 	}
+	/**
+	 * This method selects the passport issuence day.
+	 * @param PIDday
+	 * @throws Exception
+	 */
 	public void pidDay(String PIDday) throws Exception {
 		int piddayitrt = 1;
 		for (String pidd:splitString(PIDday)) {
@@ -118,6 +159,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			piddayitrt++;
 		}
 	}
+	/**
+	 * This method selects the passport issuence Year.
+	 * @param PIDyear
+	 * @throws Exception
+	 */
 	public void pidYear(String PIDyear) throws Exception {
 		int pidyearitrt=1;
 		for(String pidy:splitString(PIDyear)) {
@@ -126,6 +172,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			pidyearitrt++;
 		}
 	}
+	/**
+	 * This method selects the passport expiry Year.
+	 * @param PEDyear
+	 * @throws Exception
+	 */
 	public void pedYear(String PEDyear) throws Exception {
 		int pedyearitrt = 1;
 		for(String pedy:splitString(PEDyear)) {
@@ -134,6 +185,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			pedyearitrt++;
 		}
 	}
+	/**
+	 *This method selects the passport expiry month. 
+	 * @param PEDmonth
+	 * @throws Exception
+	 */
 	public void pedMonth(String PEDmonth) throws Exception {
 		int pedmonthitrt = 1;
 		for(String pedm:splitString(PEDmonth)) {
@@ -142,6 +198,11 @@ public class Paxdetailspage extends CommonActionMethods {
 			pedmonthitrt++;
 		}
 	}
+	/**
+	 * This method selects the passport expiry day.
+	 * @param PEDday
+	 * @throws Exception
+	 */
 	public void pedDay(String PEDday) throws Exception {
 		int peddayitrt = 1;
 		for(String pedd:splitString(PEDday)) {
@@ -149,5 +210,49 @@ public class Paxdetailspage extends CommonActionMethods {
 			selectByVisibleText(ele, pedd);
 			peddayitrt++;
 		}
+	}
+	/**
+	 * This method sends the first name of the passenger's.
+	 * @param firstname
+	 * @throws Exception
+	 */
+	public void firstName(String firstname) throws Exception {
+		int firstnameitrt = 1;
+		for (String fn:splitString(firstname)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='firstname_"+firstnameitrt+"']"));
+			sendKeysMethod(ele,fn);
+		}
+	}
+	/**
+	 * This method sends the last name of the passengers.
+	 * @param lastname
+	 * @throws Exception
+	 */
+	public void lastName(String lastname) throws Exception {
+		int lastnameitrt = 1;
+		for (String ln:splitString(lastname)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='lastname_"+lastnameitrt+"']"));
+			sendKeysMethod(ele,ln);
+		}
+	}
+	/**
+	 * This method sends the passportID of the passengers.
+	 * @param passportid
+	 * @throws Exception
+	 */
+	public void passportID(String passportid) throws Exception {
+		int passportitrt=1;
+		for (String pass:splitString(passportid)) {
+		WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='passport_"+passportitrt+"']"));
+		sendKeysMethod(ele,pass);
+		}
+	}
+	/**
+	 * This method check the terms and condition checkbox and clicks the confirm booking button.
+	 * @throws Exception
+	 */
+	public void clickBook() throws Exception {
+		clickMethod(TCbox," T&C check box");
+		clickMethod(confirmbooking, "Confirm booking button");
 	}
 }
