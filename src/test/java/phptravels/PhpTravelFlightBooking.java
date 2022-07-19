@@ -50,7 +50,15 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 		if (getdata("number").equalsIgnoreCase("1")) {
 		new Paxdetailspage().personalDetails(getdata("perfirstname"),getdata("perlastname"),getdata("permail"),getdata("perphone"),getdata("peraddress"),getdata("percountry"),getdata("pernationality"));
 		new Paxdetailspage().title(getdata("paxtitle"));
-		
+		new Paxdetailspage().dobMonth(getdata("paxdom"));
+		new Paxdetailspage().dobday(getdata("paxdod"));
+		new Paxdetailspage().dobYear(getdata("paxdoy"));
+		new Paxdetailspage().pidMonth(getdata("pidmonth"));
+		new Paxdetailspage().pidDay(getdata("pidday"));
+		new Paxdetailspage().pidYear(getdata("pidyear"));
+		new Paxdetailspage().pedMonth(getdata("pedmonth"));
+		new Paxdetailspage().pedDay(getdata("pedday"));
+		new Paxdetailspage().pedYear(getdata("pedyear"));
 		}
 	}
 } 

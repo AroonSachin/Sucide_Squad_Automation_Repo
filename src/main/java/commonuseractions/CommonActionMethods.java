@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -123,7 +124,6 @@ public class CommonActionMethods {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
 			logMessage(text + "is selected in dropdown");
-
 		} catch (Exception e) {
 			logErrorMessage(text + "Element not selected");
 
@@ -410,7 +410,12 @@ public class CommonActionMethods {
 		return data;
 
 	}
-
+	/**
+	 * This method is to click the respective element by its text from the list of webelements.
+	 * @param listelement
+	 * @param Toselect
+	 * @throws Exception
+	 */
 	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
 
 		for (WebElement element : listelement) {
@@ -423,7 +428,19 @@ public class CommonActionMethods {
 		}
 
 	}
-
-
+	/**
+	 * This method is to split the given given string by comma. 
+	 * @param data
+	 * @return
+	 */
+	public static String[] splitString(String data) {
+		String arr[] = data.split(",");
+		return arr;
+	}
+	
+	public static void scrollToElement(WebElement ele) {
+		JavascriptExecutor scrl=(JavascriptExecutor) DriverFactory.getDriver();
+		scrl.executeScript("arguments[0].scrollIntoView(true)",ele );
+	}
 
 }

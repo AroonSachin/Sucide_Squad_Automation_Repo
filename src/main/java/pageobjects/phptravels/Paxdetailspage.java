@@ -59,26 +59,95 @@ public class Paxdetailspage extends CommonActionMethods {
 		selectByVisibleText(percountry, "India");
 		selectByVisibleText(pernationality, "India");
 	}
-
 	public void title(String paxtitle) throws Exception {
-
 		int titleitrt = 1;
-		String titlearr[] = paxtitle.split("||");
-		for (int i = 0; i <= titlearr.length; i++) {
-			System.out.println("sep:" + titlearr[i]);
-		}
+		String titlearr[] = splitString(paxtitle);
 		for (String title : titlearr) {
-			System.out.println(titleitrt);
 			WebElement Title = DriverFactory.getDriver()
 					.findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='title_" + titleitrt + "']"));
-			System.out.println(title);
-			webWait(Title);
-			clickMethod(Title, "Title box");
-			selectByValue(Title, title);
-
+			selectByVisibleText(Title, title);
 			titleitrt++;
 		}
-
 	}
-
+	public void nationality(String paxnationality) throws Exception {
+		int natitrt = 1; 
+		
+		for (String nationality:splitString(paxnationality)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='nationality_"+natitrt+"']"));
+			selectByVisibleText(ele,paxnationality);
+			natitrt++;
+		}
+	}
+	public void dobMonth(String DOBmonth) throws Exception {
+		int dobmnthitrt = 1;
+		for (String dom:splitString(DOBmonth)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_month_"+dobmnthitrt+"']"));
+			selectByValue(ele, dom);
+			dobmnthitrt++;
+		}
+	}
+	public void dobday(String DOBday) throws Exception {
+		int dobdayitrt= 1;
+		for (String dod:splitString(DOBday)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_day_"+dobdayitrt+"']"));
+			selectByValue(ele, dod);
+			dobdayitrt++;
+		}
+	}
+	public void dobYear(String DOByear) throws Exception {
+		int dobdayitrt = 1;
+		for(String doy:splitString(DOByear)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_year_"+dobdayitrt+"']"));
+			selectByVisibleText(ele, doy);
+			dobdayitrt++;
+		}
+	}
+	public void pidMonth(String PIDmonth) throws Exception {
+		int pidmnthitrt = 1;
+		for (String pidm:splitString(PIDmonth)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_month_"+pidmnthitrt+"']"));
+			selectByValue(ele, pidm);
+			pidmnthitrt++;
+		}
+	}
+	public void pidDay(String PIDday) throws Exception {
+		int piddayitrt = 1;
+		for (String pidd:splitString(PIDday)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_day_"+piddayitrt+"']"));
+			selectByVisibleText(ele, pidd);
+			piddayitrt++;
+		}
+	}
+	public void pidYear(String PIDyear) throws Exception {
+		int pidyearitrt=1;
+		for(String pidy:splitString(PIDyear)) {
+			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_year_"+pidyearitrt+"']"));
+			selectByVisibleText(ele, pidy);
+			pidyearitrt++;
+		}
+	}
+	public void pedYear(String PEDyear) throws Exception {
+		int pedyearitrt = 1;
+		for(String pedy:splitString(PEDyear)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_year_"+pedyearitrt+"']"));
+			selectByVisibleText(ele, pedy);
+			pedyearitrt++;
+		}
+	}
+	public void pedMonth(String PEDmonth) throws Exception {
+		int pedmonthitrt = 1;
+		for(String pedm:splitString(PEDmonth)) {
+			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_month_"+pedmonthitrt+"']"));
+			selectByValue(ele, pedm);
+			pedmonthitrt++;
+		}
+	}
+	public void pedDay(String PEDday) throws Exception {
+		int peddayitrt = 1;
+		for(String pedd:splitString(PEDday)) {
+			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_day_"+peddayitrt+"']"));
+			selectByVisibleText(ele, pedd);
+			peddayitrt++;
+		}
+	}
 }

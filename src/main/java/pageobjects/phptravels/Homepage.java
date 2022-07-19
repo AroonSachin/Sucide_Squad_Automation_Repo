@@ -118,7 +118,6 @@ public class Homepage extends CommonActionMethods {
 		getURL();
 		logMessage("Current URL:" + getURL());
 		logMessage("Current page title:" + getTitle());
-		webWait(flightbutton);
 		clickMethod(flightbutton, "Flight button");
 		sendKeysMethod(depcity, "MAA");
 		listDrop(depcitylist, "dep");
