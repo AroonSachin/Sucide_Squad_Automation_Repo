@@ -1,7 +1,7 @@
-package javaprogrammingpractice;
+package javaprogrammingpractice.arunsachin;
 
 import java.util.Scanner;
-
+// Write a Java method to compute the sum of the digits in an integer
 public class Sumofdigits {
 	public static void main(String[] args) {
 		int sum = 0;

@@ -424,9 +424,6 @@ public class CommonActionMethods {
 
 	}
 
-	public static void webWait(WebElement ele) {
-		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(ele));
-	}
+
 
 }
