@@ -20,6 +20,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import org.apache.log4j.*;
 
 /**
@@ -37,9 +42,20 @@ public class CommonActionMethods {
 
 		return map;
 	});
+	
+	ExtentReports extentreport;
+	ExtentHtmlReporter htmlreporter;
+	ExtentTest testcase;
 
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
+	}
+	
+	private void extent() {
+		extentreport=new ExtentReports();
+		htmlreporter=new ExtentHtmlReporter("ExtentReport.html");
+		extentreport.attachReporter(htmlreporter);
+
 	}
 
 	/**
@@ -454,12 +470,13 @@ public class CommonActionMethods {
 		return text;
 
 	}
-	
+
 	/**
 	 * This method waits for the given element until it is clickable
+	 * 
 	 * @param ele
 	 */
-	
+
 	public static void webWait(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
