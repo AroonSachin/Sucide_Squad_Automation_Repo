@@ -72,35 +72,37 @@ public class LoginPage extends CommonActionMethods {
 	@FindBy(xpath = "//button[@id='submitAccount']")
 	public static WebElement registerbutton;
 	
+	
+	
 	public LoginPage() {
 
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
 
 	}
 	
-	public void login() throws Exception {
+	public void login(String emailid,String Firstname,String Lastname,String Password,String Birthdate,String Birthmonth,String Birthyear,String Companyname,String Address,String Cityname,String Statename,String pincode,String Phonenumber) throws Exception {
 		Thread.sleep(10000);
 		clickMethod(signin, "sigin");
-		sendKeysMethod(emailaddress, "venkateshbaskar22+13@gmail.com");
+		sendKeysMethod(emailaddress, emailid);
 		clickMethod(submitbutton,"submitbutton" );
 		clickMethod(selectgender, "selectgender");
-		sendKeysMethod(firstname,"venkatesh");
-		sendKeysMethod(lastname, "baskar");
+		sendKeysMethod(firstname,Firstname);
+		sendKeysMethod(lastname, Lastname);
 		clickMethod(email, "email");
-		sendKeysMethod(password, "1234567");
-		selectByValue(birthdate, "22");
+		sendKeysMethod(password, Password);
+		selectByValue(birthdate, Birthdate);
 		Thread.sleep(3000);
-		selectByValue(birthmonth, "5");
-		selectByValue(birthyear, "1999");
+		selectByValue(birthmonth, Birthmonth);
+		selectByValue(birthyear, Birthyear);
 		clickMethod(addressfirstname, "addressfirstname");
 		clickMethod(addresslastname, "addresslastname");
-		sendKeysMethod(companyname, "it trident ");
-		sendKeysMethod(address, "5.IT trident ,northusman road ,3rd floor,tnagar,chennai");
-		sendKeysMethod(cityname, "chennai");
-		selectByValue(statename, "1");
-		sendKeysMethod(postalcode,"61291");
+		sendKeysMethod(companyname, Companyname);
+		sendKeysMethod(address, Address);
+		sendKeysMethod(cityname, Cityname);
+		selectByValue(statename, Statename);
+		sendKeysMethod(postalcode,pincode);
 		clickMethod(countryname, "countryname");
-		sendKeysMethod(phonenumber, "9585153985");
+		sendKeysMethod(phonenumber,Phonenumber);
 		clickMethod(registerbutton, "registerbutton");
 	}
 

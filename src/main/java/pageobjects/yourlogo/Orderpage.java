@@ -59,6 +59,30 @@ public class Orderpage extends CommonActionMethods{
 	@FindBy(xpath = "//p[@id='cart_navigation']//button[@type='submit']")
 	public static WebElement confromorder;
 	
+	@FindBy(xpath="(//a[@title='Faded Short Sleeve T-shirts'])[2]")
+	public static WebElement namevalidation;
+	
+	@FindBy(xpath="(//div[@class='content_price'])[2]")
+	public static WebElement pricevalidation;
+	
+	@FindBy(xpath="//a[text()='Faded Short Sleeve T-shirts']")
+	public static WebElement cartvalidation;
+	
+	@FindBy(id="product_price_1_1_722123")
+	public static WebElement cardpricevalidation;
+	
+	@FindBy(xpath="(//a[@title=\"Blouse\"])[2]")
+	public static WebElement nametwovalidation;
+	
+	@FindBy(xpath="(//span[@class=\"price product-price\"])[4]")
+	public static WebElement pricetwovalidation;
+	
+	@FindBy(xpath="(//a[text()='Blouse'])[2]")
+	public static WebElement cardtwovalidation;
+	
+	@FindBy(id="product_price_2_7_722123")
+    public static WebElement cardprice2;	
+	
 	public Orderpage() {
 
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
@@ -71,8 +95,6 @@ public class Orderpage extends CommonActionMethods{
 		clickMethod(chooseproduct,"chooseproduct");
 		frameByIndex(0);
 		Thread.sleep(10000);
-		//WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
-		//wait.until(ExpectedConditions.elementToBeClickable(addcart));
 		clickMethod(addcart,"addcart");
 		defaultwindow();
 		clickMethod(continueshopping,"continueshopping");
@@ -88,6 +110,9 @@ public class Orderpage extends CommonActionMethods{
 		clickMethod(processshipping,"processshipping");
 		clickMethod(paybybankwire,"paybybankwire");
 		clickMethod(confromorder,"confromorder");
+	}
+	public void validation() {
+		
 	}
 	
 
