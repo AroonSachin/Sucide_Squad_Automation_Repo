@@ -2,18 +2,25 @@ package commonuseractions;
 
 import utils.Browserfactory;
 import utils.DriverFactory;
+import utils.ExcelReader;
+
 import java.io.File;
-
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.apache.log4j.*;
 
 /**
  * @author vbaskar
@@ -23,8 +30,17 @@ import org.openqa.selenium.support.ui.Select;
  */
 
 public class CommonActionMethods {
+	static String configFilename = "log4j.properties";
+	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
+		Map<String, String> map = new HashMap<>();
 
-	public static Logger log = Logger.getLogger(CommonActionMethods.class);
+		return map;
+	});
+
+	public static Map<String, String> getInputData() {
+		return inputdata.get();
+	}
 
 	/**
 	 * @This method is used to print the log message in console
@@ -56,14 +72,16 @@ public class CommonActionMethods {
 	 */
 
 	public static void invokeBrowser(String browser, String browsertype, String url) {
+		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
-		logMessage(browser + "browser invoked");
+		logMessage(browser + " browser invoked");
 		DriverFactory.getDriver().manage().window().maximize();
 		logMessage("window maximized");
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
-		logMessage(url + "url launched");
+		logMessage(url + " url launched");
+
 	}
 
 	/**
@@ -95,10 +113,10 @@ public class CommonActionMethods {
 	public static void sendKeysMethod(WebElement key, String enter) throws Exception {
 		try {
 			key.sendKeys(enter);
-			logMessage(enter + "enter the value ");
+			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
-			logErrorMessage("Element not entered in" + enter);
+			logErrorMessage(" Element is not entered in " + enter);
 
 		}
 
@@ -117,10 +135,10 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
-			logMessage(text + "is selected in dropdown");
+			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			logErrorMessage(text + "Element not selected");
+			logErrorMessage(text + " Element is not selected ");
 
 		}
 
@@ -137,10 +155,10 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByValue(text);
-			logMessage(text + "is selected in dropdown");
+			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			logErrorMessage(text + "Element not selected");
+			logErrorMessage(text + " Element is not selected ");
 
 		}
 	}
@@ -156,10 +174,10 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByIndex(Index);
-			logMessage(Index + "is selected in dropdown");
+			logMessage(Index + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			logErrorMessage(Index + "Element not selected");
+			logErrorMessage(Index + " Element is not selected ");
 
 		}
 
@@ -173,9 +191,9 @@ public class CommonActionMethods {
 		try {
 			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(SrcFile, new File("./Snaps/" + System.currentTimeMillis() + ".png"));
-			logMessage("Screenshot taken-stored in the given path");
+			logMessage(" Screenshot taken-stored in the given path ");
 		} catch (Exception e) {
-			logErrorMessage("Screenshot is not taken ");
+			logErrorMessage(" Screenshot is not taken ");
 		}
 	}
 
@@ -193,9 +211,9 @@ public class CommonActionMethods {
 					DriverFactory.getDriver().switchTo().window(window);
 				}
 			}
-			logMessage("windowhandle is successful");
+			logMessage(" windowhandle is successful ");
 		} catch (Exception e) {
-			logErrorMessage("windowhandle is not successful");
+			logErrorMessage(" windowhandle is not successful ");
 
 		}
 
@@ -211,10 +229,10 @@ public class CommonActionMethods {
 	public static void frameByElement(WebElement element) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(element);
-			logMessage("framehandle is successful by webelement");
+			logMessage(" framehandle is successful by webelement ");
 
 		} catch (Exception e) {
-			logErrorMessage("no such frame exception");
+			logErrorMessage(" no such frame exception ");
 
 		}
 
@@ -229,10 +247,10 @@ public class CommonActionMethods {
 	public static void frameByIndex(int Index) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(Index);
-			logMessage("framehandle is successful by index");
+			logMessage(" framehandle is successful by index ");
 
 		} catch (Exception e) {
-			logErrorMessage("no such frame exception");
+			logErrorMessage(" no such frame exception ");
 
 		}
 
@@ -247,27 +265,27 @@ public class CommonActionMethods {
 	public static void frameByNameorID(String nameORid) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(nameORid);
-			logMessage("framehandle is successful by name or id");
+			logMessage(" framehandle is successful by name or id ");
 
 		} catch (Exception e) {
-			logErrorMessage("no such frame exception");
+			logErrorMessage(" no such frame exception ");
 
 		}
 
 	}
 
 	/**
-	 * @This method is used for defaultwindow
+	 * @This method is used for default window
 	 * @throws Exception
 	 * 
 	 */
 	public static void defaultwindow() throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().defaultContent();
-			logMessage("defaultwindow is sucessful");
+			logMessage(" Switched to defaultwindow ");
 
 		} catch (Exception e) {
-			logErrorMessage("defaultwindow is not sucessful");
+			logErrorMessage(" Not switched to defaultwindow ");
 		}
 
 	}
@@ -294,21 +312,21 @@ public class CommonActionMethods {
 	/**
 	 * 
 	 * @This method is for element is displayed
-	 * @param element     -Webelement to check whether is displayed or not
+	 * @param element     -WebElement to check whether is displayed or not
 	 * @param ElementName
 	 * @throws Exception
 	 */
 
-	public static void isDisplyaed(WebElement element, String ElementName) throws Exception {
+	public static void isDisplayed(WebElement element, String ElementName) throws Exception {
 		try {
 
 			if (element.isDisplayed()) {
-				logMessage(ElementName + "is displayed");
+				logMessage(ElementName + " is displayed ");
 			} else {
-				logErrorMessage(ElementName + "is not displayed in else block ");
+				logErrorMessage(ElementName + " is not displayed in else block ");
 			}
 		} catch (Exception e) {
-			logErrorMessage(ElementName + "is not displayed in catch block ");
+			logErrorMessage(ElementName + " is not displayed in catch block ");
 
 		}
 
@@ -317,19 +335,19 @@ public class CommonActionMethods {
 	/**
 	 *
 	 * @This method is for element is selected
-	 * @param element     -Webelement to check whether is Selected or not
+	 * @param element     -WebElement to check whether is Selected or not
 	 * @param ElementName -string value about the action being performed
 	 * @throws Exception
 	 */
 	public static void isSelected(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isSelected()) {
-				logMessage(ElementName + "is selected");
+				logMessage(ElementName + " is selected");
 			} else {
-				logErrorMessage(ElementName + "is not selected in else block ");
+				logErrorMessage(ElementName + " is not selected in else block ");
 			}
 		} catch (Exception e) {
-			logErrorMessage(ElementName + "is not selected in catch block ");
+			logErrorMessage(ElementName + " is not selected in catch block ");
 
 		}
 
@@ -338,19 +356,19 @@ public class CommonActionMethods {
 	/**
 	 * 
 	 * @This method is for element is enabled
-	 * @param element     -Webelement to check whether is Enabled or not
+	 * @param element     -WebElement to check whether is Enabled or not
 	 * @param ElementName -string value about the action being performed
 	 * @throws Exception
 	 */
 	public static void isEnabled(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isEnabled()) {
-				logMessage(ElementName + "is enabled");
+				logMessage(ElementName + " is enabled ");
 			} else {
-				logErrorMessage(ElementName + "is not enabled in else block ");
+				logErrorMessage(ElementName + " is not enabled in else block ");
 			}
 		} catch (Exception e) {
-			logErrorMessage(ElementName + "is not enabled in catch block ");
+			logErrorMessage(ElementName + " is not enabled in catch block ");
 
 		}
 
@@ -375,6 +393,76 @@ public class CommonActionMethods {
 			logErrorMessage(intial + "&" + end + "is not equal");
 		}
 
+	}
+
+	/**
+	 * This method for getting the data from the hash map and returns the value
+	 * 
+	 * @param Name It is the name of the column
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getdata(String Name) throws Exception {
+
+		String data = "";
+		if (inputdata.get().containsKey(Name)) {
+			data = inputdata.get().get(Name);
+		} else {
+			logErrorMessage(" Given Column name is not available in the Excel " + Name);
+		}
+		return data;
+
+	}
+
+	/**
+	 * This method is to get the text data from excel
+	 * 
+	 * @param sheetname
+	 * @return
+	 * @throws Exception
+	 */
+	public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
+		ExcelReader xlRead = null;
+		int xlRowCount = 0;
+
+		xlRead = new ExcelReader("database.xlsx", sheetname);
+		xlRowCount = xlRead.getRowCount();
+		ArrayList<Object[]> data = new ArrayList<Object[]>();
+		for (int i = 1; i < xlRowCount; i++) {
+			data.add(new Object[] { xlRead.xlReader(i) });
+		}
+
+		return data.iterator();
+	}
+
+	/**
+	 * This method is to get text of the element
+	 * 
+	 * @param element
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getTextElement(WebElement element, String name) throws Exception {
+		String text = "";
+		try {
+			text = element.getText();
+		} catch (Exception e) {
+
+			logErrorMessage(" The object  " + name + " is not displayed");
+		}
+		return text;
+
+	}
+	
+	/**
+	 * This method waits for the given element until it is clickable
+	 * @param ele
+	 */
+	
+	public static void webWait(WebElement ele) {
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
 
 }
