@@ -30,6 +30,10 @@ import org.apache.log4j.*;
  */
 
 public class CommonActionMethods {
+	public static String product1=null;
+	public static String price1=null;
+	public static String product2=null;
+	public static String price2=null;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {

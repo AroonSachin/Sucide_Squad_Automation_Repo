@@ -16,9 +16,11 @@ public class Longestwordintextfile {
 		String longest_word = "";
 		String current;
 		Scanner sc = new Scanner(new File("C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\test-output\\text file"));
+		//System.out.println(sc.toString());
 
 		while (sc.hasNext()) {
 			current = sc.next();
+			System.out.println(current);
 			if (current.length() > longest_word.length()) {
 				longest_word = current;
 			}

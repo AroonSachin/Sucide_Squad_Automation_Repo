@@ -111,8 +111,19 @@ public class Orderpage extends CommonActionMethods{
 		clickMethod(paybybankwire,"paybybankwire");
 		clickMethod(confromorder,"confromorder");
 	}
-	public void validation() {
+	public void validation() throws Exception {
 		
+	    product1=getTextElement(namevalidation, "product1");
+		checkEquality(product1, getTextElement(cartvalidation, "product1"));
+		
+		price1=getTextElement(pricevalidation, "price1");
+		checkEquality(price1, getTextElement(cardpricevalidation, "price1"));
+		
+		product2=getTextElement(nametwovalidation, "product2");
+		checkEquality(product2, getTextElement(cardtwovalidation, "product2"));
+		
+		price2=getTextElement(pricetwovalidation, "price2");
+		checkEquality(price2, getTextElement( cardprice2, "price2"));
 	}
 	
 
