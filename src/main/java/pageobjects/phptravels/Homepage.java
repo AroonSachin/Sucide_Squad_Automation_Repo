@@ -12,7 +12,6 @@ import utils.DriverFactory;
 /**
  * This class is to search the flight.
  * @author amaduraiveeran
- *
  */
 public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "(//ul[@class='nav nav-tabs listitems']//button)[2]")
@@ -20,22 +19,22 @@ public class Homepage extends CommonActionMethods {
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
 	static WebElement depcity;
-
+	
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
 	static WebElement descity;
-
+	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
 	List<WebElement> depcitylist;
-
+	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//strong")
 	List<WebElement> descitylist;
 
 	@FindBy(xpath = "((//table[@class=' table-condensed'])[3]//i)[2]")
 	WebElement nextarrow;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//th)[3]")
+	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//i)[2]")
 	WebElement returnnxtarw;
-
+	
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//th[@class='switch']")
 	WebElement month;
 
@@ -81,7 +80,7 @@ public class Homepage extends CommonActionMethods {
 	 * Constructor to store the above located elements.
 	 */
 	public Homepage() {
-		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
+		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 10), this);
 	}
 	/**
 	 * method to locate the given month.
@@ -93,13 +92,13 @@ public class Homepage extends CommonActionMethods {
 	 */
 	private void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
+			System.out.println(ele.getText());
 			if (ele.getText().equalsIgnoreCase(monthtoselect)) {
 				break;
 			} else {
 				clickMethod(nxtbutton, "next arrow");
 			}
 		}
-
 	}
 	/**
 	 * This method passes the information to search a suitable flight. 
@@ -133,12 +132,11 @@ public class Homepage extends CommonActionMethods {
 			monthloc(month, mnth, nextarrow);
 			listDrop(date, depdate);
 			Thread.sleep(2000);
-			monthloc(monthreturn, returnmonth, returnnxtarw);
+			monthloc(monthreturn,returnmonth,returnnxtarw);
 			listDrop(datereturn, returnday);
 		}
 		clickMethod(cookie, "Cookie got it button");
 		clickMethod(paxbotton, "Passenger button");
-		
 	}
 	/**
 	 * This method chooses the number of adults,child's and infants.

@@ -28,6 +28,11 @@ import org.apache.log4j.*;
  *
  */
 public class CommonActionMethods {
+	public static Double adltpreprz = 0.0;
+	public static Double chldpreprz = 0.0;
+	public static Double inftpreprz =0.0;
+	public static Double totalprz =0.0;
+	public static Double acttotal =0.0;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
@@ -413,6 +418,7 @@ public class CommonActionMethods {
 		for (WebElement element : listelement) {
 			String name = element.getText();
 			if (name.contains(Toselect)) {
+				webWait(element);
 				clickMethod(element, Toselect);
 				logMessage(Toselect + "  is clicked");
 				break;
@@ -424,8 +430,8 @@ public class CommonActionMethods {
 	 * @param data
 	 * @return
 	 */
-	public static String[] splitString(String data) {
-		String arr[] = data.split(",");
+	public static String[] splitString(String data,String symbol) {
+		String arr[] = data.split(symbol);
 		return arr;
 	}
 	public static void scrollToElement(WebElement ele) {

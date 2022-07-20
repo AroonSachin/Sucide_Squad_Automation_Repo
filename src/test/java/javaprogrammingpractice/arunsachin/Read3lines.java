@@ -12,11 +12,13 @@ public class Read3lines {
 	public static void main(String[] args) throws IOException {
 		String line = null;
 		try {
-			LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream("C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\test-output\\read.txt"), "UTF-8"));
-			while (((line = reader.readLine()) != null) && reader.getLineNumber() <= 3){
-                System.out.println(line);
-            }
-           reader.close();
+			LineNumberReader reader = new LineNumberReader(new InputStreamReader(new FileInputStream(
+					"C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\test-output\\read.txt"),
+					"UTF-8"));
+			while (((line = reader.readLine()) != null) && reader.getLineNumber() <= 3) {
+				System.out.println(line);
+			}
+			reader.close();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {

@@ -1,6 +1,7 @@
 package pageobjects.phptravels;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,7 +16,19 @@ import utils.DriverFactory;
  *
  */
 public class Paxdetailspage extends CommonActionMethods {
-
+	
+	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[1]")
+	WebElement adltprice;
+	
+	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[2]")
+	WebElement childprice;
+	
+	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[3]")
+	WebElement infntprice;
+	
+	@FindBy(xpath = "(//div[@class='card-body p-0']//strong)[1]")
+	WebElement totlprice;
+	
 	@FindBy(xpath = "//div[@class='form-content ']//input[@name='firstname']")
 	WebElement perfirstname;
 
@@ -40,7 +53,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	@FindBy(xpath = "//label[@for='agreechb']")
 	WebElement TCbox;
 	
-	@FindBy(id = "booking")
+	@FindBy(xpath = "//button[@id='booking']")
 	WebElement confirmbooking;
 
 	/**
@@ -57,7 +70,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void personalDetails(String firstnameper, String lastnameper, String emailper, String phoneper,
 			String addressper, String countryper, String nationalityper) throws Exception {
-		sendKeysMethod(perfirstname, "arun");
+		sendKeysMethod(perfirstname, firstnameper);
 		sendKeysMethod(perlastname, "sachin");
 		sendKeysMethod(peremail, "test@mail.com");
 		sendKeysMethod(perphone, "1234567890");
@@ -72,7 +85,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void title(String paxtitle) throws Exception {
 		int titleitrt = 1;
-		String titlearr[] = splitString(paxtitle);
+		String titlearr[] = splitString(paxtitle,",");
 		for (String title : titlearr) {
 			WebElement Title = DriverFactory.getDriver()
 					.findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='title_" + titleitrt + "']"));
@@ -88,9 +101,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	public void nationality(String paxnationality) throws Exception {
 		int natitrt = 1; 
 		
-		for (String nationality:splitString(paxnationality)) {
+		for (String nationality:splitString(paxnationality,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='nationality_"+natitrt+"']"));
-			selectByVisibleText(ele,paxnationality);
+			selectByVisibleText(ele,nationality);
 			natitrt++;
 		}
 	}
@@ -101,7 +114,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void dobMonth(String DOBmonth) throws Exception {
 		int dobmnthitrt = 1;
-		for (String dom:splitString(DOBmonth)) {
+		for (String dom:splitString(DOBmonth,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_month_"+dobmnthitrt+"']"));
 			selectByValue(ele, dom);
 			dobmnthitrt++;
@@ -114,7 +127,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void dobday(String DOBday) throws Exception {
 		int dobdayitrt= 1;
-		for (String dod:splitString(DOBday)) {
+		for (String dod:splitString(DOBday,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_day_"+dobdayitrt+"']"));
 			selectByValue(ele, dod);
 			dobdayitrt++;
@@ -127,7 +140,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void dobYear(String DOByear) throws Exception {
 		int dobdayitrt = 1;
-		for(String doy:splitString(DOByear)) {
+		for(String doy:splitString(DOByear,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_year_"+dobdayitrt+"']"));
 			selectByVisibleText(ele, doy);
 			dobdayitrt++;
@@ -140,7 +153,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pidMonth(String PIDmonth) throws Exception {
 		int pidmnthitrt = 1;
-		for (String pidm:splitString(PIDmonth)) {
+		for (String pidm:splitString(PIDmonth,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_month_"+pidmnthitrt+"']"));
 			selectByValue(ele, pidm);
 			pidmnthitrt++;
@@ -153,7 +166,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pidDay(String PIDday) throws Exception {
 		int piddayitrt = 1;
-		for (String pidd:splitString(PIDday)) {
+		for (String pidd:splitString(PIDday,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_day_"+piddayitrt+"']"));
 			selectByVisibleText(ele, pidd);
 			piddayitrt++;
@@ -166,7 +179,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pidYear(String PIDyear) throws Exception {
 		int pidyearitrt=1;
-		for(String pidy:splitString(PIDyear)) {
+		for(String pidy:splitString(PIDyear,",")) {
 			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_year_"+pidyearitrt+"']"));
 			selectByVisibleText(ele, pidy);
 			pidyearitrt++;
@@ -179,7 +192,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pedYear(String PEDyear) throws Exception {
 		int pedyearitrt = 1;
-		for(String pedy:splitString(PEDyear)) {
+		for(String pedy:splitString(PEDyear,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_year_"+pedyearitrt+"']"));
 			selectByVisibleText(ele, pedy);
 			pedyearitrt++;
@@ -192,7 +205,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pedMonth(String PEDmonth) throws Exception {
 		int pedmonthitrt = 1;
-		for(String pedm:splitString(PEDmonth)) {
+		for(String pedm:splitString(PEDmonth,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_month_"+pedmonthitrt+"']"));
 			selectByValue(ele, pedm);
 			pedmonthitrt++;
@@ -205,7 +218,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void pedDay(String PEDday) throws Exception {
 		int peddayitrt = 1;
-		for(String pedd:splitString(PEDday)) {
+		for(String pedd:splitString(PEDday,",")) {
 			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_day_"+peddayitrt+"']"));
 			selectByVisibleText(ele, pedd);
 			peddayitrt++;
@@ -218,9 +231,10 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void firstName(String firstname) throws Exception {
 		int firstnameitrt = 1;
-		for (String fn:splitString(firstname)) {
+		for (String fn:splitString(firstname,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='firstname_"+firstnameitrt+"']"));
 			sendKeysMethod(ele,fn);
+			firstnameitrt++;
 		}
 	}
 	/**
@@ -230,9 +244,10 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void lastName(String lastname) throws Exception {
 		int lastnameitrt = 1;
-		for (String ln:splitString(lastname)) {
+		for (String ln:splitString(lastname,",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='lastname_"+lastnameitrt+"']"));
 			sendKeysMethod(ele,ln);
+			lastnameitrt++;
 		}
 	}
 	/**
@@ -242,17 +257,55 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	public void passportID(String passportid) throws Exception {
 		int passportitrt=1;
-		for (String pass:splitString(passportid)) {
+		for (String pass:splitString(passportid,",")) {
 		WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='passport_"+passportitrt+"']"));
 		sendKeysMethod(ele,pass);
+		passportitrt++;
 		}
 	}
 	/**
 	 * This method check the terms and condition checkbox and clicks the confirm booking button.
 	 * @throws Exception
 	 */
-	public void clickBook() throws Exception {
-		clickMethod(TCbox," T&C check box");
-		clickMethod(confirmbooking, "Confirm booking button");
+	public void book() throws Exception {
+		try {
+			JavascriptExecutor executor = (JavascriptExecutor)DriverFactory.getDriver();
+			executor.executeScript("arguments[0].click();", TCbox);
+			logMessage("Term's and condition checkbox clicked");
+		} catch (Exception e) {
+			logErrorMessage("Term's and condition checkbox not clicked");
+		}
+		try {
+			JavascriptExecutor executor = (JavascriptExecutor)DriverFactory.getDriver();
+			executor.executeScript("arguments[0].click();", confirmbooking);
+			logMessage("confirm booking button is clicked");
+		} catch (Exception e) {
+			logErrorMessage("confirm booking button is not clicked");
+		}
 	}
+	
+	public void splitPrice() throws Exception {
+		String adltprz = getTextElement(adltprice,"Adult price");
+		String chldprz = getTextElement(childprice,"child price");
+		String inftprz = getTextElement(infntprice,"infant price");
+		String[] Aprz= splitString(adltprz," ");
+		String[] Cprz= splitString(chldprz," ");
+		String[] Iprz= splitString(inftprz," ");
+		String[] totprz = splitString(getTextElement(totlprice, "Total price"), " ");
+		 adltpreprz = Double.valueOf(Aprz[1]);
+		 chldpreprz = Double.valueOf(Cprz[1]);
+		 inftpreprz = Double.valueOf(Iprz[1]);
+		 totalprz = Double.valueOf(totprz[1]);
+	}
+	public void validatePrice() throws Exception {
+		splitPrice();
+		double acttotal = adltpreprz+chldpreprz+inftpreprz;
+		checkEquality(acttotal, totalprz);
+	}
+	public static double returntotal() {
+		double acttotal = adltpreprz+chldpreprz+inftpreprz;
+		return acttotal;
+	}
+
+
 }

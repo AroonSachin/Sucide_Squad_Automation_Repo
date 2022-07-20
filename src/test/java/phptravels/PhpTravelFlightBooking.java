@@ -1,38 +1,25 @@
 package phptravels;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import commonuseractions.CommonActionMethods;
 import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
+import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
-import utils.ExcelReader;
 
 public class PhpTravelFlightBooking extends CommonActionMethods{
-	private ExcelReader xlRead = null;
-	private int xlRowCount = 0;
 	@BeforeClass
 	public void invoke() {
 		invokeBrowser("chrome", "Normal","https://phptravels.net/");
 	}
-	
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		xlRead = new ExcelReader("DataBase.xlsx", "PhpTravels");
-		xlRowCount = xlRead.getRowCount();
-		ArrayList<Object[]> data = new ArrayList<Object[]>();
-		for (int i = 1; i < xlRowCount; i++) {
-			data.add(new Object[] { xlRead.xlReader(i) });
-		}
-		return data.iterator();
+		return getTestData("php");
 	}
-	
 	@Test(priority = 1,dataProvider = "automation")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
@@ -42,7 +29,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 		new Flightchoosepage().chooseFlight();
 		}
 	}
-	
 	@Test(priority = 2,dataProvider = "automation")
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
@@ -61,8 +47,11 @@ public class PhpTravelFlightBooking extends CommonActionMethods{
 		new Paxdetailspage().firstName(getdata("firstname"));
 		new Paxdetailspage().lastName(getdata("lastname"));
 		new Paxdetailspage().passportID(getdata("passportid"));
-		new Paxdetailspage().clickBook();
+		new Paxdetailspage().nationality(getdata("nationality"));
+		new Paxdetailspage().validatePrice();
+		new Paxdetailspage().book();
+		new Invoicepage().invoiceValidation(getdata("adult"),getdata("child"),getdata("infant"));
+		new Invoicepage().proceed();
 		}
 	}
-} 
-
+}
