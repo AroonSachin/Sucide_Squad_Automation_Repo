@@ -5,6 +5,7 @@ import utils.DriverFactory;
 import utils.ExcelReader;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.OutputType;
@@ -23,6 +26,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 import org.apache.log4j.*;
@@ -35,6 +39,9 @@ import org.apache.log4j.*;
  */
 
 public class CommonActionMethods {
+	public static ExtentReports extentreport;
+	public  static ExtentHtmlReporter HtmlReporter;
+	 public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
@@ -43,21 +50,32 @@ public class CommonActionMethods {
 		return map;
 	});
 	
-	ExtentReports extentreport;
-	ExtentHtmlReporter htmlreporter;
-	ExtentTest testcase;
 
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
 	
-	private void extent() {
-		extentreport=new ExtentReports();
-		htmlreporter=new ExtentHtmlReporter("ExtentReport.html");
-		extentreport.attachReporter(htmlreporter);
-
+	public static void extent(String message) {
+		
+			 testcase=extentreport.createTest(message).assignAuthor("venkatesh");
+	}
+	
+	private  static void extentpass(String pass) {
+		testcase.log(Status.PASS, pass);
+		
+	}
+	
+	public static void extentfail(String fail) throws Exception {
+		testcase.log(Status.FAIL, fail);
+		takeShot();
 	}
 
+	private static void takeShot() throws IOException {
+		File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(SrcFile, new File("./Snap/" + System.currentTimeMillis() + ".png"));
+		testcase.addScreenCaptureFromPath("./Snap/" + System.currentTimeMillis() + ".png");
+
+	}
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
@@ -88,6 +106,9 @@ public class CommonActionMethods {
 	 */
 
 	public static void invokeBrowser(String browser, String browsertype, String url) {
+		extentreport=new ExtentReports();
+		HtmlReporter=new ExtentHtmlReporter("ExtentReport.html");
+		extentreport.attachReporter(HtmlReporter);
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
@@ -97,6 +118,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + " url launched");
+		//extentpass("browser is launched");
 
 	}
 
@@ -109,10 +131,13 @@ public class CommonActionMethods {
 	 */
 	public static void clickMethod(WebElement element, String button) throws Exception {
 		try {
+			extentpass("button  is clicked ");
 			element.click();
 			logMessage(button + " button is clicked  ");
 
 		} catch (Exception e) {
+			extentfail("button is not clicked ");
+			
 			logErrorMessage(button + " button is not clicked ");
 
 		}
@@ -200,6 +225,7 @@ public class CommonActionMethods {
 	}
 
 	/**
+	 * @return 
 	 * @This method is used to take a screenshot
 	 * @throws Exception
 	 */

@@ -2,8 +2,15 @@ package pageobjects.yourlogo;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class Orderpage {
+import com.aventstack.extentreports.Status;
+
+import commonuseractions.CommonActionMethods;
+import utils.DriverFactory;
+
+public class Orderpage  extends CommonActionMethods{
 
 	@FindBy(xpath = "//div[@id='block_top_menu']//a[@title='Women']")
 	public static WebElement dresstype;
@@ -43,5 +50,34 @@ public class Orderpage {
 
 	@FindBy(xpath = "//p[@id='cart_navigation']//button[@type='submit']")
 	public static WebElement confromorder;
+	public Orderpage() {
 
+		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
+
+	}
+	
+	public void order() throws Exception {
+		//testcase=extentreport.createTest("verify order page");
+		//testcase.log(Status.INFO, "click the dress type");
+		extent("order page is passed ");
+		Thread.sleep(10000);
+		clickMethod(dresstype,"dresstype");
+		clickMethod(chooseproduct,"chooseproduct");
+		//frameByIndex(0);
+		Thread.sleep(10000);
+		clickMethod(addcart,"addcart");
+		defaultwindow();
+		/*
+		 * clickMethod(continueshopping,"continueshopping"); Thread.sleep(10000);
+		 * clickMethod(choosingproduct,"choosingproduct"); frameByIndex(0);
+		 * //clickMethod(addtocart, "addtocart"); defaultwindow();
+		 * clickMethod(proceedtocheckout,"proceedtocheckout");
+		 * clickMethod(summaryproceedtocheckout,"summaryproceedtocheckout");
+		 * clickMethod(processaddress,"processaddress");
+		 * clickMethod(agreeshippingbox,"agreeshippingbox");
+		 * clickMethod(processshipping,"processshipping");
+		 * clickMethod(paybybankwire,"paybybankwire");
+		 * clickMethod(confromorder,"confromorder");
+		 */
+	}
 }
