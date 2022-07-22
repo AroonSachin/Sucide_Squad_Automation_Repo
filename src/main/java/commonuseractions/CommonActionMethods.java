@@ -34,6 +34,22 @@ public class CommonActionMethods {
 	public static String price1=null;
 	public static String product2=null;
 	public static String price2=null;
+	public static String address1=null;
+	public static String address2=null;
+	public static String address3=null;
+	public static String address4=null;
+	public static String address5=null;
+	public static String address6=null;
+	public static String billing1=null;
+	public static String billing2=null;
+	public static String billing3=null;
+	public static String billing4=null;
+	public static String billing5=null;
+	public static String billing6=null;
+	public static String totalprice1=null;
+	public static String totalprice2=null;
+
+	
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {

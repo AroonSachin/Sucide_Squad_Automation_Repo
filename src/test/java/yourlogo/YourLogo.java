@@ -28,6 +28,7 @@ public class YourLogo extends CommonActionMethods {
     if (getdata("Number").equalsIgnoreCase("1")) {  
 	new LoginPage().login(getdata("Email id"),getdata("Firstname"),getdata("Lastname"),getdata("Password"),getdata("Birthdate"),getdata("Birthmonth"),getdata("BirthYear"),getdata("CompanyName"),getdata("Address"),getdata("Cityname"),getdata("Statename"),getdata("Pincode"),getdata("PhoneNumber"));
 	new Orderpage().order();
+	
 }
 }
 }
