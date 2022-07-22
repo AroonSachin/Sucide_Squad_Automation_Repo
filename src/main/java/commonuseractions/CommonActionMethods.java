@@ -28,6 +28,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import org.apache.log4j.*;
 
@@ -40,8 +41,8 @@ import org.apache.log4j.*;
 
 public class CommonActionMethods {
 	public static ExtentReports extentreport;
-	public  static ExtentHtmlReporter HtmlReporter;
-	 public static ExtentTest testcase;
+	public static ExtentHtmlReporter HtmlReporter;
+	public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
@@ -49,33 +50,27 @@ public class CommonActionMethods {
 
 		return map;
 	});
-	
 
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
-	
+
 	public static void extent(String message) {
-		
-			 testcase=extentreport.createTest(message).assignAuthor("venkatesh");
+
+		testcase = extentreport.createTest(message).assignAuthor("venkatesh");
 	}
-	
-	private  static void extentpass(String pass) {
+
+	private static void extentpass(String pass) {
 		testcase.log(Status.PASS, pass);
-		
+
 	}
-	
+
 	public static void extentfail(String fail) throws Exception {
 		testcase.log(Status.FAIL, fail);
-		takeShot();
-	}
-
-	private static void takeShot() throws IOException {
-		File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(SrcFile, new File("./Snap/" + System.currentTimeMillis() + ".png"));
-		testcase.addScreenCaptureFromPath("./Snap/" + System.currentTimeMillis() + ".png");
+		testcase.addScreenCaptureFromPath(takeSnapShot());
 
 	}
+
 	/**
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
@@ -106,8 +101,9 @@ public class CommonActionMethods {
 	 */
 
 	public static void invokeBrowser(String browser, String browsertype, String url) {
-		extentreport=new ExtentReports();
-		HtmlReporter=new ExtentHtmlReporter("ExtentReport.html");
+		extentreport = new ExtentReports();
+		HtmlReporter = new ExtentHtmlReporter("ExtentReport.html");
+		HtmlReporter.config().setTheme(Theme.DARK);
 		extentreport.attachReporter(HtmlReporter);
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
@@ -118,7 +114,6 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + " url launched");
-		//extentpass("browser is launched");
 
 	}
 
@@ -137,7 +132,7 @@ public class CommonActionMethods {
 
 		} catch (Exception e) {
 			extentfail("button is not clicked ");
-			
+
 			logErrorMessage(button + " button is not clicked ");
 
 		}
@@ -225,18 +220,23 @@ public class CommonActionMethods {
 	}
 
 	/**
-	 * @return 
+	 * @return
 	 * @This method is used to take a screenshot
 	 * @throws Exception
 	 */
-	public static void takeSnapShot() throws Exception {
+	public static String takeSnapShot() throws Exception {
 		try {
 			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(SrcFile, new File("./Snaps/" + System.currentTimeMillis() + ".png"));
+			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
+			String pathlocation = filepath.getAbsolutePath();
+			FileUtils.copyFile(SrcFile, filepath);
 			logMessage(" Screenshot taken-stored in the given path ");
+			return pathlocation;
 		} catch (Exception e) {
 			logErrorMessage(" Screenshot is not taken ");
 		}
+		return null;
+
 	}
 
 	/**

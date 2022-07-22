@@ -57,8 +57,7 @@ public class Orderpage  extends CommonActionMethods{
 	}
 	
 	public void order() throws Exception {
-		//testcase=extentreport.createTest("verify order page");
-		//testcase.log(Status.INFO, "click the dress type");
+		
 		extent("order page is passed ");
 		Thread.sleep(10000);
 		clickMethod(dresstype,"dresstype");
