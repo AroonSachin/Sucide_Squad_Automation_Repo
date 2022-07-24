@@ -27,22 +27,22 @@ public class Info extends CommonActionMethods {
 
 	public void enterFirstName(String firstname) throws Exception {
 		sendKeysMethod(firstName, firstname);
-		logMessage("The first name is entered");
+
 	}
 
 	public void enterLastName(String lastname) throws Exception {
 		sendKeysMethod(lastName, lastname);
-		logMessage("The last name is entered");
+
 	}
 
 	public void enterPincode(String pincode) throws Exception {
 		sendKeysMethod(PinCode, pincode);
-		logMessage("pincode is entered");
+
 	}
 
 	public void clickContinueButton() throws Exception {
 		clickMethod(continueButton, "continue");
-		logMessage("Continue button is clicked");
+
 	}
 
 }

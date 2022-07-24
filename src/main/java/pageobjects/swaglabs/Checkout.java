@@ -1,5 +1,7 @@
 package pageobjects.swaglabs;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -24,9 +26,56 @@ public class Checkout extends CommonActionMethods {
 	@FindBy(className = "inventory_item_price")
 	private static List<WebElement> pPrice;
 
+	@FindBy(className = "cart_quantity")
+	private static List<WebElement> pQuantity;
+
 	public void clickOnCheckoutButton() throws Exception {
 		clickMethod(checkoutButton, "checkout");
-		logMessage("Checkout button is clicked");
+
+	}
+
+	public void validateProductInfo() throws Exception {
+		List<String> productNameList = new LinkedList<String>(getproductName());
+		List<String> productPriceList = new LinkedList<String>(getproductPrice());
+		for (int p = 0; p < pName.size(); p++) {
+			String prdtName = getTextElement(pName.get(p), "product name");
+			if (prdtName.equals(productNameList.get(p))) {
+				logMessage("The expected product name " + productNameList.get(p) + " matches the actual product name "
+						+ prdtName);
+			} else {
+				logErrorMessage("The expected product name " + productNameList.get(p)
+						+ " does not matches the actual product name " + prdtName);
+			}
+
+			String prdtPrice = getTextElement(pPrice.get(p), "product price");
+
+			if (prdtPrice.equals(productPriceList.get(p))) {
+				logMessage("The expected product price " + productPriceList.get(p)
+						+ " matches the actual product price " + prdtPrice);
+			} else {
+				logErrorMessage("The expected product price " + productPriceList.get(p)
+						+ " does not matches the actual product price " + prdtPrice);
+			}
+
+		}
+	}
+
+	public void validateQuantity() throws Exception {
+		int prd = 0;
+
+		for (int q = 0; q < pQuantity.size(); q++) {
+			prd = prd + Integer.parseInt(getTextElement(pQuantity.get(q), "Number of product quantity"));
+		}
+		if (prd == Integer.parseInt(getdata("Quantity"))) {
+			logMessage("The expected product quantity " + getdata("Quantity") + " matches the actual product quantity "
+					+ prd);
+
+		} else {
+			logErrorMessage("The expected product quantity " + getdata("Quantity")
+					+ " does not matches the actual product quantity " + prd);
+
+		}
+
 	}
 
 }
