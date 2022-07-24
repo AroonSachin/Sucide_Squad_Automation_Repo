@@ -36,7 +36,7 @@ public class ExcelWriter {
 		                 //if it is numeric, we need to set the cell type as number
 		
 		 cell.setCellValue("SoftwareTestingMaterial.com");
-		 FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + "writeexcel.xlsx");
+		 FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/writedata.xlsx");
 		 try {
 			workbook.write(fos);
 		} catch (Exception e) {
