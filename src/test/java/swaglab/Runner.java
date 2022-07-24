@@ -12,6 +12,7 @@ import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
 import pageobjects.swaglabs.Info;
 import pageobjects.swaglabs.LoginPage;
+import utils.ExcelWriter;
 
 public class Runner extends CommonActionMethods {
 
@@ -19,12 +20,14 @@ public class Runner extends CommonActionMethods {
 	public static Iterator<Object[]> datas() throws Exception {
 		return getTestData("test");
 	}
+	
 
 	@Test(dataProvider = "automation")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+			//invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+			new ExcelWriter("writeexcel.xlsx", "write").xlWriter();
 			new LoginPage().enterUsername(getdata("Username"));
 			new LoginPage().enterPassword(getdata("Password"));
 			new LoginPage().clickLogin();
@@ -48,13 +51,14 @@ public class Runner extends CommonActionMethods {
 		}
 	}
 
-	@Test(dataProvider = "automation")
+	//@Test(dataProvider = "automation")
 
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 			invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+			new ExcelWriter("writeexcel.xlsx", "write").xlWriter();
 			new LoginPage().enterUsername(getdata("Username"));
 			new LoginPage().enterPassword(getdata("Password"));
 			new LoginPage().clickLogin();
