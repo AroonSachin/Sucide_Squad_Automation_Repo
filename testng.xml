@@ -4,7 +4,7 @@
 	<test thread-count="2" name="Test" parallel="methods">
 		<classes>
 
-			<class name="swaglab.Runner"></class>
+			<class name="yourlogo.YourLogo"></class>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

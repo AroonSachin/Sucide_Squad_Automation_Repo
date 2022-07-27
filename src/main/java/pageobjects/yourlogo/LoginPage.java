@@ -83,7 +83,8 @@ public class LoginPage extends CommonActionMethods {
 	public void login(String emailid,String Firstname,String Lastname,String Password,String Birthdate,String Birthmonth,String Birthyear,String Companyname,String Address,String Cityname,String Statename,String pincode,String Phonenumber) throws Exception {
 		Thread.sleep(10000);
 		clickMethod(signin, "sigin");
-		sendKeysMethod(emailaddress, emailid);
+		System.out.println("**"+getdata("Email id"));
+		sendKeysMethod(emailaddress, getdata("Email id"));
 		clickMethod(submitbutton,"submitbutton" );
 		clickMethod(selectgender, "selectgender");
 		sendKeysMethod(firstname,Firstname);

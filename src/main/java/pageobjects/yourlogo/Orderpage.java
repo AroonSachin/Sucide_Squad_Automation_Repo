@@ -1,16 +1,16 @@
 package pageobjects.yourlogo;
 
-import java.time.Duration;
-
-import javax.lang.model.element.Element;
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
@@ -19,7 +19,7 @@ public class Orderpage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@id='block_top_menu']//a[@title='Women']")
 	public static WebElement dresstype;
 
-	@FindBy(xpath = "//div[@id='uniform-selectProductSort']")
+	@FindBy(xpath = "//div[@id='uniform-selectProductSort']//select")
 	public static WebElement sortproduct;
 
 	@FindBy(xpath = "//div[@class='product-container']//img[@title='Faded Short Sleeve T-shirts']")
@@ -129,7 +129,10 @@ public class Orderpage extends CommonActionMethods {
 	
 	@FindBy(xpath="//span[text()='$47.33']")
 	public static WebElement finalprice;
-
+	
+	@FindBy(xpath="//ul[@class='product_list grid row']//a[@class='product-name']")
+    List<WebElement> productname;
+	
 	public Orderpage() {
 
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
@@ -139,6 +142,8 @@ public class Orderpage extends CommonActionMethods {
 	public void order() throws Exception {
 		Thread.sleep(10000);
 		clickMethod(dresstype, "dresstype");
+		selectByVisibleText(sortproduct, "Product Name: A to Z");
+		verifyPrice();
 		product1 = getTextElement(namevalidation, "product1");
 		price1 = getTextElement(pricevalidation, "price1");
 		clickMethod(chooseproduct, "chooseproduct");
@@ -193,6 +198,29 @@ public class Orderpage extends CommonActionMethods {
 		checkEquality(address5, getTextElement(billingaddressvalid5, "billing5"));
 		checkEquality(address6, getTextElement(billingaddressvalid6, "billing6"));
 	}
-
 	
-}
+		public void verifyPrice() throws Exception {
+			String[] price;
+			List<String> pricearr = new ArrayList<String>();
+			boolean flag = true;
+			for (int i = 0; i < productname.size(); i++) {
+				//pricearr.add(getTextElement(productname.get(i), ""));
+			//	 price[i]=getTextElement(productname.get(i), "");
+						
+			}
+			List<Character> pdChar = new ArrayList<Character>();
+			for (int i = 0; i < pricearr.size(); i++) {
+		        Character pdName=pricearr.get(i).charAt(0);
+		        System.out.println(pdName);
+		        pdChar.add(pdName);
+					
+				}
+			
+			List<Character> afterSortchar = new ArrayList<Character>();
+			//String[].sort(price);
+			
+		}
+
+	}
+
+		
