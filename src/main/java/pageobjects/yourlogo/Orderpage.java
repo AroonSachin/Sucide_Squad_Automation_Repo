@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-import com.aventstack.extentreports.Status;
-
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 

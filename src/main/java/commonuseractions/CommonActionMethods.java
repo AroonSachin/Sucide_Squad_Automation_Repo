@@ -43,7 +43,7 @@ public class CommonActionMethods {
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
-	static String configFilename = "log4j.properties";
+	static String configFilename = "C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
