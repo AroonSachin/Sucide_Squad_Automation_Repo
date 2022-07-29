@@ -1,6 +1,7 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ThreadGuard;
 
 /**
  * The class creates a thread for the given driver.
@@ -18,7 +19,7 @@ public class DriverFactory {
 	 * @param driverparam
 	 */
 	public static void setDriver(WebDriver driverparam) {
-		driver.set(driverparam);
+		driver.set(ThreadGuard.protect(driverparam));
 	}
 
 	/**

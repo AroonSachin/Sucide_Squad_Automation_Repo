@@ -14,29 +14,27 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelWriter {
-	public String path;
-	public FileInputStream fis = null;
-	public FileOutputStream fileOut = null;
-	private XSSFWorkbook workbook = null;
-	private XSSFSheet sheet = null;
-
-	public ExcelWriter(String excelname, String sheetName) throws Exception {
-		workbook = new XSSFWorkbook(new FileInputStream(
-				new File(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + excelname)));
-		sheet = workbook.getSheet(sheetName);
-	}
 	
 	
-	public void xlWriter() throws IOException
+	public static void xlWriter(int rowNum, int cellNum, String excelname, String header, String sheetName, String value) throws IOException
 	{
-		 Row row = sheet.createRow(1);
-		 Cell cell = row.createCell(1);
-		 //Now we need to find out the type of the value we want to enter.
-		                 //If it is a string, we need to set the cell type as string
-		                 //if it is numeric, we need to set the cell type as number
-		
-		 cell.setCellValue("SoftwareTestingMaterial.com");
-		 FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/writedata.xlsx");
+		XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(
+				new File(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + excelname)));
+		XSSFSheet sheet = workbook.getSheet(sheetName);
+		 
+		 for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
+				String title = sheet.getRow(0).getCell(j).getStringCellValue();
+
+			 if(title.equalsIgnoreCase(header)) //to find the index value of the header to match the header
+			 {
+				Row row = sheet.getRow(j);
+				Cell cell = row.createCell(cellNum);
+				cell.setCellValue(value);
+				break; 
+			 }
+			}
+		 
+		 FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + excelname);
 		 try {
 			workbook.write(fos);
 		} catch (Exception e) {
@@ -45,24 +43,7 @@ public class ExcelWriter {
 		}
 		 fos.close();
 	}
+}
 
-//	public Map<String, String> xlReader(int rowNum) throws IOException {
-//		Map<String, String> dataMap = new HashMap<String, String>();
-//		try {
-//			String title = "";
-//			String value = "";
-//			for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
-//				title = sheet.getRow(0).getCell(j).getStringCellValue();
-//				value = sheet.getRow(rowNum).getCell(j).getStringCellValue();
-//				dataMap.put(title, value);
-//			}
-//		} catch (Exception e) {
-//
-//			e.printStackTrace();
-//			throw new Error(e.getStackTrace().toString());
-//		}
-//
-//		return dataMap;
 
-	}
 

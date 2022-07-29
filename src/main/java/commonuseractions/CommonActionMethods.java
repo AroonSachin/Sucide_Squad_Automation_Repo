@@ -35,6 +35,7 @@ import org.apache.log4j.*;
 public class CommonActionMethods {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+
 	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
 
 	public static LinkedHashSet<String> getproductName() {
@@ -47,7 +48,6 @@ public class CommonActionMethods {
 		return productPrice.get();
 	}
 
-	// public static Set<String> productPrice = new LinkedHashSet <String>();
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 

@@ -25,18 +25,18 @@ public class Info extends CommonActionMethods {
 	@FindBy(id = "continue")
 	private static WebElement continueButton;
 
-	public void enterFirstName(String firstname) throws Exception {
-		sendKeysMethod(firstName, firstname);
+	public void enterFirstName() throws Exception {
+		sendKeysMethod(firstName, getdata("FirstName"));
 
 	}
 
-	public void enterLastName(String lastname) throws Exception {
-		sendKeysMethod(lastName, lastname);
+	public void enterLastName() throws Exception {
+		sendKeysMethod(lastName, getdata("LastName"));
 
 	}
 
-	public void enterPincode(String pincode) throws Exception {
-		sendKeysMethod(PinCode, pincode);
+	public void enterPincode() throws Exception {
+		sendKeysMethod(PinCode, getdata("Pincode"));
 
 	}
 

@@ -35,23 +35,22 @@ public class Runner extends CommonActionMethods {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			// invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 
-			new ExcelWriter("writedata.xlsx", "write").xlWriter();
-			new LoginPage().enterUsername(getdata("Username"));
-			new LoginPage().enterPassword(getdata("Password"));
+			// ExcelWriter.xlWriter(1,7, "writedata.xlsx", "write", "pass");
+			new LoginPage().enterUsername();
+			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
 			new HomePage().verifyLogin();
 			new HomePage().sortPrice();
 			new HomePage().verifyPrice();
-			new HomePage().selectItem(getdata("Quantity"));
+			new HomePage().selectItem();
 			new HomePage().clickCart();
 			new Checkout().validateQuantity();
 			new Checkout().validateProductInfo();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName(getdata("FirstName"));
-			new Info().enterLastName(getdata("LastName"));
-			new Info().enterPincode(getdata("Pincode"));
+			new Info().enterFirstName();
+			new Info().enterLastName();
+			new Info().enterPincode();
 			new Info().clickContinueButton();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
@@ -62,32 +61,28 @@ public class Runner extends CommonActionMethods {
 		}
 	}
 
-	// @Test(dataProvider = "automation")
+	@Test(dataProvider = "automation")
 
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 
-			invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
-			new ExcelWriter("writeexcel.xlsx", "write").xlWriter();
-
-			// invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
-
-			new LoginPage().enterUsername(getdata("Username"));
-			new LoginPage().enterPassword(getdata("Password"));
+			// ExcelWriter.xlWriter(2,7,"writedata.xlsx","write","skip");
+			new LoginPage().enterUsername();
+			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
 			new HomePage().verifyLogin();
 			new HomePage().sortPrice();
 			new HomePage().verifyPrice();
-			new HomePage().selectItem(getdata("Quantity"));
+			new HomePage().selectItem();
 			new HomePage().clickCart();
 			new Checkout().validateQuantity();
 			new Checkout().validateProductInfo();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName(getdata("FirstName"));
-			new Info().enterLastName(getdata("LastName"));
-			new Info().enterPincode(getdata("Pincode"));
+			new Info().enterFirstName();
+			new Info().enterLastName();
+			new Info().enterPincode();
 			new Info().clickContinueButton();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();

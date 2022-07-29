@@ -47,16 +47,15 @@ public class HomePage extends CommonActionMethods {
 		isDisplayed(logout, "Logout button");
 	}
 
-	public void selectItem(String qty) throws Exception {
+	public void selectItem() throws Exception {
+
 		getproductName().clear();
 		getproductPrice().clear();
-		for (int q = 0; q < Integer.parseInt(qty); q++) {
+		for (int q = 0; q < Integer.parseInt(getdata("Quantity")); q++) {
 
 			getproductName().add(getTextElement(itemName.get(q), "item name"));
 			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
 			clickMethod(addItems.get(q), "product " + (q + 1));
-			System.out.println(getproductName());
-			System.out.println(getproductPrice());
 
 		}
 	}
