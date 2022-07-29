@@ -36,7 +36,7 @@ public class Runner extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
 
-			// ExcelWriter.xlWriter(1,7, "writedata.xlsx", "write", "pass");
+			//ExcelWriter.xlWriter(1,7, "writedata.xlsx", "write", "pass");
 			new LoginPage().enterUsername();
 			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
@@ -68,7 +68,7 @@ public class Runner extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 
-			// ExcelWriter.xlWriter(2,7,"writedata.xlsx","write","skip");
+			//ExcelWriter.xlWriter(2,7,"writedata.xlsx","write","skip");
 			new LoginPage().enterUsername();
 			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
