@@ -68,24 +68,23 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * 
 	 * @throws Exception
 	 */
-	public void personalDetails(String firstnameper, String lastnameper, String emailper, String phoneper,
-			String addressper, String countryper, String nationalityper) throws Exception {
-		sendKeysMethod(perfirstname, firstnameper);
-		sendKeysMethod(perlastname, "sachin");
-		sendKeysMethod(peremail, "test@mail.com");
-		sendKeysMethod(perphone, "1234567890");
-		sendKeysMethod(peraddress, "teststreet,testcity");
-		selectByVisibleText(percountry, "India");
-		selectByVisibleText(pernationality, "India");
+	public void personalDetails() throws Exception {
+		sendKeysMethod(perfirstname, getdata("perfirstname"));
+		sendKeysMethod(perlastname, getdata("perlastname"));
+		sendKeysMethod(peremail, getdata("permail"));
+		sendKeysMethod(perphone, getdata("perphone"));
+		sendKeysMethod(peraddress, getdata("peraddress"));
+		selectByVisibleText(percountry,getdata("percountry"));
+		selectByVisibleText(pernationality, getdata("pernationality"));
 	}
 	/**
 	 * This method selects the given title to the passengers
 	 * @param paxtitle
 	 * @throws Exception
 	 */
-	public void title(String paxtitle) throws Exception {
+	public void title() throws Exception {
 		int titleitrt = 1;
-		String titlearr[] = splitString(paxtitle,",");
+		String titlearr[] = splitString(getdata("paxtitle"),",");
 		for (String title : titlearr) {
 			WebElement Title = DriverFactory.getDriver()
 					.findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='title_" + titleitrt + "']"));
@@ -98,10 +97,10 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param paxnationality
 	 * @throws Exception
 	 */
-	public void nationality(String paxnationality) throws Exception {
+	public void nationality() throws Exception {
 		int natitrt = 1; 
 		
-		for (String nationality:splitString(paxnationality,",")) {
+		for (String nationality:splitString(getdata("nationality"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='nationality_"+natitrt+"']"));
 			selectByVisibleText(ele,nationality);
 			natitrt++;
@@ -112,9 +111,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOBmonth
 	 * @throws Exception
 	 */
-	public void dobMonth(String DOBmonth) throws Exception {
+	public void dobMonth() throws Exception {
 		int dobmnthitrt = 1;
-		for (String dom:splitString(DOBmonth,",")) {
+		for (String dom:splitString(getdata("paxdom"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_month_"+dobmnthitrt+"']"));
 			selectByValue(ele, dom);
 			dobmnthitrt++;
@@ -125,9 +124,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOBday
 	 * @throws Exception
 	 */
-	public void dobday(String DOBday) throws Exception {
+	public void dobday() throws Exception {
 		int dobdayitrt= 1;
-		for (String dod:splitString(DOBday,",")) {
+		for (String dod:splitString(getdata("paxdod"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_day_"+dobdayitrt+"']"));
 			selectByValue(ele, dod);
 			dobdayitrt++;
@@ -138,9 +137,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOByear
 	 * @throws Exception
 	 */
-	public void dobYear(String DOByear) throws Exception {
+	public void dobYear() throws Exception {
 		int dobdayitrt = 1;
-		for(String doy:splitString(DOByear,",")) {
+		for(String doy:splitString(getdata("paxdoy"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='dob_year_"+dobdayitrt+"']"));
 			selectByVisibleText(ele, doy);
 			dobdayitrt++;
@@ -151,9 +150,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDmonth
 	 * @throws Exception
 	 */
-	public void pidMonth(String PIDmonth) throws Exception {
+	public void pidMonth() throws Exception {
 		int pidmnthitrt = 1;
-		for (String pidm:splitString(PIDmonth,",")) {
+		for (String pidm:splitString(getdata("pidmonth"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_month_"+pidmnthitrt+"']"));
 			selectByValue(ele, pidm);
 			pidmnthitrt++;
@@ -164,9 +163,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDday
 	 * @throws Exception
 	 */
-	public void pidDay(String PIDday) throws Exception {
+	public void pidDay() throws Exception {
 		int piddayitrt = 1;
-		for (String pidd:splitString(PIDday,",")) {
+		for (String pidd:splitString(getdata("pidday"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_day_"+piddayitrt+"']"));
 			selectByVisibleText(ele, pidd);
 			piddayitrt++;
@@ -177,9 +176,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDyear
 	 * @throws Exception
 	 */
-	public void pidYear(String PIDyear) throws Exception {
+	public void pidYear() throws Exception {
 		int pidyearitrt=1;
-		for(String pidy:splitString(PIDyear,",")) {
+		for(String pidy:splitString(getdata("pidyear"),",")) {
 			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_issuance_year_"+pidyearitrt+"']"));
 			selectByVisibleText(ele, pidy);
 			pidyearitrt++;
@@ -190,9 +189,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDyear
 	 * @throws Exception
 	 */
-	public void pedYear(String PEDyear) throws Exception {
+	public void pedYear() throws Exception {
 		int pedyearitrt = 1;
-		for(String pedy:splitString(PEDyear,",")) {
+		for(String pedy:splitString(getdata("pedyear"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_year_"+pedyearitrt+"']"));
 			selectByVisibleText(ele, pedy);
 			pedyearitrt++;
@@ -203,9 +202,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDmonth
 	 * @throws Exception
 	 */
-	public void pedMonth(String PEDmonth) throws Exception {
+	public void pedMonth() throws Exception {
 		int pedmonthitrt = 1;
-		for(String pedm:splitString(PEDmonth,",")) {
+		for(String pedm:splitString(getdata("pedmonth"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_month_"+pedmonthitrt+"']"));
 			selectByValue(ele, pedm);
 			pedmonthitrt++;
@@ -216,9 +215,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDday
 	 * @throws Exception
 	 */
-	public void pedDay(String PEDday) throws Exception {
+	public void pedDay() throws Exception {
 		int peddayitrt = 1;
-		for(String pedd:splitString(PEDday,",")) {
+		for(String pedd:splitString(getdata("pedday"),",")) {
 			WebElement ele =DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_day_"+peddayitrt+"']"));
 			selectByVisibleText(ele, pedd);
 			peddayitrt++;
@@ -229,9 +228,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param firstname
 	 * @throws Exception
 	 */
-	public void firstName(String firstname) throws Exception {
+	public void firstName() throws Exception {
 		int firstnameitrt = 1;
-		for (String fn:splitString(firstname,",")) {
+		for (String fn:splitString(getdata("firstname"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='firstname_"+firstnameitrt+"']"));
 			sendKeysMethod(ele,fn);
 			firstnameitrt++;
@@ -242,9 +241,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param lastname
 	 * @throws Exception
 	 */
-	public void lastName(String lastname) throws Exception {
+	public void lastName() throws Exception {
 		int lastnameitrt = 1;
-		for (String ln:splitString(lastname,",")) {
+		for (String ln:splitString(getdata("lastname"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='lastname_"+lastnameitrt+"']"));
 			sendKeysMethod(ele,ln);
 			lastnameitrt++;
@@ -255,9 +254,9 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param passportid
 	 * @throws Exception
 	 */
-	public void passportID(String passportid) throws Exception {
+	public void passportID() throws Exception {
 		int passportitrt=1;
-		for (String pass:splitString(passportid,",")) {
+		for (String pass:splitString(getdata("passportid"),",")) {
 		WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//input[@name='passport_"+passportitrt+"']"));
 		sendKeysMethod(ele,pass);
 		passportitrt++;
@@ -283,7 +282,10 @@ public class Paxdetailspage extends CommonActionMethods {
 			logErrorMessage("confirm booking button is not clicked");
 		}
 	}
-	
+	/**
+	 * This method is to split and store the Pax details in the variables for validation.
+	 * @throws Exception
+	 */
 	public void splitPrice() throws Exception {
 		String adltprz = getTextElement(adltprice,"Adult price");
 		String chldprz = getTextElement(childprice,"child price");
@@ -297,11 +299,19 @@ public class Paxdetailspage extends CommonActionMethods {
 		 inftpreprz = Double.valueOf(Iprz[1]);
 		 totalprz = Double.valueOf(totprz[1]);
 	}
+	/**
+	 * This method splits and validates the Total price.
+	 * @throws Exception
+	 */
 	public void validatePrice() throws Exception {
 		splitPrice();
 		double acttotal = adltpreprz+chldpreprz+inftpreprz;
 		checkEquality(acttotal, totalprz);
 	}
+	/**
+	 * This method adds the pax price and returns the total.
+	 * @return
+	 */
 	public static double returntotal() {
 		double acttotal = adltpreprz+chldpreprz+inftpreprz;
 		return acttotal;

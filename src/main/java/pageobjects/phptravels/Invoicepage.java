@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
@@ -35,12 +34,20 @@ public class Invoicepage extends CommonActionMethods{
 	
 	@FindBy(xpath = "(//ul[@class='list-group list-group-flush']//li)[4]")
 	WebElement totalprice;
-	
+	/**
+	 * Constructor to store the webelements.
+	 */
 	public Invoicepage(){
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
 	}
-	
-	public void invoiceValidation(String actladlt,String actlchld,String actlinfnt) throws Exception {
+	/**
+	 * This method validates the number of passenger's and the price.
+	 * @param actladlt
+	 * @param actlchld
+	 * @param actlinfnt
+	 * @throws Exception
+	 */
+	public void invoiceValidation() throws Exception {
 		getTitle();
 		getURL();
 		isDisplayed(Confirmationele,"Confirmation ");
@@ -49,10 +56,9 @@ public class Invoicepage extends CommonActionMethods{
 		String adlt =pax[1];
 		String chld = pax[3];
 		String infnt = pax[6];
-		System.out.println(adlt+"|"+chld+"|"+infnt);
-		checkEquality(adlt, actladlt);
-		checkEquality(chld, actlchld);
-		//checkEquality(infnt, actlinfnt);
+		checkEquality(adlt, getdata("adult"));
+		checkEquality(chld,  getdata("child"));
+		checkEquality(infnt, getdata("infant"));
 		String txt = getTextElement(bookingtax, " ");
 		String deposit = getTextElement(depositprice, " ");
 		String[] depositnow = splitString(deposit, " ");
@@ -63,9 +69,12 @@ public class Invoicepage extends CommonActionMethods{
 		String totl = getTextElement(totalprice, " ");
 		String[] finalprz = splitString(totl, " ");
 		double finlprz = Double.valueOf(finalprz[3]);
-		//checkEquality(actlnewtotal, finlprz);
+		checkEquality(actlnewtotal, finlprz);
 	}
-	
+	/**
+	 * This method is to click proceed button.
+	 * @throws Exception
+	 */
 	public void proceed() throws Exception {
 		clickMethod(proceedbutton, "Proceed button");
 	}

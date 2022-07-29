@@ -10,9 +10,10 @@ import java.util.Calendar;
 public class Currentdateandtime {
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();
+		cal.add(7,+20);
 		SimpleDateFormat date = new SimpleDateFormat();
-		date.applyPattern("MMMM/d/yy HH:mm:ss");
+		date.applyPattern("MMMMMMMMMM/dd/yyyy");
 		String dat = date.format(cal.getTime());
-		System.out.println(dat);
+		System.out.println("Current date:"+dat);
 	}
 }

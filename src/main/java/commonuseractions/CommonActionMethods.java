@@ -33,7 +33,7 @@ public class CommonActionMethods {
 	public static Double inftpreprz =0.0;
 	public static Double totalprz =0.0;
 	public static Double acttotal =0.0;
-	static String configFilename = "log4j.properties";
+	static String configFilename = "C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
@@ -69,7 +69,6 @@ public class CommonActionMethods {
 	 * @param browsertype-string value about the action being performed
 	 * @param url-string         value about the action being performed
 	 */
-
 	public static void invokeBrowser(String browser, String browsertype, String url) {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
@@ -98,7 +97,6 @@ public class CommonActionMethods {
 
 		}
 	}
-
 	/**
 	 * 
 	 * @This method is for enter the value
@@ -113,12 +111,13 @@ public class CommonActionMethods {
 			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 			logErrorMessage(" Element is not entered in " + enter);
 
 		}
 
 	}
-
 	/**
 	 *
 	 * @This method is for selectByVisibleText
@@ -127,7 +126,6 @@ public class CommonActionMethods {
 	 * @param text-string value about the action being performed
 	 * @throws Exception
 	 */
-
 	public static void selectByVisibleText(WebElement element, String text) throws Exception {
 		try {
 			Select sel = new Select(element);
@@ -139,7 +137,6 @@ public class CommonActionMethods {
 		}
 
 	}
-
 	/**
 	 * 
 	 * @This method is for selectByValue
@@ -380,10 +377,10 @@ public class CommonActionMethods {
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
 		try {
-			if (intial.equals(end)) {
+			if (String.valueOf(intial).equalsIgnoreCase(String.valueOf(end))) {
 				logMessage(intial + "&" + end + "is equal");
 			} else {
-				logErrorMessage(intial + "&" + end + "is not equal");
+				logMessage(intial + "&" + end + "is not equal");
 			}
 		} catch (Exception e) {
 			logErrorMessage(intial + "&" + end + "is not equal");
@@ -440,7 +437,6 @@ public class CommonActionMethods {
 	}
 	/**
 	 * This method is to get the text data from excel
-	 * 
 	 * @param sheetname
 	 * @return
 	 * @throws Exception

@@ -1,8 +1,8 @@
 package pageobjects.phptravels;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
-
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -24,45 +24,56 @@ public class Homepage extends CommonActionMethods {
 	static WebElement descity;
 	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
+	static
 	List<WebElement> depcitylist;
 	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//strong")
 	List<WebElement> descitylist;
 
 	@FindBy(xpath = "((//table[@class=' table-condensed'])[3]//i)[2]")
+	static
 	WebElement nextarrow;
 
 	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//i)[2]")
+	static
 	WebElement returnnxtarw;
 	
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//th[@class='switch']")
+	static
 	WebElement month;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//th[@class='switch']")
+	static
 	WebElement monthreturn;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//td[@class='day ']")
-	List<WebElement> date;
+	static
+	List<WebElement> dateele;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//td[@class='day ']")
+	static
 	List<WebElement> datereturn;
 
 	@FindBy(xpath = "(//div[@class='form-group'])[8]//input")
+	static
 	WebElement calenderbox;
 
 	@FindBy(xpath = "//div[@id='onereturn']//button")
 	WebElement searchbutton;
 
 	@FindBy(xpath = "(//div[@class='form-check'])[2]//input")
+	static
 	WebElement roundtrip;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='departure']")
+	static
 	WebElement departuredate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='return']")
 	WebElement returndate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//a")
+	static
 	WebElement paxbotton;
 
 	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[1]")
@@ -75,6 +86,7 @@ public class Homepage extends CommonActionMethods {
 	WebElement infantplus;
 	
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
+	static
 	WebElement cookie;
 	/**
 	 * Constructor to store the above located elements.
@@ -88,17 +100,25 @@ public class Homepage extends CommonActionMethods {
 	 * @param ele
 	 * @param monthtoselect
 	 * @param nxtbutton
+	 * @return 
 	 * @throws Exception
 	 */
-	private void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
+	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
-			System.out.println(ele.getText());
-			if (ele.getText().equalsIgnoreCase(monthtoselect)) {
+			if (ele.getText().contains(monthtoselect)) {
 				break;
 			} else {
 				clickMethod(nxtbutton, "next arrow");
 			}
 		}
+	}
+	public static String dateSel(int plusdays) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(7,+plusdays);
+		SimpleDateFormat date = new SimpleDateFormat();
+		date.applyPattern("MMMMMMMMMM/dd/yyyy");
+		String dat = date.format(cal.getTime());
+		return dat;
 	}
 	/**
 	 * This method passes the information to search a suitable flight. 
@@ -111,8 +131,7 @@ public class Homepage extends CommonActionMethods {
 	 * @param returnday
 	 * @throws Exception
 	 */
-	public void SearchFlight(String dep, String des, String mnth, String depdate, String trip, String returnmonth,
-			String returnday) throws Exception {
+	public  void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
 		logMessage("Current URL:" + getURL());
@@ -122,21 +141,27 @@ public class Homepage extends CommonActionMethods {
 		listDrop(depcitylist, "dep");
 		sendKeysMethod(descity, "LAS");
 		listDrop(depcitylist, "des");
-		if (!trip.equalsIgnoreCase("round trip")) {
+		String[] date = splitString(dateSel(Integer.parseInt(getdata("date"))),"/");
+		String mnth = date[0];
+		String depdate = date[1];
+		String[] rtrndate = splitString(dateSel(Integer.parseInt(getdata("returndate"))),"/");
+		String returnmonth = rtrndate[0];
+		String returnday = rtrndate[1];
+		if (!getdata("trip") .equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
-			listDrop(date, depdate);
+			listDrop(dateele, depdate);
 		} else {
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
 			monthloc(month, mnth, nextarrow);
-			listDrop(date, depdate);
-			Thread.sleep(2000);
-			monthloc(monthreturn,returnmonth,returnnxtarw);
+			listDrop(dateele, depdate);
+			monthloc(monthreturn, returnmonth, returnnxtarw);
 			listDrop(datereturn, returnday);
 		}
 		clickMethod(cookie, "Cookie got it button");
 		clickMethod(paxbotton, "Passenger button");
+		
 	}
 	/**
 	 * This method chooses the number of adults,child's and infants.
@@ -145,10 +170,10 @@ public class Homepage extends CommonActionMethods {
 	 * @param numofinfant
 	 * @throws Exception
 	 */
-	public void pax(String numofadult, String numofchild, String numofinfant) throws Exception {
-		int adult = Integer.valueOf(numofadult);
-		int child = Integer.valueOf(numofchild);
-		int infant = Integer.valueOf(numofinfant);
+	public void pax() throws Exception {
+		int adult = Integer.valueOf(getdata("adult"));
+		int child = Integer.valueOf(getdata("child"));
+		int infant = Integer.valueOf(getdata("infant"));
 			for (int i = 1; i <= adult-1; i++) {
 				clickMethod(adultplus,"Adult plus button");
 			}
