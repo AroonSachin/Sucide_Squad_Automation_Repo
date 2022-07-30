@@ -11,45 +11,48 @@ import commonuseractions.CommonActionMethods;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
-import pageobjects.swaglabs.Info;
+import pageobjects.swaglabs.InfoPage;
 import pageobjects.swaglabs.LoginPage;
 import utils.DriverFactory;
-
+/**
+ * 
+ * @author svenkateshwaran
+ * @this is the runner class that has all the test scenarios
+ *
+ */
 public class Runner extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
 		return getTestData("test");
 	}
+
+	/**
+	 * @this method is used to navigate to the sauce demo page
+	 * @throws Exception
+	 */
 	@BeforeMethod
-	public static void startBrowser() throws Exception
-	{
-      invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+	public static void startBrowser() throws Exception {
+		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 	}
 
+	/**
+	 * @this test is to validate the entire checkout flow in swaglab
+	 * @param mapData
+	 * @throws Exception
+	 */
 
 	@Test(dataProvider = "automation")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-		
+
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			//invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
-			//Thread.sleep(1000);
-			new LoginPage().enterUsername(getdata("Username"));
-			new LoginPage().enterPassword(getdata("Password"));
-			new LoginPage().clickLogin();
-			new HomePage().verifyLogin();
-			new HomePage().sortPrice();
-			new HomePage().verifyPrice();
-			new HomePage().selectItem(getdata("Quantity"));
-			new HomePage().clickCart();
-			new Checkout().validateQuantity();
-			new Checkout().validateProductInfo();
+
+			new LoginPage().login();
+			new HomePage().homepageValidation();
+			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName(getdata("FirstName"));
-			new Info().enterLastName(getdata("LastName"));
-			new Info().enterPincode(getdata("Pincode"));
-			new Info().clickContinueButton();
+			new InfoPage().info();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 
@@ -63,24 +66,14 @@ public class Runner extends CommonActionMethods {
 
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-		
+
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			//invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
-			new LoginPage().enterUsername(getdata("Username"));
-			new LoginPage().enterPassword(getdata("Password"));
-			new LoginPage().clickLogin();
-			new HomePage().verifyLogin();
-			new HomePage().sortPrice();
-			new HomePage().verifyPrice();
-			new HomePage().selectItem(getdata("Quantity"));
-			new HomePage().clickCart();
-			new Checkout().validateQuantity();
-			new Checkout().validateProductInfo();
+
+			new LoginPage().login();
+			new HomePage().homepageValidation();
+			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName(getdata("FirstName"));
-			new Info().enterLastName(getdata("LastName"));
-			new Info().enterPincode(getdata("Pincode"));
-			new Info().clickContinueButton();
+			new InfoPage().info();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 		} else {
