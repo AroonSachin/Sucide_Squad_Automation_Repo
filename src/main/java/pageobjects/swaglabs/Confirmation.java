@@ -6,35 +6,34 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
-
+/**
+ * 
+ * @author svenkateshwaran
+ * @this class is for methods in confirmation page
+ */
 public class Confirmation extends CommonActionMethods {
-	
-	
-	public Confirmation()
-	{
+
+	public Confirmation() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-	
-	@FindBy(id="finish")
+
+	@FindBy(id = "finish")
 	private static WebElement finishButton;
-	
-	@FindBy (className="complete-header")
+
+	@FindBy(className = "complete-header")
 	private static WebElement confirmationMsg;
-	
-	
-	public void clickOnFinishButton() throws Exception
-	{
+
+	public void clickOnFinishButton() throws Exception {
 		clickMethod(finishButton, "finish");
-		logMessage("Finish button is clicked");
+
 	}
-	
-	public void verifyOrderConfirmation() throws Exception
-	{
+	/**
+	 * @this method is used for validation of the order confirmation
+	 * @throws Exception
+	 */
+
+	public void verifyOrderConfirmation() throws Exception {
 		isDisplayed(confirmationMsg, "THANK YOU FOR YOUR ORDER");
 	}
-	
-	
-	
-	
 
 }
