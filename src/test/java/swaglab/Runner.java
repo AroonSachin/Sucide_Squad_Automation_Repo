@@ -1,8 +1,10 @@
 package swaglab;
 
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,6 +21,7 @@ import utils.ExcelWriter;
 import utils.DriverFactory;
 
 public class Runner extends CommonActionMethods {
+	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
@@ -35,8 +38,8 @@ public class Runner extends CommonActionMethods {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-
-			//ExcelWriter.xlWriter(1,7, "writedata.xlsx", "write", "pass");
+			
+            status.set(false);
 			new LoginPage().enterUsername();
 			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
@@ -54,6 +57,7 @@ public class Runner extends CommonActionMethods {
 			new Info().clickContinueButton();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
+			status.set(true);
 
 		} else {
 			DriverFactory.getDriver().quit();
@@ -68,7 +72,7 @@ public class Runner extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 
-			//ExcelWriter.xlWriter(2,7,"writedata.xlsx","write","skip");
+			status.set(false);
 			new LoginPage().enterUsername();
 			new LoginPage().enterPassword();
 			new LoginPage().clickLogin();
@@ -86,11 +90,26 @@ public class Runner extends CommonActionMethods {
 			new Info().clickContinueButton();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
+			status.set(true);
 		} else {
 			DriverFactory.getDriver().quit();
 			throw new SkipException("Skip test");
 		}
 
+	}
+	
+	@AfterMethod
+	public static void logStatus() throws Exception
+	{
+		
+		if(status.get())
+		{
+			ExcelWriter.xlWriteStatus("writedata.xlsx","write", "Pass");
+		}
+		else
+		{
+			ExcelWriter.xlWriteStatus("writedata.xlsx","write", "Fail");
+		}
 	}
 
 }
