@@ -1,6 +1,5 @@
 package pageobjects.swaglabs;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +10,11 @@ import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
+/**
+ * 
+ * @author svenkateshwaran
+ * @this class contains methods from the checkout page
+ */
 public class Checkout extends CommonActionMethods {
 
 	public Checkout() {
@@ -34,9 +38,14 @@ public class Checkout extends CommonActionMethods {
 
 	}
 
+	/**
+	 * @this method is used to validate the product information
+	 * @throws Exception
+	 */
+
 	public void validateProductInfo() throws Exception {
-		List<String> productNameList = new LinkedList<String>(getproductName());
-		List<String> productPriceList = new LinkedList<String>(getproductPrice());
+		List<String> productNameList = new LinkedList<String>(HomePage.getproductName());
+		List<String> productPriceList = new LinkedList<String>(HomePage.getproductPrice());
 		for (int p = 0; p < pName.size(); p++) {
 			String prdtName = getTextElement(pName.get(p), "product name");
 			if (prdtName.equals(productNameList.get(p))) {
@@ -60,6 +69,11 @@ public class Checkout extends CommonActionMethods {
 		}
 	}
 
+	/**
+	 * @this method is used to validate the number of products
+	 * @throws Exception
+	 */
+
 	public void validateQuantity() throws Exception {
 		int prd = 0;
 
@@ -76,6 +90,16 @@ public class Checkout extends CommonActionMethods {
 
 		}
 
+	}
+
+	/**
+	 * @this method is for validation in checkout page
+	 * @throws Exception
+	 */
+
+	public void checkoutValidation() throws Exception {
+		validateProductInfo();
+		validateQuantity();
 	}
 
 }

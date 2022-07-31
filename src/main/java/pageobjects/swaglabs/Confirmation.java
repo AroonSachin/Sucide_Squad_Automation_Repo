@@ -6,7 +6,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
-
+/**
+ * 
+ * @author svenkateshwaran
+ * @this class is for methods in confirmation page
+ */
 public class Confirmation extends CommonActionMethods {
 
 	public Confirmation() {
@@ -23,6 +27,10 @@ public class Confirmation extends CommonActionMethods {
 		clickMethod(finishButton, "finish");
 
 	}
+	/**
+	 * @this method is used for validation of the order confirmation
+	 * @throws Exception
+	 */
 
 	public void verifyOrderConfirmation() throws Exception {
 		isDisplayed(confirmationMsg, "THANK YOU FOR YOUR ORDER");

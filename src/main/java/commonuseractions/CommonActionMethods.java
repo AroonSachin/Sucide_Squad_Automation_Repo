@@ -9,11 +9,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
@@ -36,17 +33,7 @@ public class CommonActionMethods {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 
-	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
 
-	public static LinkedHashSet<String> getproductName() {
-		return productName.get();
-	}
-
-	public static ThreadLocal<LinkedHashSet<String>> productPrice = ThreadLocal.withInitial(LinkedHashSet::new);
-
-	public static LinkedHashSet<String> getproductPrice() {
-		return productPrice.get();
-	}
 
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();

@@ -7,9 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
-public class Info extends CommonActionMethods {
+/**
+ * 
+ * @author svenkateshwaran
+ * @this class contains methods of info page
+ */
+public class InfoPage extends CommonActionMethods {
 
-	public Info() {
+	public InfoPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
@@ -25,22 +30,15 @@ public class Info extends CommonActionMethods {
 	@FindBy(id = "continue")
 	private static WebElement continueButton;
 
-	public void enterFirstName() throws Exception {
+	/**
+	 * @this method is used to fill the user info
+	 * @throws Exception
+	 */
+	public void info() throws Exception {
 		sendKeysMethod(firstName, getdata("FirstName"));
-
-	}
-
-	public void enterLastName() throws Exception {
 		sendKeysMethod(lastName, getdata("LastName"));
-
-	}
-
-	public void enterPincode() throws Exception {
 		sendKeysMethod(PinCode, getdata("Pincode"));
 
-	}
-
-	public void clickContinueButton() throws Exception {
 		clickMethod(continueButton, "continue");
 
 	}

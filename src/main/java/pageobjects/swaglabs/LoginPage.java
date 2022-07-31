@@ -7,6 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
+/**
+ * 
+ * @author svenkateshwaran
+ * @this class is to log in into the application
+ *
+ */
+
 public class LoginPage extends CommonActionMethods {
 
 	public LoginPage() {
@@ -32,7 +39,17 @@ public class LoginPage extends CommonActionMethods {
 
 	}
 
-	public void clickLogin() throws Exception {
+	/**
+	 * @this method is used to enter the login credentials and login to the
+	 *       application
+	 * @throws Exception
+	 */
+
+	public void login() throws Exception {
+
+		sendKeysMethod(userName, getdata("Username"));
+		sendKeysMethod(passWord, getdata("Password"));
+
 		clickMethod(loginButton, "login");
 
 	}

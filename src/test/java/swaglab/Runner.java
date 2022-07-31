@@ -13,13 +13,19 @@ import commonuseractions.CommonActionMethods;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
-import pageobjects.swaglabs.Info;
+import pageobjects.swaglabs.InfoPage;
 import pageobjects.swaglabs.LoginPage;
 
 import utils.ExcelWriter;
 
 import utils.DriverFactory;
 
+/**
+ * 
+ * @author svenkateshwaran
+ * @this is the runner class that has all the test scenarios
+ *
+ */
 public class Runner extends CommonActionMethods {
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 
@@ -28,33 +34,35 @@ public class Runner extends CommonActionMethods {
 		return getTestData("test");
 	}
 
+	/**
+	 * @this method is used to navigate to the sauce demo page
+	 * @throws Exception
+	 */
 	@BeforeMethod
 	public static void startBrowser() throws Exception {
 		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 	}
+
+	/**
+	 * @this test is to validate the entire checkout flow in swaglab
+	 * @param mapData
+	 * @throws Exception
+	 */
 
 	@Test(dataProvider = "automation")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			
-            status.set(false);
-			new LoginPage().enterUsername();
-			new LoginPage().enterPassword();
-			new LoginPage().clickLogin();
-			new HomePage().verifyLogin();
-			new HomePage().sortPrice();
-			new HomePage().verifyPrice();
-			new HomePage().selectItem();
-			new HomePage().clickCart();
-			new Checkout().validateQuantity();
-			new Checkout().validateProductInfo();
+
+			status.set(false);
+
+			new LoginPage().login();
+			new HomePage().homepageValidation();
+			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName();
-			new Info().enterLastName();
-			new Info().enterPincode();
-			new Info().clickContinueButton();
+			new InfoPage().info();
+
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
@@ -73,21 +81,12 @@ public class Runner extends CommonActionMethods {
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 
 			status.set(false);
-			new LoginPage().enterUsername();
-			new LoginPage().enterPassword();
-			new LoginPage().clickLogin();
-			new HomePage().verifyLogin();
-			new HomePage().sortPrice();
-			new HomePage().verifyPrice();
-			new HomePage().selectItem();
-			new HomePage().clickCart();
-			new Checkout().validateQuantity();
-			new Checkout().validateProductInfo();
+			new LoginPage().login();
+			new HomePage().homepageValidation();
+			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
-			new Info().enterFirstName();
-			new Info().enterLastName();
-			new Info().enterPincode();
-			new Info().clickContinueButton();
+			new InfoPage().info();
+
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
@@ -97,18 +96,14 @@ public class Runner extends CommonActionMethods {
 		}
 
 	}
-	
+
 	@AfterMethod
-	public static void logStatus() throws Exception
-	{
-		
-		if(status.get())
-		{
-			ExcelWriter.xlWriteStatus("writedata.xlsx","write", "Pass");
-		}
-		else
-		{
-			ExcelWriter.xlWriteStatus("writedata.xlsx","write", "Fail");
+	public static void logStatus() throws Exception {
+
+		if (status.get()) {
+			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Pass");
+		} else {
+			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Fail");
 		}
 	}
 
