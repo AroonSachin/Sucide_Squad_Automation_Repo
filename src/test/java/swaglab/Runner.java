@@ -1,7 +1,6 @@
 package swaglab;
 
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
@@ -62,8 +61,7 @@ public class Runner extends CommonActionMethods {
 			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
-
-			new Confirmation().clickOnFinishButton();
+            new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
 
@@ -86,7 +84,6 @@ public class Runner extends CommonActionMethods {
 			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
-
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
@@ -99,12 +96,14 @@ public class Runner extends CommonActionMethods {
 
 	@AfterMethod
 	public static void logStatus() throws Exception {
-
-		if (status.get()) {
+		if(status.get()!=null)
+		{
+        if (status.get()) {
 			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Pass");
 		} else {
 			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Fail");
 		}
 	}
 
+}
 }
