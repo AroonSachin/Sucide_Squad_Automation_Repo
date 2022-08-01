@@ -28,7 +28,7 @@ import org.apache.log4j.*;
  *
  */
 public class CommonActionMethods {
-	static String configFilename = "C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\log4j.properties";
+	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
