@@ -44,8 +44,8 @@ public class Checkout extends CommonActionMethods {
 	 */
 
 	public void validateProductInfo() throws Exception {
-		List<String> productNameList = new LinkedList<String>(HomePage.getproductName());
-		List<String> productPriceList = new LinkedList<String>(HomePage.getproductPrice());
+		List<String> productNameList = new LinkedList<String>(HomePage.productName);
+		List<String> productPriceList = new LinkedList<String>(HomePage.productPrice);
 		for (int p = 0; p < pName.size(); p++) {
 			String prdtName = getTextElement(pName.get(p), "product name");
 			if (prdtName.equals(productNameList.get(p))) {

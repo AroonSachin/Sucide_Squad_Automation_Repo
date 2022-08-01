@@ -42,17 +42,8 @@ public class HomePage extends CommonActionMethods {
 	@FindBy(className = "product_sort_container")
 	private static WebElement filterprice;
 
-	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
-
-	public static LinkedHashSet<String> getproductName() {
-		return productName.get();
-	}
-
-	public static ThreadLocal<LinkedHashSet<String>> productPrice = ThreadLocal.withInitial(LinkedHashSet::new);
-
-	public static LinkedHashSet<String> getproductPrice() {
-		return productPrice.get();
-	}
+	public static LinkedHashSet<String> productName = new LinkedHashSet<String>();
+	public static LinkedHashSet<String> productPrice = new LinkedHashSet<String>();
 
 	/**
 	 * @this method is used to select the products from the list of products
@@ -60,12 +51,12 @@ public class HomePage extends CommonActionMethods {
 	 */
 
 	public void selectItem() throws Exception {
-		getproductName().clear();
-		getproductPrice().clear();
+		productName.clear();
+		productPrice.clear();
 		for (int q = 0; q < Integer.parseInt(getdata("Quantity")); q++) {
 
-			getproductName().add(getTextElement(itemName.get(q), "item name"));
-			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
+			productName.add(getTextElement(itemName.get(q), "item name"));
+			productPrice.add(getTextElement(itemPrice.get(q), "item price"));
 			clickMethod(addItems.get(q), "product " + (q + 1));
 
 		}
