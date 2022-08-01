@@ -16,6 +16,10 @@ import utils.DriverFactory;
  *
  */
 public class Paxdetailspage extends CommonActionMethods {
+	static Double adltpreprz =0.0;
+	static Double chldpreprz =0.0;
+	static Double inftpreprz=0.0;
+	Double totalprz =0.0;
 	
 	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[1]")
 	WebElement adltprice;
@@ -294,10 +298,10 @@ public class Paxdetailspage extends CommonActionMethods {
 		String[] Cprz= splitString(chldprz," ");
 		String[] Iprz= splitString(inftprz," ");
 		String[] totprz = splitString(getTextElement(totlprice, "Total price"), " ");
-		 adltpreprz = Double.valueOf(Aprz[1]);
-		 chldpreprz = Double.valueOf(Cprz[1]);
-		 inftpreprz = Double.valueOf(Iprz[1]);
-		 totalprz = Double.valueOf(totprz[1]);
+		adltpreprz = Double.valueOf(Aprz[1]);
+		chldpreprz = Double.valueOf(Cprz[1]);
+		inftpreprz = Double.valueOf(Iprz[1]);
+		totalprz = Double.valueOf(totprz[1]);
 	}
 	/**
 	 * This method splits and validates the Total price.

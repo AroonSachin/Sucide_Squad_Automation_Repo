@@ -2,6 +2,8 @@ package phptravels;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -10,6 +12,7 @@ import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
 import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
+import utils.DriverFactory;
 
 
 public class PhpTravelFlightBooking extends CommonActionMethods {
@@ -62,5 +65,10 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 			new Invoicepage().invoiceValidation();
 			new Invoicepage().proceed();
 		}
+	}
+	
+	@AfterMethod
+	public void close() {
+		DriverFactory.closeDriver();
 	}
 }

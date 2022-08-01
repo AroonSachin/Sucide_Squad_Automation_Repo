@@ -28,11 +28,6 @@ import org.apache.log4j.*;
  *
  */
 public class CommonActionMethods {
-	public static Double adltpreprz = 0.0;
-	public static Double chldpreprz = 0.0;
-	public static Double inftpreprz =0.0;
-	public static Double totalprz =0.0;
-	public static Double acttotal =0.0;
 	static String configFilename = "C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
@@ -111,8 +106,6 @@ public class CommonActionMethods {
 			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
 			logErrorMessage(" Element is not entered in " + enter);
 
 		}
@@ -376,15 +369,13 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		try {
-			if (String.valueOf(intial).equalsIgnoreCase(String.valueOf(end))) {
-				logMessage(intial + "&" + end + "is equal");
+		
+			if (((String) intial).contains((CharSequence) end)) {
+				logMessage(intial + " & " + end + " is equal");
 			} else {
-				logMessage(intial + "&" + end + "is not equal");
+				logErrorMessage(intial + " & " + end + " is not equal");
 			}
-		} catch (Exception e) {
-			logErrorMessage(intial + "&" + end + "is not equal");
-		}
+		
 
 	}
 	/**
