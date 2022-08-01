@@ -16,6 +16,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  *
  */
 public class Browserfactory {
+	private static WebDriver driver;
 	/**
 	 * The method will invoke the requested browser in the requested browsertype
 	 * 
@@ -24,7 +25,7 @@ public class Browserfactory {
 	 * @return WebDriver
 	 */
 	public static WebDriver createBrowser(String browser, String browsertype) {
-		WebDriver driver = null;
+		
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
 		// To launch Chrome.

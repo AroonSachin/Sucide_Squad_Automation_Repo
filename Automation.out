@@ -1,0 +1,29 @@
+2022-08-01 19:41:40 INFO  CommonActionMethods:50 - chrome browser invoked
+ 2022-08-01 19:41:40 INFO  CommonActionMethods:50 - window maximized
+ 2022-08-01 19:41:40 INFO  CommonActionMethods:50 - https://www.saucedemo.com/ url launched
+ 2022-08-01 19:41:40 INFO  CommonActionMethods:50 - standard_user is entered 
+ 2022-08-01 19:41:40 INFO  CommonActionMethods:50 - secret_sauce is entered 
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - login button is clicked  
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - hilo is selected in dropdown 
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - The list is in descending order. The highest value is 49.99
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - product 1 button is clicked  
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - product 2 button is clicked  
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - product 3 button is clicked  
+ 2022-08-01 19:41:41 INFO  CommonActionMethods:50 - clickCart button is clicked  
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - hamburger button is clicked  
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - Logout button is displayed 
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product name Sauce Labs Fleece Jacket matches the actual product name Sauce Labs Fleece Jacket
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product price $49.99 matches the actual product price $49.99
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product name Sauce Labs Backpack matches the actual product name Sauce Labs Backpack
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product price $29.99 matches the actual product price $29.99
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product name Sauce Labs Bolt T-Shirt matches the actual product name Sauce Labs Bolt T-Shirt
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product price $15.99 matches the actual product price $15.99
+ 2022-08-01 19:41:42 INFO  CommonActionMethods:50 - The expected product quantity 3 matches the actual product quantity 3
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - checkout button is clicked  
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - Arun is entered 
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - Sachin is entered 
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - 621700 is entered 
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - continue button is clicked  
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - finish button is clicked  
+ 2022-08-01 19:41:43 INFO  CommonActionMethods:50 - THANK YOU FOR YOUR ORDER is displayed 
+ 
