@@ -20,7 +20,7 @@ import utils.DriverFactory;
  * @this is the runner class that has all the test scenarios
  *
  */
-public class Runner extends CommonActionMethods {
+public class Swaglab extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
