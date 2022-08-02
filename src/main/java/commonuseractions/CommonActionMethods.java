@@ -8,8 +8,11 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
@@ -21,6 +24,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.log4j.*;
+
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -30,14 +34,17 @@ import org.apache.log4j.*;
 public class CommonActionMethods {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 
 		return map;
 	});
+
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
+
 	/**
 	 * 
 	 * @This method is used to print the log message in console
@@ -46,6 +53,7 @@ public class CommonActionMethods {
 	public static void logMessage(String message) {
 		log.info(message);
 	}
+
 	/**
 	 * @This method is used to print the log error message in console and stop the
 	 *       execution
@@ -58,6 +66,7 @@ public class CommonActionMethods {
 		takeSnapShot();
 		throw new RuntimeException(MessageStopExecution);
 	}
+
 	/**
 	 * @This method is used to invoke the browser
 	 * @param browser-string     value about the action being performed
@@ -75,6 +84,7 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().get(url);
 		logMessage(url + " url launched");
 	}
+
 	/**
 	 *
 	 * @This method is for click the element
@@ -92,6 +102,7 @@ public class CommonActionMethods {
 
 		}
 	}
+
 	/**
 	 * 
 	 * @This method is for enter the value
@@ -111,6 +122,7 @@ public class CommonActionMethods {
 		}
 
 	}
+
 	/**
 	 *
 	 * @This method is for selectByVisibleText
@@ -130,6 +142,7 @@ public class CommonActionMethods {
 		}
 
 	}
+
 	/**
 	 * 
 	 * @This method is for selectByValue
@@ -369,15 +382,15 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		
-			if (((String) intial).contains((CharSequence) end)) {
-				logMessage(intial + " & " + end + " is equal");
-			} else {
-				logErrorMessage(intial + " & " + end + " is not equal");
-			}
-		
+
+		if (((String) intial).contains((CharSequence) end)) {
+			logMessage(intial + " & " + end + " is equal");
+		} else {
+			logErrorMessage(intial + " & " + end + " is not equal");
+		}
 
 	}
+
 	/**
 	 * This method for getting the data from the hash map and returns the value
 	 * 
@@ -396,8 +409,11 @@ public class CommonActionMethods {
 		return data;
 
 	}
+
 	/**
-	 * This method is to click the respective element by its text from the list of webelements.
+	 * This method is to click the respective element by its text from the list of
+	 * webelements.
+	 * 
 	 * @param listelement
 	 * @param Toselect
 	 * @throws Exception
@@ -413,21 +429,26 @@ public class CommonActionMethods {
 			}
 		}
 	}
+
 	/**
-	 * This method is to split the given given string by comma. 
+	 * This method is to split the given given string by comma.
+	 * 
 	 * @param data
 	 * @return
 	 */
-	public static String[] splitString(String data,String symbol) {
+	public static String[] splitString(String data, String symbol) {
 		String arr[] = data.split(symbol);
 		return arr;
 	}
+
 	public static void scrollToElement(WebElement ele) {
-		JavascriptExecutor scrl=(JavascriptExecutor) DriverFactory.getDriver();
-		scrl.executeScript("arguments[0].scrollIntoView(true)",ele );
+		JavascriptExecutor scrl = (JavascriptExecutor) DriverFactory.getDriver();
+		scrl.executeScript("arguments[0].scrollIntoView(true)", ele);
 	}
+
 	/**
 	 * This method is to get the text data from excel
+	 * 
 	 * @param sheetname
 	 * @return
 	 * @throws Exception
@@ -444,6 +465,7 @@ public class CommonActionMethods {
 		}
 		return data.iterator();
 	}
+
 	/**
 	 * This method is to get text of the element
 	 * 
@@ -462,11 +484,13 @@ public class CommonActionMethods {
 		}
 		return text;
 	}
-	
+
 	/**
 	 * This method waits for the given element until it is clickable
+	 * 
 	 * @param ele
 	 */
+
 	public static void webWait(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
