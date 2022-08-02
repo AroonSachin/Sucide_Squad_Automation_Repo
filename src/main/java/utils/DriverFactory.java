@@ -1,6 +1,7 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ThreadGuard;
 
 /**
  * The class creates a thread for the given driver.
