@@ -3,18 +3,17 @@ package commonuseractions;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
-
 import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
@@ -29,10 +28,10 @@ import org.apache.log4j.*;
  * 
  *
  */
-
 public class CommonActionMethods {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 
@@ -44,6 +43,7 @@ public class CommonActionMethods {
 	}
 
 	/**
+	 * 
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
@@ -65,13 +65,11 @@ public class CommonActionMethods {
 	}
 
 	/**
-	 * 
 	 * @This method is used to invoke the browser
 	 * @param browser-string     value about the action being performed
 	 * @param browsertype-string value about the action being performed
 	 * @param url-string         value about the action being performed
 	 */
-
 	public static void invokeBrowser(String browser, String browsertype, String url) {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
@@ -82,7 +80,6 @@ public class CommonActionMethods {
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 		logMessage(url + " url launched");
-
 	}
 
 	/**
@@ -131,13 +128,11 @@ public class CommonActionMethods {
 	 * @param text-string value about the action being performed
 	 * @throws Exception
 	 */
-
 	public static void selectByVisibleText(WebElement element, String text) throws Exception {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
 			logMessage(text + " is selected in dropdown ");
-
 		} catch (Exception e) {
 			logErrorMessage(text + " Element is not selected ");
 
@@ -384,14 +379,11 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		try {
-			if (intial.equals(end)) {
-				logMessage(intial + "&" + end + "is equal");
-			} else {
-				logErrorMessage(intial + "&" + end + "is not equal");
-			}
-		} catch (Exception e) {
-			logErrorMessage(intial + "&" + end + "is not equal");
+
+		if (((String) intial).contains((CharSequence) end)) {
+			logMessage(intial + " & " + end + " is equal");
+		} else {
+			logErrorMessage(intial + " & " + end + " is not equal");
 		}
 
 	}
@@ -416,6 +408,42 @@ public class CommonActionMethods {
 	}
 
 	/**
+	 * This method is to click the respective element by its text from the list of
+	 * webelements.
+	 * 
+	 * @param listelement
+	 * @param Toselect
+	 * @throws Exception
+	 */
+	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
+		for (WebElement element : listelement) {
+			String name = element.getText();
+			if (name.contains(Toselect)) {
+				webWait(element);
+				clickMethod(element, Toselect);
+				logMessage(Toselect + "  is clicked");
+				break;
+			}
+		}
+	}
+
+	/**
+	 * This method is to split the given given string by comma.
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static String[] splitString(String data, String symbol) {
+		String arr[] = data.split(symbol);
+		return arr;
+	}
+
+	public static void scrollToElement(WebElement ele) {
+		JavascriptExecutor scrl = (JavascriptExecutor) DriverFactory.getDriver();
+		scrl.executeScript("arguments[0].scrollIntoView(true)", ele);
+	}
+
+	/**
 	 * This method is to get the text data from excel
 	 * 
 	 * @param sheetname
@@ -432,7 +460,6 @@ public class CommonActionMethods {
 		for (int i = 1; i < xlRowCount; i++) {
 			data.add(new Object[] { xlRead.xlReader(i) });
 		}
-
 		return data.iterator();
 	}
 
@@ -453,14 +480,14 @@ public class CommonActionMethods {
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
 		return text;
-
 	}
-	
+
 	/**
 	 * This method waits for the given element until it is clickable
+	 * 
 	 * @param ele
 	 */
-	
+
 	public static void webWait(WebElement ele) {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
