@@ -114,40 +114,40 @@ public class Orderpage extends CommonActionMethods {
 	public static WebElement completeorder;
 
 	@FindBy(xpath = "(//span[@class='address_name'])[1]")
-	public static WebElement addressvalidation2;
+	public static WebElement addressname;
 
 	@FindBy(xpath = "(//span[@class='address_company'])[1]")
-	public static WebElement addressvalidation3;
+	public static WebElement addresscompany;
 
 	@FindBy(xpath = "(//span[@class='address_address1'])[1]")
-	public static WebElement addressvalidation4;
+	public static WebElement addressvalidation;
 
 	@FindBy(xpath = "(//span[@class='address_city'])[1]")
-	public static WebElement addressvalidation5;
+	public static WebElement addresscity;
 
-	@FindBy(xpath = "//*[@id=\"center_column\"]/div[3]/div[1]/ul/li[6]/span")
-	public static WebElement addressvalidation6;
+	@FindBy(xpath = "//ul[@class='address first_item item box']//li[6]")
+	public static WebElement addressstate;
 
 	@FindBy(xpath = "(//span[@class='address_phone_mobile'])[1]")
-	public static WebElement addressvalidation7;
+	public static WebElement addressmobilenumber;
 
 	@FindBy(xpath = "(//li[@class='address_firstname address_lastname'])[2]")
-	public static WebElement billingaddressvalid1;
+	public static WebElement billingaddressname;
 
 	@FindBy(xpath = "(//li[@class='address_company'])[2]")
-	public static WebElement billingaddressvalid2;
+	public static WebElement billingaddresscompany;
 
 	@FindBy(xpath = "(//li[@class='address_address1 address_address2'])[2]")
-	public static WebElement billingaddressvalid3;
+	public static WebElement billingaddressvalidation;
 
 	@FindBy(xpath = "(//li[@class='address_city address_state_name address_postcode'])[2]")
-	public static WebElement billingaddressvalid4;
+	public static WebElement billingaddresscity;
 
 	@FindBy(xpath = "(//li[@class='address_country_name'])[2]")
-	public static WebElement billingaddressvalid5;
+	public static WebElement billingaddressstate;
 
 	@FindBy(xpath = "(//li[@class='address_phone_mobile'])[2]")
-	public static WebElement billingaddressvalid6;
+	public static WebElement billingaddressmobilenumber;
 
 	@FindBy(xpath = "//span[@id=\"total_price\"]")
 	public static WebElement totalprice;
@@ -235,12 +235,12 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	private void addressvalid() throws Exception {
-		address1 = getTextElement(addressvalidation2, "addressvalidation2");
-		address2 = getTextElement(addressvalidation3, "addressvalidation3");
-		address3 = getTextElement(addressvalidation4, "addressvalidation4");
-		address4 = getTextElement(addressvalidation5, "addressvalidation5");
-		address5 = getTextElement(addressvalidation6, "addressvalidation6");
-		address6 = getTextElement(addressvalidation7, "addressvalidation7");
+		address1 = getTextElement(addressname, "addressvalidation2");
+		address2 = getTextElement(addresscompany, "addressvalidation3");
+		address3 = getTextElement(addressvalidation, "addressvalidation4");
+		address4 = getTextElement( addresscity, "addressvalidation5");
+		address5 = getTextElement(addressstate, "addressvalidation6");
+		address6 = getTextElement(addressmobilenumber, "addressvalidation7");
 	}
 
 	/**
@@ -249,12 +249,12 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	private void billingAddress() throws Exception {
-		checkEquality(address1, getTextElement(billingaddressvalid1, "billing1"));
-		checkEquality(address2, getTextElement(billingaddressvalid2, "billing2"));
-		checkEquality(address3, getTextElement(billingaddressvalid3, "billing3"));
-		checkEquality(address4, getTextElement(billingaddressvalid4, "billing4"));
-		checkEquality(address5, getTextElement(billingaddressvalid5, "billing5"));
-		checkEquality(address6, getTextElement(billingaddressvalid6, "billing6"));
+		checkEquality(address1, getTextElement(billingaddressname, "billing1"));
+		checkEquality(address2, getTextElement(billingaddresscompany, "billing2"));
+		checkEquality(address3, getTextElement(billingaddressvalidation, "billing3"));
+		checkEquality(address4, getTextElement(billingaddresscity, "billing4"));
+		checkEquality(address5, getTextElement(billingaddressstate, "billing5"));
+		checkEquality(address6, getTextElement(billingaddressmobilenumber, "billing6"));
 	}
 
 	/**

@@ -3,7 +3,7 @@
 <suite name="Suite" thread-count="5" parallel="methods">
 	<test  name="Phptravels" >
 		<classes>
-
+            <class name="swaglab.Swaglab"></class>
 			<class name="yourlogo.YourLogo"></class>
 			<class name="phptravels.PhpTravelFlightBooking"></class>
 		</classes>

@@ -18,7 +18,7 @@ public class YourLogo extends CommonActionMethods {
 	 * @This method used to invoke the browser
 	 */
 	@BeforeMethod
-	public void bro() {
+	public void browser() {
 		invokeBrowser("chrome", "normal", "http://automationpractice.com/index.php");
 	}
 
@@ -27,7 +27,7 @@ public class YourLogo extends CommonActionMethods {
 	 * @return
 	 * @throws Exception
 	 */
-	@DataProvider(name = "excel")
+	@DataProvider(name = "yolo")
 	private Iterator<Object[]> sheet() throws Exception {
 		return getTestData("yolo");
 
@@ -39,7 +39,7 @@ public class YourLogo extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	@Test(dataProvider = "excel")
+	@Test(dataProvider = "yolo")
 	private void login(Map<String, String> page) throws Exception {
 		inputdata.set(page);
 		if (getdata("Number").equalsIgnoreCase("1")) {
@@ -51,7 +51,7 @@ public class YourLogo extends CommonActionMethods {
 	 * @This method is to verify orderpage functionality
 	 * @throws Exception
 	 */
-	@Test(dataProvider = "excel")
+	@Test(dataProvider = "yolo")
 	private void orderPage(Map<String, String> page) throws Exception {
 		inputdata.set(page);
 		if (getdata("Number").equalsIgnoreCase("1")) {
@@ -65,7 +65,7 @@ public class YourLogo extends CommonActionMethods {
 	 */
 	@AfterMethod
 	private void quit() {
-		DriverFactory.getDriver().quit();
+		DriverFactory.closeDriver();
 
 	}
 
