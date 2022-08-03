@@ -3,11 +3,15 @@ package phptravels;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.testng.ITestListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
 import pageobjects.phptravels.Invoicepage;
@@ -15,18 +19,19 @@ import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 
 
+@Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
 	@BeforeMethod
 	public void invoke() {
-		invokeBrowser("chrome", "Normal", "https://phptravels.net/");
+		invokeBrowser("Chrome", "Normal","https://phptravels.net/");
 	}
-
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
 		return getTestData("php");
 	}
 
 	@Test(dataProvider = "automation")
+	@Description("To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {
@@ -38,6 +43,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	}
 
 	@Test(dataProvider = "automation")
+	@Description("To verify booking functionality")
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {

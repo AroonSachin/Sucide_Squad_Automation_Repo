@@ -370,7 +370,7 @@ public class CommonActionMethods {
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
 		
-			if (((String) intial).contains((CharSequence) end)) {
+			if (String.valueOf(intial).contains(String.valueOf(end))) {
 				logMessage(intial + " & " + end + " is equal");
 			} else {
 				logErrorMessage(intial + " & " + end + " is not equal");

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 /**
  * This class is to search the flight.
@@ -15,7 +16,7 @@ import utils.DriverFactory;
  */
 public class Homepage extends CommonActionMethods {
 	
-	@FindBy(xpath = "(//button[@id='hotels-tab'])[1]")
+	@FindBy(xpath = "//button[@aria-controls='flights']")
 	static WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
