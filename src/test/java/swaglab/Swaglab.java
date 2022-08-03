@@ -34,7 +34,7 @@ public class Swaglab extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("test");
+		return getTestData("Test");
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
-			new Checkout().clickOnCheckoutButton();
+			//new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
             new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
