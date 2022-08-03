@@ -132,7 +132,6 @@ public class CommonActionMethods {
 
 		} catch (Exception e) {
 			extentfail("button is not clicked ");
-
 			logErrorMessage(button + " button is not clicked ");
 
 		}
@@ -148,10 +147,12 @@ public class CommonActionMethods {
 	 */
 	public static void sendKeysMethod(WebElement key, String enter) throws Exception {
 		try {
+			extentpass("value is entered");
 			key.sendKeys(enter);
 			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
+			extentfail("value is not entered");
 			logErrorMessage(" Element is not entered in " + enter);
 
 		}
@@ -171,9 +172,11 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
+			extentpass("Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
+			extentfail("Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -191,9 +194,11 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByValue(text);
+			extentpass("Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
+			extentfail("Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -210,9 +215,11 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByIndex(Index);
+			extentpass("Element selected in dropdown ");
 			logMessage(Index + " is selected in dropdown ");
 
 		} catch (Exception e) {
+			extentfail("Element not in selected dropdown");
 			logErrorMessage(Index + " Element is not selected ");
 
 		}
@@ -230,9 +237,11 @@ public class CommonActionMethods {
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(SrcFile, filepath);
+			extentpass("Screenshot taken-stored in the given path");
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
+			extentfail("Screenshot is not taken");
 			logErrorMessage(" Screenshot is not taken ");
 		}
 		return null;
@@ -253,8 +262,10 @@ public class CommonActionMethods {
 					DriverFactory.getDriver().switchTo().window(window);
 				}
 			}
+			extentpass(" windowhandle is successful");
 			logMessage(" windowhandle is successful ");
 		} catch (Exception e) {
+			extentfail("windowhandle is not successful");
 			logErrorMessage(" windowhandle is not successful ");
 
 		}
@@ -271,9 +282,11 @@ public class CommonActionMethods {
 	public static void frameByElement(WebElement element) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(element);
+			extentpass("framehandle is successful by webelement");
 			logMessage(" framehandle is successful by webelement ");
 
 		} catch (Exception e) {
+			extentfail("no such frame exception");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -289,9 +302,11 @@ public class CommonActionMethods {
 	public static void frameByIndex(int Index) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(Index);
+			extentpass(" framehandle is successful by index ");
 			logMessage(" framehandle is successful by index ");
 
 		} catch (Exception e) {
+			extentfail(" no such frame exception ");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -307,9 +322,11 @@ public class CommonActionMethods {
 	public static void frameByNameorID(String nameORid) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(nameORid);
+			extentpass(" framehandle is successful by name or id ");
 			logMessage(" framehandle is successful by name or id ");
 
 		} catch (Exception e) {
+			extentfail(" no such frame exception ");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -324,9 +341,11 @@ public class CommonActionMethods {
 	public static void defaultwindow() throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().defaultContent();
+			extentpass(" Switched to defaultwindow ");
 			logMessage(" Switched to defaultwindow ");
 
 		} catch (Exception e) {
+			extentfail(" Not switched to defaultwindow ");
 			logErrorMessage(" Not switched to defaultwindow ");
 		}
 
@@ -363,11 +382,14 @@ public class CommonActionMethods {
 		try {
 
 			if (element.isDisplayed()) {
+				extentpass("Element is displayed ");
 				logMessage(ElementName + " is displayed ");
 			} else {
+				extentfail("Element is not displayed ");
 				logErrorMessage(ElementName + " is not displayed in else block ");
 			}
 		} catch (Exception e) {
+			extentfail("Element is not displayed ");
 			logErrorMessage(ElementName + " is not displayed in catch block ");
 
 		}
@@ -384,11 +406,14 @@ public class CommonActionMethods {
 	public static void isSelected(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isSelected()) {
+				extentpass("Element is selected");
 				logMessage(ElementName + " is selected");
 			} else {
+				extentfail("Element is not selected ");
 				logErrorMessage(ElementName + " is not selected in else block ");
 			}
 		} catch (Exception e) {
+			extentfail("Element is not selected ");
 			logErrorMessage(ElementName + " is not selected in catch block ");
 
 		}
@@ -405,11 +430,14 @@ public class CommonActionMethods {
 	public static void isEnabled(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isEnabled()) {
+				extentpass("Element is enabled ");
 				logMessage(ElementName + " is enabled ");
 			} else {
+				extentfail("Element is not enabled ");
 				logErrorMessage(ElementName + " is not enabled in else block ");
 			}
 		} catch (Exception e) {
+			extentfail("Element is not enabled ");
 			logErrorMessage(ElementName + " is not enabled in catch block ");
 
 		}
@@ -427,11 +455,14 @@ public class CommonActionMethods {
 	public static void checkEquality(Object intial, Object end) throws Exception {
 		try {
 			if (intial.equals(end)) {
+				extentpass("Validation is equal ");
 				logMessage(intial + "&" + end + "is equal");
 			} else {
+				extentfail("Validation is not equal ");
 				logErrorMessage(intial + "&" + end + "is not equal");
 			}
 		} catch (Exception e) {
+			extentfail("Validation is not equal ");
 			logErrorMessage(intial + "&" + end + "is not equal");
 		}
 
@@ -450,6 +481,7 @@ public class CommonActionMethods {
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
 		} else {
+			extentfail("Given Column name is not available in the Excel");
 			logErrorMessage(" Given Column name is not available in the Excel " + Name);
 		}
 		return data;
@@ -466,7 +498,6 @@ public class CommonActionMethods {
 	public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
 		ExcelReader xlRead = null;
 		int xlRowCount = 0;
-
 		xlRead = new ExcelReader("database.xlsx", sheetname);
 		xlRowCount = xlRead.getRowCount();
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
@@ -490,7 +521,7 @@ public class CommonActionMethods {
 		try {
 			text = element.getText();
 		} catch (Exception e) {
-
+			extentfail("Object name is not displayed");
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
 		return text;
