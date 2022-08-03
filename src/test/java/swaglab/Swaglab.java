@@ -25,8 +25,12 @@ import utils.DriverFactory;
  * @this is the runner class that has all the test scenarios
  *
  */
-public class Runner extends CommonActionMethods {
+
+public class Swaglab extends CommonActionMethods {
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
+
+
+
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {

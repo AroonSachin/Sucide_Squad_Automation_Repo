@@ -1,4 +1,4 @@
-package javaprogrammingpractice;
+package javaprogrammingpractice.sowmya;
 
 import java.util.Scanner;
 

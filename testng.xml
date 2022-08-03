@@ -3,7 +3,9 @@
 <suite name="Suite" thread-count="5" parallel="methods">
 	<test name="swaglab">
 		<classes>
-			<class name="swaglab.Runner"></class>
+			<class name="swaglab.Swaglab"></class>
+			<class name="yourlogo.YourLogo"></class>
+			<class name="phptravels.PhpTravelFlightBooking"></class>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
