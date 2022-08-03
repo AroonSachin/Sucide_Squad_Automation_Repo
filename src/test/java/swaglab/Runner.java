@@ -99,9 +99,9 @@ public class Runner extends CommonActionMethods {
 		if(status.get()!=null)
 		{
         if (status.get()) {
-			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Pass");
+			ExcelWriter.xlWriteStatus("database.xlsx", "write", "Pass");
 		} else {
-			ExcelWriter.xlWriteStatus("writedata.xlsx", "write", "Fail");
+			ExcelWriter.xlWriteStatus("database.xlsx", "write", "Fail");
 		}
 	}
 
