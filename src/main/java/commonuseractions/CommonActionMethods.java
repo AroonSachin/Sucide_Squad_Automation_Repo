@@ -20,6 +20,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.qameta.allure.Attachment;
+import io.qameta.allure.listener.TestLifecycleListener;
+
 import org.apache.log4j.*;
 
 /**
@@ -28,7 +32,7 @@ import org.apache.log4j.*;
  * 
  *
  */
-public class CommonActionMethods {
+public class CommonActionMethods    {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 
@@ -183,6 +187,7 @@ public class CommonActionMethods {
 	 * @This method is used to take a screenshot
 	 * @throws Exception
 	 */
+	@Attachment(value = "Screen shot",type = ".png")
 	public static void takeSnapShot() throws Exception {
 		try {
 			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
@@ -493,5 +498,4 @@ public class CommonActionMethods {
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
 	
-
 }

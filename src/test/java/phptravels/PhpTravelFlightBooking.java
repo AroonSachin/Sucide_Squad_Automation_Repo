@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
+import commonuseractions.Allurelistener;
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
@@ -18,7 +20,7 @@ import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 
-
+@Listeners(Allurelistener.class)
 @Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
 	@BeforeMethod
@@ -30,8 +32,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		return getTestData("php");
 	}
 
-	@Test(dataProvider = "automation")
-	@Description("To verify search functionality")
+	@Test(dataProvider = "automation",description = "To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {
@@ -42,8 +43,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		}
 	}
 
-	@Test(dataProvider = "automation")
-	@Description("To verify booking functionality")
+	@Test(dataProvider = "automation",description = "To verify booking functionality")
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {

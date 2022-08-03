@@ -93,6 +93,7 @@ public class Homepage extends CommonActionMethods {
 	 * @return 
 	 * @throws Exception
 	 */
+	@Step("To locate month ")
 	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
 			if (ele.getText().contains(monthtoselect)) {
@@ -121,6 +122,7 @@ public class Homepage extends CommonActionMethods {
 	 * @param returnday
 	 * @throws Exception
 	 */
+	@Step("To Search the flight for the given details")
 	public  void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
@@ -160,6 +162,7 @@ public class Homepage extends CommonActionMethods {
 	 * @param numofinfant
 	 * @throws Exception
 	 */
+	@Step("To Input number of passanger")
 	public void pax() throws Exception {
 		int adult = Integer.valueOf(getdata("adult"));
 		int child = Integer.valueOf(getdata("child"));
