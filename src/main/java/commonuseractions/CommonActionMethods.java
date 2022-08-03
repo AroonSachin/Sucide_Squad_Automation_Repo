@@ -60,7 +60,7 @@ public class CommonActionMethods {
 		testcase = extentreport.createTest(message).assignAuthor("venkatesh");
 	}
 
-	private static void extentpass(String pass) {
+	public static void extentpass(String pass) {
 		testcase.log(Status.PASS, pass);
 
 	}
@@ -124,12 +124,12 @@ public class CommonActionMethods {
 	 */
 	public static void clickMethod(WebElement element, String button) throws Exception {
 		try {
-			extentpass("button  is clicked ");
+			extentpass(button+"button  is clicked ");
 			element.click();
 			logMessage(button + " button is clicked  ");
 
 		} catch (Exception e) {
-			extentfail("button is not clicked ");
+			extentfail(button+"button is not clicked ");
 			logErrorMessage(button + " button is not clicked ");
 
 		}
@@ -145,12 +145,12 @@ public class CommonActionMethods {
 	 */
 	public static void sendKeysMethod(WebElement key, String enter) throws Exception {
 		try {
-			extentpass("value is entered");
+			extentpass(enter+"value is entered");
 			key.sendKeys(enter);
 			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
-			extentfail("value is not entered");
+			extentfail(enter+"value is not entered");
 			logErrorMessage(" Element is not entered in " + enter);
 
 		}
@@ -169,10 +169,10 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
-			extentpass("Element selected in dropdown ");
+			extentpass(text+"Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 		} catch (Exception e) {
-			extentfail("Element not in selected dropdown");
+			extentfail(text+"Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -190,11 +190,11 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByValue(text);
-			extentpass("Element selected in dropdown ");
+			extentpass(text+"Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			extentfail("Element not in selected dropdown");
+			extentfail(text+"Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -211,11 +211,11 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByIndex(Index);
-			extentpass("Element selected in dropdown ");
+			extentpass(Index+"Element selected in dropdown ");
 			logMessage(Index + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			extentfail("Element not in selected dropdown");
+			extentfail(Index+"Element not in selected dropdown");
 			logErrorMessage(Index + " Element is not selected ");
 
 		}
@@ -378,14 +378,14 @@ public class CommonActionMethods {
 		try {
 
 			if (element.isDisplayed()) {
-				extentpass("Element is displayed ");
+				extentpass(ElementName+"Element is displayed ");
 				logMessage(ElementName + " is displayed ");
 			} else {
-				extentfail("Element is not displayed ");
+				extentfail(ElementName+"Element is not displayed ");
 				logErrorMessage(ElementName + " is not displayed in else block ");
 			}
 		} catch (Exception e) {
-			extentfail("Element is not displayed ");
+			extentfail(ElementName+"Element is not displayed ");
 			logErrorMessage(ElementName + " is not displayed in catch block ");
 
 		}
@@ -402,14 +402,14 @@ public class CommonActionMethods {
 	public static void isSelected(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isSelected()) {
-				extentpass("Element is selected");
+				extentpass(ElementName+"Element is selected");
 				logMessage(ElementName + " is selected");
 			} else {
-				extentfail("Element is not selected ");
+				extentfail(ElementName+"Element is not selected ");
 				logErrorMessage(ElementName + " is not selected in else block ");
 			}
 		} catch (Exception e) {
-			extentfail("Element is not selected ");
+			extentfail(ElementName+"Element is not selected ");
 			logErrorMessage(ElementName + " is not selected in catch block ");
 
 		}
@@ -426,14 +426,14 @@ public class CommonActionMethods {
 	public static void isEnabled(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isEnabled()) {
-				extentpass("Element is enabled ");
+				extentpass(ElementName+"Element is enabled ");
 				logMessage(ElementName + " is enabled ");
 			} else {
-				extentfail("Element is not enabled ");
+				extentfail(ElementName+"Element is not enabled ");
 				logErrorMessage(ElementName + " is not enabled in else block ");
 			}
 		} catch (Exception e) {
-			extentfail("Element is not enabled ");
+			extentfail(ElementName+"Element is not enabled ");
 			logErrorMessage(ElementName + " is not enabled in catch block ");
 
 		}
@@ -451,10 +451,10 @@ public class CommonActionMethods {
 	public static void checkEquality(Object intial, Object end) throws Exception {
 		
 			if (intial.equals(end)) {
-				extentpass("Validation is equal ");
+				extentpass(intial + "&" + end +" is equal ");
 				logMessage(intial + "&" + end + "is equal");
 			} else {
-				extentfail("Validation is not equal ");
+				extentfail(intial + "&" + end +" is not equal ");
 				logErrorMessage(intial + "&" + end + "is not equal");
 			}
 	}
@@ -472,7 +472,7 @@ public class CommonActionMethods {
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
 		} else {
-			extentfail("Given Column name is not available in the Excel");
+			extentfail("Given Column name is not available in the Excel"+Name);
 			logErrorMessage(" Given Column name is not available in the Excel " + Name);
 		}
 		return data;
@@ -493,6 +493,7 @@ public class CommonActionMethods {
 			if (name.contains(Toselect)) {
 				webWait(element);
 				clickMethod(element, Toselect);
+				extentpass(Toselect+"is clicked");
 				logMessage(Toselect + "  is clicked");
 				break;
 			}
@@ -547,7 +548,7 @@ public class CommonActionMethods {
 		try {
 			text = element.getText();
 		} catch (Exception e) {
-			extentfail("Object name is not displayed");
+			extentfail("The object "+name+" is not displayed");
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
 		return text;

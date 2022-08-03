@@ -169,6 +169,7 @@ public class Orderpage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void order() throws Exception {
+		extent("Orderpage");
 		webWait(dresstype);
 		clickMethod(dresstype, "dresstype");
 		fadedShortValidation();
@@ -289,8 +290,10 @@ public class Orderpage extends CommonActionMethods {
 		}
 		List<String> afterSortchar = namearr.stream().sorted().collect(Collectors.toList());
 		if (namearr.equals(afterSortchar)) {
+			extentpass("product name are sorted correctly ");
 			logMessage("product name are sorted correctly ");
 		} else {
+			extentpass("product name are not sorted correctly ");
 			logMessage("product name are not sorted correctly ");
 		}
 

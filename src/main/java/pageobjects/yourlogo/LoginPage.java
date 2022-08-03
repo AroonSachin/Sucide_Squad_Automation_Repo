@@ -105,6 +105,7 @@ public class LoginPage extends CommonActionMethods {
 	 */
 
 	public void login() throws Exception {
+		extent("Login page ");
 		webWait(signin);
 		clickMethod(signin, "sigin");
 		String mail = "venkatesh22+" + mail() + "@gmail.com";
