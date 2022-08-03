@@ -2,18 +2,13 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ThreadGuard;
+
 /**
  * The class creates a thread for the given driver.
  * 
  * @author aroon
  */
 public  class DriverFactory {
-	
-
-	
-
-
-	
 	// This line creates a separate thread for the given driver
 	static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
