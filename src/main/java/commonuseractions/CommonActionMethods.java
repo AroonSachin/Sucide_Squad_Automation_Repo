@@ -42,7 +42,7 @@ public class CommonActionMethods {
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
-	static String configFilename = "C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\log4j.properties";
+	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
@@ -55,19 +55,15 @@ public class CommonActionMethods {
 		return inputdata.get();
 	}
 
-	public static void extent(String message) {
-
-		testcase = extentreport.createTest(message).assignAuthor("venkatesh");
+	public static void extent(String message, String author, String category) {
+		testcase = extentreport.createTest(message).assignAuthor(author).assignCategory(category);
 	}
 
-	public static void extentpass(String pass) {
-		testcase.log(Status.PASS, pass);
-
-	}
-
-	public static void extentfail(String fail) throws Exception {
-		testcase.log(Status.FAIL, fail);
-		testcase.addScreenCaptureFromPath(takeSnapShot());
+	public static void extentReport(String name) {
+		extentreport = new ExtentReports();
+		HtmlReporter = new ExtentHtmlReporter(name);
+		HtmlReporter.config().setTheme(Theme.DARK);
+		extentreport.attachReporter(HtmlReporter);
 
 	}
 
@@ -78,6 +74,7 @@ public class CommonActionMethods {
 	 */
 	public static void logMessage(String message) {
 		log.info(message);
+		testcase.log(Status.PASS, message);
 	}
 
 	/**
@@ -89,7 +86,8 @@ public class CommonActionMethods {
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
-		takeSnapShot();
+		testcase.log(Status.FAIL, MessageStopExecution);
+		testcase.addScreenCaptureFromPath(takeSnapShot());
 		throw new RuntimeException(MessageStopExecution);
 	}
 
@@ -100,19 +98,12 @@ public class CommonActionMethods {
 	 * @param url-string         value about the action being performed
 	 */
 	public static void invokeBrowser(String browser, String browsertype, String url) {
-		extentreport = new ExtentReports();
-		HtmlReporter = new ExtentHtmlReporter("ExtentReport.html");
-		HtmlReporter.config().setTheme(Theme.DARK);
-		extentreport.attachReporter(HtmlReporter);
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
-		logMessage(browser + " browser invoked");
 		DriverFactory.getDriver().manage().window().maximize();
-		logMessage("window maximized");
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
-		logMessage(url + " url launched");
 	}
 
 	/**
@@ -124,14 +115,10 @@ public class CommonActionMethods {
 	 */
 	public static void clickMethod(WebElement element, String button) throws Exception {
 		try {
-			extentpass(button+"button  is clicked ");
 			element.click();
 			logMessage(button + " button is clicked  ");
-
 		} catch (Exception e) {
-			extentfail(button+"button is not clicked ");
 			logErrorMessage(button + " button is not clicked ");
-
 		}
 	}
 
@@ -145,12 +132,10 @@ public class CommonActionMethods {
 	 */
 	public static void sendKeysMethod(WebElement key, String enter) throws Exception {
 		try {
-			extentpass(enter+"value is entered");
 			key.sendKeys(enter);
 			logMessage(enter + " is entered ");
 
 		} catch (Exception e) {
-			extentfail(enter+"value is not entered");
 			logErrorMessage(" Element is not entered in " + enter);
 
 		}
@@ -169,10 +154,8 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
-			extentpass(text+"Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 		} catch (Exception e) {
-			extentfail(text+"Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -190,11 +173,9 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByValue(text);
-			extentpass(text+"Element selected in dropdown ");
 			logMessage(text + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			extentfail(text+"Element not in selected dropdown");
 			logErrorMessage(text + " Element is not selected ");
 
 		}
@@ -211,11 +192,9 @@ public class CommonActionMethods {
 		try {
 			Select sel = new Select(element);
 			sel.selectByIndex(Index);
-			extentpass(Index+"Element selected in dropdown ");
 			logMessage(Index + " is selected in dropdown ");
 
 		} catch (Exception e) {
-			extentfail(Index+"Element not in selected dropdown");
 			logErrorMessage(Index + " Element is not selected ");
 
 		}
@@ -233,11 +212,9 @@ public class CommonActionMethods {
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(SrcFile, filepath);
-			extentpass("Screenshot taken-stored in the given path");
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			extentfail("Screenshot is not taken");
 			logErrorMessage(" Screenshot is not taken ");
 		}
 		return null;
@@ -258,10 +235,8 @@ public class CommonActionMethods {
 					DriverFactory.getDriver().switchTo().window(window);
 				}
 			}
-			extentpass(" windowhandle is successful");
 			logMessage(" windowhandle is successful ");
 		} catch (Exception e) {
-			extentfail("windowhandle is not successful");
 			logErrorMessage(" windowhandle is not successful ");
 
 		}
@@ -278,11 +253,9 @@ public class CommonActionMethods {
 	public static void frameByElement(WebElement element) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(element);
-			extentpass("framehandle is successful by webelement");
 			logMessage(" framehandle is successful by webelement ");
 
 		} catch (Exception e) {
-			extentfail("no such frame exception");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -298,11 +271,9 @@ public class CommonActionMethods {
 	public static void frameByIndex(int Index) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(Index);
-			extentpass(" framehandle is successful by index ");
 			logMessage(" framehandle is successful by index ");
 
 		} catch (Exception e) {
-			extentfail(" no such frame exception ");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -318,11 +289,9 @@ public class CommonActionMethods {
 	public static void frameByNameorID(String nameORid) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(nameORid);
-			extentpass(" framehandle is successful by name or id ");
 			logMessage(" framehandle is successful by name or id ");
 
 		} catch (Exception e) {
-			extentfail(" no such frame exception ");
 			logErrorMessage(" no such frame exception ");
 
 		}
@@ -337,11 +306,9 @@ public class CommonActionMethods {
 	public static void defaultwindow() throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().defaultContent();
-			extentpass(" Switched to defaultwindow ");
 			logMessage(" Switched to defaultwindow ");
 
 		} catch (Exception e) {
-			extentfail(" Not switched to defaultwindow ");
 			logErrorMessage(" Not switched to defaultwindow ");
 		}
 
@@ -363,6 +330,7 @@ public class CommonActionMethods {
 	 */
 	public static String getURL() {
 		String url = DriverFactory.getDriver().getCurrentUrl();
+		logMessage(url);
 		return url;
 	}
 
@@ -378,14 +346,11 @@ public class CommonActionMethods {
 		try {
 
 			if (element.isDisplayed()) {
-				extentpass(ElementName+"Element is displayed ");
 				logMessage(ElementName + " is displayed ");
 			} else {
-				extentfail(ElementName+"Element is not displayed ");
 				logErrorMessage(ElementName + " is not displayed in else block ");
 			}
 		} catch (Exception e) {
-			extentfail(ElementName+"Element is not displayed ");
 			logErrorMessage(ElementName + " is not displayed in catch block ");
 
 		}
@@ -402,14 +367,11 @@ public class CommonActionMethods {
 	public static void isSelected(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isSelected()) {
-				extentpass(ElementName+"Element is selected");
 				logMessage(ElementName + " is selected");
 			} else {
-				extentfail(ElementName+"Element is not selected ");
 				logErrorMessage(ElementName + " is not selected in else block ");
 			}
 		} catch (Exception e) {
-			extentfail(ElementName+"Element is not selected ");
 			logErrorMessage(ElementName + " is not selected in catch block ");
 
 		}
@@ -426,14 +388,11 @@ public class CommonActionMethods {
 	public static void isEnabled(WebElement element, String ElementName) throws Exception {
 		try {
 			if (element.isEnabled()) {
-				extentpass(ElementName+"Element is enabled ");
 				logMessage(ElementName + " is enabled ");
 			} else {
-				extentfail(ElementName+"Element is not enabled ");
 				logErrorMessage(ElementName + " is not enabled in else block ");
 			}
 		} catch (Exception e) {
-			extentfail(ElementName+"Element is not enabled ");
 			logErrorMessage(ElementName + " is not enabled in catch block ");
 
 		}
@@ -449,14 +408,12 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		
-			if (intial.equals(end)) {
-				extentpass(intial + "&" + end +" is equal ");
-				logMessage(intial + "&" + end + "is equal");
-			} else {
-				extentfail(intial + "&" + end +" is not equal ");
-				logErrorMessage(intial + "&" + end + "is not equal");
-			}
+
+		if (intial.equals(end)) {
+			logMessage(intial + "&" + end + "is equal");
+		} else {
+			logErrorMessage(intial + "&" + end + "is not equal");
+		}
 	}
 
 	/**
@@ -472,7 +429,6 @@ public class CommonActionMethods {
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
 		} else {
-			extentfail("Given Column name is not available in the Excel"+Name);
 			logErrorMessage(" Given Column name is not available in the Excel " + Name);
 		}
 		return data;
@@ -493,7 +449,6 @@ public class CommonActionMethods {
 			if (name.contains(Toselect)) {
 				webWait(element);
 				clickMethod(element, Toselect);
-				extentpass(Toselect+"is clicked");
 				logMessage(Toselect + "  is clicked");
 				break;
 			}
@@ -548,7 +503,6 @@ public class CommonActionMethods {
 		try {
 			text = element.getText();
 		} catch (Exception e) {
-			extentfail("The object "+name+" is not displayed");
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
 		return text;
@@ -564,6 +518,5 @@ public class CommonActionMethods {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
-	
 
 }

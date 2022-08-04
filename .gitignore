@@ -27,6 +27,7 @@ local.properties
 hs_err_pid*
 test-output/
 Snaps/*.png
+Yourlogo.html
 ##############################
 ## Maven
 ##############################

@@ -3,8 +3,12 @@ package yourlogo;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
@@ -13,6 +17,12 @@ import pageobjects.yourlogo.Orderpage;
 import utils.DriverFactory;
 
 public class YourLogo extends CommonActionMethods {
+
+	@BeforeClass
+	private void extentReport() {
+		extentReport("Yourlogo.html");
+
+	}
 
 	/**
 	 * @This method used to invoke the browser
@@ -43,21 +53,31 @@ public class YourLogo extends CommonActionMethods {
 	private void login(Map<String, String> page) throws Exception {
 		inputdata.set(page);
 		if (getdata("Number").equalsIgnoreCase("1")) {
+			extent("Login page ", "Venkatesh", "Functional testing");
 			new LoginPage().login();
 		}
 	}
 
 	/**
 	 * @This method is to verify orderpage functionality
+	 * @param page
 	 * @throws Exception
 	 */
 	@Test(dataProvider = "yolo")
 	private void orderPage(Map<String, String> page) throws Exception {
 		inputdata.set(page);
 		if (getdata("Number").equalsIgnoreCase("1")) {
+			extent("Order Page", "Venkatesh", "Functional testing");
+			DriverFactory.getDriver().getCurrentUrl();
 			new LoginPage().login();
 			new Orderpage().order();
 		}
+	}
+
+	@AfterClass
+	private void Report() {
+		extentreport.flush();
+
 	}
 
 	/**
@@ -65,9 +85,7 @@ public class YourLogo extends CommonActionMethods {
 	 */
 	@AfterMethod
 	private void quit() {
-		extentreport.flush();
 		DriverFactory.closeDriver();
-
 	}
 
 }
