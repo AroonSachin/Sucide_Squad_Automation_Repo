@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 /**
  * This class is to search the flight.
@@ -15,7 +16,7 @@ import utils.DriverFactory;
  */
 public class Homepage extends CommonActionMethods {
 	
-	@FindBy(xpath = "(//button[@id='hotels-tab'])[1]")
+	@FindBy(xpath = "//button[@aria-controls='flights']")
 	static WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
@@ -92,6 +93,7 @@ public class Homepage extends CommonActionMethods {
 	 * @return 
 	 * @throws Exception
 	 */
+	@Step("To locate month ")
 	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
 			if (ele.getText().contains(monthtoselect)) {
@@ -120,6 +122,7 @@ public class Homepage extends CommonActionMethods {
 	 * @param returnday
 	 * @throws Exception
 	 */
+	@Step("To Search the flight for the given details")
 	public  void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
@@ -159,6 +162,7 @@ public class Homepage extends CommonActionMethods {
 	 * @param numofinfant
 	 * @throws Exception
 	 */
+	@Step("To Input number of passanger")
 	public void pax() throws Exception {
 		int adult = Integer.valueOf(getdata("adult"));
 		int child = Integer.valueOf(getdata("child"));

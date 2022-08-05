@@ -23,13 +23,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-
+import io.qameta.allure.Attachment;
+import io.qameta.allure.listener.TestLifecycleListener;
 import org.apache.log4j.*;
 
 /**
@@ -416,11 +416,11 @@ public class CommonActionMethods {
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
 
-		if (intial.equals(end)) {
-			logMessage(intial + "&" + end + "is equal");
-		} else {
-			logErrorMessage(intial + "&" + end + "is not equal");
-		}
+			if (String.valueOf(intial).contains(String.valueOf(end))) {
+				logMessage(intial + " & " + end + " is equal");
+			} else {
+				logErrorMessage(intial + " & " + end + " is not equal");
+			}
 	}
 
 	/**
@@ -525,5 +525,18 @@ public class CommonActionMethods {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
-
+	/**
+	 * This mmethod deletes every sub-files inside the given directory 
+	 * @param file
+	 */
+	public static void deleteFolder(File file){
+	      for (File subFile : file.listFiles()) {
+	         if(subFile.isDirectory()) {
+	            deleteFolder(subFile);
+	         } else {
+	            subFile.delete();
+	         }
+	      }
+	      file.delete();
+	   }
 }
