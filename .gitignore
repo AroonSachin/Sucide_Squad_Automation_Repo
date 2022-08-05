@@ -29,6 +29,7 @@ hs_err_pid*
 test-output/
 Snaps/*.png
 Yourlogo.html
+Automation.out
 ##############################
 ## Maven
 ##############################
