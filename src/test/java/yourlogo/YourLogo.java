@@ -17,7 +17,9 @@ import pageobjects.yourlogo.Orderpage;
 import utils.DriverFactory;
 
 public class YourLogo extends CommonActionMethods {
-
+    /**
+     * @This method used to call extent report
+     */
 	@BeforeClass
 	private void extentReport() {
 		extentReport("Yourlogo.html");
@@ -68,16 +70,16 @@ public class YourLogo extends CommonActionMethods {
 		inputdata.set(page);
 		if (getdata("Number").equalsIgnoreCase("1")) {
 			extent("Order Page", "Venkatesh", "Functional testing");
-			DriverFactory.getDriver().getCurrentUrl();
 			new LoginPage().login();
 			new Orderpage().order();
 		}
 	}
-
+    /**
+     * @This method is to save extent report
+     */
 	@AfterClass
 	private void Report() {
 		extentreport.flush();
-
 	}
 
 	/**

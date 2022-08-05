@@ -1,6 +1,5 @@
-2022-08-04 12:10:26 INFO  CommonActionMethods:76 - http://automationpractice.com/index.php
- 2022-08-04 12:10:31 INFO  CommonActionMethods:76 - sigin button is clicked  
- 2022-08-04 12:10:31 INFO  CommonActionMethods:76 - venkatesh22+31181@gmail.com is entered 
- 2022-08-04 12:12:01 ERROR CommonActionMethods:88 - selectgender button is not clicked 
- 2022-08-04 12:12:02 INFO  CommonActionMethods:76 -  Screenshot taken-stored in the given path 
+2022-08-05 11:35:54 INFO  CommonActionMethods:83 - sigin button is clicked  
+ 2022-08-05 11:35:54 INFO  CommonActionMethods:83 - venkatesh22+54681@gmail.com is entered 
+ 2022-08-05 11:37:25 ERROR CommonActionMethods:95 - selectgender button is not clicked 
+ 2022-08-05 11:37:25 INFO  CommonActionMethods:83 -  Screenshot taken-stored in the given path 
  

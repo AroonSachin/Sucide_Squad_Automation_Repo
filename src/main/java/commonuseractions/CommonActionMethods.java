@@ -54,17 +54,24 @@ public class CommonActionMethods {
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
-
+    /**
+     * @This method call the pagename,author,category
+     * @param message
+     * @param author
+     * @param category
+     */
 	public static void extent(String message, String author, String category) {
 		testcase = extentreport.createTest(message).assignAuthor(author).assignCategory(category);
 	}
-
+    /**
+     * @This method is used to call the extend report
+     * @param name
+     */
 	public static void extentReport(String name) {
 		extentreport = new ExtentReports();
 		HtmlReporter = new ExtentHtmlReporter(name);
 		HtmlReporter.config().setTheme(Theme.DARK);
 		extentreport.attachReporter(HtmlReporter);
-
 	}
 
 	/**
