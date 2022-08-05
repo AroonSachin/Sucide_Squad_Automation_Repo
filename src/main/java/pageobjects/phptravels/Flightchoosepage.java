@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -70,6 +71,7 @@ public class Flightchoosepage extends CommonActionMethods {
 	 * 
 	 * @throws Exception
 	 */
+	@Step("To click book button")
 	public void chooseFlight() throws Exception {
 
 		clickMethod(bookbutton, "Book button");
@@ -96,6 +98,7 @@ public class Flightchoosepage extends CommonActionMethods {
 	 * @param triptype
 	 * @throws Exception
 	 */
+	@Step("To perform validation on Travel details")
 	public void flightDetailValidate() throws Exception {
 		getTitle();
 		getURL();

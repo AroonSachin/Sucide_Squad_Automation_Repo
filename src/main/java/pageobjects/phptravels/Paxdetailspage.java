@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -72,6 +73,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * 
 	 * @throws Exception
 	 */
+	@Step("To input Personal details of the passenger ")
 	public void personalDetails() throws Exception {
 		sendKeysMethod(perfirstname, getdata("perfirstname"));
 		sendKeysMethod(perlastname, getdata("perlastname"));
@@ -86,6 +88,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param paxtitle
 	 * @throws Exception
 	 */
+	@Step("To input title of every passenger")
 	public void title() throws Exception {
 		int titleitrt = 1;
 		String titlearr[] = splitString(getdata("paxtitle"),",");
@@ -101,6 +104,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param paxnationality
 	 * @throws Exception
 	 */
+	@Step("To input Nationality of every passenger")
 	public void nationality() throws Exception {
 		int natitrt = 1; 
 		
@@ -115,6 +119,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOBmonth
 	 * @throws Exception
 	 */
+	@Step("To input Month of birth of every passenger")
 	public void dobMonth() throws Exception {
 		int dobmnthitrt = 1;
 		for (String dom:splitString(getdata("paxdom"),",")) {
@@ -128,6 +133,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOBday
 	 * @throws Exception
 	 */
+	@Step("To input day of birth of every passenger")
 	public void dobday() throws Exception {
 		int dobdayitrt= 1;
 		for (String dod:splitString(getdata("paxdod"),",")) {
@@ -141,6 +147,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param DOByear
 	 * @throws Exception
 	 */
+	@Step("To input Year of birth of every passenger")
 	public void dobYear() throws Exception {
 		int dobdayitrt = 1;
 		for(String doy:splitString(getdata("paxdoy"),",")) {
@@ -154,6 +161,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDmonth
 	 * @throws Exception
 	 */
+	@Step("To input Passport issuence month of every passenger")
 	public void pidMonth() throws Exception {
 		int pidmnthitrt = 1;
 		for (String pidm:splitString(getdata("pidmonth"),",")) {
@@ -167,6 +175,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDday
 	 * @throws Exception
 	 */
+	@Step("To input Passport issuence day of every passenger")
 	public void pidDay() throws Exception {
 		int piddayitrt = 1;
 		for (String pidd:splitString(getdata("pidday"),",")) {
@@ -180,6 +189,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PIDyear
 	 * @throws Exception
 	 */
+	@Step("To input Passport issuence year of every passenger")
 	public void pidYear() throws Exception {
 		int pidyearitrt=1;
 		for(String pidy:splitString(getdata("pidyear"),",")) {
@@ -193,6 +203,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDyear
 	 * @throws Exception
 	 */
+	@Step("To input Passport expiry year of every passenger")
 	public void pedYear() throws Exception {
 		int pedyearitrt = 1;
 		for(String pedy:splitString(getdata("pedyear"),",")) {
@@ -206,6 +217,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDmonth
 	 * @throws Exception
 	 */
+	@Step("To input Passport expiry month of every passenger")
 	public void pedMonth() throws Exception {
 		int pedmonthitrt = 1;
 		for(String pedm:splitString(getdata("pedmonth"),",")) {
@@ -219,6 +231,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param PEDday
 	 * @throws Exception
 	 */
+	@Step("To input Passport expiry day of every passenger")
 	public void pedDay() throws Exception {
 		int peddayitrt = 1;
 		for(String pedd:splitString(getdata("pedday"),",")) {
@@ -232,6 +245,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param firstname
 	 * @throws Exception
 	 */
+	@Step("To input firstname of every passenger")
 	public void firstName() throws Exception {
 		int firstnameitrt = 1;
 		for (String fn:splitString(getdata("firstname"),",")) {
@@ -245,6 +259,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param lastname
 	 * @throws Exception
 	 */
+	@Step("To input Lastname of every passenger")
 	public void lastName() throws Exception {
 		int lastnameitrt = 1;
 		for (String ln:splitString(getdata("lastname"),",")) {
@@ -258,6 +273,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @param passportid
 	 * @throws Exception
 	 */
+	@Step("To input passportID of every passenger")
 	public void passportID() throws Exception {
 		int passportitrt=1;
 		for (String pass:splitString(getdata("passportid"),",")) {
@@ -270,6 +286,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * This method check the terms and condition checkbox and clicks the confirm booking button.
 	 * @throws Exception
 	 */
+	@Step("To check the terms and condition's checkbox and click book button")
 	public void book() throws Exception {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor)DriverFactory.getDriver();
@@ -307,6 +324,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * This method splits and validates the Total price.
 	 * @throws Exception
 	 */
+	@Step("To validate total price")
 	public void validatePrice() throws Exception {
 		splitPrice();
 		double acttotal = adltpreprz+chldpreprz+inftpreprz;
