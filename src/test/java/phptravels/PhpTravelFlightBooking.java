@@ -1,11 +1,14 @@
 package phptravels;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.aspectj.lang.annotation.Before;
 import org.testng.ITestListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -23,6 +26,11 @@ import utils.DriverFactory;
 @Listeners(Allurelistener.class)
 @Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
+	@BeforeTest
+	public void reportClean() {
+		File allureFile = new File(System.getProperty("user.dir")+"\\allure-results");
+		deleteFolder(allureFile);
+	}
 	@BeforeMethod
 	public void invoke() {
 		invokeBrowser("Chrome", "Normal","https://phptravels.net/");

@@ -497,5 +497,18 @@ public class CommonActionMethods    {
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
-	
+	/**
+	 * This mmethod deletes every sub-files inside the given directory 
+	 * @param file
+	 */
+	public static void deleteFolder(File file){
+	      for (File subFile : file.listFiles()) {
+	         if(subFile.isDirectory()) {
+	            deleteFolder(subFile);
+	         } else {
+	            subFile.delete();
+	         }
+	      }
+	      file.delete();
+	   }
 }
