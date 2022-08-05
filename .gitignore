@@ -16,7 +16,6 @@ local.properties
 .factorypath
 *.output
 allure-results/
-Automation.out
 ##############################
 ## Java
 ##############################
