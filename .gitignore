@@ -16,7 +16,6 @@ local.properties
 .factorypath
 *.output
 allure-results/
-Automation.out
 ##############################
 ## Java
 ##############################
@@ -28,7 +27,9 @@ Automation.out
 *.nar
 hs_err_pid*
 test-output/
-Snaps/
+Snaps/*.png
+Yourlogo.html
+Automation.out
 ##############################
 ## Maven
 ##############################

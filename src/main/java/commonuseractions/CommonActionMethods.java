@@ -4,6 +4,7 @@ import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.JavascriptExecutor;
@@ -20,10 +23,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.listener.TestLifecycleListener;
-
 import org.apache.log4j.*;
 
 /**
@@ -32,7 +38,10 @@ import org.apache.log4j.*;
  * 
  *
  */
-public class CommonActionMethods    {
+public class CommonActionMethods {
+	public static ExtentReports extentreport;
+	public static ExtentHtmlReporter HtmlReporter;
+	public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 
@@ -45,6 +54,25 @@ public class CommonActionMethods    {
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
+    /**
+     * @This method call the pagename,author,category
+     * @param message
+     * @param author
+     * @param category
+     */
+	public static void extent(String message, String author, String category) {
+		testcase = extentreport.createTest(message).assignAuthor(author).assignCategory(category);
+	}
+    /**
+     * @This method is used to call the extend report
+     * @param name
+     */
+	public static void extentReport(String name) {
+		extentreport = new ExtentReports();
+		HtmlReporter = new ExtentHtmlReporter(name);
+		HtmlReporter.config().setTheme(Theme.DARK);
+		extentreport.attachReporter(HtmlReporter);
+	}
 
 	/**
 	 * 
@@ -53,6 +81,7 @@ public class CommonActionMethods    {
 	 */
 	public static void logMessage(String message) {
 		log.info(message);
+		testcase.log(Status.PASS, message);
 	}
 
 	/**
@@ -64,7 +93,8 @@ public class CommonActionMethods    {
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
-		takeSnapShot();
+		testcase.log(Status.FAIL, MessageStopExecution);
+		testcase.addScreenCaptureFromPath(takeSnapShot());
 		throw new RuntimeException(MessageStopExecution);
 	}
 
@@ -78,12 +108,9 @@ public class CommonActionMethods    {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver();
-		logMessage(browser + " browser invoked");
 		DriverFactory.getDriver().manage().window().maximize();
-		logMessage("window maximized");
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
-		logMessage(url + " url launched");
 	}
 
 	/**
@@ -97,10 +124,8 @@ public class CommonActionMethods    {
 		try {
 			element.click();
 			logMessage(button + " button is clicked  ");
-
 		} catch (Exception e) {
 			logErrorMessage(button + " button is not clicked ");
-
 		}
 	}
 
@@ -184,18 +209,23 @@ public class CommonActionMethods    {
 	}
 
 	/**
+	 * @return
 	 * @This method is used to take a screenshot
 	 * @throws Exception
 	 */
-	@Attachment(value = "Screen shot",type = ".png")
-	public static void takeSnapShot() throws Exception {
+	public static String takeSnapShot() throws Exception {
 		try {
 			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(SrcFile, new File("./Snaps/" + System.currentTimeMillis() + ".png"));
+			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
+			String pathlocation = filepath.getAbsolutePath();
+			FileUtils.copyFile(SrcFile, filepath);
 			logMessage(" Screenshot taken-stored in the given path ");
+			return pathlocation;
 		} catch (Exception e) {
 			logErrorMessage(" Screenshot is not taken ");
 		}
+		return null;
+
 	}
 
 	/**
@@ -307,6 +337,7 @@ public class CommonActionMethods    {
 	 */
 	public static String getURL() {
 		String url = DriverFactory.getDriver().getCurrentUrl();
+		logMessage(url);
 		return url;
 	}
 
@@ -390,7 +421,6 @@ public class CommonActionMethods    {
 			} else {
 				logErrorMessage(intial + " & " + end + " is not equal");
 			}
-
 	}
 
 	/**
@@ -458,7 +488,6 @@ public class CommonActionMethods    {
 	public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
 		ExcelReader xlRead = null;
 		int xlRowCount = 0;
-
 		xlRead = new ExcelReader("database.xlsx", sheetname);
 		xlRowCount = xlRead.getRowCount();
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
@@ -481,7 +510,6 @@ public class CommonActionMethods    {
 		try {
 			text = element.getText();
 		} catch (Exception e) {
-
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
 		return text;
