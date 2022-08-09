@@ -1,4 +1,4 @@
-package javaprogrammingpractice;
+package javaprogrammingpractice.sowmya;
 
 public class ThreadStop {
 
