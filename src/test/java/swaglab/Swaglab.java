@@ -7,17 +7,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import commonuseractions.CommonActionMethods;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
 import pageobjects.swaglabs.InfoPage;
 import pageobjects.swaglabs.LoginPage;
-
-import utils.ExcelWriter;
-
 import utils.DriverFactory;
+import utils.ExcelReader;
 
 /**
  * 
@@ -41,7 +38,7 @@ public class Swaglab extends CommonActionMethods {
 	 * @this method is used to navigate to the sauce demo page
 	 * @throws Exception
 	 */
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	public static void startBrowser() throws Exception {
 		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 	}
@@ -63,7 +60,7 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
-			//new Checkout().clickOnCheckoutButton();
+			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
             new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
@@ -103,9 +100,9 @@ public class Swaglab extends CommonActionMethods {
 		if(status.get()!=null)
 		{
         if (status.get()) {
-			ExcelWriter.xlWriteStatus("database.xlsx", "write", "Pass");
+			ExcelReader.xlWriteStatus("database.xlsx", "Test", "Pass");
 		} else {
-			ExcelWriter.xlWriteStatus("database.xlsx", "write", "Fail");
+			ExcelReader.xlWriteStatus("database.xlsx", "Test", "Fail");
 		}
 	}
 
