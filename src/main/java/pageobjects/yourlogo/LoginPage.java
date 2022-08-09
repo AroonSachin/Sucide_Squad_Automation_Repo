@@ -2,12 +2,10 @@ package pageobjects.yourlogo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
@@ -105,6 +103,7 @@ public class LoginPage extends CommonActionMethods {
 	 */
 
 	public void login() throws Exception {
+		getURL();
 		webWait(signin);
 		clickMethod(signin, "sigin");
 		String mail = "venkatesh22+" + mail() + "@gmail.com";

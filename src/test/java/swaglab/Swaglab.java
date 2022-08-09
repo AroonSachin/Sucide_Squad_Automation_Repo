@@ -39,7 +39,7 @@ public class Swaglab extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@BeforeMethod(alwaysRun=true)
-	public static void startBrowser() throws Exception {
+	public void startBrowser() throws Exception {
 		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 	}
 
@@ -96,7 +96,7 @@ public class Swaglab extends CommonActionMethods {
 	}
 
 	@AfterMethod
-	public static void logStatus() throws Exception {
+	public void logStatus() throws Exception {
 		if(status.get()!=null)
 		{
         if (status.get()) {

@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 public class Invoicepage extends CommonActionMethods{
@@ -47,6 +48,7 @@ public class Invoicepage extends CommonActionMethods{
 	 * @param actlinfnt
 	 * @throws Exception
 	 */
+	@Step("To validate the flight detail's and price")
 	public void invoiceValidation() throws Exception {
 		getTitle();
 		getURL();
@@ -62,6 +64,7 @@ public class Invoicepage extends CommonActionMethods{
 	 * This method is to click proceed button.
 	 * @throws Exception
 	 */
+	@Step("To click Proceed to pay button")
 	public void proceed() throws Exception {
 		clickMethod(proceedbutton, "Proceed button");
 	}

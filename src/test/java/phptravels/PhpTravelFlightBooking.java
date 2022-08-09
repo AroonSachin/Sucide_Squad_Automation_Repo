@@ -1,32 +1,46 @@
 package phptravels;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.aspectj.lang.annotation.Before;
+import org.testng.ITestListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
+import commonuseractions.Allurelistener;
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
 import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 
-
+@Listeners(Allurelistener.class)
+@Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
+	@BeforeTest
+	public void reportClean() {
+		File allureFile = new File(System.getProperty("user.dir")+"\\allure-results");
+		deleteFolder(allureFile);
+	}
 	@BeforeMethod
 	public void invoke() {
-		invokeBrowser("chrome", "Normal", "https://phptravels.net/");
+		invokeBrowser("Chrome", "Normal","https://phptravels.net/");
 	}
-
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
 		return getTestData("php");
 	}
 
-	@Test(dataProvider = "automation")
+	@Test(dataProvider = "automation",description = "To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {
@@ -37,7 +51,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		}
 	}
 
-	@Test(dataProvider = "automation")
+	@Test(dataProvider = "automation",description = "To verify booking functionality")
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("number").equalsIgnoreCase("1")) {
