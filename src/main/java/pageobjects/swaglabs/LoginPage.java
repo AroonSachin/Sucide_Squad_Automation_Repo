@@ -27,6 +27,18 @@ public class LoginPage extends CommonActionMethods {
 	@FindBy(id = "login-button")
 	private static WebElement loginButton;
 
+	public void enterUsername() throws Exception {
+
+		sendKeysMethod(userName, getdata("Username"));
+
+	}
+
+	public void enterPassword() throws Exception {
+
+		sendKeysMethod(passWord, getdata("Password"));
+
+	}
+
 	/**
 	 * @this method is used to enter the login credentials and login to the
 	 *       application
@@ -37,6 +49,7 @@ public class LoginPage extends CommonActionMethods {
 
 		sendKeysMethod(userName, getdata("Username"));
 		sendKeysMethod(passWord, getdata("Password"));
+
 		clickMethod(loginButton, "login");
 
 	}

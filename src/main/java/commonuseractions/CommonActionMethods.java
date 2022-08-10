@@ -45,6 +45,8 @@ public class CommonActionMethods {
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 
+
+
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 
@@ -81,7 +83,10 @@ public class CommonActionMethods {
 	 */
 	public static void logMessage(String message) {
 		log.info(message);
+		if(extentreport!=null)
+		{
 		testcase.log(Status.PASS, message);
+	}
 	}
 
 	/**
@@ -93,9 +98,12 @@ public class CommonActionMethods {
 
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
+		if(extentreport!=null)
+		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
 		throw new RuntimeException(MessageStopExecution);
+	}
 	}
 
 	/**
@@ -485,7 +493,7 @@ public class CommonActionMethods {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Iterator<Object[]> getTestData(String sheetname) throws Exception {
+	public static synchronized Iterator<Object[]> getTestData(String sheetname) throws Exception {
 		ExcelReader xlRead = null;
 		int xlRowCount = 0;
 		xlRead = new ExcelReader("database.xlsx", sheetname);

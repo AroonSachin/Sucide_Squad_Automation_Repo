@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite" thread-count="5" parallel="methods">
-	<test  name="Phptravels" >
+<suite name="Suite" thread-count="6" parallel="methods">
+	<test name="swaglab">
 		<classes>
-            <class name="swaglab.Swaglab"></class>
+			<class name="swaglab.Swaglab"></class>
 			<class name="yourlogo.YourLogo"></class>
 			<class name="phptravels.PhpTravelFlightBooking"></class>
 		</classes>
