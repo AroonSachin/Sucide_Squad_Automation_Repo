@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
+
 /**
  * 
  * @author svenkateshwaran
@@ -28,19 +29,18 @@ public class InfoPage extends CommonActionMethods {
 
 	@FindBy(id = "continue")
 	private static WebElement continueButton;
-	
-/**
- * @this method is used to fill the user info
- * @throws Exception
- */
+
+	/**
+	 * @this method is used to fill the user info
+	 * @throws Exception
+	 */
 	public void info() throws Exception {
 		sendKeysMethod(firstName, getdata("FirstName"));
 		sendKeysMethod(lastName, getdata("LastName"));
 		sendKeysMethod(PinCode, getdata("Pincode"));
+
 		clickMethod(continueButton, "continue");
 
 	}
-
-	
 
 }

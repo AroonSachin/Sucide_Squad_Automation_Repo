@@ -3,10 +3,10 @@ package swaglab;
 import java.util.Iterator;
 import java.util.Map;
 import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import commonuseractions.CommonActionMethods;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
@@ -14,25 +14,32 @@ import pageobjects.swaglabs.HomePage;
 import pageobjects.swaglabs.InfoPage;
 import pageobjects.swaglabs.LoginPage;
 import utils.DriverFactory;
+import utils.ExcelReader;
+
 /**
  * 
  * @author svenkateshwaran
  * @this is the runner class that has all the test scenarios
  *
  */
+
 public class Swaglab extends CommonActionMethods {
+	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
+
+
+
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("test");
+		return getTestData("Test");
 	}
 
 	/**
 	 * @this method is used to navigate to the sauce demo page
 	 * @throws Exception
 	 */
-	@BeforeMethod
-	public static void startBrowser() throws Exception {
+	@BeforeMethod(alwaysRun=true)
+	public void startBrowser() throws Exception {
 		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 	}
 
@@ -48,13 +55,16 @@ public class Swaglab extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
 
+			status.set(false);
+
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
-			new Confirmation().clickOnFinishButton();
+            new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
+			status.set(true);
 
 		} else {
 			DriverFactory.getDriver().quit();
@@ -69,6 +79,7 @@ public class Swaglab extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 
+			status.set(false);
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
@@ -76,6 +87,7 @@ public class Swaglab extends CommonActionMethods {
 			new InfoPage().info();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
+			status.set(true);
 		} else {
 			DriverFactory.getDriver().quit();
 			throw new SkipException("Skip test");
@@ -83,4 +95,16 @@ public class Swaglab extends CommonActionMethods {
 
 	}
 
+	@AfterMethod
+	public void logStatus() throws Exception {
+		if(status.get()!=null)
+		{
+        if (status.get()) {
+			ExcelReader.xlWriteStatus("database.xlsx", "Test", "Pass");
+		} else {
+			ExcelReader.xlWriteStatus("database.xlsx", "Test", "Fail");
+		}
+	}
+
+}
 }

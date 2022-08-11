@@ -1,17 +1,12 @@
 package pageobjects.swaglabs;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.apache.poi.hpsf.Decimal;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
@@ -47,6 +42,7 @@ public class HomePage extends CommonActionMethods {
 	@FindBy(className = "product_sort_container")
 	private static WebElement filterprice;
 
+	
 	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
 
 	public static LinkedHashSet<String> getproductName() {
@@ -58,6 +54,7 @@ public class HomePage extends CommonActionMethods {
 	public static LinkedHashSet<String> getproductPrice() {
 		return productPrice.get();
 	}
+
 	/**
 	 * @this method is used to select the products from the list of products
 	 * @throws Exception
@@ -74,16 +71,18 @@ public class HomePage extends CommonActionMethods {
 
 		}
 	}
+
 	/**
 	 * @this method is used to verify the user has logged in successfully
 	 * @throws Exception
 	 */
-	
+
 	public void verifyLogin() throws Exception {
 		clickMethod(hamburgerButton, "hamburger");
 		webWait(logout);
 		isDisplayed(logout, "Logout button");
 	}
+
 	/**
 	 * @this method is to click on the cart button
 	 * @throws Exception
@@ -93,6 +92,7 @@ public class HomePage extends CommonActionMethods {
 		clickMethod(cart, "clickCart");
 
 	}
+
 	/**
 	 * @this method is to validate the price of the product
 	 * @throws Exception
@@ -130,11 +130,12 @@ public class HomePage extends CommonActionMethods {
 		}
 
 	}
+
 	/**
 	 * @this method is used for the validation of the home page
 	 * @throws Exception
 	 */
-	
+
 	public void homepageValidation() throws Exception {
 		selectByValue(filterprice, getdata("Sort"));
 		verifyPrice();
