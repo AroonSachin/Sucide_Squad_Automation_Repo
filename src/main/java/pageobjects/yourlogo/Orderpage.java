@@ -172,7 +172,7 @@ public class Orderpage extends CommonActionMethods {
 		webWait(dresstype);
 		clickMethod(dresstype, "dresstype");
 		fadedShortValidation();
-	//	clickMethod(chooseproduct, "chooseproduct");
+		clickMethod(chooseproduct, "chooseproduct");
 		frameByIndex(0);
 		clickMethod(addcart, "addcart");
 		defaultwindow();
