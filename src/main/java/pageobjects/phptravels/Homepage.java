@@ -82,7 +82,7 @@ public class Homepage extends CommonActionMethods {
 	 * Constructor to store the above located elements.
 	 */
 	public Homepage() {
-		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 10), this);
+		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 0), this);
 	}
 	/**
 	 * method to locate the given month.
@@ -123,7 +123,7 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@Step("To Search the flight for the given details")
-	public  void  SearchFlight() throws Exception {
+	public synchronized void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
 		logMessage("Current URL:" + getURL());
@@ -143,7 +143,7 @@ public class Homepage extends CommonActionMethods {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
-		} else {
+		} else { 
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
 			monthloc(month, mnth, nextarrow);
@@ -153,7 +153,6 @@ public class Homepage extends CommonActionMethods {
 		}
 		clickMethod(cookie, "Cookie got it button");
 		clickMethod(paxbotton, "Passenger button");
-		
 	}
 	/**
 	 * This method chooses the number of adults,child's and infants.

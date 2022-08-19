@@ -10,14 +10,14 @@ import org.openqa.selenium.support.ThreadGuard;
  */
 public  class DriverFactory {
 	// This line creates a separate thread for the given driver
-	static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+	static ThreadLocal<WebDriver> trddriver = new ThreadLocal<WebDriver>();
 
 	/**
 	 * This method sets the driver to the threadlocal to create a thread of that driver.
-	 * @param driverparam
+	 * @param driver2
 	 */
-	public static void setDriver(WebDriver driverparam) {
-		driver.set(ThreadGuard.protect(driverparam));
+	public static void setDriver(WebDriver driver2) {
+		trddriver.set(ThreadGuard.protect(driver2));
 	}
 
 	/**
@@ -25,14 +25,14 @@ public  class DriverFactory {
 	 * @return
 	 */
 	public static WebDriver getDriver() {
-		return driver.get();
+		return trddriver.get();
 	}
 
 	/**
 	 * This method quits the driver and removes the thread.
 	 */
 	public static void closeDriver() {
-		getDriver() .quit();
-		driver.remove();
+		getDriver().quit();
+		trddriver.remove();
 	}
 }
