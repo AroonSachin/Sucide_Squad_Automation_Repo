@@ -7,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
+import com.google.common.base.Objects;
+
+import commonuseractions.CommonActionMethods;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
@@ -15,17 +18,21 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * @author aroon
  *
  */
-public class Browserfactory {
+public final class Browserfactory extends CommonActionMethods{
+	 
+	private Browserfactory() {}
+	
 	private static WebDriver driver;
 	/**
 	 * The method will invoke the requested browser in the requested browsertype
 	 * 
 	 * @param browser
 	 * @param browsertype
-	 * @return WebDriver
+	 * @return 
+	 * @throws Exception 
 	 */
-	public static WebDriver createBrowser(String browser, String browsertype) {
-		
+	public static WebDriver createBrowser(String browser, String browsertype) throws Exception {
+		if (java.util.Objects.isNull(driver)) {
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
 		// To launch Chrome.
@@ -69,6 +76,11 @@ public class Browserfactory {
 
 		}
 		return driver;
+	}else {
+		logErrorMessage("Driver not null for another invokation");
+		return driver;
+	}
+		
 	}
 }
 

@@ -17,55 +17,55 @@ import utils.DriverFactory;
 public class Homepage extends CommonActionMethods {
 	
 	@FindBy(xpath = "//button[@aria-controls='flights']")
-	static WebElement flightbutton;
+	WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
-	static WebElement depcity;
+	WebElement depcity;
 	
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
-	static WebElement descity;
+	WebElement descity;
 	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
-	static List<WebElement> depcitylist;
+	List<WebElement> depcitylist;
 	
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//strong")
 	List<WebElement> descitylist;
 
 	@FindBy(xpath = "((//table[@class=' table-condensed'])[3]//i)[2]")
-	static WebElement nextarrow;
+	WebElement nextarrow;
 
 	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//i)[2]")
-	static WebElement returnnxtarw;
+	WebElement returnnxtarw;
 	
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//th[@class='switch']")
-	static WebElement month;
+	WebElement month;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//th[@class='switch']")
-	static WebElement monthreturn;
+	WebElement monthreturn;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//td[@class='day ']")
-	static List<WebElement> dateele;
+	List<WebElement> dateele;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//td[@class='day ']")
-	static List<WebElement> datereturn;
+	List<WebElement> datereturn;
 
 	@FindBy(xpath = "(//div[@class='form-group'])[8]//input")
-	static WebElement calenderbox;
+	WebElement calenderbox;
 
 	@FindBy(xpath = "//div[@id='onereturn']//button")
 	WebElement searchbutton;
 
 	@FindBy(xpath = "(//div[@class='form-check'])[2]//input")
-	static WebElement roundtrip;
+	WebElement roundtrip;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='departure']")
-	static WebElement departuredate;
+	WebElement departuredate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='return']")
 	WebElement returndate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//a")
-	static WebElement paxbotton;
+	WebElement paxbotton;
 
 	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[1]")
 	WebElement adultplus;
@@ -77,7 +77,7 @@ public class Homepage extends CommonActionMethods {
 	WebElement infantplus;
 	
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
-	static WebElement cookie;
+	WebElement cookie;
 	/**
 	 * Constructor to store the above located elements.
 	 */

@@ -96,8 +96,9 @@ public class CommonActionMethods {
 	 * @param browser-string     value about the action being performed
 	 * @param browsertype-string value about the action being performed
 	 * @param url-string         value about the action being performed
+	 * @throws Exception 
 	 */
-	public  void invokeBrowser(String browser, String browsertype, String url) {
+	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();

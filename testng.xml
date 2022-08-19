@@ -3,8 +3,8 @@
 <suite name="Suite" thread-count="5" parallel = "methods">
   <test  name="Test" >
     <classes>
-      <class name="swaglab.Swaglab"/>
-      <class name="yourlogo.YourLogo"/>
+      <!--<class name="swaglab.Swaglab"/>
+      <class name="yourlogo.YourLogo"/>-->
       <class name="phptravels.PhpTravelFlightBooking"/>
     </classes>
   </test> <!-- Test -->

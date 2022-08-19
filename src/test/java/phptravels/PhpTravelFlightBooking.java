@@ -27,7 +27,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		deleteFolder(allureFile);
 	}
 	@BeforeMethod
-	public void invoke() {
+	public void invoke() throws Exception {
 		invokeBrowser("Chrome","Normal","https://phptravels.net/");
 	}
 	@DataProvider(name = "automation")
