@@ -5,17 +5,22 @@ import utils.DriverFactory;
 import utils.ExcelReader;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -26,6 +31,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.qameta.allure.Attachment;
@@ -38,7 +45,7 @@ import org.apache.log4j.*;
  * 
  *
  */
-public class CommonActionMethods {
+public class CommonActionMethods extends MailTestListener{
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
@@ -87,6 +94,7 @@ public class CommonActionMethods {
 		{
 		testcase.log(Status.PASS, message);
 	}
+		 //getExtentTest().log(Status.INFO, MarkupHelper.createLabel(message, ExtentColor.GREEN));
 	}
 
 	/**
@@ -102,6 +110,19 @@ public class CommonActionMethods {
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
+		if (getScenarioStatus() == null) {
+            scenarioComments.set(MessageStopExecution);
+            System.out.println("scenario Comment: " + getScenarioComments());
+            scenarioNo.set(getdata("Number"));
+
+            scenarioDescription.set(getdata("Username"));
+            scenarioStatus.set("Failed");
+            failure++;
+            errorLogCount.set(getErrorLogCount() + 1);
+        } else {
+            scenarioComments.set(MessageStopExecution);
+        }
+        //getExtentTest().log(Status.FAIL, MarkupHelper.createLabel(messageToLog, ExtentColor.RED));
 		throw new RuntimeException(MessageStopExecution);
 	}
 	}
@@ -430,6 +451,8 @@ public class CommonActionMethods {
 				logErrorMessage(intial + " & " + end + " is not equal");
 			}
 	}
+	
+	
 
 	/**
 	 * This method for getting the data from the hash map and returns the value
@@ -534,7 +557,7 @@ public class CommonActionMethods {
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
 	/**
-	 * This mmethod deletes every sub-files inside the given directory 
+	 * This method deletes every sub-files inside the given directory 
 	 * @param file
 	 */
 	public static void deleteFolder(File file){
@@ -547,4 +570,102 @@ public class CommonActionMethods {
 	      }
 	      file.delete();
 	   }
+	
+	/**
+	 * 
+	 * @This method is used to print the start time
+	 */
+
+	public void startTime() {
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		Date date = new Date();
+		logMessage(" ************* Start time is - " + dateFormat.format(date) + " ********************");
+	}
+
+	/**
+	 * 
+	 * @This method is used to print the end time
+	 */
+
+	public void endTime() {
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		Date date = new Date();
+		logMessage(" ************* End time is - " + dateFormat.format(date) + " **********************");
+	}
+	
+	/**
+	 * @This method is used to capitalize the string case provided
+	 * 
+	 * @param str - String to be capitalized
+	 * @return string
+	 * 
+	 */
+	public static String capitalize(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
+	
+	/**
+	 * 
+	 * @This method is to convert the text response into JSON
+	 * 
+	 * @param textString
+	 * @return JSONObject
+	 * 
+	 */
+	public static JSONObject restConvertTextAsJson(String textString) {
+		return new JSONObject(textString);
+	}
+	
+	/**
+	 * 
+	 * @This method is to get the correlate parameter value from the array object by
+	 *       giving rest response object as input
+	 * 
+	 * @param response
+	 * @param jsonPath
+	 * @return jsonString
+	 * 
+	 */
+	public static String restCorrelateJSON(String jsonString, String jsonPath) {
+
+		boolean flag = true;
+		JSONObject jsonObj = null;
+		Iterator<String> jsonItr = null;
+
+		String[] jsonPathSplit = jsonPath.split(Pattern.quote("."));
+
+		for (String matchKey : jsonPathSplit) {
+
+			if (matchKey.contains("[")) {
+				jsonObj = restConvertTextAsJson(jsonString);
+				int strLen = matchKey.length();
+				jsonString = jsonObj.getJSONArray(matchKey.replaceAll("\\[\\d\\]", ""))
+						.getJSONObject(Integer.parseInt(matchKey.substring(strLen - 2, strLen - 1))).toString();
+			}
+
+			jsonObj = restConvertTextAsJson(jsonString);
+			jsonItr = jsonObj.keys();
+
+			while (jsonItr.hasNext()) {
+				String keyvalue = jsonItr.next().toString();
+				if (keyvalue.equals(matchKey)) {
+					jsonString = jsonObj.get(keyvalue).toString();
+					flag = false;
+					break;
+				}
+			}
+		}
+
+		if (flag) {
+			System.err.println("No value found");
+		}
+
+		return jsonString;
+
+	}
+
 }
+

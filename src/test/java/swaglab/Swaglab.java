@@ -1,11 +1,14 @@
 package swaglab;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
 import pageobjects.swaglabs.Checkout;
@@ -15,6 +18,7 @@ import pageobjects.swaglabs.InfoPage;
 import pageobjects.swaglabs.LoginPage;
 import utils.DriverFactory;
 import utils.ExcelReader;
+import utils.Mail;
 
 /**
  * 
@@ -23,6 +27,7 @@ import utils.ExcelReader;
  *
  */
 
+@Listeners(commonuseractions.MailTestListener.class)
 public class Swaglab extends CommonActionMethods {
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 
@@ -54,9 +59,7 @@ public class Swaglab extends CommonActionMethods {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-
-			status.set(false);
-
+            status.set(false);
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
@@ -78,7 +81,6 @@ public class Swaglab extends CommonActionMethods {
 		inputdata.set(mapData);
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-
 			status.set(false);
 			new LoginPage().login();
 			new HomePage().homepageValidation();
@@ -107,4 +109,9 @@ public class Swaglab extends CommonActionMethods {
 	}
 
 }
+	@AfterSuite
+	public void sendReport() throws IOException
+	{
+		Mail.sendReport();
+	}
 }
