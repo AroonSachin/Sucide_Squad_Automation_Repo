@@ -88,8 +88,8 @@ public class CommonActionMethods {
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
-		throw new RuntimeException(MessageStopExecution);
 		}
+		throw new RuntimeException(MessageStopExecution);
 	}
 	/**
 	 * @This method is used to invoke the browser
@@ -450,7 +450,7 @@ public class CommonActionMethods {
 	 * @param ele
 	 */
 	public static void webWait(WebElement ele) {
-		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
 	/**

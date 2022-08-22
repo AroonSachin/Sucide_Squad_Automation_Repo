@@ -25,28 +25,28 @@ public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
 	WebElement descity;
 	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
+	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//b")
 	List<WebElement> depcitylist;
 	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//strong")
+	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//b")
 	List<WebElement> descitylist;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[3]//i)[2]")
+	@FindBy(xpath = "((//table[@class=' table-condensed'])[5]//i)[2]")
 	WebElement nextarrow;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//i)[2]")
+	@FindBy(xpath = "((//table[@class=' table-condensed'])[6]//i)[2]")
 	WebElement returnnxtarw;
 	
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//th[@class='switch']")
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//th[@class='switch']")
 	WebElement month;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//th[@class='switch']")
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[6]//th[@class='switch']")
 	WebElement monthreturn;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//td[@class='day ']")
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//td[@class='day ']")
 	List<WebElement> dateele;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//td[@class='day ']")
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[6]//td[@class='day ']")
 	List<WebElement> datereturn;
 
 	@FindBy(xpath = "(//div[@class='form-group'])[8]//input")
@@ -67,13 +67,13 @@ public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@id='onereturn']//a")
 	WebElement paxbotton;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[1]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[1]")
 	WebElement adultplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[2]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[2]")
 	WebElement childplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[3]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[3]")
 	WebElement infantplus;
 	
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
@@ -96,6 +96,7 @@ public class Homepage extends CommonActionMethods {
 	@Step("To locate month ")
 	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
+			webWait(ele);
 			if (ele.getText().contains(monthtoselect)) {
 				break;
 			} else {
@@ -103,11 +104,11 @@ public class Homepage extends CommonActionMethods {
 			}
 		}
 	}
-	public static String dateSel(int plusdays) {
+	public static synchronized String dateSel(int plusdays) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(7,+plusdays);
+		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
-		date.applyPattern("MMMMMMMMMM/dd/yyyy");
+		date.applyPattern("MMMMMMMMMM/d/yyyy");
 		String dat = date.format(cal.getTime());
 		return dat;
 	}
@@ -123,22 +124,26 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@Step("To Search the flight for the given details")
-	public synchronized void  SearchFlight() throws Exception {
+	public void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
 		logMessage("Current URL:" + getURL());
 		logMessage("Current page title:" + getTitle());
 		clickMethod(flightbutton, "Flight button");
-		sendKeysMethod(depcity, "MAA");
-		listDrop(depcitylist, "dep");
-		sendKeysMethod(descity, "LAS");
-		listDrop(depcitylist, "des");
+		sendKeysMethod(depcity,getdata("Departure"));
+		listDrop(depcitylist, getdata("Departure"));
+		sendKeysMethod(descity, getdata("Destination"));
+		listDrop(depcitylist, getdata("Destination"));
 		String[] date = splitString(dateSel(Integer.parseInt(getdata("date"))),"/");
 		String mnth = date[0];
 		String depdate = date[1];
+		System.out.println("mnth  "+mnth);
+		System.out.println("depdate  "+depdate);
 		String[] rtrndate = splitString(dateSel(Integer.parseInt(getdata("returndate"))),"/");
 		String returnmonth = rtrndate[0];
 		String returnday = rtrndate[1];
+		System.out.println("returnmonth  "+returnmonth);
+		System.out.println("returnday"+returnday);
 		if (!getdata("trip") .equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
@@ -149,6 +154,7 @@ public class Homepage extends CommonActionMethods {
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
 			monthloc(monthreturn, returnmonth, returnnxtarw);
+			Thread.sleep(3000);
 			listDrop(datereturn, returnday);
 		}
 		clickMethod(cookie, "Cookie got it button");
