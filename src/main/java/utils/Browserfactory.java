@@ -64,14 +64,14 @@ public final class Browserfactory extends CommonActionMethods{
 			if (browsertype.equalsIgnoreCase("headless")) {
 				WebDriverManager.safaridriver().setup();
 				driver = new SafariDriver();
-				System.out.println("Headless not supported in safari");
+				logMessage("Headless not supported in safari");
 			} else {
 				WebDriverManager.safaridriver().setup();
 				driver = new SafariDriver();
 			}
 			break;
 		default:
-			System.out.println("Browser not found");
+			logMessage("Browser not found");
 
 		}
 		return driver;		
