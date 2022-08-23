@@ -32,7 +32,6 @@ public final class Browserfactory extends CommonActionMethods{
 	 * @throws Exception 
 	 */
 	public static WebDriver createBrowser(String browser, String browsertype) throws Exception {
-		if (java.util.Objects.isNull(driver)) {
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
 		// To launch Chrome.
@@ -75,12 +74,7 @@ public final class Browserfactory extends CommonActionMethods{
 			System.out.println("Browser not found");
 
 		}
-		return driver;
-	}else {
-		logErrorMessage("Driver not null for another invokation");
-		return driver;
-	}
-		
+		return driver;		
 	}
 }
 
