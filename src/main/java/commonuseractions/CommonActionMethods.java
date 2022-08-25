@@ -4,7 +4,6 @@ import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,8 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.FileHandler;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.JavascriptExecutor;
@@ -28,10 +25,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import io.qameta.allure.Attachment;
-import io.qameta.allure.listener.TestLifecycleListener;
 import org.apache.log4j.*;
-
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -44,15 +38,10 @@ public class CommonActionMethods {
 	public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
-
-
-
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
-
 		return map;
 	});
-
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
@@ -75,7 +64,6 @@ public class CommonActionMethods {
 		HtmlReporter.config().setTheme(Theme.DARK);
 		extentreport.attachReporter(HtmlReporter);
 	}
-
 	/**
 	 * 
 	 * @This method is used to print the log message in console
@@ -88,39 +76,35 @@ public class CommonActionMethods {
 		testcase.log(Status.PASS, message);
 	}
 	}
-
 	/**
 	 * @This method is used to print the log error message in console and stop the
 	 *       execution
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-
 	public static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
 		if(extentreport!=null)
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
+		}
 		throw new RuntimeException(MessageStopExecution);
 	}
-	}
-
 	/**
 	 * @This method is used to invoke the browser
 	 * @param browser-string     value about the action being performed
 	 * @param browsertype-string value about the action being performed
 	 * @param url-string         value about the action being performed
+	 * @throws Exception 
 	 */
-	public static void invokeBrowser(String browser, String browsertype, String url) {
+	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
-		DriverFactory.getDriver();
 		DriverFactory.getDriver().manage().window().maximize();
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 	}
-
 	/**
 	 *
 	 * @This method is for click the element
@@ -136,9 +120,7 @@ public class CommonActionMethods {
 			logErrorMessage(button + " button is not clicked ");
 		}
 	}
-
 	/**
-	 * 
 	 * @This method is for enter the value
 	 * @param key   -Webelement of the textbox to send the text
 	 * @param enter -string value about the action being performed
@@ -149,16 +131,11 @@ public class CommonActionMethods {
 		try {
 			key.sendKeys(enter);
 			logMessage(enter + " is entered ");
-
 		} catch (Exception e) {
 			logErrorMessage(" Element is not entered in " + enter);
-
 		}
-
 	}
-
 	/**
-	 *
 	 * @This method is for selectByVisibleText
 	 * @param element     -Webelement to select an option from the dropdown
 	 *                    ByVisibleText
@@ -172,11 +149,8 @@ public class CommonActionMethods {
 			logMessage(text + " is selected in dropdown ");
 		} catch (Exception e) {
 			logErrorMessage(text + " Element is not selected ");
-
 		}
-
 	}
-
 	/**
 	 * 
 	 * @This method is for selectByValue
@@ -189,13 +163,10 @@ public class CommonActionMethods {
 			Select sel = new Select(element);
 			sel.selectByValue(text);
 			logMessage(text + " is selected in dropdown ");
-
 		} catch (Exception e) {
 			logErrorMessage(text + " Element is not selected ");
-
 		}
 	}
-
 	/**
 	 * 
 	 * @This method is for selectByIndex
@@ -208,14 +179,10 @@ public class CommonActionMethods {
 			Select sel = new Select(element);
 			sel.selectByIndex(Index);
 			logMessage(Index + " is selected in dropdown ");
-
 		} catch (Exception e) {
 			logErrorMessage(Index + " Element is not selected ");
-
 		}
-
 	}
-
 	/**
 	 * @return
 	 * @This method is used to take a screenshot
@@ -223,7 +190,7 @@ public class CommonActionMethods {
 	 */
 	public static String takeSnapShot() throws Exception {
 		try {
-			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
+			File SrcFile = ( (TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(SrcFile, filepath);
@@ -233,9 +200,7 @@ public class CommonActionMethods {
 			logErrorMessage(" Screenshot is not taken ");
 		}
 		return null;
-
 	}
-
 	/**
 	 * @This method is used for windowhandle
 	 * @throws Exception
@@ -253,30 +218,22 @@ public class CommonActionMethods {
 			logMessage(" windowhandle is successful ");
 		} catch (Exception e) {
 			logErrorMessage(" windowhandle is not successful ");
-
 		}
-
 	}
-
 	/**
 	 * 
 	 * @This method is used for frameByElement
 	 * @param element -Webelement of the frame to switch the driver
 	 * @throws Exception
 	 */
-
 	public static void frameByElement(WebElement element) throws Exception {
 		try {
 			DriverFactory.getDriver().switchTo().frame(element);
 			logMessage(" framehandle is successful by webelement ");
-
 		} catch (Exception e) {
 			logErrorMessage(" no such frame exception ");
-
 		}
-
 	}
-
 	/**
 	 *
 	 * @This method is used for frameByIndex
@@ -287,14 +244,10 @@ public class CommonActionMethods {
 		try {
 			DriverFactory.getDriver().switchTo().frame(Index);
 			logMessage(" framehandle is successful by index ");
-
 		} catch (Exception e) {
 			logErrorMessage(" no such frame exception ");
-
 		}
-
 	}
-
 	/**
 	 *
 	 * @This method is used for frameByNameorID
@@ -305,14 +258,10 @@ public class CommonActionMethods {
 		try {
 			DriverFactory.getDriver().switchTo().frame(nameORid);
 			logMessage(" framehandle is successful by name or id ");
-
 		} catch (Exception e) {
 			logErrorMessage(" no such frame exception ");
-
 		}
-
 	}
-
 	/**
 	 * @This method is used for default window
 	 * @throws Exception
@@ -322,23 +271,18 @@ public class CommonActionMethods {
 		try {
 			DriverFactory.getDriver().switchTo().defaultContent();
 			logMessage(" Switched to defaultwindow ");
-
 		} catch (Exception e) {
 			logErrorMessage(" Not switched to defaultwindow ");
 		}
-
 	}
-
 	/**
 	 * @This method is for get current page title
 	 * @return
 	 */
-
 	public static String getTitle() {
 		String title = DriverFactory.getDriver().getTitle();
 		return title;
 	}
-
 	/**
 	 * @This method is for get a current url
 	 * @return
@@ -348,7 +292,6 @@ public class CommonActionMethods {
 		logMessage(url);
 		return url;
 	}
-
 	/**
 	 * 
 	 * @This method is for element is displayed
@@ -356,10 +299,8 @@ public class CommonActionMethods {
 	 * @param ElementName
 	 * @throws Exception
 	 */
-
 	public static void isDisplayed(WebElement element, String ElementName) throws Exception {
 		try {
-
 			if (element.isDisplayed()) {
 				logMessage(ElementName + " is displayed ");
 			} else {
@@ -367,11 +308,8 @@ public class CommonActionMethods {
 			}
 		} catch (Exception e) {
 			logErrorMessage(ElementName + " is not displayed in catch block ");
-
 		}
-
 	}
-
 	/**
 	 *
 	 * @This method is for element is selected
@@ -388,11 +326,8 @@ public class CommonActionMethods {
 			}
 		} catch (Exception e) {
 			logErrorMessage(ElementName + " is not selected in catch block ");
-
 		}
-
 	}
-
 	/**
 	 * 
 	 * @This method is for element is enabled
@@ -409,11 +344,8 @@ public class CommonActionMethods {
 			}
 		} catch (Exception e) {
 			logErrorMessage(ElementName + " is not enabled in catch block ");
-
 		}
-
 	}
-
 	/**
 	 * @This method is used to check the variable are equal
 	 * @param intial-object   value about the action being performed
@@ -423,14 +355,12 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-
 			if (String.valueOf(intial).contains(String.valueOf(end))) {
 				logMessage(intial + " & " + end + " is equal");
 			} else {
 				logErrorMessage(intial + " & " + end + " is not equal");
 			}
 	}
-
 	/**
 	 * This method for getting the data from the hash map and returns the value
 	 * 
@@ -439,7 +369,6 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static String getdata(String Name) throws Exception {
-
 		String data = "";
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
@@ -447,9 +376,7 @@ public class CommonActionMethods {
 			logErrorMessage(" Given Column name is not available in the Excel " + Name);
 		}
 		return data;
-
 	}
-
 	/**
 	 * This method is to click the respective element by its text from the list of
 	 * webelements.
@@ -462,14 +389,12 @@ public class CommonActionMethods {
 		for (WebElement element : listelement) {
 			String name = element.getText();
 			if (name.contains(Toselect)) {
-				webWait(element);
 				clickMethod(element, Toselect);
 				logMessage(Toselect + "  is clicked");
 				break;
 			}
 		}
 	}
-
 	/**
 	 * This method is to split the given given string by comma.
 	 * 
@@ -480,12 +405,10 @@ public class CommonActionMethods {
 		String arr[] = data.split(symbol);
 		return arr;
 	}
-
 	public static void scrollToElement(WebElement ele) {
 		JavascriptExecutor scrl = (JavascriptExecutor) DriverFactory.getDriver();
 		scrl.executeScript("arguments[0].scrollIntoView(true)", ele);
 	}
-
 	/**
 	 * This method is to get the text data from excel
 	 * 
@@ -504,7 +427,6 @@ public class CommonActionMethods {
 		}
 		return data.iterator();
 	}
-
 	/**
 	 * This method is to get text of the element
 	 * 
@@ -522,15 +444,13 @@ public class CommonActionMethods {
 		}
 		return text;
 	}
-
 	/**
 	 * This method waits for the given element until it is clickable
 	 * 
 	 * @param ele
 	 */
-
 	public static void webWait(WebElement ele) {
-		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
 	/**

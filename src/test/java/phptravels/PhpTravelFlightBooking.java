@@ -3,19 +3,14 @@ package phptravels;
 import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.aspectj.lang.annotation.Before;
-import org.testng.ITestListener;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import commonuseractions.Allurelistener;
 import commonuseractions.CommonActionMethods;
-import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import pageobjects.phptravels.Flightchoosepage;
 import pageobjects.phptravels.Homepage;
@@ -32,14 +27,13 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		deleteFolder(allureFile);
 	}
 	@BeforeMethod
-	public void invoke() {
-		invokeBrowser("Chrome", "Normal","https://phptravels.net/");
+	public void invoke() throws Exception {
+		invokeBrowser("Chrome","Normal","https://phptravels.net/");
 	}
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
 		return getTestData("php");
 	}
-
 	@Test(dataProvider = "automation",description = "To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
@@ -50,7 +44,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 			new Flightchoosepage().chooseFlight();
 		}
 	}
-
 	@Test(dataProvider = "automation",description = "To verify booking functionality")
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
@@ -80,7 +73,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 			new Invoicepage().proceed();
 		}
 	}
-	
 	@AfterMethod
 	public void close() {
 		DriverFactory.closeDriver();

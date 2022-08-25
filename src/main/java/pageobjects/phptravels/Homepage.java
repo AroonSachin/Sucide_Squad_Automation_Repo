@@ -17,72 +17,72 @@ import utils.DriverFactory;
 public class Homepage extends CommonActionMethods {
 	
 	@FindBy(xpath = "//button[@aria-controls='flights']")
-	static WebElement flightbutton;
+	WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
-	static WebElement depcity;
+	WebElement depcity;
 	
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
-	static WebElement descity;
+	WebElement descity;
 	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//strong")
-	static List<WebElement> depcitylist;
+	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//b")
+	List<WebElement> depcitylist;
 	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//strong")
+	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//b")
 	List<WebElement> descitylist;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[3]//i)[2]")
-	static WebElement nextarrow;
+	@FindBy(xpath = "((//table[@class=' table-condensed'])[5]//i)[2]")
+	WebElement nextarrow;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[4]//i)[2]")
-	static WebElement returnnxtarw;
+	@FindBy(xpath = "((//table[@class=' table-condensed'])[6]//i)[2]")
+	WebElement returnnxtarw;
 	
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//th[@class='switch']")
-	static WebElement month;
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//th[@class='switch']")
+	WebElement month;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//th[@class='switch']")
-	static WebElement monthreturn;
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[6]//th[@class='switch']")
+	WebElement monthreturn;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[3]//td[@class='day ']")
-	static List<WebElement> dateele;
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//td[@class='day ']")
+	List<WebElement> dateele;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[4]//td[@class='day ']")
-	static List<WebElement> datereturn;
+	@FindBy(xpath = "(//table[@class=' table-condensed'])[6]//td[@class='day ']")
+	List<WebElement> datereturn;
 
 	@FindBy(xpath = "(//div[@class='form-group'])[8]//input")
-	static WebElement calenderbox;
+	WebElement calenderbox;
 
 	@FindBy(xpath = "//div[@id='onereturn']//button")
 	WebElement searchbutton;
 
 	@FindBy(xpath = "(//div[@class='form-check'])[2]//input")
-	static WebElement roundtrip;
+	WebElement roundtrip;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='departure']")
-	static WebElement departuredate;
+	WebElement departuredate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='return']")
 	WebElement returndate;
 
 	@FindBy(xpath = "//div[@id='onereturn']//a")
-	static WebElement paxbotton;
+	WebElement paxbotton;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[1]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[1]")
 	WebElement adultplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[2]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[2]")
 	WebElement childplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//i[@class='la la-plus'])[3]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[3]")
 	WebElement infantplus;
 	
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
-	static WebElement cookie;
+	WebElement cookie;
 	/**
 	 * Constructor to store the above located elements.
 	 */
 	public Homepage() {
-		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 10), this);
+		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 0), this);
 	}
 	/**
 	 * method to locate the given month.
@@ -96,6 +96,7 @@ public class Homepage extends CommonActionMethods {
 	@Step("To locate month ")
 	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
+			webWait(ele);
 			if (ele.getText().contains(monthtoselect)) {
 				break;
 			} else {
@@ -103,11 +104,11 @@ public class Homepage extends CommonActionMethods {
 			}
 		}
 	}
-	public static String dateSel(int plusdays) {
+	public static synchronized String dateSel(int plusdays) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(7,+plusdays);
+		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
-		date.applyPattern("MMMMMMMMMM/dd/yyyy");
+		date.applyPattern("MMMMMMMMMM/d/yyyy");
 		String dat = date.format(cal.getTime());
 		return dat;
 	}
@@ -123,37 +124,41 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@Step("To Search the flight for the given details")
-	public  void  SearchFlight() throws Exception {
+	public void  SearchFlight() throws Exception {
 		getTitle();
 		getURL();
 		logMessage("Current URL:" + getURL());
 		logMessage("Current page title:" + getTitle());
 		clickMethod(flightbutton, "Flight button");
-		sendKeysMethod(depcity, "MAA");
-		listDrop(depcitylist, "dep");
-		sendKeysMethod(descity, "LAS");
-		listDrop(depcitylist, "des");
+		sendKeysMethod(depcity,getdata("Departure"));
+		listDrop(depcitylist, getdata("Departure"));
+		sendKeysMethod(descity, getdata("Destination"));
+		listDrop(depcitylist, getdata("Destination"));
 		String[] date = splitString(dateSel(Integer.parseInt(getdata("date"))),"/");
 		String mnth = date[0];
 		String depdate = date[1];
+		System.out.println("mnth  "+mnth);
+		System.out.println("depdate  "+depdate);
 		String[] rtrndate = splitString(dateSel(Integer.parseInt(getdata("returndate"))),"/");
 		String returnmonth = rtrndate[0];
 		String returnday = rtrndate[1];
+		System.out.println("returnmonth  "+returnmonth);
+		System.out.println("returnday"+returnday);
 		if (!getdata("trip") .equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
-		} else {
+		} else { 
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
 			monthloc(monthreturn, returnmonth, returnnxtarw);
+			Thread.sleep(3000);
 			listDrop(datereturn, returnday);
 		}
 		clickMethod(cookie, "Cookie got it button");
 		clickMethod(paxbotton, "Passenger button");
-		
 	}
 	/**
 	 * This method chooses the number of adults,child's and infants.

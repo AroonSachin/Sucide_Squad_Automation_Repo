@@ -10,7 +10,7 @@ import org.testng.ITestResult;
 import io.qameta.allure.Allure;
 import utils.DriverFactory;
 
-public class Allurelistener implements ITestListener  {
+public class Allurelistener implements ITestListener  { 
 	@Override
 	public void onTestFailure(ITestResult result) {
 		try {
