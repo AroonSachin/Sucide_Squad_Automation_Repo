@@ -22,25 +22,25 @@ public class HomePage extends CommonActionMethods {
 	}
 
 	@FindBy(id = "react-burger-menu-btn")
-	private static WebElement hamburgerButton;
+	WebElement hamburgerButton;
 
 	@FindBy(className = "inventory_item_name")
-	private static List<WebElement> itemName;
+	List<WebElement> itemName;
 
 	@FindBy(className = "inventory_item_price")
-	private static List<WebElement> itemPrice;
+	List<WebElement> itemPrice;
 
 	@FindBy(xpath = "//button[contains(@id,'add-to-cart') or (text()='Remove')]")
-	private static List<WebElement> addItems;
+	List<WebElement> addItems;
 
 	@FindBy(xpath = "//span[@class='shopping_cart_badge']")
-	private static WebElement cart;
+	WebElement cart;
 
 	@FindBy(id = "logout_sidebar_link")
-	private static WebElement logout;
+	WebElement logout;
 
 	@FindBy(className = "product_sort_container")
-	private static WebElement filterprice;
+	WebElement filterprice;
 
 	
 	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);

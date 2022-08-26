@@ -21,11 +21,11 @@ public class LoginPage extends CommonActionMethods {
 	}
 
 	@FindBy(id = "user-name")
-	private static WebElement userName;
+	WebElement userName;
 	@FindBy(id = "password")
-	private static WebElement passWord;
+	WebElement passWord;
 	@FindBy(id = "login-button")
-	private static WebElement loginButton;
+	WebElement loginButton;
 
 	public void enterUsername() throws Exception {
 

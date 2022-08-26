@@ -19,16 +19,16 @@ public class InfoPage extends CommonActionMethods {
 	}
 
 	@FindBy(id = "first-name")
-	private static WebElement firstName;
+	WebElement firstName;
 
 	@FindBy(id = "last-name")
-	private static WebElement lastName;
+	WebElement lastName;
 
 	@FindBy(id = "postal-code")
-	private static WebElement PinCode;
+	WebElement PinCode;
 
 	@FindBy(id = "continue")
-	private static WebElement continueButton;
+	WebElement continueButton;
 
 	/**
 	 * @this method is used to fill the user info

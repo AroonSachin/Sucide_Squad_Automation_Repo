@@ -138,8 +138,8 @@ public class MailTestListener implements ITestListener{
 
 			try {
 				skipping++;
-				scenarioNo.set(com.getdata("Iteration"));
-				scenarioDescription.set(com.getdata("Scenario"));
+				scenarioNo.set(com.getdata("Number"));
+				scenarioDescription.set(com.getdata("Username"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

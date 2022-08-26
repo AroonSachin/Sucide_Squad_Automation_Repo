@@ -22,16 +22,16 @@ public class Checkout extends CommonActionMethods {
 	}
 
 	@FindBy(id = "checkout")
-	private static WebElement checkoutButton;
+	WebElement checkoutButton;
 
 	@FindBy(className = "inventory_item_name")
-	private static List<WebElement> pName;
+	List<WebElement> pName;
 
 	@FindBy(className = "inventory_item_price")
-	private static List<WebElement> pPrice;
+	List<WebElement> pPrice;
 
 	@FindBy(className = "cart_quantity")
-	private static List<WebElement> pQuantity;
+	List<WebElement> pQuantity;
 
 	public void clickOnCheckoutButton() throws Exception {
 		clickMethod(checkoutButton, "checkout");

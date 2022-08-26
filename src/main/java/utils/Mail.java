@@ -58,6 +58,7 @@ public class Mail extends MailTestListener{
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			msg.addRecipients(Message.RecipientType.CC, "mohammedmustafa@tridentsqa.com");
+			msg.addRecipients(Message.RecipientType.CC, "arunsachin.m@tridentsqa.com");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MMM/YYYY");
 			Date date = new Date();
@@ -100,7 +101,7 @@ public class Mail extends MailTestListener{
 //				msg.setContent(multipart);
 //			} else {
 				htmlBody = MailBody.emailBodyCreator(testDuration(), "Swaglab");
-			//htmlBody = "<h4>Hello Team,</h4><p><b>Alert!!!</b> The following scenario \"<b>";
+			
 				// Email body message creation
 				StringBuilder sb = new StringBuilder();
 				sb.append(htmlBody);

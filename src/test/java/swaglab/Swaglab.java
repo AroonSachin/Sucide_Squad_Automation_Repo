@@ -6,7 +6,9 @@ import java.util.Map;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -27,8 +29,15 @@ import utils.Mail;
  *
  */
 
+
 @Listeners(commonuseractions.MailTestListener.class)
 public class Swaglab extends CommonActionMethods {
+	
+	@BeforeSuite
+	private void extentReport() {
+		extentReport("Yourlogo.html");
+
+	}
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 
 
@@ -60,6 +69,7 @@ public class Swaglab extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("1")) {
             status.set(false);
+            extent("Login", "Sowmya", "Logging in");
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
@@ -82,6 +92,7 @@ public class Swaglab extends CommonActionMethods {
 
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 			status.set(false);
+			 extent("Purchase", "Sowmya", "Purchasing items");
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
@@ -110,8 +121,9 @@ public class Swaglab extends CommonActionMethods {
 
 }
 	@AfterSuite
-	public void sendReport() throws IOException
+	public void sendMailReport() throws IOException
 	{
+		extentreport.flush();
 		Mail.sendReport();
 	}
 }

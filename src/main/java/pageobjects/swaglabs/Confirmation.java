@@ -18,10 +18,10 @@ public class Confirmation extends CommonActionMethods {
 	}
 
 	@FindBy(id = "finish")
-	private static WebElement finishButton;
+	WebElement finishButton;
 
 	@FindBy(className = "complete-header")
-	private static WebElement confirmationMsg;
+	WebElement confirmationMsg;
 
 	public void clickOnFinishButton() throws Exception {
 		clickMethod(finishButton, "finish");
