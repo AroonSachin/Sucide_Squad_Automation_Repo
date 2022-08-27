@@ -26,10 +26,11 @@ public class YourLogo extends CommonActionMethods {
 	}
 
 	/**
+	 * @throws Exception 
 	 * @This method used to invoke the browser
 	 */
 	@BeforeMethod
-	public void browser() {
+	public void browser() throws Exception {
 		invokeBrowser("chrome", "normal", "http://automationpractice.com/index.php");
 	}
 

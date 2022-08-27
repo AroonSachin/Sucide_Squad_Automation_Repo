@@ -7,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
+import com.google.common.base.Objects;
+
+import commonuseractions.CommonActionMethods;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
@@ -15,17 +18,20 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * @author aroon
  *
  */
-public class Browserfactory {
+public final class Browserfactory extends CommonActionMethods{
+	 
+	private Browserfactory() {}
+	
 	private static WebDriver driver;
 	/**
 	 * The method will invoke the requested browser in the requested browsertype
 	 * 
 	 * @param browser
 	 * @param browsertype
-	 * @return WebDriver
+	 * @return 
+	 * @throws Exception 
 	 */
-	public static WebDriver createBrowser(String browser, String browsertype) {
-		
+	public static WebDriver createBrowser(String browser, String browsertype) throws Exception {
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
 		// To launch Chrome.
@@ -58,17 +64,17 @@ public class Browserfactory {
 			if (browsertype.equalsIgnoreCase("headless")) {
 				WebDriverManager.safaridriver().setup();
 				driver = new SafariDriver();
-				System.out.println("Headless not supported in safari");
+				logMessage("Headless not supported in safari");
 			} else {
 				WebDriverManager.safaridriver().setup();
 				driver = new SafariDriver();
 			}
 			break;
 		default:
-			System.out.println("Browser not found");
+			logMessage("Browser not found");
 
 		}
-		return driver;
+		return driver;		
 	}
-
 }
+
