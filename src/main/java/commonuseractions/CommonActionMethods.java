@@ -281,6 +281,7 @@ public class CommonActionMethods {
 	 */
 	public static String getTitle() {
 		String title = DriverFactory.getDriver().getTitle();
+		logMessage(title);
 		return title;
 	}
 	/**
