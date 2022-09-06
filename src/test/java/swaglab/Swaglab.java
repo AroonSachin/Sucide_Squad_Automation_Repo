@@ -13,6 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
+import commonuseractions.MailTestListener;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
@@ -66,16 +67,17 @@ public class Swaglab extends CommonActionMethods {
 	@Test(dataProvider = "automation")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-
+        MailTestListener.setTestNames.add("Swaglab_Test1");
 		if (CommonActionMethods.getdata("Number").equals("1")) {
             status.set(false);
+            MailTestListener.setDescription(getdata("Description"));
             extent("Login", "Sowmya", "Logging in");
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
-            new Confirmation().clickOnFinishButton();
+            //new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
 
@@ -85,13 +87,14 @@ public class Swaglab extends CommonActionMethods {
 		}
 	}
 
-	@Test(dataProvider = "automation")
+	//@Test(dataProvider = "automation")
 
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-
+		MailTestListener.setTestNames.add("Swaglab_Test2");
 		if (CommonActionMethods.getdata("Number").equals("2")) {
 			status.set(false);
+			MailTestListener.setDescription(getdata("Description"));
 			 extent("Purchase", "Sowmya", "Purchasing items");
 			new LoginPage().login();
 			new HomePage().homepageValidation();

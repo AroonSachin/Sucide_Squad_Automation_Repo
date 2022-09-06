@@ -66,7 +66,7 @@ public class Mail extends MailTestListener{
 			if (mailFlag) {
 				msg.setSubject("Alert Automation Test Execution Failure " + dateFormat.format(date));
 			} else {
-				msg.setSubject("Nairalytics Test Automation Report " + dateFormat.format(date));
+				msg.setSubject("Swaglab Test Automation Report " + dateFormat.format(date));
 			}
 
 			Multipart emailContent = new MimeMultipart();
@@ -74,6 +74,7 @@ public class Mail extends MailTestListener{
 			// Text body part
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			String htmlBody;
+			//String scenarioTable;
 //			if (mailFlag) {
 //				File file = new File(FailedScreenShotdestination.get());
 //				System.out.println(file.getName());
@@ -101,11 +102,16 @@ public class Mail extends MailTestListener{
 //				msg.setContent(multipart);
 //			} else {
 				htmlBody = MailBody.emailBodyCreator(testDuration(), "Swaglab");
-			
+				//scenarioTable = MailBody.emailScenarioTableCreate();
 				// Email body message creation
 				StringBuilder sb = new StringBuilder();
+				
+				//sb.append(scenarioTable);
 				sb.append(htmlBody);
 				textBodyPart.setContent(sb.toString(), "text/html");
+				
+				
+				
 //
 //				File folder = new File(
 //						System.getProperty("user.dir") + "/src/main/java/nairalytics_test_automation_suite/reports/");

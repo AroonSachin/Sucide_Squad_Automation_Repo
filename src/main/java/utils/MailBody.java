@@ -12,13 +12,13 @@ import commonuseractions.MailTestListener;
 ;
 
 public class MailBody extends MailTestListener{
-
+	  
 	/**
 	 * @Method creates the email body structure using html tags
 	 * @return String
 	 */
-
-	public static String emailBodyCreator(String duration, String projectType) {
+    
+	public static synchronized String emailBodyCreator(String duration, String projectType) {
 
 		String text = "<h4>Hello Team,</h4>" + "<p>Please find the results for the execution,</p>";
 
@@ -41,9 +41,10 @@ public class MailBody extends MailTestListener{
 				+ "<tr><td><b>Test Passed</b></td><td style='color: green;' align='center'>" + passed + "</td></tr>"
 				+ "<tr bgcolor='lightgray'><td><b>Test Failed</b></td><td style='color: red;' align='center'>" + failure
 				+ "</td></tr>" + "<tr><td><b>Test Skipped</b></td><td style='color: orange;' align='center'>" + skipping
-				+ "</td></tr>" + "</table><br>";
-		emailScenarioTableCreate();
-		text = text + mailText + "<p>Thank you</p>";
+				+ "</td></tr>" + "</table><br><table style='font-size: 12px;' width='100%' border='1' bordercolor='black' align='center'>";
+		        emailScenarioTableCreate() ;
+		
+		text = text +  mailText  + "<p>Thank you</p>";
 
 		if (System.getenv("JOB_NAME") != null && System.getProperty("os.name").contains("Linux")) {
 
@@ -62,56 +63,31 @@ public class MailBody extends MailTestListener{
 	 * @return
 	 */
 	public static void emailScenarioTableCreate() {
-
+         
 		LinkedList<String> testNames = new LinkedList<String>(setTestNames);
-
-		for (int j = 0; j < testNames.size(); j++) {
-
-			Set<String> allTest = new TreeSet<String>(testNumber.keySet());
-			LinkedList<String> listTest = new LinkedList<String>(allTest);
-			System.out.println("The list test " + listTest);
-			LinkedList<String> scenarios = new LinkedList<String>();
-
-			for (int i = 0; i < listTest.size(); i++) {
-
-				if (listTest.get(i).contains(testNames.get(j))) {
-					scenarios.add(listTest.get(i));
-
-				}
-			}
+		for (int j = 1; j <=testNames.size(); j++) {
 
 			mailText = mailText
-					+ "<table style='font-size: 12px;' width='100%' border='1' bordercolor='black' align='center'>"
 					+ "<tr align='center' bgcolor='gray'>" + "<td colspan='4' align='center' style='color: white;'><b>"
-					+ CommonActionMethods.capitalize("Nairalytics") + "</b></td></tr>"
-					+ "<tr align='center' bgcolor='lightgray'>" + "<th width='5%'><b>#</b></th>"
+					+ CommonActionMethods.capitalize("Swaglab") + "</b></td></tr>"
+					+ "<tr align='center' bgcolor='lightgray'>" + "<th width='5%'><b>S.no.</b></th>"
 					+ "<th width='50%'><b>Scenario Description</b></th>" + "<th width='5%'><b>Status</b></th>"
-					+ "<th width='40%'><b>Comments</b></th>" + "</tr>";
+					+ "<th width='40%'><b> Comments </b></th>" + "</tr>";
 
-			for (int emailMsg = 0; emailMsg < scenarios.size(); emailMsg++) {
-				String sNo = CommonActionMethods.restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_no");
-				String sDescription = CommonActionMethods.restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_description");
-				String sStatus = CommonActionMethods.restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_status");
-				String sComments = CommonActionMethods.restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_comment");
-
-				if (sStatus.equalsIgnoreCase("passed")) {
-					mailText = mailText + "<tr style='color: green; font-size: 12px;'>" + "<td align='center'>" + sNo
-							+ "</td>" + "<td>" + sDescription + "</td>" + "<td>" + sStatus + "</td>" + "<td> </td>"
+				if (getScenarioStatus().equalsIgnoreCase("passed")) {
+					mailText = mailText + "<tr style='color: green; font-size: 12px;'>" + "<td align='center'>" + j
+							+ "</td>" + "<td>" + getScenarioDescription() + "</td>" + "<td>" + getScenarioStatus() + "</td>" + "<td>" +getScenarioComments() + "</td>"
 							+ "</tr>";
 
-				} else if (sStatus.equalsIgnoreCase("failed")) {
-					mailText = mailText + "<tr style='color: red; font-size: 12px;'>" + "<td align='center'>" + sNo
-							+ "</td>" + "<td>" + sDescription + "</td>" + "<td>" + sStatus + "</td>" + "<td>"
-							+ sComments + "</td>" + "</tr>";
+				} else if (getScenarioStatus().equalsIgnoreCase("failed")) {
+					mailText = mailText + "<tr style='color: red; font-size: 12px;'>" + "<td align='center'>" + j
+							+ "</td>" + "<td>" + getScenarioDescription() + "</td>" + "<td>" + getScenarioStatus() + "</td>" + "<td>"
+							+ getScenarioComments() +  "</td>" + "</tr>";
 
-				} else if (sStatus.equalsIgnoreCase("skipped")) {
-					mailText = mailText + "<tr style='color: orange; font-size: 12px;'>" + "<td align='center'>" + sNo
-							+ "</td>" + "<td>" + sDescription + "</td>" + "<td>" + sStatus + "</td>" + "<td>"
-							+ sComments + "</td>" + "</tr>";
+				} else if (getScenarioStatus().equalsIgnoreCase("skipped")) {
+					mailText = mailText + "<tr style='color: orange; font-size: 12px;'>" + "<td align='center'>" + j
+							+ "</td>" + "<td>" + getScenarioDescription() + "</td>" + "<td>" + getScenarioStatus() + "</td>" + "<td>"
+							+getScenarioComments() + "</td>" + "</tr>";
 				}
 
 			}
@@ -120,4 +96,4 @@ public class MailBody extends MailTestListener{
 
 		}
 	}
-}
+

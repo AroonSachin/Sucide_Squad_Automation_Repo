@@ -43,10 +43,12 @@ import org.apache.log4j.*;
  */
 public class CommonActionMethods extends MailTestListener{
 	public static ExtentReports extentreport;
+	public static String commentMessage = "";
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+	public static String snapPath = "";
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 		return map;
@@ -92,26 +94,18 @@ public class CommonActionMethods extends MailTestListener{
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-	public static void logErrorMessage(String MessageStopExecution) throws Exception {
+	public static synchronized void logErrorMessage(String MessageStopExecution) throws Exception {
+		commentMessage = MessageStopExecution;
 		log.error(MessageStopExecution);
+		snapPath = takeSnapShot();
 		if(extentreport!=null)
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
-		if (getScenarioStatus() == null) {
-            scenarioComments.set(MessageStopExecution);
-            System.out.println("scenario Comment: " + getScenarioComments());
-            scenarioNo.set(getdata("Number"));
-
-            scenarioDescription.set(getdata("Username"));
-            scenarioStatus.set("Failed");
-            failure++;
-            errorLogCount.set(getErrorLogCount() + 1);
-        } else {
-            scenarioComments.set(MessageStopExecution);
+		
         }
         //getExtentTest().log(Status.FAIL, MarkupHelper.createLabel(messageToLog, ExtentColor.RED));
-		}
+		
 		throw new RuntimeException(MessageStopExecution);
 	}
 	/**
@@ -121,7 +115,7 @@ public class CommonActionMethods extends MailTestListener{
 	 * @param url-string         value about the action being performed
 	 * @throws Exception 
 	 */
-	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
+	public void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();
@@ -527,65 +521,5 @@ public class CommonActionMethods extends MailTestListener{
 		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
 	}
 	
-	/**
-	 * 
-	 * @This method is to convert the text response into JSON
-	 * 
-	 * @param textString
-	 * @return JSONObject
-	 * 
-	 */
-	public static JSONObject restConvertTextAsJson(String textString) {
-		return new JSONObject(textString);
-	}
-	
-	/**
-	 * 
-	 * @This method is to get the correlate parameter value from the array object by
-	 *       giving rest response object as input
-	 * 
-	 * @param response
-	 * @param jsonPath
-	 * @return jsonString
-	 * 
-	 */
-	public static String restCorrelateJSON(String jsonString, String jsonPath) {
-
-		boolean flag = true;
-		JSONObject jsonObj = null;
-		Iterator<String> jsonItr = null;
-
-		String[] jsonPathSplit = jsonPath.split(Pattern.quote("."));
-
-		for (String matchKey : jsonPathSplit) {
-
-			if (matchKey.contains("[")) {
-				jsonObj = restConvertTextAsJson(jsonString);
-				int strLen = matchKey.length();
-				jsonString = jsonObj.getJSONArray(matchKey.replaceAll("\\[\\d\\]", ""))
-						.getJSONObject(Integer.parseInt(matchKey.substring(strLen - 2, strLen - 1))).toString();
-			}
-
-			jsonObj = restConvertTextAsJson(jsonString);
-			jsonItr = jsonObj.keys();
-
-			while (jsonItr.hasNext()) {
-				String keyvalue = jsonItr.next().toString();
-				if (keyvalue.equals(matchKey)) {
-					jsonString = jsonObj.get(keyvalue).toString();
-					flag = false;
-					break;
-				}
-			}
-		}
-
-		if (flag) {
-			System.err.println("No value found");
-		}
-
-		return jsonString;
-
-	}
-
 }
 
