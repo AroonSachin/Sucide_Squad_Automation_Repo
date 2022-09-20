@@ -43,12 +43,10 @@ import org.apache.log4j.*;
  */
 public class CommonActionMethods extends MailTestListener{
 	public static ExtentReports extentreport;
-	public static String commentMessage = "";
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
 	static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
-	public static String snapPath = "";
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 		return map;
@@ -86,7 +84,6 @@ public class CommonActionMethods extends MailTestListener{
 		{
 		testcase.log(Status.PASS, message);
 	}
-		 //getExtentTest().log(Status.INFO, MarkupHelper.createLabel(message, ExtentColor.GREEN));
 	}
 	/**
 	 * @This method is used to print the log error message in console and stop the
@@ -95,17 +92,16 @@ public class CommonActionMethods extends MailTestListener{
 	 * @throws Exception
 	 */
 	public static synchronized void logErrorMessage(String MessageStopExecution) throws Exception {
-		commentMessage = MessageStopExecution;
 		log.error(MessageStopExecution);
-		snapPath = takeSnapShot();
+		scenarioComments.set(MessageStopExecution);
+		scenarioDescription.set(getdata("Description"));
+		scenarioStatus.set("Failed");
+		scenarioNo.set(getdata("Number"));
 		if(extentreport!=null)
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
 		testcase.addScreenCaptureFromPath(takeSnapShot());
-		
         }
-        //getExtentTest().log(Status.FAIL, MarkupHelper.createLabel(messageToLog, ExtentColor.RED));
-		
 		throw new RuntimeException(MessageStopExecution);
 	}
 	/**
@@ -211,10 +207,12 @@ public class CommonActionMethods extends MailTestListener{
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(SrcFile, filepath);
+			FailedScreenShotdestination.set(pathlocation);
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			logErrorMessage(" Screenshot is not taken ");
+			logMessage(" Screenshot is not taken ");
+			e.printStackTrace();
 		}
 		return null;
 	}

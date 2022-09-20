@@ -1,8 +1,5 @@
 package utils;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeSet;
 
 import commonuseractions.CommonActionMethods;
 import commonuseractions.MailTestListener;
@@ -16,9 +13,10 @@ public class MailBody extends MailTestListener{
 	/**
 	 * @Method creates the email body structure using html tags
 	 * @return String
+	 * @throws Exception 
 	 */
     
-	public static synchronized String emailBodyCreator(String duration, String projectType) {
+	public static synchronized String emailBodyCreator(String duration, String projectType) throws Exception {
 
 		String text = "<h4>Hello Team,</h4>" + "<p>Please find the results for the execution,</p>";
 
@@ -43,8 +41,7 @@ public class MailBody extends MailTestListener{
 				+ "</td></tr>" + "<tr><td><b>Test Skipped</b></td><td style='color: orange;' align='center'>" + skipping
 				+ "</td></tr>" + "</table><br><table style='font-size: 12px;' width='100%' border='1' bordercolor='black' align='center'>";
 		        emailScenarioTableCreate() ;
-		
-		text = text +  mailText  + "<p>Thank you</p>";
+		text = text +  mailText  + "<p>Thank you</p>"+"<img src='../../Snaps/1662485837710.png' alt='Computer Man' style='width:48px;height:48px;'>";
 
 		if (System.getenv("JOB_NAME") != null && System.getProperty("os.name").contains("Linux")) {
 

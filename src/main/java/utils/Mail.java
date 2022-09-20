@@ -1,4 +1,5 @@
 package utils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -25,20 +26,18 @@ import javax.mail.internet.MimeMultipart;
 
 import commonuseractions.MailTestListener;
 
-
-
 /**
  * 
  * @This class is used to send the email report
  *
  */
-public class Mail extends MailTestListener{
+public class Mail extends MailTestListener {
 
-	public static void sendReport() throws IOException {
+	public static void sendReport() throws Exception {
 		// authentication info
-		final String username = "sowmya.venkateshwaran@tridentsqa.com";
-		final String password = "abcdefghijklmnop@2203";
-		String fromEmail = "sowmya.venkateshwaran@tridentsqa.com";
+		final String username = "arunsachin.m@tridentsqa.com";
+		final String password = System.getenv("PassWord");
+		String fromEmail = "arunsachin.m@tridentsqa.com";
 		String toEmail = "sowmya.venkateshwaran@tridentsqa.com";
 
 		Properties properties = new Properties();
@@ -57,8 +56,7 @@ public class Mail extends MailTestListener{
 		try {
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-			msg.addRecipients(Message.RecipientType.CC, "mohammedmustafa@tridentsqa.com");
-			msg.addRecipients(Message.RecipientType.CC, "arunsachin.m@tridentsqa.com");
+			msg.addRecipients(Message.RecipientType.CC, "vinoth.velayutham@tridentsqa.com");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MMM/YYYY");
 			Date date = new Date();
@@ -66,7 +64,7 @@ public class Mail extends MailTestListener{
 			if (mailFlag) {
 				msg.setSubject("Alert Automation Test Execution Failure " + dateFormat.format(date));
 			} else {
-				msg.setSubject("Swaglab Test Automation Report " + dateFormat.format(date));
+				msg.setSubject("Nairalytics Test Automation Report " + dateFormat.format(date));
 			}
 
 			Multipart emailContent = new MimeMultipart();
@@ -74,75 +72,69 @@ public class Mail extends MailTestListener{
 			// Text body part
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			String htmlBody;
-			//String scenarioTable;
-//			if (mailFlag) {
-//				File file = new File(FailedScreenShotdestination.get());
-//				System.out.println(file.getName());
-//				htmlBody = "<h4>Hello Team,</h4><p><b>Alert!!!</b> The following scenario \"<b>"
-//						+ getScenarioDescription() + "</b>\" has failed due to <b>" + getScenarioComments()
-//						+ "</b></p><p>Please find the screenshot for the current failed scenario</p><img src=\"cid:image\"alt=\"Barcode\" width=\"350\" height=\"250\" align=\"left\">";
-//				// first part (the html)
-//				BodyPart messageBodyPart = new MimeBodyPart();
-//
-//				messageBodyPart.setContent(htmlBody, "text/html");
-//				// add it
-//				MimeMultipart multipart = new MimeMultipart("related");
-//				multipart.addBodyPart(messageBodyPart);
-//
-//				// second part (the image)
-//				messageBodyPart = new MimeBodyPart();
-//				DataSource source = new FileDataSource(file);
-//				messageBodyPart.setDataHandler(new DataHandler(source));
-//				messageBodyPart.setHeader("Content-ID", "<image>");
-//
-//				// add image to the multipart
-//				multipart.addBodyPart(messageBodyPart);
-//
-//				// put everything together
-//				msg.setContent(multipart);
-//			} else {
-				htmlBody = MailBody.emailBodyCreator(testDuration(), "Swaglab");
-				//scenarioTable = MailBody.emailScenarioTableCreate();
+			if (mailFlag) {
+				File file = new File(FailedScreenShotdestination.get());
+				System.out.println(file.getName());
+				htmlBody = "<h4>Hello Team,</h4><p><b>Alert!!!</b> The following scenario \"<b>"
+						+ getScenarioDescription() + "</b>\" has failed due to <b>" + getScenarioComments()
+						+ "</b></p><p>Please find the screenshot for the current failed scenario</p><img src=\"cid:image\"alt=\"Barcode\" width=\"350\" height=\"250\" align=\"left\">";
+				// first part (the html)
+				BodyPart messageBodyPart = new MimeBodyPart();
+
+				messageBodyPart.setContent(htmlBody, "text/html");
+				// add it
+				MimeMultipart multipart = new MimeMultipart("related");
+				multipart.addBodyPart(messageBodyPart);
+
+				// second part (the image)
+				messageBodyPart = new MimeBodyPart();
+				DataSource source = new FileDataSource(file);
+				messageBodyPart.setDataHandler(new DataHandler(source));
+				messageBodyPart.setHeader("Content-ID", "<image>");
+
+				// add image to the multipart
+				multipart.addBodyPart(messageBodyPart);
+
+				// put everything together
+				msg.setContent(multipart);
+			} else {
+				System.err.println("Mail else");
+				htmlBody = MailBody.emailBodyCreator(testDuration(), "Nairalytics");
 				// Email body message creation
 				StringBuilder sb = new StringBuilder();
-				
-				//sb.append(scenarioTable);
 				sb.append(htmlBody);
 				textBodyPart.setContent(sb.toString(), "text/html");
-				
-				
-				
-//
-//				File folder = new File(
-//						System.getProperty("user.dir") + "/src/main/java/nairalytics_test_automation_suite/reports/");
-//				File[] listOfFiles = folder.listFiles();
-//				System.out.println("***" + listOfFiles[0]);
-//
-//				// Attachment body part.
-//				MimeBodyPart pdfAttachment = new MimeBodyPart();
-//
-//				File[] attachFiles = new File(
-//						System.getProperty("user.dir") + "/src/main/java/nairalytics_test_automation_suite/reports/")
-//								.listFiles();
-//
-//				if (attachFiles.length > 0) {
-//					// attach file
-//					attachFile(attachFiles[0], emailContent, pdfAttachment);
-//					if (attachFiles.length > 1) {
-//						for (int index = 1; index < attachFiles.length; index++) {
-//							attachFile(attachFiles[index], emailContent, new MimeBodyPart());
-//						}
-//					}
-//				}
+
+				File folder = new File(
+						System.getProperty("user.dir") + "/src/main/java/nairalytics_test_automation_suite/reports/");
+				File[] listOfFiles = folder.listFiles();
+				System.out.println("***" + listOfFiles[0]);
+
+				// Attachment body part.
+				MimeBodyPart pdfAttachment = new MimeBodyPart();
+
+				File[] attachFiles = new File(
+						System.getProperty("user.dir") + "/src/main/java/nairalytics_test_automation_suite/reports/")
+								.listFiles();
+
+				if (attachFiles.length > 0) {
+					// attach file
+					attachFile(attachFiles[0], emailContent, pdfAttachment);
+					if (attachFiles.length > 1) {
+						for (int index = 1; index < attachFiles.length; index++) {
+							attachFile(attachFiles[index], emailContent, new MimeBodyPart());
+						}
+					}
+				}
 
 				// Attach body parts
 				emailContent.addBodyPart(textBodyPart);
-				//emailContent.addBodyPart(pdfAttachment);
+				emailContent.addBodyPart(pdfAttachment);
 
 				// Attach multipart to message
 				msg.setContent(emailContent);
 
-			//}
+			}
 			Transport.send(msg);
 			System.out.println("Sent message");
 
@@ -183,9 +175,9 @@ public class Mail extends MailTestListener{
 		String hrs = "00";
 		String mins = "00";
 		String secs = "00";
-       
+
 		LocalTime end = LocalTime.now();
-		  System.out.println(startTime.toString());
+		System.out.println(startTime.toString());
 		String[] timeStamp = Duration.between(startTime, end).toString().replaceAll("P|T", "")
 				.replaceAll("\\.(.*)|S", "").replaceAll("M|H", " ").split(" ");
 
@@ -236,9 +228,3 @@ public class Mail extends MailTestListener{
 	}
 
 }
-
-
-
-
-
-

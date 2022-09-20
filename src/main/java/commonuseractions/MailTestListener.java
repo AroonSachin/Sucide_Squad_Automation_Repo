@@ -3,6 +3,7 @@ package commonuseractions;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,10 +22,10 @@ import utils.Mail;
 public class MailTestListener implements ITestListener{
 
 		
-
+		protected static ThreadLocal<String> testname = new ThreadLocal<String>();
 		private WebDriver driver = null;
 		public static ThreadLocal<String> scenarioDescription = new ThreadLocal<String>();
-		private static CommonActionMethods com = null;
+		private static CommonActionMethods com = new CommonActionMethods();
 		public static String mailText = "";
 		public static LocalTime startTime;
 		public static boolean mailFlag = true;
@@ -53,11 +54,11 @@ public class MailTestListener implements ITestListener{
 			return scenarioComments.get();
 		}
 
-//		public static ThreadLocal<String> scenarioNo = new ThreadLocal<String>();
-//
-//		public static String getScenarioNumber() {
-//			return scenarioNo.get();
-//		}
+		public static ThreadLocal<String> scenarioNo = new ThreadLocal<String>();
+
+		public static String getScenarioNumber() {
+			return scenarioNo.get();
+		}
 
 		
 		public static synchronized String getScenarioDescription() {
@@ -121,21 +122,56 @@ public class MailTestListener implements ITestListener{
 		public synchronized void onTestSuccess(ITestResult result) {
 			
 			passed++;
-			if (getScenarioStatus() == null) {
-				scenarioStatus.set("Passed");
-				scenarioComments.set("Execution is successful");
-				//getExtentTest().pass("Scenario Passed");
-			}
+				try {
+					scenarioStatus.set("Passed");
+					scenarioComments.set("Execution is successful");
+					scenarioDescription.set(com.getdata("Description"));
+					scenarioNo.set(com.getdata("Number"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			Map<Object, Object> testAttrb = new HashMap<Object, Object>();
+			testAttrb.put("scenario_no", getScenarioNumber());
+			testAttrb.put("scenario_description", getScenarioDescription());
+			testAttrb.put("scenario_status", getScenarioStatus());
+			testAttrb.put("scenario_comment", getScenarioComments());
+
+			testNumber.put(getScenarioNumber() + "_" + testname, testAttrb);
+			setTestNames.add(testname.get());
+
+			scenarioNo.set(null);
+			scenarioDescription.set(null);
+			scenarioStatus.set(null);
+			scenarioComments.set(null);
 
 		}
 
 		@Override
 		public synchronized void onTestFailure(ITestResult result) {
 
-			scenarioStatus.set("Failed");
-			scenarioComments.set(com.commentMessage);
-			FailedScreenShotdestination.set(com.snapPath);
 			failure++;
+			Map<Object, Object> testAttrb = new HashMap<Object, Object>();
+			testAttrb.put("scenario_no", getScenarioNumber());
+			testAttrb.put("scenario_description", getScenarioDescription());
+			testAttrb.put("scenario_status", getScenarioStatus());
+			testAttrb.put("scenario_comment", getScenarioComments());
+
+			testNumber.put(getScenarioNumber() + "_" + testname, testAttrb);
+			setTestNames.add(testname.get());
+			
+			try {
+				Mail.sendReport();
+			} catch (Exception e) {
+				com.logMessage("Mail not sent");
+				e.printStackTrace();
+			}
+
+			scenarioNo.set(null);
+			scenarioDescription.set(null);
+			scenarioStatus.set(null);
+			scenarioComments.set(null);
+			
+			
 		}
 
 		//@Override

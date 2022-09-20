@@ -1,9 +1,9 @@
 package swaglab;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -34,9 +34,10 @@ import utils.Mail;
 @Listeners(commonuseractions.MailTestListener.class)
 public class Swaglab extends CommonActionMethods {
 	
-	@BeforeSuite
+	@BeforeClass
 	private void extentReport() {
 		extentReport("Yourlogo.html");
+		
 
 	}
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
@@ -55,7 +56,7 @@ public class Swaglab extends CommonActionMethods {
 	 */
 	@BeforeMethod(alwaysRun=true)
 	public void startBrowser() throws Exception {
-		invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+		
 	}
 
 	/**
@@ -67,8 +68,10 @@ public class Swaglab extends CommonActionMethods {
 	@Test(dataProvider = "automation")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-        MailTestListener.setTestNames.add("Swaglab_Test1");
+		
 		if (CommonActionMethods.getdata("Number").equals("1")) {
+			invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
+			testname.set("Test1");
             status.set(false);
             MailTestListener.setDescription(getdata("Description"));
             extent("Login", "Sowmya", "Logging in");
@@ -82,17 +85,18 @@ public class Swaglab extends CommonActionMethods {
 			status.set(true);
 
 		} else {
-			DriverFactory.getDriver().quit();
 			throw new SkipException("Skip test");
 		}
 	}
 
-	//@Test(dataProvider = "automation")
+	@Test(dataProvider = "automation")
 
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
-		MailTestListener.setTestNames.add("Swaglab_Test2");
+		
 		if (CommonActionMethods.getdata("Number").equals("2")) {
+			testname.set("Test2");
+			invokeBrowser("chrome", "Windows", "https://www.saucedemo.com/");
 			status.set(false);
 			MailTestListener.setDescription(getdata("Description"));
 			 extent("Purchase", "Sowmya", "Purchasing items");
@@ -105,7 +109,6 @@ public class Swaglab extends CommonActionMethods {
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
 		} else {
-			DriverFactory.getDriver().quit();
 			throw new SkipException("Skip test");
 		}
 
@@ -113,6 +116,7 @@ public class Swaglab extends CommonActionMethods {
 
 	@AfterMethod
 	public void logStatus() throws Exception {
+		
 		if(status.get()!=null)
 		{
         if (status.get()) {
@@ -120,13 +124,23 @@ public class Swaglab extends CommonActionMethods {
 		} else {
 			ExcelReader.xlWriteStatus("database.xlsx", "Test", "Fail");
 		}
+        DriverFactory.closeDriver();
 	}
 
 }
-	@AfterSuite
-	public void sendMailReport() throws IOException
-	{
+	@AfterClass
+	public void aftrclass() {
 		extentreport.flush();
+	}
+	@AfterSuite
+	public void sendMailReport() throws Exception
+	{
+		System.err.println("After method");
+		mailFlag = false;
 		Mail.sendReport();
+		scenarioStatus.remove();
+		scenarioComments.remove();
+		scenarioDescription.remove();
+		scenarioNo.remove();
 	}
 }
