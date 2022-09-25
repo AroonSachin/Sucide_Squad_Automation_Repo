@@ -11,8 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -32,7 +35,9 @@ import org.apache.log4j.*;
  * 
  *
  */
-public class CommonActionMethods {
+public class CommonActionMethods extends TestListner{
+	protected static ThreadLocal<String> URL = new ThreadLocal<String>();
+	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
@@ -82,12 +87,19 @@ public class CommonActionMethods {
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-	public static void logErrorMessage(String MessageStopExecution) throws Exception {
+	public synchronized static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
+		String shot = takeSnapShot();
+		System.out.println(shot);
+		FailedScreenShotdestination.set(shot);
+		scenarioComments.set(MessageStopExecution);
+		scenarioDescription.set(getdata("Scenario"));
+		scenarioNo.set(getdata("Number"));
+		scenarioStatus.set("Failed");
 		if(extentreport!=null)
 		{
 		testcase.log(Status.FAIL, MessageStopExecution);
-		testcase.addScreenCaptureFromPath(takeSnapShot());
+		testcase.addScreenCaptureFromPath(shot);
 		}
 		throw new RuntimeException(MessageStopExecution);
 	}
@@ -98,7 +110,7 @@ public class CommonActionMethods {
 	 * @param url-string         value about the action being performed
 	 * @throws Exception 
 	 */
-	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
+	public synchronized void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();
@@ -197,7 +209,7 @@ public class CommonActionMethods {
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			logErrorMessage(" Screenshot is not taken ");
+			System.err.println(" Screenshot is not taken ");
 		}
 		return null;
 	}
@@ -368,7 +380,7 @@ public class CommonActionMethods {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getdata(String Name) throws Exception {
+	public synchronized static String getdata(String Name) throws Exception {
 		String data = "";
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
@@ -448,13 +460,19 @@ public class CommonActionMethods {
 	 * This method waits for the given element until it is clickable
 	 * 
 	 * @param ele
+	 * @throws Exception 
 	 */
-	public static void webWait(WebElement ele) {
-		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
-		wait.until(ExpectedConditions.elementToBeClickable(ele));
+	public static void webWait(WebElement ele) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
+			wait.until(ExpectedConditions.elementToBeClickable(ele));
+		} catch (Exception e) {
+			logErrorMessage(" Element not clickable time out waiting for element to be clickable ");
+		}
+		
 	}
 	/**
-	 * This mmethod deletes every sub-files inside the given directory 
+	 * This method deletes every sub-files inside the given directory 
 	 * @param file
 	 */
 	public static void deleteFolder(File file){
@@ -467,4 +485,76 @@ public class CommonActionMethods {
 	      }
 	      file.delete();
 	   }
+	/**
+	 * @This method is used to capitalize the string case provided
+	 * 
+	 * @param str - String to be capitalized
+	 * @return string
+	 * 
+	 */
+	public static String capitalize(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
+	/**
+	 * 
+	 * @This method is to convert the text response into JSON
+	 * 
+	 * @param textString
+	 * @return JSONObject
+	 * 
+	 */
+	public static JSONObject restConvertTextAsJson(String textString) {
+		return new JSONObject(textString);
+	}
+
+	/**
+	 * 
+	 * @This method is to get the correlate parameter value from the array object by
+	 *       giving rest response object as input
+	 * 
+	 * @param response
+	 * @param jsonPath
+	 * @return jsonString
+	 * 
+	 */
+	public static String restCorrelateJSON(String jsonString, String jsonPath) {
+
+		boolean flag = true;
+		JSONObject jsonObj = null;
+		Iterator<String> jsonItr = null;
+
+		String[] jsonPathSplit = jsonPath.split(Pattern.quote("."));
+
+		for (String matchKey : jsonPathSplit) {
+
+			if (matchKey.contains("[")) {
+				jsonObj = restConvertTextAsJson(jsonString);
+				int strLen = matchKey.length();
+				jsonString = jsonObj.getJSONArray(matchKey.replaceAll("\\[\\d\\]", ""))
+						.getJSONObject(Integer.parseInt(matchKey.substring(strLen - 2, strLen - 1))).toString();
+			}
+
+			jsonObj = restConvertTextAsJson(jsonString);
+			jsonItr = jsonObj.keys();
+
+			while (jsonItr.hasNext()) {
+				String keyvalue = jsonItr.next().toString();
+				if (keyvalue.equals(matchKey)) {
+					jsonString = jsonObj.get(keyvalue).toString();
+					flag = false;
+					break;
+				}
+			}
+		}
+
+		if (flag) {
+			System.err.println("No value found");
+		}
+
+		return jsonString;
+
+	}
 }

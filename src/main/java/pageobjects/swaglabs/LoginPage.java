@@ -16,27 +16,15 @@ import utils.DriverFactory;
 
 public class LoginPage extends CommonActionMethods {
 
+	@FindBy(id = "user-name")
+	WebElement userName;
+	@FindBy(id = "password")
+	WebElement passWord;
+	@FindBy(id = "login-button")
+	WebElement loginButton;
+	
 	public LoginPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
-	}
-
-	@FindBy(id = "user-name")
-	private static WebElement userName;
-	@FindBy(id = "password")
-	private static WebElement passWord;
-	@FindBy(id = "login-button")
-	private static WebElement loginButton;
-
-	public void enterUsername() throws Exception {
-
-		sendKeysMethod(userName, getdata("Username"));
-
-	}
-
-	public void enterPassword() throws Exception {
-
-		sendKeysMethod(passWord, getdata("Password"));
-
 	}
 
 	/**
@@ -44,14 +32,10 @@ public class LoginPage extends CommonActionMethods {
 	 *       application
 	 * @throws Exception
 	 */
-
-	public void login() throws Exception {
-
+	public synchronized void login() throws Exception {
 		sendKeysMethod(userName, getdata("Username"));
 		sendKeysMethod(passWord, getdata("Password"));
-
 		clickMethod(loginButton, "login");
-
 	}
-
+	
 }
