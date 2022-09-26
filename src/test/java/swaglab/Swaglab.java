@@ -49,7 +49,6 @@ public class Swaglab extends CommonActionMethods {
 	@BeforeMethod(alwaysRun = true)
 	public void startBrowser() throws Exception {
 		URL.set("https://www.saucedemo.com/");
-
 	}
 
 	/**
@@ -62,17 +61,11 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			System.out.println("@1");
 			invokeBrowser("chrome", "Windows", URL.get());
-			extent("Test_case1", "Sowmya", "Functional Test");
+			extent(" Login ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
 			new HomePage().homepageValidation();
-			new Checkout().checkoutValidation();
-			new Checkout().clickOnCheckoutButton();
-			new InfoPage().info();
-			new Confirmation().clickOnFinishButton();
-			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
 
 		} else {
@@ -85,9 +78,8 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			System.out.println("@2");
 			invokeBrowser("chrome", "Windows", URL.get());
-			extent("Test_case2", "Sowmya", "Functional Test");
+			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
 			new HomePage().homepageValidation();
@@ -112,9 +104,9 @@ public class Swaglab extends CommonActionMethods {
 				ExcelReader.xlWriteStatus("database.xlsx", "Test", "Fail");
 			}
 		}
-//		if (DriverFactory.getDriver() != null) {
-//			DriverFactory.closeDriver();
-//		}
+		if (DriverFactory.getDriver() != null) {
+			DriverFactory.closeDriver();
+		}
 		URL.remove();
 	}
 

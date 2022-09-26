@@ -68,7 +68,6 @@ public class Mail extends CommonActionMethods {
 			String htmlBody;
 			if (mailFlag) {
 				File file = new File(FailedScreenShotdestination.get());
-				System.out.println(file.getName());
 				htmlBody = "<h4>Hello Team,</h4><p><b>Alert!!!</b> The following scenario \"<b>"
 						+ getScenarioDescription() + "</b>\" has failed due to <b>" + getScenarioComments()
 						+ "</b></p><p>Please find the screenshot for the current failed scenario</p><img src=\"cid:image\"alt=\"Barcode\" width=\"350\" height=\"250\" align=\"left\">";

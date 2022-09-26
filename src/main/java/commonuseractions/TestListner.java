@@ -104,7 +104,6 @@ public class TestListner implements ITestListener {
 
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
-		System.out.println("On success");
 			try {
 				scenarioNo.set(commonfunctions.getdata("Number"));
 				scenarioDescription.set(commonfunctions.getdata("Scenario"));
@@ -122,7 +121,6 @@ public class TestListner implements ITestListener {
 
 			testNumber.put(getScenarioNumber() + "_" + commonfunctions.testName, testAttrb);
 			setTestNames.add(commonfunctions.testName);
-			System.out.println(testNumber);
 			scenarioNo.set(null);
 			scenarioDescription.set(null);
 			scenarioStatus.set(null);
@@ -133,7 +131,6 @@ public class TestListner implements ITestListener {
 	@Override
 	public synchronized void onTestFailure(ITestResult result) {
 		failure++;
-		System.out.println("On Failiure");
 		Map<Object, Object> testAttrb = new HashMap<Object, Object>();
 		testAttrb.put("scenario_no", getScenarioNumber());
 		testAttrb.put("scenario_description", getScenarioDescription());
@@ -155,29 +152,6 @@ public class TestListner implements ITestListener {
 
 	@Override
 	public synchronized void onTestSkipped(ITestResult result) {
-		System.out.println("On skipped");
-//		try {
-//			skipping++;
-//			scenarioNo.set("Skipped: "+commonfunctions.getdata("Number"));
-//			scenarioDescription.set(commonfunctions.getdata("Scenario"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		scenarioStatus.set("Skipped");
-//		scenarioComments.set(" Test skipped ");
-//		Map<Object, Object> testAttrb = new HashMap<Object, Object>();
-//		testAttrb.put("scenario_no", getScenarioNumber());
-//		testAttrb.put("scenario_description", getScenarioDescription());
-//		testAttrb.put("scenario_status", getScenarioStatus());
-//		testAttrb.put("scenario_comment", getScenarioComments());
-//
-//		testNumber.put(getScenarioNumber() + "_" + commonfunctions.testName, testAttrb);
-//		setTestNames.add(commonfunctions.testName);
-//		System.out.println(testNumber);
-//		scenarioNo.set(null);
-//		scenarioDescription.set(null);
-//		scenarioStatus.set(null);
-//		scenarioComments.set(null);
 
 	}
 
