@@ -17,33 +17,34 @@ import utils.DriverFactory;
  * @this class contains methods of home page
  */
 public class HomePage extends CommonActionMethods {
+	
+
+	@FindBy(id = "react-burger-menu-btn")
+	WebElement hamburgerButton;
+
+	@FindBy(className = "inventory_item_name")
+	List<WebElement> itemName;
+
+	@FindBy(className = "inventory_item_price")
+	List<WebElement> itemPrice;
+
+	@FindBy(xpath = "//button[contains(@id,'add-to-cart') or (text()='Remove')]")
+	List<WebElement> addItems;
+
+	@FindBy(xpath = "//span[@class='shopping_cart_badge']")
+	WebElement cart;
+
+	@FindBy(id = "logout_sidebar_link")
+	WebElement logout;
+
+	@FindBy(className = "product_sort_container")
+	WebElement filterprice;
+
 	public HomePage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
-	@FindBy(id = "react-burger-menu-btn")
-	private static WebElement hamburgerButton;
-
-	@FindBy(className = "inventory_item_name")
-	private static List<WebElement> itemName;
-
-	@FindBy(className = "inventory_item_price")
-	private static List<WebElement> itemPrice;
-
-	@FindBy(xpath = "//button[contains(@id,'add-to-cart') or (text()='Remove')]")
-	private static List<WebElement> addItems;
-
-	@FindBy(xpath = "//span[@class='shopping_cart_badge']")
-	private static WebElement cart;
-
-	@FindBy(id = "logout_sidebar_link")
-	private static WebElement logout;
-
-	@FindBy(className = "product_sort_container")
-	private static WebElement filterprice;
-
 	
-	public static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
+	static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
 
 	public static LinkedHashSet<String> getproductName() {
 		return productName.get();
@@ -60,15 +61,13 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	public void selectItem() throws Exception {
+	public synchronized void selectItem() throws Exception {
 		getproductName().clear();
 		getproductPrice().clear();
 		for (int q = 0; q < Integer.parseInt(getdata("Quantity")); q++) {
-
 			getproductName().add(getTextElement(itemName.get(q), "item name"));
 			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
 			clickMethod(addItems.get(q), "product " + (q + 1));
-
 		}
 	}
 
