@@ -95,9 +95,9 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 
 	@AfterMethod
 	public void close() {
-//		if (DriverFactory.getDriver() != null) {
-//			DriverFactory.closeDriver();
-//		}
+		if (DriverFactory.getDriver() != null) {
+			DriverFactory.closeDriver();
+		}
 		URL.remove();
 	}
 

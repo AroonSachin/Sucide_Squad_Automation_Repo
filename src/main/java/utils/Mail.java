@@ -49,8 +49,8 @@ public class Mail extends CommonActionMethods {
 		try {
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-			// msg.addRecipients(Message.RecipientType.CC,
-			// "vinoth.velayutham@tridentsqa.com,vinoth.raj@tridentsqa.com");
+			 msg.addRecipients(Message.RecipientType.CC,
+			 "vinoth.velayutham@tridentsqa.com,vinoth.raj@tridentsqa.com");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MMM/YYYY");
 			Date date = new Date();
@@ -58,7 +58,7 @@ public class Mail extends CommonActionMethods {
 			if (mailFlag) {
 				msg.setSubject("Alert Automation Test Execution Failure " + dateFormat.format(date));
 			} else {
-				msg.setSubject("Nairalytics Test Automation Report " + dateFormat.format(date));
+				msg.setSubject("Sucide Squad Test Automation Report " + dateFormat.format(date));
 			}
 
 			Multipart emailContent = new MimeMultipart();
