@@ -14,21 +14,23 @@ import utils.DriverFactory;
  */
 public class InfoPage extends CommonActionMethods {
 
+	
+
+	@FindBy(id = "first-name")
+	WebElement firstName;
+
+	@FindBy(id = "last-name")
+	WebElement lastName;
+
+	@FindBy(id = "postal-code")
+	WebElement PinCode;
+
+	@FindBy(id = "continue")
+	WebElement continueButton;
+	
 	public InfoPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
-	@FindBy(id = "first-name")
-	private static WebElement firstName;
-
-	@FindBy(id = "last-name")
-	private static WebElement lastName;
-
-	@FindBy(id = "postal-code")
-	private static WebElement PinCode;
-
-	@FindBy(id = "continue")
-	private static WebElement continueButton;
 
 	/**
 	 * @this method is used to fill the user info
