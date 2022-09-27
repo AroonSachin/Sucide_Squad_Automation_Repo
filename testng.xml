@@ -6,9 +6,9 @@
 	</listeners>
 	<test name="Phptravels">
 		<classes>
-			<class name="swaglab.Swaglab"></class>
+			<!--<class name="swaglab.Swaglab"></class>-->
 			<class name="yourlogo.YourLogo"></class>
-			<class name="phptravels.PhpTravelFlightBooking"></class>
+			<!--<class name="phptravels.PhpTravelFlightBooking"></class>-->
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

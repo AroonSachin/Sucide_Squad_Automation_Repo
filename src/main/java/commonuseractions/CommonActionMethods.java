@@ -17,6 +17,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -387,6 +388,7 @@ public class CommonActionMethods {
 	 */
 	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
 		for (WebElement element : listelement) {
+			webWait(element);
 			String name = element.getText();
 			if (name.contains(Toselect)) {
 				clickMethod(element, Toselect);
@@ -448,11 +450,15 @@ public class CommonActionMethods {
 	 * This method waits for the given element until it is clickable
 	 * 
 	 * @param ele
+	 * @throws InterruptedException 
 	 */
-	public static void webWait(WebElement ele) {
+	public static void webWait(WebElement ele) throws InterruptedException {	
 		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
+		Thread.sleep(3000);
 		wait.until(ExpectedConditions.elementToBeClickable(ele));
 	}
+	
+	
 	/**
 	 * This mmethod deletes every sub-files inside the given directory 
 	 * @param file
