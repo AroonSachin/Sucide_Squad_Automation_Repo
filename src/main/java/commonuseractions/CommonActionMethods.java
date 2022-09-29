@@ -20,6 +20,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -399,6 +400,7 @@ public class CommonActionMethods extends TestListner{
 	 */
 	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
 		for (WebElement element : listelement) {
+			webWait(element);
 			String name = element.getText();
 			if (name.contains(Toselect)) {
 				clickMethod(element, Toselect);
@@ -469,8 +471,9 @@ public class CommonActionMethods extends TestListner{
 		} catch (Exception e) {
 			logErrorMessage(" Element not clickable time out waiting for element to be clickable ");
 		}
-		
-	}
+			}
+	
+	
 	/**
 	 * This method deletes every sub-files inside the given directory 
 	 * @param file
