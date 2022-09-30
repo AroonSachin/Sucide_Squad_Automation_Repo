@@ -17,21 +17,23 @@ import utils.DriverFactory;
  */
 public class Checkout extends CommonActionMethods {
 
+
+
+	@FindBy(id = "checkout")
+	WebElement checkoutButton;
+
+	@FindBy(className = "inventory_item_name")
+	List<WebElement> pName;
+
+	@FindBy(className = "inventory_item_price")
+	List<WebElement> pPrice;
+
+	@FindBy(className = "cart_quantity")
+	List<WebElement> pQuantity;
+	
 	public Checkout() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
-	@FindBy(id = "checkout")
-	private static WebElement checkoutButton;
-
-	@FindBy(className = "inventory_item_name")
-	private static List<WebElement> pName;
-
-	@FindBy(className = "inventory_item_price")
-	private static List<WebElement> pPrice;
-
-	@FindBy(className = "cart_quantity")
-	private static List<WebElement> pQuantity;
 
 	public void clickOnCheckoutButton() throws Exception {
 		clickMethod(checkoutButton, "checkout");
@@ -97,7 +99,7 @@ public class Checkout extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	public void checkoutValidation() throws Exception {
+	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
 		validateQuantity();
 	}
