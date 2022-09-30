@@ -3,6 +3,7 @@
 <suite name="Suite" thread-count="5" parallel="methods">
 	<listeners>
 		<listener class-name="yourlogo.Transformer"></listener>
+		<listener class-name="commonuseractions.TestListner"></listener>
 	</listeners>
 	<test name="Phptravels">
 		<classes>

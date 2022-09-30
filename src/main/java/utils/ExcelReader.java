@@ -45,7 +45,6 @@ public class ExcelReader {
 				dataMap.put(title, value);
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			throw new Error(e.getStackTrace().toString());
 		}

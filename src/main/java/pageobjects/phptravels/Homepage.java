@@ -31,16 +31,16 @@ public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//b")
 	List<WebElement> descitylist;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[5]//i)[2]")
+	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[5]//th[@class='prev']/following-sibling::th[@class='next'])[1]//i")
 	WebElement nextarrow;
 
-	@FindBy(xpath = "((//table[@class=' table-condensed'])[6]//i)[2]")
+	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[6]//th[@class='prev']/following-sibling::th[@class='next'])[1]//i")
 	WebElement returnnxtarw;
 	
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//th[@class='switch']")
-	WebElement month;
+	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[5]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
+	WebElement depmonth;
 
-	@FindBy(xpath = "(//table[@class=' table-condensed'])[6]//th[@class='switch']")
+	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[6]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
 	WebElement monthreturn;
 
 	@FindBy(xpath = "(//table[@class=' table-condensed'])[5]//td[@class='day ']")
@@ -67,17 +67,21 @@ public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@id='onereturn']//a")
 	WebElement paxbotton;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[1]")
+	@FindBy(xpath = "(//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='adults']/following-sibling::div")
 	WebElement adultplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[2]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='childs']/following-sibling::div)[1]")
 	WebElement childplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[1]//i[@class='la la-plus'])[3]")
+	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='childs']/following-sibling::div)[2]")
 	WebElement infantplus;
 	
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
 	WebElement cookie;
+	
+	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[3]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
+	WebElement month;
+	
 	/**
 	 * Constructor to store the above located elements.
 	 */
@@ -94,13 +98,12 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@Step("To locate month ")
-	private static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
+	public static void monthloc(WebElement ele, String monthtoselect, WebElement nxtbutton) throws Exception {
 		while (true) {
-			webWait(ele);
-			if (ele.getText().contains(monthtoselect)) {
+			if (getTextElement(ele, " Month ").contains(monthtoselect)) {
 				break;
 			} else {
-				clickMethod(nxtbutton, "next arrow");
+				clickMethod(nxtbutton, " next arrow ");
 			}
 		}
 	}
@@ -151,7 +154,7 @@ public class Homepage extends CommonActionMethods {
 		} else { 
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
-			monthloc(month, mnth, nextarrow);
+			monthloc(depmonth, mnth, nextarrow);
 			listDrop(dateele, depdate);
 			monthloc(monthreturn, returnmonth, returnnxtarw);
 			Thread.sleep(3000);
