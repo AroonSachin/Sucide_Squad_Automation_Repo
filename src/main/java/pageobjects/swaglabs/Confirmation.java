@@ -13,15 +13,17 @@ import utils.DriverFactory;
  */
 public class Confirmation extends CommonActionMethods {
 
+	
+
+	@FindBy(id = "finish")
+	WebElement finishButton;
+
+	@FindBy(className = "complete-header")
+	WebElement confirmationMsg;
+	
 	public Confirmation() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
-	@FindBy(id = "finish")
-	private static WebElement finishButton;
-
-	@FindBy(className = "complete-header")
-	private static WebElement confirmationMsg;
 
 	public void clickOnFinishButton() throws Exception {
 		clickMethod(finishButton, "finish");

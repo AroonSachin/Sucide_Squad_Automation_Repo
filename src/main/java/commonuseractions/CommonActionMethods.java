@@ -4,19 +4,25 @@ import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,13 +32,17 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.apache.log4j.*;
+
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
  * 
  *
  */
-public class CommonActionMethods {
+public class CommonActionMethods extends TestListner {
+	protected static boolean invokeMail = false;
+	protected static ThreadLocal<String> URL = new ThreadLocal<String>();
+	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
@@ -42,28 +52,32 @@ public class CommonActionMethods {
 		Map<String, String> map = new HashMap<>();
 		return map;
 	});
+
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
 	}
-    /**
-     * @This method call the pagename,author,category
-     * @param message
-     * @param author
-     * @param category
-     */
+
+	/**
+	 * @This method call the pagename,author,category
+	 * @param message
+	 * @param author
+	 * @param category
+	 */
 	public static void extent(String message, String author, String category) {
 		testcase = extentreport.createTest(message).assignAuthor(author).assignCategory(category);
 	}
-    /**
-     * @This method is used to call the extend report
-     * @param name
-     */
+
+	/**
+	 * @This method is used to call the extend report
+	 * @param name
+	 */
 	public static void extentReport(String name) {
 		extentreport = new ExtentReports();
 		HtmlReporter = new ExtentHtmlReporter(name);
 		HtmlReporter.config().setTheme(Theme.DARK);
 		extentreport.attachReporter(HtmlReporter);
 	}
+
 	/**
 	 * 
 	 * @This method is used to print the log message in console
@@ -71,40 +85,50 @@ public class CommonActionMethods {
 	 */
 	public static void logMessage(String message) {
 		log.info(message);
-		if(extentreport!=null)
-		{
-		testcase.log(Status.PASS, message);
+		if (extentreport != null) {
+			testcase.log(Status.PASS, message);
+		}
 	}
-	}
+
 	/**
 	 * @This method is used to print the log error message in console and stop the
 	 *       execution
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-	public static void logErrorMessage(String MessageStopExecution) throws Exception {
+	public synchronized static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
-		if(extentreport!=null)
-		{
-		testcase.log(Status.FAIL, MessageStopExecution);
-		testcase.addScreenCaptureFromPath(takeSnapShot());
+		String shot = takeSnapShot();
+		System.out.println(shot);
+		if (invokeMail) {
+			FailedScreenShotdestination.set(shot);
+			scenarioComments.set(MessageStopExecution);
+			scenarioDescription.set(getdata("Scenario"));
+			scenarioNo.set(getdata("Number"));
+			scenarioStatus.set("Failed");
+		}
+		if (extentreport != null) {
+			testcase.log(Status.FAIL, MessageStopExecution);
+			testcase.addScreenCaptureFromPath(shot);
 		}
 		throw new RuntimeException(MessageStopExecution);
 	}
+
 	/**
 	 * @This method is used to invoke the browser
 	 * @param browser-string     value about the action being performed
 	 * @param browsertype-string value about the action being performed
 	 * @param url-string         value about the action being performed
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
+	public synchronized void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();
 		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		DriverFactory.getDriver().get(url);
 	}
+
 	/**
 	 *
 	 * @This method is for click the element
@@ -117,9 +141,11 @@ public class CommonActionMethods {
 			element.click();
 			logMessage(button + " button is clicked  ");
 		} catch (Exception e) {
+			e.printStackTrace();
 			logErrorMessage(button + " button is not clicked ");
 		}
 	}
+
 	/**
 	 * @This method is for enter the value
 	 * @param key   -Webelement of the textbox to send the text
@@ -135,6 +161,7 @@ public class CommonActionMethods {
 			logErrorMessage(" Element is not entered in " + enter);
 		}
 	}
+
 	/**
 	 * @This method is for selectByVisibleText
 	 * @param element     -Webelement to select an option from the dropdown
@@ -151,6 +178,7 @@ public class CommonActionMethods {
 			logErrorMessage(text + " Element is not selected ");
 		}
 	}
+
 	/**
 	 * 
 	 * @This method is for selectByValue
@@ -167,6 +195,7 @@ public class CommonActionMethods {
 			logErrorMessage(text + " Element is not selected ");
 		}
 	}
+
 	/**
 	 * 
 	 * @This method is for selectByIndex
@@ -183,6 +212,7 @@ public class CommonActionMethods {
 			logErrorMessage(Index + " Element is not selected ");
 		}
 	}
+
 	/**
 	 * @return
 	 * @This method is used to take a screenshot
@@ -190,17 +220,18 @@ public class CommonActionMethods {
 	 */
 	public static String takeSnapShot() throws Exception {
 		try {
-			File SrcFile = ( (TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
+			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(SrcFile, filepath);
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			logErrorMessage(" Screenshot is not taken ");
+			System.err.println(" Screenshot is not taken ");
 		}
 		return null;
 	}
+
 	/**
 	 * @This method is used for windowhandle
 	 * @throws Exception
@@ -220,6 +251,7 @@ public class CommonActionMethods {
 			logErrorMessage(" windowhandle is not successful ");
 		}
 	}
+
 	/**
 	 * 
 	 * @This method is used for frameByElement
@@ -234,6 +266,7 @@ public class CommonActionMethods {
 			logErrorMessage(" no such frame exception ");
 		}
 	}
+
 	/**
 	 *
 	 * @This method is used for frameByIndex
@@ -248,6 +281,7 @@ public class CommonActionMethods {
 			logErrorMessage(" no such frame exception ");
 		}
 	}
+
 	/**
 	 *
 	 * @This method is used for frameByNameorID
@@ -262,6 +296,7 @@ public class CommonActionMethods {
 			logErrorMessage(" no such frame exception ");
 		}
 	}
+
 	/**
 	 * @This method is used for default window
 	 * @throws Exception
@@ -275,14 +310,17 @@ public class CommonActionMethods {
 			logErrorMessage(" Not switched to defaultwindow ");
 		}
 	}
+
 	/**
 	 * @This method is for get current page title
 	 * @return
 	 */
 	public static String getTitle() {
 		String title = DriverFactory.getDriver().getTitle();
+		logMessage(title);
 		return title;
 	}
+
 	/**
 	 * @This method is for get a current url
 	 * @return
@@ -292,6 +330,7 @@ public class CommonActionMethods {
 		logMessage(url);
 		return url;
 	}
+
 	/**
 	 * 
 	 * @This method is for element is displayed
@@ -310,6 +349,7 @@ public class CommonActionMethods {
 			logErrorMessage(ElementName + " is not displayed in catch block ");
 		}
 	}
+
 	/**
 	 *
 	 * @This method is for element is selected
@@ -318,18 +358,14 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void isSelected(WebElement element, String ElementName) throws Exception {
-		try {
-			if (element.isSelected()) {
-				logMessage(ElementName + " is selected");
-			} else {
-				logErrorMessage(ElementName + " is not selected in else block ");
-			}
-		} catch (Exception e) {
-			logErrorMessage(ElementName + " is not selected in catch block ");
+		if (element.isSelected()) {
+			logMessage(ElementName + " is selected");
+		} else {
+			logErrorMessage(ElementName + " is not selected ");
 		}
 	}
+
 	/**
-	 * 
 	 * @This method is for element is enabled
 	 * @param element     -WebElement to check whether is Enabled or not
 	 * @param ElementName -string value about the action being performed
@@ -346,6 +382,7 @@ public class CommonActionMethods {
 			logErrorMessage(ElementName + " is not enabled in catch block ");
 		}
 	}
+
 	/**
 	 * @This method is used to check the variable are equal
 	 * @param intial-object   value about the action being performed
@@ -355,12 +392,13 @@ public class CommonActionMethods {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-			if (String.valueOf(intial).contains(String.valueOf(end))) {
-				logMessage(intial + " & " + end + " is equal");
-			} else {
-				logErrorMessage(intial + " & " + end + " is not equal");
-			}
+		if (String.valueOf(intial).contains(String.valueOf(end))) {
+			logMessage(intial + " & " + end + " is equal");
+		} else {
+			logErrorMessage(intial + " & " + end + " is not equal");
+		}
 	}
+
 	/**
 	 * This method for getting the data from the hash map and returns the value
 	 * 
@@ -368,7 +406,7 @@ public class CommonActionMethods {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getdata(String Name) throws Exception {
+	public synchronized static String getdata(String Name) throws Exception {
 		String data = "";
 		if (inputdata.get().containsKey(Name)) {
 			data = inputdata.get().get(Name);
@@ -377,24 +415,33 @@ public class CommonActionMethods {
 		}
 		return data;
 	}
+
 	/**
 	 * This method is to click the respective element by its text from the list of
 	 * webelements.
 	 * 
 	 * @param listelement
 	 * @param Toselect
+	 * @return
 	 * @throws Exception
 	 */
 	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
+		boolean flag = true;
 		for (WebElement element : listelement) {
+			webWait(element);
 			String name = element.getText();
 			if (name.contains(Toselect)) {
+				flag = false;
 				clickMethod(element, Toselect);
 				logMessage(Toselect + "  is clicked");
 				break;
 			}
 		}
+		if (flag) {
+			logErrorMessage(" No such String to click ");
+		}
 	}
+
 	/**
 	 * This method is to split the given given string by comma.
 	 * 
@@ -405,10 +452,12 @@ public class CommonActionMethods {
 		String arr[] = data.split(symbol);
 		return arr;
 	}
+
 	public static void scrollToElement(WebElement ele) {
 		JavascriptExecutor scrl = (JavascriptExecutor) DriverFactory.getDriver();
 		scrl.executeScript("arguments[0].scrollIntoView(true)", ele);
 	}
+
 	/**
 	 * This method is to get the text data from excel
 	 * 
@@ -427,6 +476,7 @@ public class CommonActionMethods {
 		}
 		return data.iterator();
 	}
+
 	/**
 	 * This method is to get text of the element
 	 * 
@@ -444,27 +494,138 @@ public class CommonActionMethods {
 		}
 		return text;
 	}
+
 	/**
 	 * This method waits for the given element until it is clickable
 	 * 
 	 * @param ele
+	 * @throws Exception
 	 */
-	public static void webWait(WebElement ele) {
-		WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
-		wait.until(ExpectedConditions.elementToBeClickable(ele));
+	public static void webWait(WebElement ele) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
+			wait.until(ExpectedConditions.elementToBeClickable(ele));
+		} catch (Exception e) {
+			logErrorMessage(" Element not clickable time out waiting for element to be clickable ");
+		}
 	}
+
 	/**
-	 * This mmethod deletes every sub-files inside the given directory 
+	 * This methods waits until the element is visible.
+	 * 
+	 * @param ele
+	 * @throws Exception 
+	 */
+	public static void webwaitVisibility(WebElement ele) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(15));
+			wait.until(ExpectedConditions.visibilityOf(ele));
+		} catch (Exception e) {
+			logErrorMessage(" Element not clickable time out waiting for element to be clickable ");
+		}
+	}
+
+	/**
+	 * This method deletes every sub-files inside the given directory
+	 * 
 	 * @param file
 	 */
-	public static void deleteFolder(File file){
-	      for (File subFile : file.listFiles()) {
-	         if(subFile.isDirectory()) {
-	            deleteFolder(subFile);
-	         } else {
-	            subFile.delete();
-	         }
-	      }
-	      file.delete();
-	   }
+	public static void deleteFolder(File file) {
+		for (File subFile : file.listFiles()) {
+			if (subFile.isDirectory()) {
+				deleteFolder(subFile);
+			} else {
+				subFile.delete();
+			}
+		}
+		file.delete();
+	}
+
+	/**
+	 * @This method is used to capitalize the string case provided
+	 * 
+	 * @param str - String to be capitalized
+	 * @return string
+	 * 
+	 */
+	public static String capitalize(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
+
+	/**
+	 * 
+	 * @This method is to convert the text response into JSON
+	 * 
+	 * @param textString
+	 * @return JSONObject
+	 * 
+	 */
+	public static JSONObject restConvertTextAsJson(String textString) {
+		return new JSONObject(textString);
+	}
+
+	/**
+	 * 
+	 * @This method is to get the correlate parameter value from the array object by
+	 *       giving rest response object as input
+	 * 
+	 * @param response
+	 * @param jsonPath
+	 * @return jsonString
+	 * 
+	 */
+	public static String restCorrelateJSON(String jsonString, String jsonPath) {
+
+		boolean flag = true;
+		JSONObject jsonObj = null;
+		Iterator<String> jsonItr = null;
+
+		String[] jsonPathSplit = jsonPath.split(Pattern.quote("."));
+
+		for (String matchKey : jsonPathSplit) {
+
+			if (matchKey.contains("[")) {
+				jsonObj = restConvertTextAsJson(jsonString);
+				int strLen = matchKey.length();
+				jsonString = jsonObj.getJSONArray(matchKey.replaceAll("\\[\\d\\]", ""))
+						.getJSONObject(Integer.parseInt(matchKey.substring(strLen - 2, strLen - 1))).toString();
+			}
+
+			jsonObj = restConvertTextAsJson(jsonString);
+			jsonItr = jsonObj.keys();
+
+			while (jsonItr.hasNext()) {
+				String keyvalue = jsonItr.next().toString();
+				if (keyvalue.equals(matchKey)) {
+					jsonString = jsonObj.get(keyvalue).toString();
+					flag = false;
+					break;
+				}
+			}
+		}
+
+		if (flag) {
+			System.err.println("No value found");
+		}
+
+		return jsonString;
+
+	}
+
+	/**
+	 * @method returns the requested date from the curent date in the format MMMMMMMMMM/d/yyyy
+	 * @param plusdays
+	 * @return
+	 */
+	public String currentDate(int plusdays) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
+		SimpleDateFormat date = new SimpleDateFormat();
+		date.applyPattern("MMMMMMMMMM/d/yyyy");
+		String dat = date.format(cal.getTime());
+		return dat;
+	}
 }
