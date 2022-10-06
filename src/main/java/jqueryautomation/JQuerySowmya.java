@@ -23,6 +23,15 @@ public class JQuerySowmya extends CommonActionMethods {
 	@FindBy(xpath = "//a[text()='Droppable']")
 	public WebElement dropButton;
 	
+	@FindBy(xpath = "//a[text()='Resizable']")
+	public  WebElement resizeButton;
+	
+	@FindBy(xpath = "//div[@id='resizable']//div[3]")
+	public  WebElement resizable;
+	
+	@FindBy(xpath = "//a[text() = 'Selectable']")
+	public WebElement selectableButton;
+	
 	
 	
 	
@@ -48,6 +57,22 @@ public class JQuerySowmya extends CommonActionMethods {
 	{
 		dropButton.click();
 		System.out.println("Droppable button is clicked");
+	}
+	
+	public void resizable() throws Exception
+	{
+		clickMethod(resizeButton, "resizable");
+		frameByIndex(0);	
+		Actions size=new Actions(DriverFactory.getDriver());
+		webWait(resizable);
+		size.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
+		System.out.println("height&width:"+resizable.getSize());
+		defaultwindow();
+	}
+	
+	public void selectable()
+	{
+		selectableButton.click();
 	}
 	
 	

@@ -18,6 +18,8 @@ public class JQueryTest extends CommonActionMethods {
 		new JQuerySowmya().draggable();
 		new JQuerySowmya().dragAndDrop();
 		new JQuerySowmya().droppable();
+		new JQuerySowmya().resizable();
+		new JQuerySowmya().selectable();
 	}
 	
 //	public void test2() throws Exception
