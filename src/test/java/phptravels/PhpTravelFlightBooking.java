@@ -29,6 +29,7 @@ import utils.Mail;
 public class PhpTravelFlightBooking extends CommonActionMethods {
 	@BeforeTest
 	public void reportClean() {
+		invokeMail = true;
 		File allureFile = new File(System.getProperty("user.dir") + "\\allure-results");
 		deleteFolder(allureFile);
 	}
