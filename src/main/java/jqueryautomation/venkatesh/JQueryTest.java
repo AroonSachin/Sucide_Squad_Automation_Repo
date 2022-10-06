@@ -1,4 +1,4 @@
-package jqueryautomation;
+package jqueryautomation.venkatesh;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -284,7 +284,7 @@ public class JQueryTest extends CommonActionMethods {
 		frameByIndex(0);
 		webWait(drag);
 		Actions drop=new Actions(DriverFactory.getDriver());
-		drop.dragAndDrop(drag,droppable ).perform();;
+		drop.dragAndDrop(drag,droppable ).perform();
 		defaultwindow();
 	}
 	public void resize() throws Exception {
