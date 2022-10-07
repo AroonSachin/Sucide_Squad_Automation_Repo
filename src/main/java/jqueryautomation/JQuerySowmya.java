@@ -9,6 +9,7 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 public class JQuerySowmya extends CommonActionMethods {
+	Actions drag=new Actions(DriverFactory.getDriver());
 	
 	public JQuerySowmya()
 	{
@@ -36,17 +37,17 @@ public class JQuerySowmya extends CommonActionMethods {
 	
 	
 	
-	public void draggable() throws InterruptedException
+	public void draggable() throws Exception
 	{
 		Thread.sleep(1000);
-		dragButton.click();
-		System.out.println("Draggable button is clicked");
+		clickMethod(dragButton, "drag");
+		logMessage("Draggable button is clicked");
 	}
 	
 	public void dragAndDrop() throws Exception {
 		frameByIndex(0);
 		webWait(draggable);
-		Actions drag=new Actions(DriverFactory.getDriver());
+		
 		int x= draggable.getLocation().getX();
 		int y=draggable.getLocation().getY();
 		drag.dragAndDropBy(draggable, x+45,y+65).perform();
@@ -63,9 +64,9 @@ public class JQuerySowmya extends CommonActionMethods {
 	{
 		clickMethod(resizeButton, "resizable");
 		frameByIndex(0);	
-		Actions size=new Actions(DriverFactory.getDriver());
+		
 		webWait(resizable);
-		size.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
+		drag.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
 		System.out.println("height&width:"+resizable.getSize());
 		defaultwindow();
 	}
