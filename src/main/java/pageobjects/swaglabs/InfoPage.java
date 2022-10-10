@@ -8,13 +8,13 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 /**
- * 
+ *
  * @author svenkateshwaran
  * @this class contains methods of info page
  */
 public class InfoPage extends CommonActionMethods {
 
-	
+
 
 	@FindBy(id = "first-name")
 	WebElement firstName;
@@ -27,7 +27,7 @@ public class InfoPage extends CommonActionMethods {
 
 	@FindBy(id = "continue")
 	WebElement continueButton;
-	
+
 	public InfoPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}

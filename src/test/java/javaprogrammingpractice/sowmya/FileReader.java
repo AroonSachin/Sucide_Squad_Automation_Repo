@@ -23,7 +23,7 @@ public class FileReader {
         System.out.println("kilobytes : " + kilobytes);
         System.out.println("megabytes : " + megabytes);
     }
-    else 
+    else
     {
         System.out.println("File does not exists!");
     }

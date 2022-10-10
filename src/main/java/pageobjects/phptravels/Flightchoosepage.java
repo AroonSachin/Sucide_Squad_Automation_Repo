@@ -2,6 +2,7 @@ package pageobjects.phptravels;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -14,7 +15,7 @@ import utils.DriverFactory;
 /**
  * This class chooses the flight and validates the departure and destination
  * cities and date.
- * 
+ *
  * @author amaduraiveeran
  *
  */
@@ -68,7 +69,7 @@ public class Flightchoosepage extends CommonActionMethods {
 
 	/**
 	 * This method is to click the book button
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Step("To click book button")
@@ -92,7 +93,7 @@ public class Flightchoosepage extends CommonActionMethods {
 
 	/**
 	 * This method is to validate the flight details.
-	 * 
+	 *
 	 * @param actlfrmcty
 	 * @param actltocty
 	 * @param triptype

@@ -6,13 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
  * This class fills up the passenger details.
- * 
+ *
  * @author amaduraiveeran
  *
  */
@@ -21,19 +22,19 @@ public class Paxdetailspage extends CommonActionMethods {
 	static Double chldpreprz =0.0;
 	static Double inftpreprz=0.0;
 	Double totalprz =0.0;
-	
+
 	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[1]")
 	WebElement adltprice;
-	
+
 	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[2]")
 	WebElement childprice;
-	
+
 	@FindBy(xpath = "(//div[@class='card-body p-0']//small)[3]")
 	WebElement infntprice;
-	
+
 	@FindBy(xpath = "(//div[@class='card-body p-0']//strong)[1]")
 	WebElement totlprice;
-	
+
 	@FindBy(xpath = "//div[@class='form-content ']//input[@name='firstname']")
 	WebElement perfirstname;
 
@@ -54,10 +55,10 @@ public class Paxdetailspage extends CommonActionMethods {
 
 	@FindBy(xpath = "//div[@class='form-content ']//select[@name='country_code']")
 	WebElement percountry;
-	
+
 	@FindBy(xpath = "//label[@for='agreechb']")
 	WebElement TCbox;
-	
+
 	@FindBy(xpath = "//button[@id='booking']")
 	WebElement confirmbooking;
 
@@ -70,7 +71,7 @@ public class Paxdetailspage extends CommonActionMethods {
 
 	/**
 	 * This method fills up the personal details section.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Step("To input Personal details of the passenger ")
@@ -106,8 +107,8 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	@Step("To input Nationality of every passenger")
 	public void nationality() throws Exception {
-		int natitrt = 1; 
-		
+		int natitrt = 1;
+
 		for (String nationality:splitString(getdata("nationality"),",")) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='nationality_"+natitrt+"']"));
 			selectByVisibleText(ele,nationality);
@@ -213,7 +214,7 @@ public class Paxdetailspage extends CommonActionMethods {
 		}
 	}
 	/**
-	 *This method selects the passport expiry month. 
+	 *This method selects the passport expiry month.
 	 * @param PEDmonth
 	 * @throws Exception
 	 */

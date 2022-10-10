@@ -5,15 +5,15 @@ import org.openqa.selenium.support.ThreadGuard;
 
 /**
  * The class creates a thread for the given driver.
- * 
+ *
  * @author aroon
  */
 public final class DriverFactory {
-	
+
 	private DriverFactory() {}
-	
+
 	// This line creates a separate thread for the given driver
-	private static ThreadLocal<WebDriver> trddriver = new ThreadLocal<WebDriver>();
+	private static ThreadLocal<WebDriver> trddriver = new ThreadLocal<>();
 	/**
 	 * This method sets the driver to the threadlocal to create a thread of that driver.
 	 * @param driver2

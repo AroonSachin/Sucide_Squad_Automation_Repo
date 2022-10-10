@@ -18,8 +18,8 @@ public class Ascending {
 			array[i] = s.nextInt();
 		}
 		System.out.println("The array of elements are: ");
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
+		for (int element : array) {
+			System.out.println(element);
 		}
 		//Sorting in ascending order
 		for (int i = 0; i < array.length; i++) {
@@ -34,8 +34,8 @@ public class Ascending {
 			}
 		}
 		System.out.println("The elements in ascending order"); //printing the elements in ascending order
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(array[i] + " ");
+		for (int element : array) {
+			System.out.println(element + " ");
 		}
 	}
 }

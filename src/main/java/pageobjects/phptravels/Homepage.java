@@ -3,10 +3,12 @@ package pageobjects.phptravels;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
@@ -15,19 +17,19 @@ import utils.DriverFactory;
  * @author amaduraiveeran
  */
 public class Homepage extends CommonActionMethods {
-	
+
 	@FindBy(xpath = "//button[@aria-controls='flights']")
 	WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
 	WebElement depcity;
-	
+
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
 	WebElement descity;
-	
+
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//b")
 	List<WebElement> depcitylist;
-	
+
 	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//b")
 	List<WebElement> descitylist;
 
@@ -36,7 +38,7 @@ public class Homepage extends CommonActionMethods {
 
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[6]//th[@class='prev']/following-sibling::th[@class='next'])[1]//i")
 	WebElement returnnxtarw;
-	
+
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[5]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
 	WebElement depmonth;
 
@@ -75,13 +77,13 @@ public class Homepage extends CommonActionMethods {
 
 	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='childs']/following-sibling::div)[2]")
 	WebElement infantplus;
-	
+
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
 	WebElement cookie;
-	
+
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[3]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
 	WebElement month;
-	
+
 	/**
 	 * Constructor to store the above located elements.
 	 */
@@ -90,11 +92,11 @@ public class Homepage extends CommonActionMethods {
 	}
 	/**
 	 * method to locate the given month.
-	 * This method should be used within the class. 
+	 * This method should be used within the class.
 	 * @param ele
 	 * @param monthtoselect
 	 * @param nxtbutton
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	@Step("To locate month ")
@@ -116,7 +118,7 @@ public class Homepage extends CommonActionMethods {
 		return dat;
 	}
 	/**
-	 * This method passes the information to search a suitable flight. 
+	 * This method passes the information to search a suitable flight.
 	 * @param dep
 	 * @param des
 	 * @param mnth
@@ -151,7 +153,7 @@ public class Homepage extends CommonActionMethods {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
-		} else { 
+		} else {
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
 			monthloc(depmonth, mnth, nextarrow);

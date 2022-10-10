@@ -1,7 +1,7 @@
 Feature: To test the flightbooking for PhpTravels application.
 
   Background: 
-    Given I launch the chrome browser.
+    Given I launch the chrome browser with the URL "https://phptravels.net/".
     And I Enter the URL "https://phptravels.net/".
 
   Scenario: As an end-user, I search flight for "<trip>" in PhpTravels.

@@ -1,8 +1,5 @@
 package commonuseractions;
 
-import utils.Browserfactory;
-import utils.DriverFactory;
-import utils.ExcelReader;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,32 +13,37 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.apache.log4j.*;
+
+import utils.Browserfactory;
+import utils.DriverFactory;
+import utils.ExcelReader;
 
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
- * 
+ *
  *
  */
 public class CommonActionMethods extends TestListner {
 	protected static boolean invokeMail = false;
-	protected static ThreadLocal<String> URL = new ThreadLocal<String>();
+	protected static ThreadLocal<String> URL = new ThreadLocal<>();
 	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
@@ -79,7 +81,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is used to print the log message in console
 	 * @param message -string value about the action being performed
 	 */
@@ -151,7 +153,7 @@ public class CommonActionMethods extends TestListner {
 	 * @param key   -Webelement of the textbox to send the text
 	 * @param enter -string value about the action being performed
 	 * @throws Exception
-	 * 
+	 *
 	 */
 	public static void sendKeysMethod(WebElement key, String enter) throws Exception {
 		try {
@@ -180,7 +182,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is for selectByValue
 	 * @param element-Webelement to select an option from the dropdown ByValue
 	 * @param text-string        value about the action being performed
@@ -197,7 +199,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is for selectByIndex
 	 * @param element-Webelement to select an option from the dropdown ByIndex
 	 * @param Index-string       value about the action being performed
@@ -235,7 +237,7 @@ public class CommonActionMethods extends TestListner {
 	/**
 	 * @This method is used for windowhandle
 	 * @throws Exception
-	 * 
+	 *
 	 */
 	public static void windowHandle() throws Exception {
 		try {
@@ -253,7 +255,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is used for frameByElement
 	 * @param element -Webelement of the frame to switch the driver
 	 * @throws Exception
@@ -300,7 +302,7 @@ public class CommonActionMethods extends TestListner {
 	/**
 	 * @This method is used for default window
 	 * @throws Exception
-	 * 
+	 *
 	 */
 	public static void defaultwindow() throws Exception {
 		try {
@@ -332,7 +334,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is for element is displayed
 	 * @param element     -WebElement to check whether is displayed or not
 	 * @param ElementName
@@ -401,7 +403,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method for getting the data from the hash map and returns the value
-	 * 
+	 *
 	 * @param Name It is the name of the column
 	 * @return
 	 * @throws Exception
@@ -419,7 +421,7 @@ public class CommonActionMethods extends TestListner {
 	/**
 	 * This method is to click the respective element by its text from the list of
 	 * webelements.
-	 * 
+	 *
 	 * @param listelement
 	 * @param Toselect
 	 * @return
@@ -444,7 +446,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method is to split the given given string by comma.
-	 * 
+	 *
 	 * @param data
 	 * @return
 	 */
@@ -460,7 +462,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method is to get the text data from excel
-	 * 
+	 *
 	 * @param sheetname
 	 * @return
 	 * @throws Exception
@@ -470,7 +472,7 @@ public class CommonActionMethods extends TestListner {
 		int xlRowCount = 0;
 		xlRead = new ExcelReader("database.xlsx", sheetname);
 		xlRowCount = xlRead.getRowCount();
-		ArrayList<Object[]> data = new ArrayList<Object[]>();
+		ArrayList<Object[]> data = new ArrayList<>();
 		for (int i = 1; i < xlRowCount; i++) {
 			data.add(new Object[] { xlRead.xlReader(i) });
 		}
@@ -479,7 +481,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method is to get text of the element
-	 * 
+	 *
 	 * @param element
 	 * @param name
 	 * @return
@@ -497,7 +499,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method waits for the given element until it is clickable
-	 * 
+	 *
 	 * @param ele
 	 * @throws Exception
 	 */
@@ -512,9 +514,9 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This methods waits until the element is visible.
-	 * 
+	 *
 	 * @param ele
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public static void webwaitVisibility(WebElement ele) throws Exception {
 		try {
@@ -527,7 +529,7 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * This method deletes every sub-files inside the given directory
-	 * 
+	 *
 	 * @param file
 	 */
 	public static void deleteFolder(File file) {
@@ -543,10 +545,10 @@ public class CommonActionMethods extends TestListner {
 
 	/**
 	 * @This method is used to capitalize the string case provided
-	 * 
+	 *
 	 * @param str - String to be capitalized
 	 * @return string
-	 * 
+	 *
 	 */
 	public static String capitalize(String str) {
 		if (str == null || str.isEmpty()) {
@@ -556,26 +558,26 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is to convert the text response into JSON
-	 * 
+	 *
 	 * @param textString
 	 * @return JSONObject
-	 * 
+	 *
 	 */
 	public static JSONObject restConvertTextAsJson(String textString) {
 		return new JSONObject(textString);
 	}
 
 	/**
-	 * 
+	 *
 	 * @This method is to get the correlate parameter value from the array object by
 	 *       giving rest response object as input
-	 * 
+	 *
 	 * @param response
 	 * @param jsonPath
 	 * @return jsonString
-	 * 
+	 *
 	 */
 	public static String restCorrelateJSON(String jsonString, String jsonPath) {
 
