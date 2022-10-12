@@ -621,7 +621,7 @@ public class CommonActionMethods extends TestListner {
 	 * @param plusdays
 	 * @return
 	 */
-	public String currentDate(int plusdays) {
+	public String currentDate(int plusdays, String format) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
