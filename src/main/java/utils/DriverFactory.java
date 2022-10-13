@@ -34,7 +34,9 @@ public final class DriverFactory {
 	 * This method quits the driver and removes the thread.
 	 */
 	public static void closeDriver() {
+		if (getDriver()!=null) {
 		getDriver().quit();
 		trddriver.remove();
+		}
 	}
 }

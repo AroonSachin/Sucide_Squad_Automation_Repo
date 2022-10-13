@@ -49,7 +49,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("1")) {
-			System.out.println("Test_1");
 			invokeBrowser("Chrome", "Normal", URL.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
@@ -64,7 +63,6 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("2")) {
-			System.out.println("Test_2");
 			invokeBrowser("Chrome", "Normal", URL.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();

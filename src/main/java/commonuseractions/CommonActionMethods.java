@@ -48,7 +48,7 @@ public class CommonActionMethods extends TestListner {
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
 	public static ExtentTest testcase;
-	static String configFilename = "log4j.properties";
+	protected static String configFilename = "log4j.properties";
 	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
@@ -101,7 +101,6 @@ public class CommonActionMethods extends TestListner {
 	public synchronized static void logErrorMessage(String MessageStopExecution) throws Exception {
 		log.error(MessageStopExecution);
 		String shot = takeSnapShot();
-		System.out.println(shot);
 		if (invokeMail) {
 			FailedScreenShotdestination.set(shot);
 			scenarioComments.set(MessageStopExecution);
@@ -173,6 +172,7 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static void selectByVisibleText(WebElement element, String text) throws Exception {
 		try {
+			scrollToElement(element);
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
 			logMessage(text + " is selected in dropdown ");
@@ -190,6 +190,7 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static void selectByValue(WebElement element, String text) throws Exception {
 		try {
+			webwaitVisibility(element);
 			Select sel = new Select(element);
 			sel.selectByValue(text);
 			logMessage(text + " is selected in dropdown ");
@@ -394,7 +395,7 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		if (String.valueOf(intial).contains(String.valueOf(end))) {
+		if (String.valueOf(intial).trim().toLowerCase().contains(String.valueOf(end).trim().toLowerCase())) {
 			logMessage(intial + " & " + end + " is equal");
 		} else {
 			logErrorMessage(intial + " & " + end + " is not equal");
@@ -432,6 +433,7 @@ public class CommonActionMethods extends TestListner {
 		for (WebElement element : listelement) {
 			webWait(element);
 			String name = element.getText();
+			System.out.println(name);
 			if (name.contains(Toselect)) {
 				flag = false;
 				clickMethod(element, Toselect);

@@ -139,4 +139,41 @@ public class Flightchoosepage extends CommonActionMethods {
 			checkEquality(rtrndayval, rtrnactldayval);
 		}
 	}
+	public void validateFlight(String tripType) throws Exception {
+		getTitle();
+		getURL();
+		String[] frmarr = splitString(getTextElement(frmcty, "From city"), " ");
+		String[] toarr = splitString(getTextElement(tocty, "To city"), " ");
+		String[] rtrnfrmarr = splitString(getTextElement(rtrnfrmcity, "Return city"), " ");
+		String[] rtrntoarr = splitString(getTextElement(rtrntocity, "Return to city"), " ");
+		String[] datearr = splitString(getTextElement(depdate, "Departure date"), " ");
+		String[] rtrndatearr = splitString(getTextElement(rtrndepdate, "return Departure date"), " ");
+		String frm = frmarr[0];
+		String to = toarr[0];
+		String rtrnfrm = rtrnfrmarr[0];
+		String rtrnto = rtrntoarr[0];
+		String dateval = datearr[0];
+		String mnthval = datearr[1];
+		String actldayval =  Homepage.departureDate;
+		String actlmnthval = Homepage.departureMonth;
+		String rtrndayval = rtrndatearr[0];
+		String rtrnmnthval = rtrndatearr[1];
+		String rtrnactldayval = Homepage.returndepartureDate;
+		String rtrnactlmnthval = Homepage.returndepartureMonth;
+		if (!tripType.equalsIgnoreCase("round trip")) {
+			checkEquality(frm, Homepage.fromCity);
+			checkEquality(to, Homepage.toCity.replace("Mc ", ""));
+			checkEquality(dateval, actldayval);
+			checkEquality(mnthval, actlmnthval.substring(1, 3));
+		} else {
+			checkEquality(frm, Homepage.fromCity);
+			checkEquality(to, Homepage.toCity.replace("Mc ", ""));
+			checkEquality(rtrnfrm, Homepage.toCity.replace("Mc ", ""));
+			checkEquality(rtrnto, Homepage.fromCity);
+//			checkEquality(dateval, actldayval);
+			checkEquality(mnthval, actlmnthval.substring(1, 3));
+			checkEquality(rtrnmnthval, rtrnactlmnthval.substring(1, 3));
+//			checkEquality(rtrndayval.replace("0",""), rtrnactldayval);
+		}
+	}
 }
