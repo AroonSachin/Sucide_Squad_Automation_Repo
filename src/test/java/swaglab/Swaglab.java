@@ -84,7 +84,7 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
-			new Checkout().clickOnCheckoutButton();
+			//new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
