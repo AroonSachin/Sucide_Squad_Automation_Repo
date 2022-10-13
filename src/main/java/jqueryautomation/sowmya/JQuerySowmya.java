@@ -1,4 +1,4 @@
-package jqueryautomation;
+package jqueryautomation.sowmya;
 
 import java.util.List;
 import org.openqa.selenium.WebElement;

@@ -4,7 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import commonuseractions.CommonActionMethods;
-import jqueryautomation.JQuerySowmya;
+import jqueryautomation.sowmya.JQuerySowmya;
 
 public class JQueryTest extends CommonActionMethods {
 	@BeforeMethod
