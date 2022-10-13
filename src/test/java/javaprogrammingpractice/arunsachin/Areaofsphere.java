@@ -15,5 +15,6 @@ public class Areaofsphere extends CommonActionMethods{
 		double radius = scn.nextDouble();
 		double result = (4 * 3.14 * (radius * radius));
 		System.out.println("The area sphere for the radius " + radius + "is" + result);
+		
 	}
 }
