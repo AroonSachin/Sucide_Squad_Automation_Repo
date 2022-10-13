@@ -122,6 +122,7 @@ public class CommonActionMethods extends TestListner {
 	 * @param url-string         value about the action being performed
 	 * @throws Exception
 	 */
+
 	public synchronized void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
@@ -624,7 +625,7 @@ public class CommonActionMethods extends TestListner {
 	 * @param plusdays
 	 * @return
 	 */
-	public String currentDate(int plusdays) {
+	public String currentDate(int plusdays, String format) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
