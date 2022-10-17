@@ -64,7 +64,7 @@ public class HomePage extends CommonActionMethods {
 	public synchronized void selectItem() throws Exception {
 		getproductName().clear();
 		getproductPrice().clear();
-		for (int q = 0; q < Integer.parseInt(getdata("Quantity")); q++) {
+		for (int q = 0; q < Integer.parseInt("2"); q++) {
 			getproductName().add(getTextElement(itemName.get(q), "item name"));
 			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
 			clickMethod(addItems.get(q), "product " + (q + 1));
