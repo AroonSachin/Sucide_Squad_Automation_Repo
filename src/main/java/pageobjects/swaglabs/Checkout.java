@@ -76,18 +76,18 @@ public class Checkout extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	public void validateQuantity() throws Exception {
+	public void validateQuantity(String qty) throws Exception {
 		int prd = 0;
 
 		for (int q = 0; q < pQuantity.size(); q++) {
 			prd = prd + Integer.parseInt(getTextElement(pQuantity.get(q), "Number of product quantity"));
 		}
-		if (prd == Integer.parseInt(getdata("Quantity"))) {
-			logMessage("The expected product quantity " + getdata("Quantity") + " matches the actual product quantity "
+		if (prd == Integer.parseInt(qty)) {
+			logMessage("The expected product quantity " + qty + " matches the actual product quantity "
 					+ prd);
 
 		} else {
-			logErrorMessage("The expected product quantity " + getdata("Quantity")
+			logErrorMessage("The expected product quantity " + qty
 					+ " does not matches the actual product quantity " + prd);
 
 		}
@@ -101,7 +101,7 @@ public class Checkout extends CommonActionMethods {
 
 	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
-		validateQuantity();
+		//validateQuantity();
 	}
 
 }

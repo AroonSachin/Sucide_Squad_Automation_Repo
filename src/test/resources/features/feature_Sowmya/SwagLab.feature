@@ -1,7 +1,7 @@
 Feature: To test the functionality of buying products in Swaglab application.
 
     Background: 
-    Given I launch the chrome browser.
+    Given I launch the "chrome" browser.
     And I Enter the URL "https://www.saucedemo.com/".
     
     Scenario: As an end user, I select product to buy in Swaglab.
@@ -13,13 +13,13 @@ Feature: To test the functionality of buying products in Swaglab application.
     And I click on the Cart button.
     
     Scenario Outline: As an end user, I complete payment of the desired product in Swaglab.
-    Then I enter username and password which are "<Username>" and "<Password>", respectively.
+    Then I enter username "<Username>" and password "<Password>".
     And I click on the Login button.
     Then I validate whether I have logged into the website successfully.
     And I validate the prices of the product and check if the products are sorted correctly.
     Then I select the products that I desire to buy.
     And I click on the Cart button.
-    Then I validate product information and the product quantity.
+    Then I validate product information and the product quantity "<Quantity>".
     And I click on the Checkout button.
     And I enter the personal information 
     Then I complete the checkout process by clicking Continue button.
@@ -27,7 +27,7 @@ Feature: To test the functionality of buying products in Swaglab application.
     Then I check whether THANK YOU FOR YOUR ORDER message is displayed which confirms that the desired products are ordered successfully.
     
     Examples: 
-      | Username      | Password     | 
-      | standard_user | secret_sauce | 
+      | Username      | Password     | Quantity |
+      | standard_user | secret_sauce | 2        |
       
     

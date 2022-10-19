@@ -38,4 +38,15 @@ public class LoginPage extends CommonActionMethods {
 		clickMethod(loginButton, "login");
 	}
 	
+	public void enterUsernamePassword(String username, String password) throws Exception
+	{
+		sendKeysMethod(userName,username);
+		sendKeysMethod(passWord,password);
+	}
+	
+	public void clickLogin() throws Exception
+	{
+		clickMethod(loginButton, "login");
+	}
+	
 }

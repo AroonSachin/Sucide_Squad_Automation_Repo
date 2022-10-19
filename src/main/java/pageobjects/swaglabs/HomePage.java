@@ -97,7 +97,7 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	public void verifyPrice() throws Exception {
+	public void verifyPrice(String type) throws Exception {
 		List<Double> pricearr = new ArrayList<Double>();
 		boolean flag = true;
 		for (int i = 0; i < itemPrice.size(); i++) {
@@ -107,16 +107,16 @@ public class HomePage extends CommonActionMethods {
 		for (int i = 0; i < itemPrice.size(); i++) {
 			for (int j = i; j < itemPrice.size(); j++) {
 				if (pricearr.get(i) > pricearr.get(j) && pricearr.get(i) != pricearr.get(j)
-						&& getdata("Sort").equals("lohi")) {
+						&& type.equals("lohi")) {
 					flag = false;
 				} else if (pricearr.get(i) < pricearr.get(j) && pricearr.get(i) != pricearr.get(j)
-						&& getdata("Sort").equals("hilo")) {
+						&& type.equals("hilo")) {
 					flag = false;
 				}
 			}
 		}
 		if (flag) {
-			if (getdata("Sort").equals("lohi")) {
+			if (type.equals("lohi")) {
 				logMessage("The list is in ascending order. The lowest value is " + pricearr.get(0));
 			}
 
@@ -136,11 +136,25 @@ public class HomePage extends CommonActionMethods {
 	 */
 
 	public void homepageValidation() throws Exception {
-		selectByValue(filterprice, getdata("Sort"));
-		verifyPrice();
-		selectItem();
-		clickCart();
-		verifyLogin();
+		
+		for(int i=1; i<=2; i++)
+		{
+			
+			if(i==1)
+			{
+				selectByValue(filterprice, "lohi");
+				verifyPrice("lohi");
+			}
+			else
+			{
+				selectByValue(filterprice, "hilo");
+				verifyPrice("hilo");
+			}
+		}
+		
+//		selectItem();
+//		clickCart();
+//		verifyLogin();
 	}
 
 }

@@ -589,7 +589,7 @@ public class Interactions extends CommonActionMethods {
 		scrollToElement(frameHeading);
 		frameByElement(demoFrame);
 		clickMethod(datePickerBox, " datepicker box ");
-		String[] crntDate = splitString(currentDate(10), "/");
+		String[] crntDate = splitString(currentDate(10, "MMMMMMMMMM/d/YYYY"), "/");
 		while (true) {
 			if (monthele.getText().equalsIgnoreCase(crntDate[0])) {
 				listDrop(dayList, crntDate[1]);
