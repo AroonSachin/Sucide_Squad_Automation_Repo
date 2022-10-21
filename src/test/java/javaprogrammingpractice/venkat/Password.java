@@ -27,7 +27,7 @@ public class Password {
 					return false;
 				} else if (Character.isDigit(c)) {
 					count++;
-					
+
 				}
 			}
 			if (count < 2) {

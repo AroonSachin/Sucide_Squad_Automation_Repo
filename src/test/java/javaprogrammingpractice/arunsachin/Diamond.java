@@ -3,7 +3,7 @@ package javaprogrammingpractice.arunsachin;
 import java.util.Scanner;
 
 public class Diamond {
-	
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter the maximum number of astrix : ");

@@ -15,7 +15,7 @@ public class Portionfromlist {
 	    }
 	protected static List<String> splitString(String data) {
 				String[] temp = data.split(",");
-				
+
 		return convertArrayToList(temp);
 	}
 	public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package javaprogrammingpractice.arunsachin;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import com.thoughtworks.qdox.parser.ParseException;

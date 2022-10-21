@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Rhombus {
 
 	public static void main(String[] args) {
-		
+
                 Scanner sc = new Scanner(System.in);
 		        System.out.println("Enter the number: ");
 		        int n = sc.nextInt();
@@ -13,28 +13,28 @@ public class Rhombus {
 		        int count2 = 1;
 		        char c = 'A';
 
-		        for (int i = 1; i < (n*2); i++) 
+		        for (int i = 1; i < (n*2); i++)
 		        {
-		            for (int spc = n - count2; spc > 0; spc--)   
+		            for (int spc = n - count2; spc > 0; spc--)
 		            //print space
 		            {
 		                System.out.print(" ");
 		            }
-		            if (i<n) 
+		            if (i<n)
 		            {
 		                count2++;
-		            } 
-		            else 
+		            }
+		            else
 		            {
 		                count2--;
 		            }
-		            for (int j=0; j<count; j++) 
+		            for (int j=0; j<count; j++)
 		            {
 		                System.out.print(c);//print Character
-		                if (j < count/2) 
+		                if (j < count/2)
 		                {
 		                    c++;
-		                } else 
+		                } else
 		                {
 		                    c--;
 		                }
@@ -42,7 +42,7 @@ public class Rhombus {
 		            if (i<n)
 		            {
 		                count = count+2;
-		            } 
+		            }
 		            else
 		            {
 		                count = count-2;
@@ -51,9 +51,9 @@ public class Rhombus {
 
 		            System.out.println();
 		        }
-	
+
 		    }
-		
+
 
 }
 
