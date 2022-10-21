@@ -11,14 +11,14 @@ public class RemovepageinPDF {
 		 // Loading an existing document
         File file = new File("C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\test-output\\SamplePdf_1.73Mb_87_Page.pdf");
         PDDocument document = PDDocument.load(file);
-  
+
         int noOfPages = document.getNumberOfPages();
         System.out.println("Total number of pages:"+noOfPages);
         PDPage page = document.getPage(4);
         document.removePage(page);
         System.out.println("page removed");
         document.save("C:\\Users\\amaduraiveeran\\Desktop\\Automationtask\\Sucide_Squad_Automation_Repo\\test-output\\SamplePdf_1.73Mb_87_Page.pdf");
-  
+
         document.close();
 	}
 }

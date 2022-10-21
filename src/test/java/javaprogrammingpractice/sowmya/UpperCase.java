@@ -14,7 +14,7 @@ public class UpperCase {
 			 ch=str.charAt(i);
 			 if(ch>='a' && ch<='z')
 			 {
-				low +=ch; 
+				low +=ch;
 			 }
 			 else
 			 {
@@ -22,7 +22,7 @@ public class UpperCase {
 			 }
 				 }
 		 return upr + low;
-		 
+
 	}
 
 	public static void main(String[] args) {
@@ -31,8 +31,8 @@ public class UpperCase {
 		String s=sc.nextLine();
 		System.out.println("The original string:  " + s);
 		System.out.println("The final string:  " + move(s));
-		
-		
+
+
 
 	}
 

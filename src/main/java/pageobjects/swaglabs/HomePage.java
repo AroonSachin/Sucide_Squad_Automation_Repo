@@ -12,12 +12,12 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 /**
- * 
+ *
  * @author svenkateshwaran
  * @this class contains methods of home page
  */
 public class HomePage extends CommonActionMethods {
-	
+
 
 	@FindBy(id = "react-burger-menu-btn")
 	WebElement hamburgerButton;
@@ -43,7 +43,7 @@ public class HomePage extends CommonActionMethods {
 	public HomePage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-	
+
 	static ThreadLocal<LinkedHashSet<String>> productName = ThreadLocal.withInitial(LinkedHashSet::new);
 
 	public static LinkedHashSet<String> getproductName() {
@@ -98,7 +98,7 @@ public class HomePage extends CommonActionMethods {
 	 */
 
 	public void verifyPrice() throws Exception {
-		List<Double> pricearr = new ArrayList<Double>();
+		List<Double> pricearr = new ArrayList<>();
 		boolean flag = true;
 		for (int i = 0; i < itemPrice.size(); i++) {
 			pricearr.add(

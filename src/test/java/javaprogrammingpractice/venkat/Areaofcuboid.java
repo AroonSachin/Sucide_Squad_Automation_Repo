@@ -12,7 +12,7 @@ public class Areaofcuboid {
 		int width=cube.nextInt();
 		System.out.println("enter the height of the cuboid");
 		int height=cube.nextInt();
-		
+
 		int answer = 2*((length*width)+(length*height)+(height*width));
 		System.out.println("area of the cuboid is "+answer);
 	}

@@ -3,7 +3,7 @@ package javaprogrammingpractice.arunsachin;
 import java.util.Scanner;
 
 public class Segregate {
-	
+
 	public static void bubbleshort(int[] arr) {
 		int i, j, temp;
 		int n = arr.length;
@@ -27,7 +27,7 @@ public class Segregate {
 		for (int i = 0;i<a;i++) {
 		System.out.println("Enter the int value for index "+i);
 		arr[i] = scn.nextInt();
-		
+
 		}
 		bubbleshort(arr);
 		for (int i = 0; i < a; i++) {

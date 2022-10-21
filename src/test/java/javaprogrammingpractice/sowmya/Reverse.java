@@ -15,10 +15,10 @@ public class Reverse {
 		  ch=str.charAt(i);
 		  str1=ch+str1;
 		}
-		
+
 		System.out.println("The reverse string is: " + str1);
-		
-		
+
+
 	}
 
 }

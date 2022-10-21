@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 // Write a Java program to validate a given phone number (Validate no alphabets, no Special characters, Contains 10 to 12 digit)
 public class Numbervalidation {
-	
+
 	public static boolean conAlphabet(String num) {
 		try {
 		    Long.parseLong(num);
@@ -14,10 +14,10 @@ public class Numbervalidation {
 		}
 		return false;
 	}
-	
+
 	public static boolean lenthVal(String num) {
 		int len =num.length();
-		
+
 		if (len >=10 && len<=12) {
 			return true;
 		}
@@ -26,17 +26,17 @@ public class Numbervalidation {
 		}
 	}
 	public static boolean validateNum(String number) {
-		
+
 		if(conAlphabet(number)){
 			System.out.println("The number only contains integer");
 			return true;
 		}else {
 			return false;
 		}
-		
+
 	}
 	public static boolean validateLenth(String number) {
-		
+
 		if (lenthVal(number)) {
 			System.out.println("The length of the number is within limits");
 			return true;
@@ -44,11 +44,11 @@ public class Numbervalidation {
 			System.out.println("The length of the number is not within 10 and 12");
 			return false;
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 	public static void main(String[] args) {
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the phone number:");
@@ -58,7 +58,7 @@ public class Numbervalidation {
 		}else {
 			System.out.println("invalid number");
 		}
-		
-		
+
+
 	}
 }

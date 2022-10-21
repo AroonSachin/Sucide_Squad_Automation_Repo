@@ -9,7 +9,7 @@ public class Date {
 		System.out.println("\n The current date: "  + today);
 		System.out.println("\n Ten days before today will be: " + today.plusDays(-40) );
 		System.out.println("\n Ten days after today will be: " + today.plusDays(+40));
-		
+
 		}
 
 }

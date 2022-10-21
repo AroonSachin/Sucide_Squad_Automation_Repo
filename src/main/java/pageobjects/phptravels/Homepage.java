@@ -3,10 +3,12 @@ package pageobjects.phptravels;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
@@ -15,20 +17,27 @@ import utils.DriverFactory;
  * @author amaduraiveeran
  */
 public class Homepage extends CommonActionMethods {
-	
+	static String paxno = "";
+	static String fromCity="";
+	static String toCity="";
+	static String departureDate = "";
+	static String departureMonth = "";
+	static String returndepartureDate = "";
+	static String returndepartureMonth = "";
+
 	@FindBy(xpath = "//button[@aria-controls='flights']")
 	WebElement flightbutton;
 
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[1]")
 	WebElement depcity;
-	
+
 	@FindBy(xpath = "(//div[@class='row contact-form-action g-1']//input)[2]")
 	WebElement descity;
-	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[1]//b")
+
+	@FindBy(xpath = "(//div[contains(@class,'autocomplete-results troll intro')])[1]//div[@class='autocomplete-result']//strong")
 	List<WebElement> depcitylist;
-	
-	@FindBy(xpath = "(//div[@class='autocomplete-results troll intro in'])[2]//b")
+
+	@FindBy(xpath = "(//div[contains(@class,'autocomplete-results troll intro')])[2]//div[@class='autocomplete-result']//strong")
 	List<WebElement> descitylist;
 
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[5]//th[@class='prev']/following-sibling::th[@class='next'])[1]//i")
@@ -36,7 +45,7 @@ public class Homepage extends CommonActionMethods {
 
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[6]//th[@class='prev']/following-sibling::th[@class='next'])[1]//i")
 	WebElement returnnxtarw;
-	
+
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[5]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
 	WebElement depmonth;
 
@@ -64,24 +73,24 @@ public class Homepage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@id='onereturn']//input[@id='return']")
 	WebElement returndate;
 
-	@FindBy(xpath = "//div[@id='onereturn']//a")
+	@FindBy(xpath = "//label[contains(text(),'Passengers ')]/following-sibling::div//a")
 	WebElement paxbotton;
 
-	@FindBy(xpath = "(//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='adults']/following-sibling::div")
+	@FindBy(xpath = "//input[@id='fadults']/following-sibling::div")
 	WebElement adultplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='childs']/following-sibling::div)[1]")
+	@FindBy(xpath = "//input[@id='fchilds']/following-sibling::div")
 	WebElement childplus;
 
-	@FindBy(xpath = "((//div[@class='dropdown-menu dropdown-menu-wrap'])[2]//input[@name='childs']/following-sibling::div)[2]")
+	@FindBy(xpath = "//input[@id='finfant']/following-sibling::div")
 	WebElement infantplus;
-	
+
 	@FindBy(xpath = "//div[@id='cookie_disclaimer']//button")
 	WebElement cookie;
-	
+
 	@FindBy(xpath = "((//div[@class='datepicker dropdown-menu'])[3]//th[@class='prev']/following-sibling::th[@class='switch'])[1]")
 	WebElement month;
-	
+
 	/**
 	 * Constructor to store the above located elements.
 	 */
@@ -90,11 +99,11 @@ public class Homepage extends CommonActionMethods {
 	}
 	/**
 	 * method to locate the given month.
-	 * This method should be used within the class. 
+	 * This method should be used within the class.
 	 * @param ele
 	 * @param monthtoselect
 	 * @param nxtbutton
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
 	@Step("To locate month ")
@@ -116,7 +125,7 @@ public class Homepage extends CommonActionMethods {
 		return dat;
 	}
 	/**
-	 * This method passes the information to search a suitable flight. 
+	 * This method passes the information to search a suitable flight.
 	 * @param dep
 	 * @param des
 	 * @param mnth
@@ -151,7 +160,7 @@ public class Homepage extends CommonActionMethods {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
 			listDrop(dateele, depdate);
-		} else { 
+		} else {
 			clickMethod(roundtrip, "Round trip button");
 			clickMethod(departuredate, "departure Calender box");
 			monthloc(depmonth, mnth, nextarrow);
@@ -185,5 +194,100 @@ public class Homepage extends CommonActionMethods {
 				clickMethod(infantplus,"Adult plus button");
 			}
 			clickMethod(searchbutton, "search button");
+	}
+	/**
+	 * @method for clicking flights tab.
+	 * @throws Exception
+	 */
+	public void clickingFlightTab() throws Exception {
+		webWait(flightbutton);
+		clickMethod(flightbutton, "Flight button");
+	}
+	/**
+	 * @method enter cities in departure and destination.
+	 * @throws Exception
+	 */
+	public void enterCities(String departure , String destination) throws Exception {
+		fromCity = departure;
+		toCity  = destination;
+		sendKeysMethod(depcity,departure);
+		listDrop(depcitylist, departure);
+		sendKeysMethod(descity, destination);
+		listDrop(descitylist, destination);
+	}
+	/**
+	 * @method to choose triptype.
+	 * @param tripType
+	 * @throws Exception
+	 */
+	public void chooseTrip(String tripType) throws Exception {
+		if(tripType.equalsIgnoreCase("round trip")) {
+		clickMethod(roundtrip, "Round trip button");
+		}
+	}
+	/**
+	 * @method selects departure  and destiation dates.
+	 * @param depDate
+	 * @param desDate
+	 * @throws InterruptedException
+	 * @throws Exception
+	 */
+	public void selectDate(String depDate, String desDate,String tripType ) throws InterruptedException, Exception {
+		String[] date = splitString(dateSel(Integer.parseInt(depDate)),"/");
+		String mnth = date[0];
+		String depdate = date[1];
+		departureDate = date[1] ;
+		departureMonth = date[0] ;
+		System.out.println("mnth  "+mnth);
+		System.out.println("depdate  "+depdate);
+		String[] rtrndate = splitString(dateSel(Integer.parseInt(desDate)),"/");
+		String returnmonth = rtrndate[0];
+		String returnday = rtrndate[1];
+		returndepartureDate =  rtrndate[1];
+		returndepartureMonth = rtrndate[0];
+		System.out.println("returnmonth  "+returnmonth);
+		System.out.println("returnday"+returnday);
+		if (!tripType.equalsIgnoreCase("round trip")) {
+			clickMethod(calenderbox, "Calender box");
+			monthloc(month, mnth, nextarrow);
+			listDrop(dateele, depdate);
+		} else {
+			clickMethod(roundtrip, "Round trip button");
+			clickMethod(departuredate, "departure Calender box");
+			monthloc(depmonth, mnth, nextarrow);
+			listDrop(dateele, depdate);
+			monthloc(monthreturn, returnmonth, returnnxtarw);
+			Thread.sleep(3000);
+			listDrop(datereturn, returnday);
+		}
+	}
+	/**
+	 * @method To select the number of passangers.
+	 * @param pax
+	 * @throws Exception
+	 */
+	public void  selectNoOfPax(String pax) throws Exception {
+		paxno=pax;
+		clickMethod(paxbotton, "Passenger button");
+		String[] passenger = splitString(pax,",");
+		int adult = Integer.valueOf(passenger[0]);
+		int child = Integer.valueOf(passenger[1]);
+		int infant = Integer.valueOf(passenger[2]);
+			for (int i = 1; i <= adult-1; i++) {
+				clickMethod(adultplus,"Adult plus button");
+			}
+			for (int i = 1; i <=child; i++) {
+				clickMethod(childplus,"Adult plus button");
+			}
+			for (int i = 1; i <=infant; i++) {
+				clickMethod(infantplus,"Adult plus button");
+			}
+	}
+	/**
+	 * @method clicks the search button.
+	 * @throws Exception
+	 */
+	public void clickingsrchBtn() throws Exception {
+		clickMethod(searchbutton, "search button");
 	}
 }

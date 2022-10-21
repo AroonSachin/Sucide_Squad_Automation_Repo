@@ -258,100 +258,100 @@ public class Interactions extends CommonActionMethods {
 
 	@FindBy(xpath = "//a[contains(@class,'ui-spinner-down')]")
 	WebElement spinnerDOWN;
-	
+
 	@FindBy(xpath = "//label[contains(text(),'Select a value:')]")
 	WebElement selectaValue;
-	
+
 	@FindBy(xpath = "//button[contains(text(),'Get value')]")
 	WebElement getValueButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Tabs')]")
 	WebElement tabsButton;
-	
+
 	@FindBy(xpath = "//a[@id='ui-id-2']")
 	WebElement tab2;
-	
+
 	@FindBy(xpath = "//a[@id='ui-id-3']")
 	WebElement tab3;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Tooltip')]")
 	WebElement tooltipButton;
-	
+
 	@FindBy(xpath = "//input[@id='age']")
 	WebElement ageEle;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Add Class')]")
 	WebElement addClassButton;
-	
+
 	@FindBy(xpath = "//button[contains(text(),'Run Effect')]")
 	WebElement runButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Color Animation')]")
 	WebElement colorAnimButton;
-	
+
 	@FindBy(xpath = "//button[contains(text(),'Toggle Effect')]")
 	WebElement toggleEffectButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Easing')]")
 	WebElement eastingButton;
-	
+
 	@FindBy(xpath = "//div[contains(text(),'1. linear')]/following::canvas")
 	List<WebElement> eastAnim;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Effect')]")
 	WebElement effectButton;
-	
+
 	@FindBy(xpath = "//select[@id='effectTypes']")
 	WebElement effectDrop;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Hide')]")
 	WebElement hideButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Remove Class')]")
 	WebElement removeClassButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Show')]")
 	WebElement showButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Switch Class')]")
 	WebElement switchClassButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Toggle')]")
 	WebElement toggleButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Toggle Class')]")
 	WebElement toggleClassButton;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Position')]")
 	WebElement positionButton;
-	
+
 	@FindBy(xpath = "//select[@id='my_horizontal']")
 	WebElement myHor;
-	
+
 	@FindBy(xpath = "//select[@id='my_vertical']")
 	WebElement myVer;
-	
+
 	@FindBy(xpath = "//select[@id='at_horizontal']")
 	WebElement atHor;
-	
+
 	@FindBy(xpath = "//select[@id='at_vertical']")
 	WebElement atVer;
-	
+
 	@FindBy(xpath = "//select[@id='collision_horizontal']")
 	WebElement collisionHor;
-	
+
 	@FindBy(xpath = "//select[@id='collision_vertical']")
 	WebElement collisionVer;
-	
+
 	@FindBy(xpath = "//a[contains(text(),'Widget Factory')]")
 	WebElement widgetFac;
-	
+
 	@FindBy(xpath = "//button[contains(text(),'Go green')]")
 	WebElement goGreen;
-	
+
 	@FindBy(xpath = "//button[contains(text(),'change')]")
 	List<WebElement> changeList;
-	
+
 	public Interactions() {
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
 	}
