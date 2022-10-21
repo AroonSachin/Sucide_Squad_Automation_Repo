@@ -36,6 +36,18 @@ public class Orderpage extends CommonActionMethods {
 	public static String billing6 = null;
 	public static String totalprice1 = null;
 	public static String totalprice2 = null;
+	
+	@FindBy(xpath = "//div[@class='header_user_info']//a[@title='Log in to your customer account']")
+	public static WebElement signin;
+	
+	@FindBy(id="email")
+	public static WebElement mailaddress;
+	
+	@FindBy(id="passwd")
+	public static WebElement mailpassword;
+	
+	@FindBy(id="SubmitLogin")
+	public static WebElement submit;
 
 	@FindBy(xpath = "//div[@id='block_top_menu']//a[@title='Women']")
 	public static WebElement dresstype;
@@ -297,5 +309,190 @@ public class Orderpage extends CommonActionMethods {
 		}
 
 	}
+	
+	/**
+	 * @This method for enter the valid mail address
+	 * @throws Exception
+	 */
+	public void mailAddress(String mail) throws Exception {
+		sendKeysMethod(mailaddress, mail);
+	}
+	/**
+	 * @This method for Clicking a submit button
+	 * @throws Exception
+	 */
+    public void submit() throws Exception {
+		clickMethod(submit,"submitbutton");
+	}
+    /**
+     * @This method for Clicking a dresstype button
+     * @throws Exception
+     */
+    public void dressType() throws Exception {
+    	clickMethod(dresstype, "dresstype");
+	}
+    /**
+     * @This method validate a product name
+     * @throws Exception
+     */
+    public void validateProductName() throws Exception {
+    	fadedShortValidation();
+		
+	}
+    /**
+     * @This method for Clicking a product button
+     * @throws Exception
+     */
+    public void chooseProduct() throws Exception {
+    	clickMethod(chooseproduct, "chooseproduct");
 
+	}
+    /**
+     * @This method for Clicking a Addtocard button
+     * @throws Exception
+     */
+    public void addCard() throws Exception {
+    	frameByIndex(0);
+		clickMethod(addcart, "addcart");
+	}
+    /**
+     * @This method for Clicking a continue shopping button
+     * @throws Exception
+     */
+    public void continueShopping() throws Exception {
+		defaultwindow();
+		webWait(continueshopping);
+    	clickMethod(continueshopping, "continueshopping");
+	}
+    /**
+     * @This method validate the product name
+     * @throws Exception
+     */
+    public void validateProduct2Name() throws Exception {
+    	blouseValidation();
+	}
+    /**
+     * @This method for Clicking a product button
+     * @throws Exception
+     */
+    public void secondProduct() throws Exception {
+    	webWait(choosingproduct);
+		clickMethod(choosingproduct, "choosingproduct");
+	}
+    /**
+     * @This method for Clicking a addtocard button
+     * @throws Exception
+     */
+    public void addToCard() throws Exception {
+    	frameByIndex(0);
+		clickMethod(addtocart, "addtocart");
+		
+	}
+    /**
+     * @This method for Clicking a continue shopping button
+     * @throws Exception
+     */
+    public void continueshop() throws Exception {
+    	defaultwindow();
+    	clickMethod(continueshop, "continueshop");
+	}
+    /**
+     * @This method for Clicking a sortproduct button
+     * @param productName
+     * @throws Exception
+     */
+    public void sortBYProduct(String productName) throws Exception {
+    	selectByVisibleText(sortproduct, productName );    	
+	}
+    /**
+     * @This method for Clicking a cart button
+     * @throws Exception
+     */
+    public void cardButton() throws Exception {
+    	clickMethod(cart, "shopping cart");
+	}
+    /**
+     * @This method validate a product Name
+     * @throws Exception
+     */
+    public void totalNameValidation() throws Exception {
+    	nameValidation();
+	}
+    /**
+     * @This method validate a productPrice
+     * @throws Exception
+     */
+     public void productPriceValid() throws Exception {
+    	 priceValidation();
+	}
+     /**
+      * @This method validate a address
+      * @throws Exception
+      */
+     public void addressValid() throws Exception {
+    	 addressvalid();
+	}
+     /**
+      * @This method for Clicking a summaryProceedtoCheckout button
+      * @throws Exception
+      */
+     public void summaryProceedtoCheckout() throws Exception {
+    	 clickMethod(summaryproceedtocheckout, "summaryproceedtocheckout");
+	}
+     /**
+      * @This method validate a shipping address
+      * @throws Exception
+      */
+     public void shippingBillingAddress() throws Exception {
+    	 billingAddress();         
+	}
+     /**
+      * @This method for Clicking a processAddress button
+      * @throws Exception
+      */
+    public void processAddress() throws Exception {
+    	clickMethod(processaddress, "processaddress");	
+	}
+    /**
+     * @This method for Clicking a agreeShippingBox button
+     * @throws Exception
+     */
+    public void agreeShippingBox() throws Exception {
+    	clickMethod(agreeshippingbox, "agreeshippingbox");
+	}
+    /**
+     * @This method for Clicking a processShipping button
+     * @throws Exception
+     */
+    public void processShipping() throws Exception {
+		clickMethod(processshipping, "processshipping");
+	}
+    /**
+     * @This method validate a total price
+     * @throws Exception
+     */
+    public void totalPriceValid() throws Exception {
+		totalPriceValidation();
+	}
+	/**
+	 * @This method for Clicking a payByBankWire button
+	 * @throws Exception
+	 */
+    public void payByBankWire() throws Exception {
+    	clickMethod(paybybankwire, "paybybankwire");
+	}
+    /**
+     * @This method for Clicking a confromOrder button
+     * @throws Exception
+     */
+    public void confromOrder() throws Exception {
+		clickMethod(confromorder, "confromorder");
+	}
+    /**
+     * @This method validate a completeorder screen will be displayed or not
+     * @throws Exception
+     */
+    public void completeorder() throws Exception {
+		isDisplayed(completeorder, "completeorder");
+	}
 }
