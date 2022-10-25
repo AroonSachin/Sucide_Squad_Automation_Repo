@@ -1,3 +1,4 @@
+@SwagLab
 Feature: To test the functionality of buying products in Swaglab application.
 
     Background: 

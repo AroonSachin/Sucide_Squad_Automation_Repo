@@ -11,17 +11,17 @@ public class Decimal {
 		System.out.println("The number of decimal in the given number is: ");
         System.out.println(countDecimalPlaces(s));
 	}
-    
+
 
     public static int countDecimalPlaces(double s) {
-        
+
         final String st = Double.toString(s);
         System.out.println(st);
         final int index = st.indexOf('.');
         return st.length()-1 -index;
     }
-				
-		
+
+
 
 	}
 

@@ -16,7 +16,7 @@ import utils.DriverFactory;
 
 public class JQueryTest extends CommonActionMethods {
 
-	@FindBy(id="draggable") 
+	@FindBy(id="draggable")
 	public  WebElement draggable;
 	@FindBy(id="draggable")
 	public  WebElement drag;
@@ -266,7 +266,7 @@ public class JQueryTest extends CommonActionMethods {
 	public WebElement widgetchange2;
 	@FindBy(id="green")
 	public WebElement widgetgreen;
-	
+
 	public JQueryTest() {
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 30), this);
 	}
@@ -289,14 +289,14 @@ public class JQueryTest extends CommonActionMethods {
 	}
 	public void resize() throws Exception {
 		clickMethod(resize, "resizable");
-		frameByIndex(0);	
+		frameByIndex(0);
 		Actions size=new Actions(DriverFactory.getDriver());
 		webWait(resizable);
 		//size.dragAndDropBy(resizable, 100,50).perform();
 		size.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
 		System.out.println("height&width:"+resizable.getSize());
 		defaultwindow();
-        
+
 	}
 	public void selectable() throws Exception {
 		clickMethod(select, "selectable");
@@ -320,7 +320,7 @@ public class JQueryTest extends CommonActionMethods {
 		frameByIndex(0);
 		clickMethod(sec1, "section1");
 		clickMethod(sec2, "section2");
-		clickMethod(sec3, "section3"); 
+		clickMethod(sec3, "section3");
 		defaultwindow();
 	}
 	public void autocomplete() throws Exception {
@@ -338,7 +338,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(submitbutton, "submitbutton");
 		defaultwindow();
 	}
-	
+
 	public void checkBoxRadio() throws Exception {
        clickMethod(checkboxradio, "Checkboxradio");
        frameByIndex(0);
@@ -347,7 +347,7 @@ public class JQueryTest extends CommonActionMethods {
        clickMethod(bedsize, "size");
        defaultwindow();
 	}
-	
+
 	public void controlgroup() throws Exception {
 		clickMethod(controlgroup, "control");
 		frameByIndex(0);
@@ -361,7 +361,7 @@ public class JQueryTest extends CommonActionMethods {
         defaultwindow();
 	}
 	public void dialog() throws Exception {
-		clickMethod(dialog, "dialog");		
+		clickMethod(dialog, "dialog");
 		clickMethod(defaultfunction, "defaultfunction");
 		frameByIndex(0);
 		clickMethod(closefunction, "closefunction");
@@ -387,7 +387,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(modalmeassage, "modalmessage");
 		frameByIndex(0);
 		clickMethod(okmodal, "okmodalmessage");
-		defaultwindow();    
+		defaultwindow();
 	}
 	public void menu() throws Exception {
 		clickMethod(menu, "Menu");
@@ -429,7 +429,7 @@ public class JQueryTest extends CommonActionMethods {
 		String[]date = splitString(currentdate(5), "/");
 		System.out.println(month.getText());
 		String text=getTextElement(month, "month");
-		while (true) {		
+		while (true) {
 			if(text.equalsIgnoreCase(date[0])) {
 			    Thread.sleep(3000);
 				listDrop(datepick, date[1]);
@@ -437,12 +437,12 @@ public class JQueryTest extends CommonActionMethods {
 			}else {
 				webWait(nextmonth);
 				clickMethod(nextmonth, "nextmonth");
-			}	
+			}
 		}
 		defaultwindow();
 
 	}
-	public String currentdate(int plusdays) {		
+	public String currentdate(int plusdays) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
@@ -488,7 +488,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(defaulttool, "defaulttool");
 		frameByIndex(0);
 		String tooltiptext=agetool.getAttribute("title");
-		System.out.println("tooltil text is :"+tooltiptext);	
+		System.out.println("tooltil text is :"+tooltiptext);
 
 	}
 	public void effects() throws Exception {
@@ -539,7 +539,7 @@ public class JQueryTest extends CommonActionMethods {
 		frameByIndex(0);
 		clickMethod(toggleclassbutton, "toggleclassbutton");
 		clickMethod(toggleclassbutton, "toggleclass");
-		defaultwindow();		
+		defaultwindow();
 	}
 	public void position() throws Exception {
 		clickMethod(position, "position");

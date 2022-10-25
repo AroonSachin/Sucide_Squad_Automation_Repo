@@ -6,9 +6,8 @@ public class AscendingOrder {
 		int a[]=new int[] {6,9,10,7,8};
 		int temp=0;
 		System.out.println("Enter the array of elements to be sorted");
-		for(int i=0; i<a.length; i++)
-		{
-			System.out.println(a[i] + " ");
+		for (int element : a) {
+			System.out.println(element + " ");
 
 }
 		for(int i=0; i<a.length; i++)
@@ -24,9 +23,8 @@ public class AscendingOrder {
 			}
 		}
 		System.out.println("The array of elements in ascending order");
-		for(int i=0; i<a.length; i++)
-		{
-			System.out.println(a[i] + " ");
+		for (int element : a) {
+			System.out.println(element + " ");
 		}
 
 	}

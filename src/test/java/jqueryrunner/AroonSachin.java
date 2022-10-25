@@ -9,12 +9,12 @@ import jqueryautomation.arunsachin.Interactions;
 import utils.DriverFactory;
 
 public class AroonSachin extends CommonActionMethods{
-	
+
 	@BeforeMethod
 	public void invoke() throws Exception {
 		invokeBrowser("chrome","normal","https://jqueryui.com/");
 	}
-	
+
 	@Test
 	public void interactionstest() throws Exception {
 		new Interactions().dragAxis();
@@ -23,7 +23,7 @@ public class AroonSachin extends CommonActionMethods{
 		new Interactions().selectable();
 		new Interactions().sort();
 	}
-	
+
 	@Test
 	public void widgets() throws Exception {
 		new Interactions().accord();
@@ -40,7 +40,7 @@ public class AroonSachin extends CommonActionMethods{
 		new Interactions().tabs();
 		new Interactions().toolTip();
 	}
-	
+
 	@Test
 	public void effect() throws Exception {
 		new Interactions().addClass();
@@ -54,16 +54,16 @@ public class AroonSachin extends CommonActionMethods{
 		new Interactions().toggle();
 		new Interactions().toggleClass();
 	}
-	
+
 	@Test
 	public void Utilities() throws Exception {
 		new Interactions().position();
 		new Interactions().widgetFactory();
 	}
-	
+
 	@AfterMethod
 	public void aftrMHD() {
 		DriverFactory.closeDriver();
 	}
-	
+
 }

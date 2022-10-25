@@ -8,7 +8,7 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 /**
- * 
+ *
  * @author svenkateshwaran
  * @this class is to log in into the application
  *
@@ -22,7 +22,7 @@ public class LoginPage extends CommonActionMethods {
 	WebElement passWord;
 	@FindBy(id = "login-button")
 	WebElement loginButton;
-	
+
 	public LoginPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
@@ -49,4 +49,5 @@ public class LoginPage extends CommonActionMethods {
 		clickMethod(loginButton, "login");
 	}
 	
+
 }
