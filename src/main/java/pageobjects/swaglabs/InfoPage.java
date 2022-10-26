@@ -37,9 +37,13 @@ public class InfoPage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void info() throws Exception {
-		sendKeysMethod(firstName, getdata("FirstName"));
-		sendKeysMethod(lastName, getdata("LastName"));
-		sendKeysMethod(PinCode, getdata("Pincode"));
+		sendKeysMethod(firstName, "Sowmya");
+		sendKeysMethod(lastName, "Venkateshwaran");
+		sendKeysMethod(PinCode, "621714");
+	}
+	
+	public void clickContinue() throws Exception
+	{
 
 		clickMethod(continueButton, "continue");
 
