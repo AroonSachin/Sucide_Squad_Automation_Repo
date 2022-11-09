@@ -38,9 +38,7 @@ public class TestListner implements ITestListener {
 	public static int failure = 0;
 	public static int skipping = 0;
 
-
 	public static ThreadLocal<String> scenarioIterate = new ThreadLocal<String>();
-
 
 	public static ThreadLocal<String> scenarioComments = new ThreadLocal<String>();
 
@@ -104,27 +102,27 @@ public class TestListner implements ITestListener {
 
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
-			try {
-				scenarioNo.set(commonfunctions.getdata("Number"));
-				scenarioDescription.set(commonfunctions.getdata("Scenario"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			scenarioStatus.set("Passed");
-			scenarioComments.set(" Execution Passed successfuly ");
-			passed++;
-			Map<Object, Object> testAttrb = new HashMap<Object, Object>();
-			testAttrb.put("scenario_no", getScenarioNumber());
-			testAttrb.put("scenario_description", getScenarioDescription());
-			testAttrb.put("scenario_status", getScenarioStatus());
-			testAttrb.put("scenario_comment", getScenarioComments());
+		try {
+			scenarioNo.set(commonfunctions.getdata("Number"));
+			scenarioDescription.set(commonfunctions.getdata("Scenario"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		scenarioStatus.set("Passed");
+		scenarioComments.set(" Execution Passed successfuly ");
+		passed++;
+		Map<Object, Object> testAttrb = new HashMap<Object, Object>();
+		testAttrb.put("scenario_no", getScenarioNumber());
+		testAttrb.put("scenario_description", getScenarioDescription());
+		testAttrb.put("scenario_status", getScenarioStatus());
+		testAttrb.put("scenario_comment", getScenarioComments());
 
-			testNumber.put(getScenarioNumber() + "_" + commonfunctions.testName, testAttrb);
-			setTestNames.add(commonfunctions.testName);
-			scenarioNo.set(null);
-			scenarioDescription.set(null);
-			scenarioStatus.set(null);
-			scenarioComments.set(null);
+		testNumber.put(getScenarioNumber() + "_" + commonfunctions.testName, testAttrb);
+		setTestNames.add(commonfunctions.testName);
+		scenarioNo.set(null);
+		scenarioDescription.set(null);
+		scenarioStatus.set(null);
+		scenarioComments.set(null);
 
 	}
 
@@ -159,6 +157,5 @@ public class TestListner implements ITestListener {
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 
 	}
-
 
 }
