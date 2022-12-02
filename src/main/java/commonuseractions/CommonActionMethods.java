@@ -32,6 +32,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 
 import org.apache.log4j.*;
 
@@ -42,7 +43,7 @@ import org.apache.log4j.*;
  *
  */
 public class CommonActionMethods extends TestListner {
-	protected static  AppiumDriver appiumdriver =null;
+	protected static  AndroidDriver appiumdriver =null;
 	protected static boolean invokeMail = false;
 	protected static ThreadLocal<String> URL = new ThreadLocal<String>();
 	protected static String testName = null;
@@ -129,7 +130,7 @@ public class CommonActionMethods extends TestListner {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();
-		DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		DriverFactory.getDriver().get(url);
 	}
 
@@ -493,6 +494,7 @@ public class CommonActionMethods extends TestListner {
 		String text = "";
 		try {
 			text = element.getText();
+			logMessage(text+" is displayed");
 		} catch (Exception e) {
 			logErrorMessage(" The object  " + name + " is not displayed");
 		}
