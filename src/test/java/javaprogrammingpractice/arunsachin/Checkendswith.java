@@ -9,14 +9,14 @@ public class Checkendswith {
 		System.out.println("Enter the character's to check whether the given text ends with that:");
 		end = scn.next();
 		boolean result = text.endsWith(end);
-		
+
 		return result;
-		
+
 	}
-	
-	
+
+
 	public static void main(String[] args) {
-		
+
 		System.out.println("Enter the Text:");
 		String text = scn.next();
 		if(checkEnd(text)) {

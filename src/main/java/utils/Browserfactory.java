@@ -8,29 +8,27 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
-import com.google.common.base.Objects;
-
 import commonuseractions.CommonActionMethods;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
  * The class invokes the requested browser
- * 
+ *
  * @author aroon
  *
  */
 public final class Browserfactory extends CommonActionMethods{
-	 
+
 	private Browserfactory() {}
-	
+
 	private static WebDriver driver;
 	/**
 	 * The method will invoke the requested browser in the requested browsertype
-	 * 
+	 *
 	 * @param browser
 	 * @param browsertype
-	 * @return 
-	 * @throws Exception 
+	 * @return
+	 * @throws Exception
 	 */
 	public static WebDriver createBrowser(String browser, String browsertype) throws Exception {
 		// To lauunch the requested browser in the requested type
@@ -75,7 +73,7 @@ public final class Browserfactory extends CommonActionMethods{
 			logMessage("Browser not found");
 
 		}
-		return driver;		
+		return driver;
 	}
 }
 

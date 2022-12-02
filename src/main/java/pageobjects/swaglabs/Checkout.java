@@ -11,7 +11,7 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 /**
- * 
+ *
  * @author svenkateshwaran
  * @this class contains methods from the checkout page
  */
@@ -30,7 +30,7 @@ public class Checkout extends CommonActionMethods {
 
 	@FindBy(className = "cart_quantity")
 	List<WebElement> pQuantity;
-	
+
 	public Checkout() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
@@ -46,8 +46,8 @@ public class Checkout extends CommonActionMethods {
 	 */
 
 	public void validateProductInfo() throws Exception {
-		List<String> productNameList = new LinkedList<String>(HomePage.getproductName());
-		List<String> productPriceList = new LinkedList<String>(HomePage.getproductPrice());
+		List<String> productNameList = new LinkedList<>(HomePage.getproductName());
+		List<String> productPriceList = new LinkedList<>(HomePage.getproductPrice());
 		for (int p = 0; p < pName.size(); p++) {
 			String prdtName = getTextElement(pName.get(p), "product name");
 			if (prdtName.equals(productNameList.get(p))) {
@@ -76,18 +76,18 @@ public class Checkout extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	public void validateQuantity() throws Exception {
+	public void validateQuantity(String qty) throws Exception {
 		int prd = 0;
 
-		for (int q = 0; q < pQuantity.size(); q++) {
-			prd = prd + Integer.parseInt(getTextElement(pQuantity.get(q), "Number of product quantity"));
+		for (WebElement element : pQuantity) {
+			prd = prd + Integer.parseInt(getTextElement(element, "Number of product quantity"));
 		}
-		if (prd == Integer.parseInt(getdata("Quantity"))) {
-			logMessage("The expected product quantity " + getdata("Quantity") + " matches the actual product quantity "
+		if (prd == Integer.parseInt(qty)) {
+			logMessage("The expected product quantity " + qty + " matches the actual product quantity "
 					+ prd);
 
 		} else {
-			logErrorMessage("The expected product quantity " + getdata("Quantity")
+			logErrorMessage("The expected product quantity " + qty
 					+ " does not matches the actual product quantity " + prd);
 
 		}
@@ -101,7 +101,7 @@ public class Checkout extends CommonActionMethods {
 
 	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
-		validateQuantity();
+		//validateQuantity();
 	}
 
 }

@@ -15,9 +15,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import commonuseractions.CommonActionMethods;
 
 /**
- * 
  *
- * @author svenkateshwaran 
+ *
+ * @author svenkateshwaran
  * @this class is used to read the excel data
  *
  */
@@ -35,7 +35,7 @@ public class ExcelReader {
 	}
 
 	public Map<String, String> xlReader(int rowNum) throws IOException {
-		Map<String, String> dataMap = new HashMap<String, String>();
+		Map<String, String> dataMap = new HashMap<>();
 		try {
 			String title = "";
 			String value = "";
@@ -57,7 +57,7 @@ public class ExcelReader {
 		int rows = sheet.getLastRowNum() + 1;
 		return rows;
 	}
-	
+
 	/**
 	 * @this method is used to write the data in excel
 	 * @param excelname
@@ -65,17 +65,17 @@ public class ExcelReader {
 	 * @param value
 	 * @throws Exception
 	 */
-	
+
 	public static synchronized void xlWriteStatus(String excelname, String sheetName, String value) throws Exception
 	{
-		
-		
-		Map<String,Integer> header = new HashMap<String,Integer>();
+
+
+		Map<String,Integer> header = new HashMap<>();
 		for(int h = 0; h < sheet.getRow(0).getLastCellNum(); h++) {
 			header.put(sheet.getRow(0).getCell(h).getStringCellValue(), h);
 		}
 		System.out.println(header);
-		
+
 		for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
 				 if(sheet.getRow(i).getCell(0).getStringCellValue().equalsIgnoreCase(CommonActionMethods.getdata("Number"))) {
 					 Row row = sheet.getRow(i);
@@ -84,12 +84,12 @@ public class ExcelReader {
 					 break;
 				 }
 		}
-		 
+
 		 FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "/src/main/java/resources/excelsheet/" + excelname);
 		 try {
 			workbook.write(fos);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		 fos.close();

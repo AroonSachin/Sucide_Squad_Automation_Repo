@@ -3,10 +3,12 @@ package pageobjects.yourlogo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+
 import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
@@ -293,7 +295,7 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	public void verifyProductName() throws Exception {
-		List<String> namearr = new ArrayList<String>();
+		List<String> namearr = new ArrayList<>();
 		for (int i = 0; i < productname.size(); i++) {
 			for (WebElement ele : productname) {
 				namearr.add(getTextElement(ele, "product name"));

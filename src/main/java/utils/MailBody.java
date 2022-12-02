@@ -50,21 +50,21 @@ public class MailBody extends CommonActionMethods{
 	}
 
 	/**
-	 * 
+	 *
 	 * @Method create a test table data for email report
-	 * 
+	 *
 	 * @return
 	 */
 	public static void emailScenarioTableCreate() {
 
-		LinkedList<String> testNames = new LinkedList<String>(setTestNames);
+		LinkedList<String> testNames = new LinkedList<>(setTestNames);
 		System.out.println(testNumber.length());
 		for (int j = 0; j < testNames.size(); j++) {
 
-			Set<String> allTest = new TreeSet<String>(testNumber.keySet());
-			LinkedList<String> listTest = new LinkedList<String>(allTest);
+			Set<String> allTest = new TreeSet<>(testNumber.keySet());
+			LinkedList<String> listTest = new LinkedList<>(allTest);
 			System.out.println("The list test " + listTest);
-			LinkedList<String> scenarios = new LinkedList<String>();
+			LinkedList<String> scenarios = new LinkedList<>();
 
 			for (int i = 0; i < listTest.size(); i++) {
 
@@ -82,15 +82,15 @@ public class MailBody extends CommonActionMethods{
 					+ "<th width='50%'><b>Scenario Description</b></th>" + "<th width='5%'><b>Status</b></th>"
 					+ "<th width='40%'><b>Comments</b></th>" + "</tr>";
 
-			for (int emailMsg = 0; emailMsg < scenarios.size(); emailMsg++) {
+			for (String element : scenarios) {
 				String sNo = restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_no");
+						element + ".scenario_no");
 				String sDescription = restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_description");
+						element + ".scenario_description");
 				String sStatus = restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_status");
+						element + ".scenario_status");
 				String sComments = restCorrelateJSON(testNumber.toString(),
-						scenarios.get(emailMsg) + ".scenario_comment");
+						element + ".scenario_comment");
 
 				if (sStatus.equalsIgnoreCase("passed")) {
 					mailText = mailText + "<tr style='color: green; font-size: 12px;'>" + "<td align='center'>" + sNo

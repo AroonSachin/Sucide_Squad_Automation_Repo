@@ -1,61 +1,34 @@
-Feature: As an user,Iam trying to automate yourlogo application as end to end
+@SwagLab
+Feature: To test the functionality of buying products in Swaglab application.
 
-  Background: 
-    Given I Launch the chrome browser
-    And user enter url "http://automationpractice.com/index.php"
-
-  Scenario: As an user,Iam trying to login into yourlogo application
-    Given user in on home page
-    And click on the sigin button
-    Then user enter the valid email address
-    And click on the create an account button
-    Then Click the gender button
-    And user enter the first name "venkatesh"
-    And user enter the last name "baskar"
-    And click the email checkbox
-    And user enter the valid password "1234567"
-    And select the date of birth "22/05/1999"
-    And click the first name
-    And click the last name
-    And user enter the company name"it trident"
-    And user enter the valid address "5.IT trident ,northusman road ,3rd floor,tnagar,chennai"
-    And user enter the city name"chennai"
-    And select the state name"1"
-    And user enter the valid zip postal code"61291"
-    And click the country name
-    And user enter the valid phone number"9585153985"
-    Then click the register button
-
-  Scenario Outline: As an logged user,Iam trying to order a clothes in yourlogo ecommerce website
-    Given user in on home page
-    And click on the sigin button
-    Then user enter the valid email address"<Email>"
-    And user enter the valid password"<Password>"
-    Then Click the signin button
-    And click the dresstype
-    And click the first product
-    And validate the product name
-    And click the add to card button
-    Then click the continue shopping
-    And click the second product
-    And validate the product name
-    And click the add to card button
-    And select the sort product button
-    And click the card button
-    And validate the product name
-    And validate the total price
-    And validate the adress
-    And click the summary proceed to checkout button
-    And validate the billing address
-    And click the address proceed to checkout button
-    And click the agree shipping checkout
-    And click the shipping proceed to checkout button
-    And validate the total price of product
-    And click the pay by bankwire
-    And click the I confrom my order button
-    Then validate the complete order screen is displayed
-
+    Background: 
+    Given I launch the "chrome" browser.
+    And I Enter the URL "https://www.saucedemo.com/".
+    
+    Scenario: As an end user, I select product to buy in Swaglab.
+    Then I enter username "standard_user" and password "secret_sauce".
+    And I click on the Login button.
+    Then I validate whether I have logged into the website successfully.
+    And I validate the prices of the product and check if the products are sorted correctly.
+    Then I select the products that I desire to buy.
+    And I click on the Cart button.
+    
+    Scenario Outline: As an end user, I complete payment of the desired product in Swaglab.
+    Then I enter username "<Username>" and password "<Password>".
+    And I click on the Login button.
+    Then I validate whether I have logged into the website successfully.
+    And I validate the prices of the product and check if the products are sorted correctly.
+    Then I select the products that I desire to buy.
+    And I click on the Cart button.
+    Then I validate product information and the product quantity "<Quantity>".
+    And I click on the Checkout button.
+    And I enter the personal information 
+    Then I complete the checkout process by clicking Continue button.
+    And I click on the Finish button and complete the payment process.
+    Then I check whether THANK YOU FOR YOUR ORDER message is displayed which confirms that the desired products are ordered successfully.
+    
     Examples: 
-      | Email                       | Password |
-      | venkatesh22+17571@gmail.com |  1234567 |
-      | venkatesh22+40642@gmail.com |  1234567 |
+      | Username      | Password     | Quantity |
+      | standard_user | secret_sauce | 2        |
+      
+    

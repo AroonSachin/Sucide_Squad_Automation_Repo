@@ -15,7 +15,7 @@ public class ThreadStop {
 		{
 			System.out.println("Thread t1 is stopped");
 		}
-		
+
 		t2.stop();
 		if(t2.isAlive())
 		{
@@ -25,7 +25,7 @@ public class ThreadStop {
 		{
 			System.out.println("Thread t2 is stopped");
 		}
-		
+
 		}
 
 }

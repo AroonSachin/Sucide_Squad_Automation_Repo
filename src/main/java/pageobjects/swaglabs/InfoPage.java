@@ -8,13 +8,13 @@ import commonuseractions.CommonActionMethods;
 import utils.DriverFactory;
 
 /**
- * 
+ *
  * @author svenkateshwaran
  * @this class contains methods of info page
  */
 public class InfoPage extends CommonActionMethods {
 
-	
+
 
 	@FindBy(id = "first-name")
 	WebElement firstName;
@@ -27,7 +27,7 @@ public class InfoPage extends CommonActionMethods {
 
 	@FindBy(id = "continue")
 	WebElement continueButton;
-	
+
 	public InfoPage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
@@ -37,9 +37,13 @@ public class InfoPage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void info() throws Exception {
-		sendKeysMethod(firstName, getdata("FirstName"));
-		sendKeysMethod(lastName, getdata("LastName"));
-		sendKeysMethod(PinCode, getdata("Pincode"));
+		sendKeysMethod(firstName, "Sowmya");
+		sendKeysMethod(lastName, "Venkateshwaran");
+		sendKeysMethod(PinCode, "621714");
+	}
+	
+	public void clickContinue() throws Exception
+	{
 
 		clickMethod(continueButton, "continue");
 
