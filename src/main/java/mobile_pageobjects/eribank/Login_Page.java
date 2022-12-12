@@ -45,7 +45,7 @@ public class Login_Page extends CommonActionMethods {
 	}
 
 	public void login() throws Exception {
-		Thread.sleep(5000);
+		webWait(popup);
 		clickMethod(popup, "popup");
 		sendKeysMethod(user, "company");
 		sendKeysMethod(pass, "company");
