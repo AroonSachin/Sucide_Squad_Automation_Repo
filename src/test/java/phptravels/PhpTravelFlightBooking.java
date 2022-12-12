@@ -36,7 +36,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 
 	@BeforeMethod
 	public void invoke() throws Exception {
-		URL.set("https://phptravels.net/");
+		Url.set("https://phptravels.net/");
 		testName = "Php Travels";
 	}
 
@@ -49,7 +49,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("1")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", Url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -63,7 +63,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("2")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", Url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -97,7 +97,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		if (DriverFactory.getDriver() != null) {
 			DriverFactory.closeDriver();
 		}
-		URL.remove();
+		Url.remove();
 	}
 
 	@AfterSuite

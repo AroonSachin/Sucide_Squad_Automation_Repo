@@ -31,6 +31,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import io.appium.java_client.AppiumDriver;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
@@ -42,8 +43,9 @@ import utils.ExcelReader;
  *
  */
 public class CommonActionMethods extends TestListner {
+	protected static AppiumDriver appdriver = null;
 	protected static boolean invokeMail = false;
-	protected static ThreadLocal<String> URL = new ThreadLocal<>();
+	protected static ThreadLocal<String> Url = new ThreadLocal<>();
 	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
