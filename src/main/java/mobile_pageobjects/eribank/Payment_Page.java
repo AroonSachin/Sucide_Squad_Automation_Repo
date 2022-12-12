@@ -1,30 +1,12 @@
 package mobile_pageobjects.eribank;
-
-import java.awt.Dimension;
-import java.time.Duration;
 import java.util.List;
-
-import javax.sound.midi.Sequence;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.Pause;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.PointerInput.Kind;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
-
-import com.graphbuilder.curve.Point;
-
 import commonuseractions.CommonActionMethods;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import utils.DriverFactory;
 
 public class Payment_Page extends CommonActionMethods {
 	static String sliderdollar = null;
