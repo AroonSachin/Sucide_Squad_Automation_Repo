@@ -9,7 +9,7 @@ public class Addition {
 		    Scanner s = new Scanner(System.in);
 		    int a = s.nextInt();
 		    int b = s.nextInt();
-		    System.out.println("The addition of two values is: " + (a+b));
+		    System.out.println("The addition of two values: " + (a+b));
 
 		}
 
