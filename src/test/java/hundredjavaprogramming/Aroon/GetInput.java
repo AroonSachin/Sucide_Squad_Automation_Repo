@@ -1,7 +1,11 @@
 package hundredjavaprogramming.Aroon;
 
 import java.util.Scanner;
-
+/**
+ * @Question How to get input using Scanner 
+ * @author aroon
+ *
+ */
 public class GetInput {
 	
 	public static void main(String[] args) {

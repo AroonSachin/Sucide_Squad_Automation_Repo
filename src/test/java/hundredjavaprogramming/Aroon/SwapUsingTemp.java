@@ -1,7 +1,11 @@
 package hundredjavaprogramming.Aroon;
 
 import java.util.Scanner;
-
+/**
+ * @Question How to swap 2 number using third variable.
+ * @author aroon
+ *
+ */
 public class SwapUsingTemp {
 	
 	public static void main(String[] args) {

@@ -1,7 +1,11 @@
 package hundredjavaprogramming.Aroon;
 
 import java.util.Scanner;
-
+/**
+ * How to add two number.
+ * @author aroon
+ *
+ */
 public class Addition {
 	
 	public static void main(String[] args) {

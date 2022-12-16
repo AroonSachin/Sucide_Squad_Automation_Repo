@@ -1,7 +1,11 @@
 package hundredjavaprogramming.Aroon;
 
 import java.util.Scanner;
-
+/**
+ * @Question How to swap 2 number without third variable.
+ * @author aroon
+ *
+ */
 public class SwapWithoutTemp {
 	
 	public static void NoTempSwap() {
