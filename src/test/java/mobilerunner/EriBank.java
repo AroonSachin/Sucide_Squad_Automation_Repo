@@ -32,6 +32,7 @@ public class EriBank extends CommonActionMethods{
 	}
 	@Test(priority = 1)
 	private void test() throws Exception {
+		windowSize=appiumdriver.manage().window().getSize();
 		new Login_Page().login();
 		 
 	}

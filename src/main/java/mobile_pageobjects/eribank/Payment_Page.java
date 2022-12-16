@@ -77,48 +77,13 @@ public class Payment_Page extends CommonActionMethods {
 		amntslider.dragAndDropBy(amountslider, 100, 0).perform();
 		sliderdollar = getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "");
 		clickMethod(country, "country");
-	    swipeUp(countrycanada, "canadacity");
+	    swipeUp(countrycanada, "canadacity",true);
 		clickMethod(sendpayment, "sendpayment");
 		clickMethod(confrompayment, "confrompayment");
 		webWait(totalbalance);
-		//Thread.sleep(7000);
 		totalbal = getTextElement(totalbalance, "balance").replace("Your balance is: ", "").replace("$", "");
 		double actualamount = Double.valueOf(Login_Page.dollar) - Double.valueOf(Payment_Page.sliderdollar);
 		checkEquality(actualamount, Double.valueOf(totalbal));
 
-	}
-	public void swipeUp(WebElement element, String name) throws Exception {
-		while (true) {
-			System.out.println(element);
-			if (isElementPresent(element)==false) {
-				Dimension windowSize = appiumdriver.manage().window().getSize();
-				System.out.println(windowSize);
-				PointerInput finger = new PointerInput(org.openqa.selenium.interactions.PointerInput.Kind.TOUCH,
-						"finger");
-				Sequence swipeUp = new Sequence(finger, 1);
-				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
-						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
-						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2, windowSize.height / 2 - windowSize.height / 2))
-						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
-				appiumdriver.perform(Arrays.asList(swipeUp));
-				logMessage(" Element not in view, Scrolling up ");
-			} else if (isElementPresent(element)==true) {
-				clickMethod(element, name);
-				logMessage("Element is in view ");
-				break;
-			}
-		}
-	}
-
-	public boolean isElementPresent(WebElement element) {
-
-		boolean flag = true;
-		try {
-			logMessage(" presence of Element is "+String.valueOf(element.isDisplayed()));
-		} catch (Exception e) {
-			flag = false;
-		}
-		return flag;
 	}
 }

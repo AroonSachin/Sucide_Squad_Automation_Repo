@@ -21,7 +21,7 @@ public class YourLogo extends CommonActionMethods {
      */
 	@BeforeClass
 	private void extentReport() {
-		extentReport("Yourlogo.html");
+		extentReports("Yourlogo.html");
 
 	}
 

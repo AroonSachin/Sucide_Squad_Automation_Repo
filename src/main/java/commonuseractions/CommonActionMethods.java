@@ -19,6 +19,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,6 +32,14 @@ import io.appium.java_client.android.AndroidDriver;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
+import org.openqa.selenium.Dimension;
+import java.time.Duration;
+import java.util.Arrays;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.PointerInput.MouseButton;
+import org.openqa.selenium.interactions.PointerInput.Origin;
+import org.openqa.selenium.interactions.Sequence;
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -38,9 +47,10 @@ import utils.ExcelReader;
  *
  */
 public class CommonActionMethods extends TestListner {
+	protected static Dimension windowSize =null;
 	protected static  AndroidDriver appiumdriver =null;
 	protected static boolean invokeMail = false;
-	protected static ThreadLocal<String> URL = new ThreadLocal<>();
+	protected static ThreadLocal<String> url = new ThreadLocal<>();
 	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
@@ -70,7 +80,7 @@ public class CommonActionMethods extends TestListner {
 	 * @This method is used to call the extend report
 	 * @param name
 	 */
-	public static void extentReport(String name) {
+	public static void extentReports(String name) {
 		extentreport = new ExtentReports();
 		HtmlReporter = new ExtentHtmlReporter(name);
 		HtmlReporter.config().setTheme(Theme.DARK);
@@ -173,9 +183,9 @@ public class CommonActionMethods extends TestListner {
 			scrollToElement(element);
 			Select sel = new Select(element);
 			sel.selectByVisibleText(text);
-			logMessage(text + " is selected in dropdown ");
+			logMessage(text + " is selected in dropdown selectByVisibleText ");
 		} catch (Exception e) {
-			logErrorMessage(text + " Element is not selected ");
+			logErrorMessage(text + " Element is not selected selectByVisibleText ");
 		}
 	}
 
@@ -191,9 +201,9 @@ public class CommonActionMethods extends TestListner {
 			webwaitVisibility(element);
 			Select sel = new Select(element);
 			sel.selectByValue(text);
-			logMessage(text + " is selected in dropdown ");
+			logMessage(text + " is selected in dropdown selectByValue ");
 		} catch (Exception e) {
-			logErrorMessage(text + " Element is not selected ");
+			logErrorMessage(text + " Element is not selected selectByValue ");
 		}
 	}
 
@@ -204,13 +214,13 @@ public class CommonActionMethods extends TestListner {
 	 * @param Index-string       value about the action being performed
 	 * @throws Exception
 	 */
-	public static void selectByIndex(WebElement element, int Index) throws Exception {
+	public static void selectByIndex(WebElement element, int index) throws Exception {
 		try {
 			Select sel = new Select(element);
-			sel.selectByIndex(Index);
-			logMessage(Index + " is selected in dropdown ");
+			sel.selectByIndex(index);
+			logMessage(index + " is selected in dropdown selectByIndex");
 		} catch (Exception e) {
-			logErrorMessage(Index + " Element is not selected ");
+			logErrorMessage(index + " Element is not selected selectByIndex");
 		}
 	}
 
@@ -221,14 +231,14 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static String takeSnapShot() throws Exception {
 		try {
-			File SrcFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
+			File srcfile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
 			String pathlocation = filepath.getAbsolutePath();
-			FileUtils.copyFile(SrcFile, filepath);
+			FileUtils.copyFile(srcfile, filepath);
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			System.err.println(" Screenshot is not taken ");
+			logErrorMessage(" Screenshot is not taken ");
 		}
 		return null;
 	}
@@ -264,7 +274,7 @@ public class CommonActionMethods extends TestListner {
 			DriverFactory.getDriver().switchTo().frame(element);
 			logMessage(" framehandle is successful by webelement ");
 		} catch (Exception e) {
-			logErrorMessage(" no such frame exception ");
+			logErrorMessage(" no such frame exception frameByElement ");
 		}
 	}
 
@@ -279,7 +289,7 @@ public class CommonActionMethods extends TestListner {
 			DriverFactory.getDriver().switchTo().frame(Index);
 			logMessage(" framehandle is successful by index ");
 		} catch (Exception e) {
-			logErrorMessage(" no such frame exception ");
+			logErrorMessage(" no such frame exception frameByIndex ");
 		}
 	}
 
@@ -294,7 +304,7 @@ public class CommonActionMethods extends TestListner {
 			DriverFactory.getDriver().switchTo().frame(nameORid);
 			logMessage(" framehandle is successful by name or id ");
 		} catch (Exception e) {
-			logErrorMessage(" no such frame exception ");
+			logErrorMessage(" no such frame exception frameByNameorID ");
 		}
 	}
 
@@ -339,15 +349,15 @@ public class CommonActionMethods extends TestListner {
 	 * @param ElementName
 	 * @throws Exception
 	 */
-	public static void isDisplayed(WebElement element, String ElementName) throws Exception {
+	public static void isDisplayed(WebElement element, String elementname) throws Exception {
 		try {
 			if (element.isDisplayed()) {
-				logMessage(ElementName + " is displayed ");
+				logMessage(elementname + " is displayed ");
 			} else {
-				logErrorMessage(ElementName + " is not displayed in else block ");
+				logErrorMessage(elementname + " is not displayed in else block ");
 			}
 		} catch (Exception e) {
-			logErrorMessage(ElementName + " is not displayed in catch block ");
+			logErrorMessage(elementname + " is not displayed in catch block ");
 		}
 	}
 
@@ -358,11 +368,11 @@ public class CommonActionMethods extends TestListner {
 	 * @param ElementName -string value about the action being performed
 	 * @throws Exception
 	 */
-	public static void isSelected(WebElement element, String ElementName) throws Exception {
+	public static void isSelected(WebElement element, String elementname) throws Exception {
 		if (element.isSelected()) {
-			logMessage(ElementName + " is selected");
+			logMessage(elementname + " is selected");
 		} else {
-			logErrorMessage(ElementName + " is not selected ");
+			logErrorMessage(elementname + " is not selected ");
 		}
 	}
 
@@ -372,15 +382,15 @@ public class CommonActionMethods extends TestListner {
 	 * @param ElementName -string value about the action being performed
 	 * @throws Exception
 	 */
-	public static void isEnabled(WebElement element, String ElementName) throws Exception {
+	public static void isEnabled(WebElement element, String elementname) throws Exception {
 		try {
 			if (element.isEnabled()) {
-				logMessage(ElementName + " is enabled ");
+				logMessage(elementname + " is enabled ");
 			} else {
-				logErrorMessage(ElementName + " is not enabled in else block ");
+				logErrorMessage(elementname + " is not enabled in else block ");
 			}
 		} catch (Exception e) {
-			logErrorMessage(ElementName + " is not enabled in catch block ");
+			logErrorMessage(elementname + " is not enabled in catch block ");
 		}
 	}
 
@@ -407,12 +417,12 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 * @throws Exception
 	 */
-	public synchronized static String getdata(String Name) throws Exception {
+	public static synchronized  String getdata(String name) throws Exception {
 		String data = "";
-		if (inputdata.get().containsKey(Name)) {
-			data = inputdata.get().get(Name);
+		if (inputdata.get().containsKey(name)) {
+			data = inputdata.get().get(name);
 		} else {
-			logErrorMessage(" Given Column name is not available in the Excel " + Name);
+			logErrorMessage(" Given Column name is not available in the Excel " + name);
 		}
 		return data;
 	}
@@ -429,9 +439,8 @@ public class CommonActionMethods extends TestListner {
 	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
 		boolean flag = true;
 		for (WebElement element : listelement) {
-			//webWait(element);
 			String name = element.getText();
-			System.out.println(name);
+			logMessage(name);
 			if (name.contains(Toselect)) {
 				flag = false;
 				clickMethod(element, Toselect);
@@ -451,8 +460,8 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 */
 	public static String[] splitString(String data, String symbol) {
-		String arr[] = data.split(symbol);
-		return arr;
+		String ar [] = data.split(symbol);
+		return ar ;
 	}
 
 	public static void scrollToElement(WebElement ele) {
@@ -538,10 +547,21 @@ public class CommonActionMethods extends TestListner {
 			if (subFile.isDirectory()) {
 				deleteFolder(subFile);
 			} else {
-				subFile.delete();
+				boolean del =subFile.delete();
+				if (del) {
+					logMessage("sub files deleted successfully");
+				}else {
+					logMessage("sub files not deleted ");
+				}
 			}
 		}
-		file.delete();
+		boolean del =file.delete();
+		if (del) {
+			logMessage("File deleted successfully");
+		}else {
+			logMessage("File not deleted ");
+		}
+		
 	}
 
 	/**
@@ -578,9 +598,10 @@ public class CommonActionMethods extends TestListner {
 	 * @param response
 	 * @param jsonPath
 	 * @return jsonString
+	 * @throws Exception 
 	 *
 	 */
-	public static String restCorrelateJSON(String jsonString, String jsonPath) {
+	public static String restCorrelateJSON(String jsonString, String jsonPath) throws Exception {
 
 		boolean flag = true;
 		JSONObject jsonObj = null;
@@ -611,7 +632,7 @@ public class CommonActionMethods extends TestListner {
 		}
 
 		if (flag) {
-			System.err.println("No value found");
+			logErrorMessage("No value found");
 		}
 
 		return jsonString;
@@ -628,7 +649,174 @@ public class CommonActionMethods extends TestListner {
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("MMMMMMMMMM/d/yyyy");
-		String dat = date.format(cal.getTime());
-		return dat;
+		String dates = date.format(cal.getTime());
+		return dates;
+	}
+	/**
+	 * @method To swipe up until the element appears, If need to click after Swipe set third parameter as True.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @throws Exception
+	 */
+	public void swipeUp(WebElement element, String name, boolean click) throws Exception {
+		int scrollPoints = 0;
+		while (true) {
+			Thread.sleep(1000);
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,
+						"finger");
+				Sequence swipeUp = new Sequence(finger, 1);
+				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2, windowSize.height / 2 - windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appiumdriver.perform(Arrays.asList(swipeUp));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if(scrollPoints>10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				if (click) {
+					clickMethod(element, name);
+				}
+				logMessage("Element is in view ");
+				break;
+			}
+		}
+	}
+	/**
+	 * @method To swipe up until the element appears and sends text to the input field.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @throws Exception
+	 */
+	public void swipeUp(WebElement element, String name, boolean sendkey,String keytoSend) throws Exception {
+		int scrollPoints = 0;
+		while (true) {
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+				 
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,
+						"finger");
+				Sequence swipeUp = new Sequence(finger, 1);
+				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2, windowSize.height / 2 - windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appiumdriver.perform(Arrays.asList(swipeUp));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if(scrollPoints>10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				if (sendkey) {
+					sendKeysMethod(element, keytoSend);
+				}
+				logMessage("Element is in view ");
+				break;
+			}
+		}
+	}
+	/**
+	 * @method Returns false if the element is doesn't exist in the window.
+	 * @param element
+	 * @return
+	 */
+	public boolean isElementPresent(WebElement element) {
+		boolean flag = true;
+		try {
+
+			logMessage(" presence of Element is " + String.valueOf(element.isDisplayed()));
+		} catch (Exception e) {
+			flag = false;
+		}
+		return flag;
+	}
+	/**
+	 * @method To swipe down until the element appears, If need to click after Swipe set third parameter as True.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @throws Exception
+	 */
+	public void swipeDown(WebElement element, String name, boolean click) throws Exception {
+		int scrollPoints = 0;
+		while (true) {
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+				 
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,
+						"finger");
+				Sequence swipeDown = new Sequence(finger, 1);
+				swipeDown.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2, windowSize.height / 2 + windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appiumdriver.perform(Arrays.asList(swipeDown));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if(scrollPoints>10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				if (click) {
+					clickMethod(element, name);
+				}
+				logMessage("Element is in view ");
+				break;
+			}
+		}
+	}
+	/**
+	 * @method To swipe down until the element appears and sends text to the input field.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @throws Exception
+	 */
+	public void swipeDown(WebElement element, String name, boolean sendkey,String keytoSend) throws Exception {
+		int scrollPoints = 0;
+		while (true) {
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+				 
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH,
+						"finger");
+				Sequence swipeDown = new Sequence(finger, 1);
+				swipeDown.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2, windowSize.height / 2 + windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appiumdriver.perform(Arrays.asList(swipeDown));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if(scrollPoints>10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				if (sendkey) {
+					sendKeysMethod(element, keytoSend);
+				}
+				logMessage("Element is in view ");
+				break;
+			}
+		}
 	}
 }
