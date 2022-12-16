@@ -1,5 +1,7 @@
 package hundredjavaprogramming.Venkatesh;
 
+//How to check Odd and Even Number in java
+
 import java.util.Scanner;
 
 public class OddAndEvenNumber {

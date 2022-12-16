@@ -2,6 +2,8 @@ package hundredjavaprogramming.Venkatesh;
 
 import java.util.Scanner;
 
+//How to swap 2 no using 3rd variable Program in java
+
 public class Swap2noUsing3rdVariable {
 	  public static void main(String[] args) {  
 	       int x, y, t;  

@@ -2,6 +2,8 @@ package hundredjavaprogramming.Venkatesh;
 
 import java.util.Scanner;
 
+//How to get Using input using Scanner Program in java
+
 public class UsingScanner {
 	public static void main(String[] args)  
 	{  

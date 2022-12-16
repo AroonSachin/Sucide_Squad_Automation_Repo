@@ -2,6 +2,8 @@ package hundredjavaprogramming.Venkatesh;
 
 import java.util.Scanner;
 
+//How to convert Fahrenheit to Celsius Program in java
+
 public class FahrenheitToCelsius {
 	//T=(F -32  ) ×  5)/9
 	 public static void main(String[] args) {

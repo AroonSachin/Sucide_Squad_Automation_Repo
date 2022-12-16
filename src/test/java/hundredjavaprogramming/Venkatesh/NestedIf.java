@@ -2,6 +2,8 @@ package hundredjavaprogramming.Venkatesh;
 
 import java.util.Scanner;
 
+//Nested If Else clause in java
+
 public class NestedIf {
 	public static void main(String[] args) {  
 	    Scanner sc = new Scanner(System.in);  

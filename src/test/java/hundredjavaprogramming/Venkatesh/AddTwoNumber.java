@@ -2,6 +2,8 @@ package hundredjavaprogramming.Venkatesh;
 
 import java.util.Scanner;
 
+//How to add two number Program in java
+
 public class AddTwoNumber {
 	 public static void main(String[] args) {
 		    int x, y, sum;

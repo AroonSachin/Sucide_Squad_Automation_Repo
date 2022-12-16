@@ -1,6 +1,6 @@
 package hundredjavaprogramming.Venkatesh;
 
-import commonuseractions.CommonActionMethods;
+//Command Line Argument in java
 
 public class CommandLine  {
 	 public static void main(String[] args) {
