@@ -9,6 +9,11 @@ import com.github.javafaker.Faker;
 
 import commonuseractions.CommonActionMethods;
 
+/**
+ * @Class To Input Checkout details and click on Continue button. 
+ * @author amaduraiveeran
+ *
+ */
 public class CheckOutInfoPage extends CommonActionMethods {
 	
 	@CacheLookup
@@ -31,7 +36,10 @@ public class CheckOutInfoPage extends CommonActionMethods {
 		PageFactory.initElements(appDriver, this);
 	}
 
-	
+	/**
+	 * @Method To Inout Checkout details and click on Continue button.
+	 * @throws Exception
+	 */
 	public void inputInformation() throws Exception {
 		Faker fake = new Faker();
 		sendKeysMethod(firstName,fake.name().firstName());

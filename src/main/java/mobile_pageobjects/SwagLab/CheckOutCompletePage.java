@@ -7,6 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 
+/**
+ * @Class To Confirm order completion.
+ * @author amaduraiveeran
+ *
+ */
 public class CheckOutCompletePage extends CommonActionMethods {
 
 	@CacheLookup
@@ -17,6 +22,10 @@ public class CheckOutCompletePage extends CommonActionMethods {
 		PageFactory.initElements(appDriver, this);
 	}
 	
+	/**
+	 * @Method To Confirm order placement.
+	 * @throws Exception
+	 */
 	public void orderValidation() throws Exception {
 		webWait(orderConfirmation);
 		checkEquality(getTextElement(orderConfirmation, " OrderConfirmation text "), "THANK YOU FOR YOU ORDER");

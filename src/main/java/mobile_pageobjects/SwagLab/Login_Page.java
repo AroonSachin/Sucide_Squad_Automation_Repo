@@ -7,6 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 
+/**
+ * @Class To automate login page.
+ * @author amaduraiveeran
+ *
+ */
 public class Login_Page extends CommonActionMethods{
 	
 	@CacheLookup
@@ -37,6 +42,10 @@ public class Login_Page extends CommonActionMethods{
 		PageFactory.initElements(appDriver, this);
 	}
 	
+	/**
+	 * @Method  To Login.
+	 * @throws Exception
+	 */
 	public void logIn() throws Exception {
 		webWait(userName);
 		sendKeysMethod(userName, getdata("UserName"));
@@ -44,6 +53,10 @@ public class Login_Page extends CommonActionMethods{
 		clickMethod(loginButton," Login button ");
 	}
 	
+	/**
+	 * @Method tTo validate Login.
+	 * @throws Exception
+	 */
 	public void loginValidation() throws Exception {
 		webWait(hamburgerButton);
 		clickMethod(hamburgerButton, "Hamburger button ");

@@ -667,7 +667,8 @@ public class CommonActionMethods extends TestListner {
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+								windowSize.height / 2 - windowSize.height / 3,
+								windowSize.height / 2 - windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeUp));
 				logMessage(" Element not in view, Scrolling up ");
@@ -677,19 +678,21 @@ public class CommonActionMethods extends TestListner {
 					break;
 				}
 			} else if (isElementPresent(element) == true) {
-				switch (action) {
-				case "click":
-					clickMethod(element, name);
-					break;
-				case "sendkey":
-					sendKeysMethod(element, keyToSend);
-					break;
-				case "gettext":
-					text = getTextElement(element, name);
-					return text;
-				default:
-					logMessage("Swiped to element ");
-					break;
+				if (action != null) {
+					switch (action) {
+					case "click":
+						clickMethod(element, name);
+						break;
+					case "sendkey":
+						sendKeysMethod(element, keyToSend);
+						break;
+					case "gettext":
+						text = getTextElement(element, name);
+						return text;
+					default:
+						logMessage("Swiped to element ");
+						break;
+					}
 				}
 				break;
 			}
@@ -719,10 +722,11 @@ public class CommonActionMethods extends TestListner {
 	 * @param element
 	 * @param name
 	 * @param click
-	 * @return 
+	 * @return
 	 * @throws Exception
 	 */
-	public String swipeDownToElement(WebElement element, String name, String action, String keyToSend) throws Exception {
+	public String swipeDownToElement(WebElement element, String name, String action, String keyToSend)
+			throws Exception {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		int scrollPoints = 0;
 		String text = null;
@@ -738,7 +742,8 @@ public class CommonActionMethods extends TestListner {
 								windowSize.height / 2))
 						.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 + windowSize.height / 2))
+								windowSize.height / 2 - windowSize.height / 3,
+								windowSize.height / 2 + windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeDown));
 				logMessage(" Element not in view, Scrolling up ");
@@ -748,25 +753,28 @@ public class CommonActionMethods extends TestListner {
 					break;
 				}
 			} else if (isElementPresent(element) == true) {
-				switch (action) {
-				case "click":
-					clickMethod(element, name);
-					break;
-				case "sendkey":
-					sendKeysMethod(element, keyToSend);
-					break;
-				case "gettext":
-					text =getTextElement(element, name);
-					return text;
-				default:
-					logMessage("Swiped to element ");
-					break;
+				if (action != null) {
+					switch (action) {
+					case "click":
+						clickMethod(element, name);
+						break;
+					case "sendkey":
+						sendKeysMethod(element, keyToSend);
+						break;
+					case "gettext":
+						text = getTextElement(element, name);
+						return text;
+					default:
+						logMessage("Swiped to element ");
+						break;
+					}
 				}
 				break;
 			}
 		}
 		return text;
 	}
+
 	/**
 	 * @method Swipes up once when called.
 	 */
@@ -774,14 +782,16 @@ public class CommonActionMethods extends TestListner {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 		Sequence swipeUp = new Sequence(finger, 1);
-		swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
-				windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+		swipeUp.addAction(
+				finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2, windowSize.height / 2))
+				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-						windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+						windowSize.height / 2 - windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeUp));
 		logMessage("Swiped up");
 	}
+
 	/**
 	 * @method Swipes down once when called.
 	 */
@@ -794,7 +804,7 @@ public class CommonActionMethods extends TestListner {
 						windowSize.height / 2))
 				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-						windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 + windowSize.height / 2))
+						windowSize.height / 2 - windowSize.height / 3, windowSize.height / 2 + windowSize.height / 2))
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeDown));
 		logMessage("Swiped Down");

@@ -45,7 +45,6 @@ public class SwagLab_Aroon extends CommonActionMethods{
 	@Test(dataProvider = "automation")
 	public void logIn(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
-		
 		new Login_Page().logIn();
 		new Login_Page().loginValidation();
 		new Products_Page().shortValidation();
