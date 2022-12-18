@@ -639,7 +639,7 @@ public class CommonActionMethods extends TestListner {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
-		date.applyPattern("MMMMMMMMMM/d/yyyy");
+		date.applyPattern(format);
 		String dat = date.format(cal.getTime());
 		return dat;
 	}
