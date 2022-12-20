@@ -48,6 +48,7 @@ public class SauceLab extends CommonActionMethods{
 		new HomePage().homePageValidation();
 	}
 	
+	
 	@Test
 	public void orderConfirmation() throws Exception {
 		new HomePage().addProducts();
