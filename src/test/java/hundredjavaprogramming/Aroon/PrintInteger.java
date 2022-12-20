@@ -1,5 +1,9 @@
 package hundredjavaprogramming.Aroon;
-
+/**
+ * @Question Print integer in java.
+ * @author aroon
+ *
+ */
 public class PrintInteger {
 	
 	public static void printInt(int upto) {

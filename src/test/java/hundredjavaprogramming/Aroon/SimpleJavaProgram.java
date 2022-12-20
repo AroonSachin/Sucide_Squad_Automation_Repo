@@ -1,5 +1,9 @@
 package hundredjavaprogramming.Aroon;
-
+/**
+ * @Question Simple java program.
+ * @author aroon
+ *
+ */
 public class SimpleJavaProgram {
 	
 	public static void greet(String name) {
