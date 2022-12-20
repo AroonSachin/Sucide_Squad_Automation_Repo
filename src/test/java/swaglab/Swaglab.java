@@ -41,7 +41,7 @@ public class Swaglab extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("Test");
+		return getTestData("database.xlsx", "Test");
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class Swaglab extends CommonActionMethods {
 	 */
 	@BeforeMethod(alwaysRun = true)
 	public void startBrowser() throws Exception {
-		URL.set("https://www.saucedemo.com/");
+		url.set("https://www.saucedemo.com/");
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			invokeBrowser("chrome", "Windows", URL.get());
+			invokeBrowser("chrome", "Windows", url.get());
 			extent(" Login ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
@@ -80,7 +80,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			invokeBrowser("chrome", "Windows", URL.get());
+			invokeBrowser("chrome", "Windows", url.get());
 			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
@@ -109,7 +109,7 @@ public class Swaglab extends CommonActionMethods {
 		if (DriverFactory.getDriver() != null) {
 			DriverFactory.closeDriver();
 		}
-		URL.remove();
+		url.remove();
 	}
 
 	@AfterClass

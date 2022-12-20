@@ -36,20 +36,20 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 
 	@BeforeMethod
 	public void invoke() throws Exception {
-		URL.set("https://phptravels.net/");
+		url.set("https://phptravels.net/");
 		testName = "Php Travels";
 	}
 
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("php");
+		return getTestData("database.xlsx", "php");
 	}
 
 	@Test(dataProvider = "automation", description = "To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("1")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -63,7 +63,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("2")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -97,7 +97,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		if (DriverFactory.getDriver() != null) {
 			DriverFactory.closeDriver();
 		}
-		URL.remove();
+		url.remove();
 	}
 
 	@AfterSuite

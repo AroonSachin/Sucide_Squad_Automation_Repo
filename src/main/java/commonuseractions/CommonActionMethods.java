@@ -31,9 +31,17 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import io.appium.java_client.AppiumDriver;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
+import org.openqa.selenium.Dimension;
+import java.time.Duration;
+import java.util.Arrays;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.PointerInput.MouseButton;
+import org.openqa.selenium.interactions.PointerInput.Origin;
+import org.openqa.selenium.interactions.Sequence;
 
 /**
  * @author vbaskar
@@ -42,8 +50,10 @@ import utils.ExcelReader;
  *
  */
 public class CommonActionMethods extends TestListner {
+	protected static Dimension windowSize = null;
+	protected static AppiumDriver appdriver = null;
 	protected static boolean invokeMail = false;
-	protected static ThreadLocal<String> URL = new ThreadLocal<>();
+	protected static ThreadLocal<String> url = new ThreadLocal<>();
 	protected static String testName = null;
 	public static ExtentReports extentreport;
 	public static ExtentHtmlReporter HtmlReporter;
@@ -470,10 +480,10 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 * @throws Exception
 	 */
-	public static synchronized Iterator<Object[]> getTestData(String sheetname) throws Exception {
+	public static synchronized Iterator<Object[]> getTestData(String sheetname, String excelPath) throws Exception {
 		ExcelReader xlRead = null;
 		int xlRowCount = 0;
-		xlRead = new ExcelReader("database.xlsx", sheetname);
+		xlRead = new ExcelReader(excelPath, sheetname);
 		xlRowCount = xlRead.getRowCount();
 		ArrayList<Object[]> data = new ArrayList<>();
 		for (int i = 1; i < xlRowCount; i++) {
@@ -632,5 +642,160 @@ public class CommonActionMethods extends TestListner {
 		date.applyPattern("MMMMMMMMMM/d/yyyy");
 		String dat = date.format(cal.getTime());
 		return dat;
+	}
+	/**
+	 * @method To swipe up until the element appears, If need to click after Swipe
+	 *         set third parameter as True.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @return
+	 * @throws Exception
+	 */
+	public String swipeUpToElement(WebElement element, String name, String action, String keyToSend) throws Exception {
+		Dimension windowSize = appdriver.manage().window().getSize();
+		int scrollPoints = 0;
+		String text = null;
+		while (true) {
+			Thread.sleep(1000);
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				Sequence swipeUp = new Sequence(finger, 1);
+				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appdriver.perform(Arrays.asList(swipeUp));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if (scrollPoints > 10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				switch (action) {
+				case "click":
+					clickMethod(element, name);
+					break;
+				case "sendkey":
+					sendKeysMethod(element, keyToSend);
+					break;
+				case "gettext":
+					text = getTextElement(element, name);
+					return text;
+				default:
+					logMessage("Swiped to element ");
+					break;
+				}
+				break;
+			}
+		}
+		return text;
+	}
+
+	/**
+	 * @method Returns false if the element is doesn't exist in the window.
+	 * @param element
+	 * @return
+	 */
+	public boolean isElementPresent(WebElement element) {
+		boolean flag = true;
+		try {
+
+			logMessage(" presence of Element is " + String.valueOf(element.isDisplayed()));
+		} catch (Exception e) {
+			flag = false;
+		}
+		return flag;
+	}
+
+	/**
+	 * @method To swipe down until the element appears, If need to click after Swipe
+	 *         set third parameter as True.
+	 * @param element
+	 * @param name
+	 * @param click
+	 * @return 
+	 * @throws Exception
+	 */
+	public String swipeDownToElement(WebElement element, String name, String action, String keyToSend) throws Exception {
+		Dimension windowSize = appdriver.manage().window().getSize();
+		int scrollPoints = 0;
+		String text = null;
+		while (true) {
+			System.out.println(element);
+			if (isElementPresent(element) == false) {
+
+				System.out.println(windowSize);
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				Sequence swipeDown = new Sequence(finger, 1);
+				swipeDown
+						.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+								windowSize.height / 2))
+						.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 + windowSize.height / 2))
+						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+				appdriver.perform(Arrays.asList(swipeDown));
+				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if (scrollPoints > 10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
+			} else if (isElementPresent(element) == true) {
+				switch (action) {
+				case "click":
+					clickMethod(element, name);
+					break;
+				case "sendkey":
+					sendKeysMethod(element, keyToSend);
+					break;
+				case "gettext":
+					text =getTextElement(element, name);
+					return text;
+				default:
+					logMessage("Swiped to element ");
+					break;
+				}
+				break;
+			}
+		}
+		return text;
+	}
+	/**
+	 * @method Swipes up once when called.
+	 */
+	public void swipeUp() {
+		Dimension windowSize = appdriver.manage().window().getSize();
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipeUp = new Sequence(finger, 1);
+		swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+				windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+						windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+		appdriver.perform(Arrays.asList(swipeUp));
+		logMessage("Swiped up");
+	}
+	/**
+	 * @method Swipes down once when called.
+	 */
+	public void swipeDown() {
+		Dimension windowSize = appdriver.manage().window().getSize();
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipeDown = new Sequence(finger, 1);
+		swipeDown
+				.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2))
+				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
+				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+						windowSize.height / 2-windowSize.height / 3, windowSize.height / 2 + windowSize.height / 2))
+				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
+		appdriver.perform(Arrays.asList(swipeDown));
+		logMessage("Swiped Down");
 	}
 }
