@@ -1,6 +1,9 @@
 package mobilerunner;
 
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -13,6 +16,9 @@ import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import mobile_pageobjects.SwagLab.CartPage;
 import mobile_pageobjects.SwagLab.CheckOutCompletePage;
 import mobile_pageobjects.SwagLab.CheckOutInfoPage;
@@ -22,6 +28,20 @@ import mobile_pageobjects.SwagLab.Products_Page;
 import utils.DriverFactory;
 
 public class SwagLab_Aroon extends CommonActionMethods{
+	static AppiumDriverLocalService service = null;
+	public static void invokeServer() throws IOException {
+		
+		String nodePath = "C:\\Program Files\\nodejs\\node.exe";
+		String appiumMainJsPath = "C:\\Program Files\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
+		
+		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+				.usingDriverExecutable(new File(nodePath))
+				.withAppiumJS(new File(appiumMainJsPath))
+				.withIPAddress("127.0.0.1")
+				.usingPort(4723)
+				.withArgument(GeneralServerFlag.BASEPATH, "wd/hub/")
+				);
+	}
 	
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
@@ -29,7 +49,9 @@ public class SwagLab_Aroon extends CommonActionMethods{
 	}
 	
 	@BeforeClass
-	public static void setUp() throws MalformedURLException {
+	public static void setUp() throws IOException {
+		invokeServer();
+		service.start();
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options()
 				.setApp("D:\\Mobile Automation\\APK\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
@@ -63,5 +85,6 @@ public class SwagLab_Aroon extends CommonActionMethods{
 	@AfterClass
 	public void tearDown() {
 	 appDriver.quit();
+	 service.stop();
 	}
 }
