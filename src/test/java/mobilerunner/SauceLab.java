@@ -39,6 +39,7 @@ public class SauceLab extends CommonActionMethods{
 		appdriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"),opt);
 		DriverFactory.setDriver(appdriver);
 	}
+	
 
 	@Test(dataProvider = "automation")
 	public void loginScenario(Map<String, String> mapdata) throws Exception {
