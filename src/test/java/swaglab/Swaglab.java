@@ -41,7 +41,7 @@ public class Swaglab extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("Test");
+		return getTestData("database.xlsx","Test");
 	}
 
 	/**

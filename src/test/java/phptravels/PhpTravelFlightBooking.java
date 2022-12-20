@@ -42,7 +42,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("php");
+		return getTestData("database.xlsx","php");
 	}
 
 	@Test(dataProvider = "automation", description = "To verify search functionality")

@@ -41,7 +41,7 @@ public class YourLogo extends CommonActionMethods {
 	 */
 	@DataProvider(name = "yolo")
 	private Iterator<Object[]> sheet() throws Exception {
-		return getTestData("yolo");
+		return getTestData("database.xlsx","yolo");
 
 	}
 
