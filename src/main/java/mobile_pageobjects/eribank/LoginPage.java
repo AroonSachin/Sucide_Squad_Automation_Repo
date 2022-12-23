@@ -37,7 +37,7 @@ public class LoginPage extends CommonActionMethods {
 
 	public LoginPage() {
 		
-			PageFactory.initElements(new AppiumFieldDecorator(appiumdriver), this);
+			PageFactory.initElements(new AppiumFieldDecorator(appDriver), this);
 	}
 
 	public void login() throws Exception {

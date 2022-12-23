@@ -25,14 +25,13 @@ public class EriBank extends CommonActionMethods{
 				.setAppPackage("com.experitest.ExperiBank")
 				.setAppActivity("com.experitest.ExperiBank.LoginActivity")
 				.eventTimings();
-		appiumdriver=new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub/"),cap);
-		appiumdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-	    DriverFactory.setDriver(appiumdriver);
+		appDriver=new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub/"),cap);
+		appDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	    DriverFactory.setDriver(appDriver);
 
 	}
 	@Test(priority = 1)
 	private void test() throws Exception {
-		windowSize=appiumdriver.manage().window().getSize();
 		new LoginPage().login();
 		 
 	}

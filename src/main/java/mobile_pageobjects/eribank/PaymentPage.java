@@ -55,18 +55,18 @@ public class PaymentPage extends CommonActionMethods {
 	
 
 	public PaymentPage()  {
-			PageFactory.initElements(new AppiumFieldDecorator(appiumdriver), this);
+			PageFactory.initElements(new AppiumFieldDecorator(appDriver), this);
 	}
 
 	public void payment() throws Exception {
 		webWait(phonenumber);
 		sendKeysMethod(phonenumber, "9858153885");
 		sendKeysMethod(customername, "venkatesh");
-		Actions amntslider = new Actions(appiumdriver);
+		Actions amntslider = new Actions(appDriver);
 		amntslider.dragAndDropBy(amountslider, 100, 0).perform();
 		sliderdollar = getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "");
 		clickMethod(country, "country");
-	    swipeUp(countrycanada, "canadacity",true);
+	    swipeUpToElement(countrycanada, "canadacity","click",null);
 		clickMethod(sendpayment, "sendpayment");
 		clickMethod(confrompayment, "confrompayment");
 		webWait(totalbalance);
