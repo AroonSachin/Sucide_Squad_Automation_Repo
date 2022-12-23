@@ -1,13 +1,6 @@
 package mobile_pageobjects.eribank;
 import java.util.List;
-import org.openqa.selenium.Dimension;
-import java.time.Duration;
-import java.util.Arrays;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.PointerInput.MouseButton;
-import org.openqa.selenium.interactions.PointerInput.Origin;
-import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
@@ -15,10 +8,10 @@ import commonuseractions.CommonActionMethods;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
-public class Payment_Page extends CommonActionMethods {
-	static String sliderdollar = null;
-	static String totalbal = null;
-	String name=null;
+public class PaymentPage extends CommonActionMethods {
+	 public static String sliderdollar = null;
+     String totalbal = null;
+	 String name=null;
 
 	@AndroidFindBy(id = "com.experitest.ExperiBank:id/phoneTextField")
 	@CacheLookup
@@ -61,12 +54,8 @@ public class Payment_Page extends CommonActionMethods {
 	WebElement countrycanada;
 	
 
-	public Payment_Page() throws Exception {
-		try {
+	public PaymentPage()  {
 			PageFactory.initElements(new AppiumFieldDecorator(appiumdriver), this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void payment() throws Exception {
@@ -82,7 +71,7 @@ public class Payment_Page extends CommonActionMethods {
 		clickMethod(confrompayment, "confrompayment");
 		webWait(totalbalance);
 		totalbal = getTextElement(totalbalance, "balance").replace("Your balance is: ", "").replace("$", "");
-		double actualamount = Double.valueOf(Login_Page.dollar) - Double.valueOf(Payment_Page.sliderdollar);
+		double actualamount = Double.valueOf(LoginPage.dollar) - Double.valueOf(PaymentPage.sliderdollar);
 		checkEquality(actualamount, Double.valueOf(totalbal));
 
 	}

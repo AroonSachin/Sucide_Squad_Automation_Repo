@@ -8,8 +8,8 @@ import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
-import mobile_pageobjects.eribank.Login_Page;
-import mobile_pageobjects.eribank.Payment_Page;
+import mobile_pageobjects.eribank.LoginPage;
+import mobile_pageobjects.eribank.PaymentPage;
 import utils.DriverFactory;
 
 public class EriBank extends CommonActionMethods{
@@ -33,12 +33,12 @@ public class EriBank extends CommonActionMethods{
 	@Test(priority = 1)
 	private void test() throws Exception {
 		windowSize=appiumdriver.manage().window().getSize();
-		new Login_Page().login();
+		new LoginPage().login();
 		 
 	}
 	@Test(priority = 2)
 	private void pay() throws Exception {
-		new Payment_Page().payment();
+		new PaymentPage().payment();
 	}
 	
 }

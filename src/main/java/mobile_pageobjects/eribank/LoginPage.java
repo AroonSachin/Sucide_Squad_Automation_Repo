@@ -3,14 +3,13 @@ package mobile_pageobjects.eribank;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
-
 import commonuseractions.CommonActionMethods;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
-public class Login_Page extends CommonActionMethods {
+public class LoginPage extends CommonActionMethods {
 
-	static String dollar = null;
+	public static String dollar = null;
 
 	@AndroidFindBy(id = "android:id/button1")
 	@CacheLookup
@@ -36,12 +35,9 @@ public class Login_Page extends CommonActionMethods {
 	@CacheLookup
 	WebElement totalamount;
 
-	public Login_Page() throws Exception {
-		try {
+	public LoginPage() {
+		
 			PageFactory.initElements(new AppiumFieldDecorator(appiumdriver), this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void login() throws Exception {

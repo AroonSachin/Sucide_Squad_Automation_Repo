@@ -33,10 +33,7 @@ import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import org.openqa.selenium.Dimension;
-import java.time.Duration;
 import java.util.Arrays;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.PointerInput.MouseButton;
 import org.openqa.selenium.interactions.PointerInput.Origin;
 import org.openqa.selenium.interactions.Sequence;
@@ -52,11 +49,11 @@ public class CommonActionMethods extends TestListner {
 	protected static boolean invokeMail = false;
 	protected static ThreadLocal<String> url = new ThreadLocal<>();
 	protected static String testName = null;
-	public static ExtentReports extentreport;
-	public static ExtentHtmlReporter HtmlReporter;
-	public static ExtentTest testcase;
+	protected static ExtentReports extentreport;
+	protected static ExtentHtmlReporter HtmlReporter;
+	protected static ExtentTest testcase;
 	protected static String configFilename = "log4j.properties";
-	public static Logger log = LogManager.getLogger(CommonActionMethods.class);
+	protected static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		Map<String, String> map = new HashMap<>();
 		return map;
@@ -284,9 +281,9 @@ public class CommonActionMethods extends TestListner {
 	 * @param Index -Integer index of the frame
 	 * @throws Exception
 	 */
-	public static void frameByIndex(int Index) throws Exception {
+	public static void frameByIndex(int index) throws Exception {
 		try {
-			DriverFactory.getDriver().switchTo().frame(Index);
+			DriverFactory.getDriver().switchTo().frame(index);
 			logMessage(" framehandle is successful by index ");
 		} catch (Exception e) {
 			logErrorMessage(" no such frame exception frameByIndex ");
@@ -436,15 +433,15 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 * @throws Exception
 	 */
-	public static void listDrop(List<WebElement> listelement, String Toselect) throws Exception {
+	public static void listDrop(List<WebElement> listelement, String toselect) throws Exception {
 		boolean flag = true;
 		for (WebElement element : listelement) {
 			String name = element.getText();
 			logMessage(name);
-			if (name.contains(Toselect)) {
+			if (name.contains(toselect)) {
 				flag = false;
-				clickMethod(element, Toselect);
-				logMessage(Toselect + "  is clicked");
+				clickMethod(element, toselect);
+				logMessage(toselect + "  is clicked");
 				break;
 			}
 		}
@@ -672,7 +669,7 @@ public class CommonActionMethods extends TestListner {
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2, windowSize.height / 2 - windowSize.height / 2))
+								windowSize.height / 2, (windowSize.height / 2) - windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appiumdriver.perform(Arrays.asList(swipeUp));
 				logMessage(" Element not in view, Scrolling up ");
@@ -710,7 +707,7 @@ public class CommonActionMethods extends TestListner {
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2, windowSize.height / 2 - windowSize.height / 2))
+								windowSize.height / 2, (windowSize.height / 2) - windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appiumdriver.perform(Arrays.asList(swipeUp));
 				logMessage(" Element not in view, Scrolling up ");
