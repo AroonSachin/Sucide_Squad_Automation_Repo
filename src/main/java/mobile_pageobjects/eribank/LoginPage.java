@@ -43,8 +43,8 @@ public class LoginPage extends CommonActionMethods {
 	public void login() throws Exception {
 		webWait(popup);
 		clickMethod(popup, "popup");
-		sendKeysMethod(user, "company");
-		sendKeysMethod(pass, "company");
+		sendKeysMethod(user, getdata("Username"));
+		sendKeysMethod(pass, getdata("Password"));
 		clickMethod(sigin, "sigin");
 		webWait(totalamount);
 		dollar = getTextElement(totalamount, "totalamount").replace("Your balance is: ", "").replace("$", "");

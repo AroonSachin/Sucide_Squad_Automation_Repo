@@ -60,8 +60,8 @@ public class PaymentPage extends CommonActionMethods {
 
 	public void payment() throws Exception {
 		webWait(phonenumber);
-		sendKeysMethod(phonenumber, "9858153885");
-		sendKeysMethod(customername, "venkatesh");
+		sendKeysMethod(phonenumber, getdata("Phone"));
+		sendKeysMethod(customername, getdata("Name"));
 		Actions amntslider = new Actions(appDriver);
 		amntslider.dragAndDropBy(amountslider, 100, 0).perform();
 		sliderdollar = getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "");
