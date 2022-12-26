@@ -46,7 +46,7 @@ public class CartPage extends CommonActionMethods {
 		checkEquality(Products_Page.product1Name, getTextElement(product1Head, " Product 1 heading "));
 		checkEquality(Products_Page.product2Name, getTextElement(product2Head, " Product 2 heading "));
 		checkEquality(Double.valueOf(getTextElement(cartProd1Price, " Product 1 price ").replace("$","")), Products_Page.product1Pricevalue);
-		swipeUpToElement(cartProd2Price, " Product 2 ", "", null);
+		swipeUpToElement(cartProd2Price, " Product 2 ", null, null);
 		checkEquality(Double.valueOf(getTextElement(cartProd2Price, " Product 2 price ").replace("$","")), Products_Page.product2Pricevalue);
 		Thread.sleep(2000);
 		swipeUp();

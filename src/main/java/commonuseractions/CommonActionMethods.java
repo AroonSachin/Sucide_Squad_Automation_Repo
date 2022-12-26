@@ -598,19 +598,15 @@ public class CommonActionMethods extends TestListner {
 		Iterator<String> jsonItr = null;
 
 		String[] jsonPathSplit = jsonPath.split(Pattern.quote("."));
-
 		for (String matchKey : jsonPathSplit) {
-
 			if (matchKey.contains("[")) {
 				jsonObj = restConvertTextAsJson(jsonString);
 				int strLen = matchKey.length();
 				jsonString = jsonObj.getJSONArray(matchKey.replaceAll("\\[\\d\\]", ""))
 						.getJSONObject(Integer.parseInt(matchKey.substring(strLen - 2, strLen - 1))).toString();
 			}
-
 			jsonObj = restConvertTextAsJson(jsonString);
 			jsonItr = jsonObj.keys();
-
 			while (jsonItr.hasNext()) {
 				String keyvalue = jsonItr.next().toString();
 				if (keyvalue.equals(matchKey)) {
@@ -645,8 +641,9 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * @method To swipe up until the element appears, If need to click after Swipe
-	 *         set third parameter as True.
+	 * @method To swipe down until the element appears, If need to click, sendKey or get text pass the action in the string format
+	 *          in the action parameter and if not using sendkey, click or gettext set action and keyToSend parameter null, if the
+	 *          action parameter is other than sendkey the keyToSend parameter must be null
 	 * @param element
 	 * @param name
 	 * @param click
@@ -701,7 +698,7 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * @method Returns false if the element is doesn't exist in the window.
+	 * @method Returns false if the element doesn't exist in the window.
 	 * @param element
 	 * @return
 	 */
@@ -717,8 +714,9 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * @method To swipe down until the element appears, If need to click after Swipe
-	 *         set third parameter as True.
+	 * @method To swipe down until the element appears, If need to click, sendKey or get text pass the action in the string format
+	 *          in the action parameter and if not using sendkey, click or gettext set action and keyToSend parameter null, if the
+	 *          action parameter is other than sendkey the keyToSend parameter must be null
 	 * @param element
 	 * @param name
 	 * @param click
