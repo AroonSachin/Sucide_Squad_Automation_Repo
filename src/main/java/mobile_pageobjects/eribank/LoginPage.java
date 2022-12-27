@@ -31,7 +31,7 @@ public class LoginPage extends CommonActionMethods {
 	@CacheLookup
 	WebElement makepayment;
 
-	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View")
+	@AndroidFindBy(xpath = "//android.view.View[contains(@text,'Your balance is: ')]")
 	@CacheLookup
 	WebElement totalamount;
 

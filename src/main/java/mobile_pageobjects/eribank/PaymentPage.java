@@ -1,5 +1,4 @@
 package mobile_pageobjects.eribank;
-import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
@@ -33,10 +32,6 @@ public class PaymentPage extends CommonActionMethods {
 	@CacheLookup
 	WebElement country;
 
-	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.ListView/android.widget.TextView")
-	@CacheLookup
-	List<WebElement> countryselect;
-
 	@AndroidFindBy(id = "com.experitest.ExperiBank:id/sendPaymentButton")
 	@CacheLookup
 	WebElement sendpayment;
@@ -45,7 +40,7 @@ public class PaymentPage extends CommonActionMethods {
 	@CacheLookup
 	WebElement confrompayment;
 
-	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.webkit.WebView/android.webkit.WebView/android.view.View")
+	@AndroidFindBy(xpath="//android.view.View[contains(@text,'Your balance is: ')]")
 	@CacheLookup
 	WebElement totalbalance;
 	
