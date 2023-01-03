@@ -19,6 +19,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -797,5 +798,65 @@ public class CommonActionMethods extends TestListner {
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appdriver.perform(Arrays.asList(swipeDown));
 		logMessage("Swiped Down");
+	}
+	/**
+	 * @this method is to swipe the given element left or right
+	 * @param ele
+	 * @param swipedirection
+	 * @throws Exception 
+	 */
+	public void swipeElement(WebElement ele, String swipedirection) throws Exception
+	{
+		if(isElementPresent(ele))
+		{
+			Dimension windowSize = appdriver.manage().window().getSize();
+			Point elementLocation = ele.getLocation();
+		switch(swipedirection)
+		{
+			case "Left":
+					System.out.println(elementLocation);
+					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+					Sequence swipeLeft = new Sequence(finger1, 1);
+					swipeLeft
+							.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+									elementLocation.y))
+							.addAction(finger1.createPointerDown(MouseButton.LEFT.asArg()))
+							.addAction(finger1.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+									0,elementLocation.y))
+							.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
+					appdriver.perform(Arrays.asList(swipeLeft));
+				break;
+				
+			case "Right":
+				    System.out.println(elementLocation);
+					PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+					Sequence swipeRight = new Sequence(finger2, 1);
+					swipeRight
+							.addAction(finger2.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+									elementLocation.y))
+							.addAction(finger2.createPointerDown(MouseButton.LEFT.asArg()))
+							.addAction(finger2.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+									elementLocation.x*2,elementLocation.y))
+							.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
+					appdriver.perform(Arrays.asList(swipeRight));
+				break;
+			
+		}
+		}
+		else
+		{
+			logErrorMessage("Element not in view");
+		}
+	}
+	public void clickByCoordinate(int x, int y)
+	{
+		PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipeLeft = new Sequence(finger1, 1);
+		swipeLeft
+				.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), x,
+						y))
+				.addAction(finger1.createPointerDown(MouseButton.LEFT.asArg()))
+				.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
+		appdriver.perform(Arrays.asList(swipeLeft));
 	}
 }

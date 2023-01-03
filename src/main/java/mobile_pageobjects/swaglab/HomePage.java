@@ -20,7 +20,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
 
-public class HomePage extends CommonActionMethods{
+/**
+ * @this class is used to add the product to cart and to validate sort
+ *       functionality
+ * @author svenkateshwaran
+ *
+ */
+public class HomePage extends CommonActionMethods {
 	public HomePage() throws Exception {
 		try {
 			PageFactory.initElements((appdriver), this);
@@ -28,6 +34,7 @@ public class HomePage extends CommonActionMethods{
 			e.printStackTrace();
 		}
 	}
+
 	static String item1 = null;
 	static String item2 = null;
 
@@ -68,26 +75,28 @@ public class HomePage extends CommonActionMethods{
 	WebElement sortButton;
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='Selector container']/android.view.ViewGroup/android.view.ViewGroup[2]")
+	@FindBy(xpath = "//android.widget.TextView[@text='Name (A to Z)']")
 	WebElement sortAtoZ;
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='Selector container']/android.view.ViewGroup/android.view.ViewGroup[3]")
+	@FindBy(xpath = "//android.widget.TextView[@text='Name (Z to A)']")
 	WebElement sortZtoA;
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='Selector container']/android.view.ViewGroup/android.view.ViewGroup[4]")
+	@FindBy(xpath = "//android.widget.TextView[@text='Price (low to high)']")
 	WebElement sortpriceLowtoHigh;
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='Selector container']/android.view.ViewGroup/android.view.ViewGroup[5]")
+	@FindBy(xpath = "//android.widget.TextView[@text='Price (high to low)']")
 	WebElement sortpriceHightoLow;
-	
+
 	@CacheLookup
 	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-PRODUCTS\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView")
 	WebElement swagBotImage;
 
-	
+	/**
+	 * @this method is used to add the products to the cart
+	 */
 	public void addProducts() throws Exception {
 
 		swipeDownToElement(product1AddToCartButton, " Add to cart button ", "click", "");
@@ -107,6 +116,10 @@ public class HomePage extends CommonActionMethods{
 		swipeDownToElement(cartButton, "Cart button ", "click", "");
 	}
 
+	/**
+	 * @this method is used to validate the home page
+	 * @throws Exception
+	 */
 	public void homePageValidation() throws Exception {
 		clickMethod(sortButton, " Fliter button ");
 		webWait(sortAtoZ);
@@ -116,58 +129,70 @@ public class HomePage extends CommonActionMethods{
 		webWait(sortZtoA);
 		clickMethod(sortZtoA, " Z to A sort ");
 		Thread.sleep(1000);
-		for(int i = 0;i<3;i++) {
+		for (int i = 0; i < 3; i++) {
 			swipeDown();
 		}
 		descendingValidation();
 	}
 
+	/**
+	 * @this method is used to validate the sorting functionality of the products
+	 *       from A to Z
+	 * @throws Exception
+	 */
 	public void ascendingValidation() throws Exception {
 		Set<String> titleSet = new LinkedHashSet<String>();
 		while (true) {
-			for (WebElement element : appdriver.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
+			for (WebElement element : appdriver
+					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
 				titleSet.add(getTextElement(element, " Product Title "));
 			}
 			swipeUp();
-			if(isElementPresent(swagBotImage)) {
+			if (isElementPresent(swagBotImage)) {
 				break;
 			}
 		}
 		TreeSet<String> titleTree = new TreeSet<String>(titleSet);
-		if(titleSet.equals(titleTree)) {
+		if (titleSet.equals(titleTree)) {
 			logMessage("A to Z validation successful and the products are sorted in the ascending order ");
-		}else {
+		} else {
 			logErrorMessage("Products are not in ascending order in A to Z sort.");
 		}
 		titleSet.clear();
 		titleTree.clear();
 	}
-	
+
+	/**
+	 * @this method is used to validate the sorting functionality of the products
+	 *       from Z to A
+	 * @throws Exception
+	 */
 	public void descendingValidation() throws Exception {
 		Set<String> titleSet = new LinkedHashSet<String>();
 		while (true) {
-			for (WebElement element : appdriver.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
+			for (WebElement element : appdriver
+					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
 				titleSet.add(getTextElement(element, " Product Title "));
 			}
 			swipeUp();
-			if(isElementPresent(swagBotImage)) {
+			if (isElementPresent(swagBotImage)) {
 				break;
 			}
 		}
 		TreeSet<String> titleTree = new TreeSet<String>(titleSet);
 		TreeSet<String> titleTreeDesend = (TreeSet<String>) titleTree.descendingSet();
-		if(titleSet.equals(titleTreeDesend)) {
+		if (titleSet.equals(titleTreeDesend)) {
 			logMessage("Z to A validation successful and the products are sorted in the ascending order ");
-		}else {
+		} else {
 			logErrorMessage("Products are not in ascending order in Z to A sort.");
 		}
 		titleSet.clear();
 		titleTree.clear();
 		titleTreeDesend.clear();
 	}
-	
+
 	/**
-	 * @Method tTo validate price Low to High Sorting.
+	 * @Method tTo validate price low to high sorting.
 	 * @throws NumberFormatException
 	 * @throws Exception
 	 */
@@ -193,7 +218,7 @@ public class HomePage extends CommonActionMethods{
 	}
 
 	/**
-	 * @Method To Validate Price High to Low sorting.
+	 * @Method To Validate Price high to low sorting.
 	 * @throws NumberFormatException
 	 * @throws Exception
 	 */
