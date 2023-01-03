@@ -29,16 +29,15 @@ import utils.DriverFactory;
 
 public class SwagLab_Aroon extends CommonActionMethods {
 	static AppiumDriverLocalService service = null;
-
 	public static void invokeServer() throws IOException {
-
+		emptyFile(System.getProperty("user.dir") + "\\AppiumLogs.txt");
 		String nodePath = "C:\\Program Files\\nodejs\\node.exe";
 		String appiumMainJsPath = "C:\\Program Files\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
-
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
-				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/"));
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
 		service.start();
+		service.clearOutPutStreams();
 	}
 
 	@DataProvider(name = "automation")

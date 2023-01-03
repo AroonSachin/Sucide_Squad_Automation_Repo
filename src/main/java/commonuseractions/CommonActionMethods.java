@@ -1,6 +1,8 @@
 package commonuseractions;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -641,9 +643,11 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * @method To swipe down until the element appears, If need to click, sendKey or get text pass the action in the string format
-	 *          in the action parameter and if not using sendkey, click or gettext set action and keyToSend parameter null, if the
-	 *          action parameter is other than sendkey the keyToSend parameter must be null
+	 * @method To swipe down until the element appears, If need to click, sendKey or
+	 *         get text pass the action in the string format in the action parameter
+	 *         and if not using sendkey, click or gettext set action and keyToSend
+	 *         parameter null, if the action parameter is other than sendkey the
+	 *         keyToSend parameter must be null
 	 * @param element
 	 * @param name
 	 * @param click
@@ -654,10 +658,13 @@ public class CommonActionMethods extends TestListner {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		int scrollPoints = 0;
 		String text = null;
-		while (true) {
+		boolean endPage = false;
+		String previousSource = null;
+		while (!endPage) {
 			Thread.sleep(1000);
 			System.out.println(element);
 			if (isElementPresent(element) == false) {
+				previousSource = appDriver.getPageSource();
 				System.out.println(windowSize);
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeUp = new Sequence(finger, 1);
@@ -693,6 +700,7 @@ public class CommonActionMethods extends TestListner {
 				}
 				break;
 			}
+			endPage = previousSource.equals(appDriver.getPageSource());
 		}
 		return text;
 	}
@@ -714,9 +722,11 @@ public class CommonActionMethods extends TestListner {
 	}
 
 	/**
-	 * @method To swipe down until the element appears, If need to click, sendKey or get text pass the action in the string format
-	 *          in the action parameter and if not using sendkey, click or gettext set action and keyToSend parameter null, if the
-	 *          action parameter is other than sendkey the keyToSend parameter must be null
+	 * @method To swipe down until the element appears, If need to click, sendKey or
+	 *         get text pass the action in the string format in the action parameter
+	 *         and if not using sendkey, click or gettext set action and keyToSend
+	 *         parameter null, if the action parameter is other than sendkey the
+	 *         keyToSend parameter must be null
 	 * @param element
 	 * @param name
 	 * @param click
@@ -728,10 +738,12 @@ public class CommonActionMethods extends TestListner {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		int scrollPoints = 0;
 		String text = null;
-		while (true) {
+		boolean endPage = false;
+		String previousSource = null;
+		while (!endPage) {
 			System.out.println(element);
 			if (isElementPresent(element) == false) {
-
+				previousSource = appDriver.getPageSource();
 				System.out.println(windowSize);
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeDown = new Sequence(finger, 1);
@@ -769,6 +781,7 @@ public class CommonActionMethods extends TestListner {
 				}
 				break;
 			}
+			endPage = previousSource.equals(appDriver.getPageSource());
 		}
 		return text;
 	}
@@ -806,5 +819,16 @@ public class CommonActionMethods extends TestListner {
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeDown));
 		logMessage("Swiped Down");
+	}
+
+	/**
+	 * @Method Delete's all the texts
+	 * @param filePath
+	 * @throws FileNotFoundException
+	 */
+	public static void emptyFile(String filePath) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(filePath);
+		writer.print("");
+		writer.close();
 	}
 }
