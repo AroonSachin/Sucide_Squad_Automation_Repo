@@ -28,7 +28,7 @@ allure-results/
 hs_err_pid*
 test-output/
 Snaps/*.png
-Yourlogo.html
+*.html
 Automation.out
 ##############################
 ## Maven
