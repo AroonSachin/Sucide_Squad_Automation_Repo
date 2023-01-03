@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
@@ -39,6 +40,7 @@ import io.appium.java_client.AppiumDriver;
 import utils.Browserfactory;
 import utils.DriverFactory;
 import utils.ExcelReader;
+
 /**
  * @author vbaskar
  * @This Class has all CommonActionMethods
@@ -415,7 +417,7 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 * @throws Exception
 	 */
-	public static synchronized  String getdata(String name) throws Exception {
+	public static synchronized String getdata(String name) throws Exception {
 		String data = "";
 		if (inputdata.get().containsKey(name)) {
 			data = inputdata.get().get(name);
@@ -458,8 +460,8 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 */
 	public static String[] splitString(String data, String symbol) {
-		String ar [] = data.split(symbol);
-		return ar ;
+		String ar[] = data.split(symbol);
+		return ar;
 	}
 
 	public static void scrollToElement(WebElement ele) {
@@ -498,7 +500,7 @@ public class CommonActionMethods extends TestListner {
 		String text = "";
 		try {
 			text = element.getText();
-			logMessage(text+" is displayed");
+			logMessage(text + " is displayed");
 		} catch (Exception e) {
 			logErrorMessage(" The object  " + name + " is not displayed " + e);
 			e.printStackTrace();
@@ -546,21 +548,21 @@ public class CommonActionMethods extends TestListner {
 			if (subFile.isDirectory()) {
 				deleteFolder(subFile);
 			} else {
-				boolean del =subFile.delete();
+				boolean del = subFile.delete();
 				if (del) {
 					logMessage("sub files deleted successfully");
-				}else {
+				} else {
 					logMessage("sub files not deleted ");
 				}
 			}
 		}
-		boolean del =file.delete();
+		boolean del = file.delete();
 		if (del) {
 			logMessage("File deleted successfully");
-		}else {
+		} else {
 			logMessage("File not deleted ");
 		}
-		
+
 	}
 
 	/**
@@ -597,7 +599,7 @@ public class CommonActionMethods extends TestListner {
 	 * @param response
 	 * @param jsonPath
 	 * @return jsonString
-	 * @throws Exception 
+	 * @throws Exception
 	 *
 	 */
 	public static String restCorrelateJSON(String jsonString, String jsonPath) throws Exception {
@@ -663,7 +665,6 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public String swipeUpToElement(WebElement element, String name, String action, String keyToSend) throws Exception {
 		Dimension windowSize = appDriver.manage().window().getSize();
-		int scrollPoints = 0;
 		String text = null;
 		boolean endPage = false;
 		String previousSource = null;
@@ -678,16 +679,13 @@ public class CommonActionMethods extends TestListner {
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2 - windowSize.height / 3,
-								windowSize.height / 2 - windowSize.height / 2))
+								windowSize.width / 2, windowSize.height / 2 - windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeUp));
+				System.out.println("Start x : " + (windowSize.width / 2) + " Y : " + (windowSize.height / 2));
+				System.out.println("x : " + (windowSize.height / 2 - windowSize.height / 3) + " Y:"
+						+ (windowSize.height / 2 - windowSize.height / 2));
 				logMessage(" Element not in view, Scrolling up ");
-				scrollPoints++;
-				if (scrollPoints > 10) {
-					logErrorMessage(" Element not found ");
-					break;
-				}
 			} else if (isElementPresent(element) == true) {
 				if (action != null) {
 					switch (action) {
@@ -708,6 +706,9 @@ public class CommonActionMethods extends TestListner {
 				break;
 			}
 			endPage = previousSource.equals(appDriver.getPageSource());
+		}
+		if (endPage) {
+			logErrorMessage("Element not found in the page");
 		}
 		return text;
 	}
@@ -743,7 +744,6 @@ public class CommonActionMethods extends TestListner {
 	public String swipeDownToElement(WebElement element, String name, String action, String keyToSend)
 			throws Exception {
 		Dimension windowSize = appDriver.manage().window().getSize();
-		int scrollPoints = 0;
 		String text = null;
 		boolean endPage = false;
 		String previousSource = null;
@@ -759,16 +759,10 @@ public class CommonActionMethods extends TestListner {
 								windowSize.height / 2))
 						.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.height / 2 - windowSize.height / 3,
-								windowSize.height / 2 + windowSize.height / 2))
+								windowSize.width / 2, windowSize.height / 2 + windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeDown));
 				logMessage(" Element not in view, Scrolling up ");
-				scrollPoints++;
-				if (scrollPoints > 10) {
-					logErrorMessage(" Element not found ");
-					break;
-				}
 			} else if (isElementPresent(element) == true) {
 				if (action != null) {
 					switch (action) {
@@ -790,6 +784,9 @@ public class CommonActionMethods extends TestListner {
 			}
 			endPage = previousSource.equals(appDriver.getPageSource());
 		}
+		if (endPage) {
+			logErrorMessage("Element not found in the page");
+		}
 		return text;
 	}
 
@@ -803,8 +800,8 @@ public class CommonActionMethods extends TestListner {
 		swipeUp.addAction(
 				finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2, windowSize.height / 2))
 				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
-				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-						windowSize.height / 2 - windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(), windowSize.width / 2,
+						windowSize.height / 2 - windowSize.height / 2))
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeUp));
 		logMessage("Swiped up");
@@ -837,5 +834,105 @@ public class CommonActionMethods extends TestListner {
 		PrintWriter writer = new PrintWriter(filePath);
 		writer.print("");
 		writer.close();
+	}
+
+	/**
+	 * @Method Swipes the given element horizontal until the endElement appears.
+	 * @param ele
+	 * @param swipedirection
+	 * @return
+	 * @throws Exception
+	 */
+	public String swipeHorizontalToElement(WebElement startEle, WebElement endElement, String swipedirection,
+			String action, String name, String keyToSend) throws Exception {
+		String text = null;
+		Point elementLocation = startEle.getLocation();
+		switch (swipedirection) {
+		case "Left":
+			boolean leftendPage = false;
+			String leftpreviousSource = null;
+			while (!leftendPage) {
+				leftpreviousSource=appDriver.getPageSource();
+				if (isElementPresent(endElement)) {
+					System.out.println(elementLocation);
+					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+					Sequence swipeLeft = new Sequence(finger1, 1);
+					swipeLeft
+							.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+									elementLocation.y))
+							.addAction(finger1.createPointerDown(MouseButton.LEFT.asArg())).addAction(finger1
+									.createPointerMove(Duration.ofMillis(700), Origin.viewport(), 0, elementLocation.y))
+							.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
+					appDriver.perform(Arrays.asList(swipeLeft));
+					break;
+				} else if (isElementPresent(endElement) == true) {
+					if (action != null) {
+						switch (action) {
+						case "click":
+							clickMethod(endElement, name);
+							break;
+						case "sendkey":
+							sendKeysMethod(endElement, keyToSend);
+							break;
+						case "gettext":
+							text = getTextElement(endElement, name);
+							return text;
+						default:
+							logMessage("Swiped to element ");
+							break;
+						}
+					}
+					break;
+				}
+				leftendPage = leftpreviousSource.equals(appDriver.getPageSource());
+			}
+			if (leftendPage) {
+				logErrorMessage("Element not found in the page");
+			}
+
+		case "Right":
+			boolean rightendPage = false;
+			String rightpreviousSource = null;
+			while (!rightendPage) {
+				rightpreviousSource=appDriver.getPageSource();
+				if (isElementPresent(endElement)) {
+					System.out.println(elementLocation);
+					PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+					Sequence swipeRight = new Sequence(finger2, 1);
+					swipeRight
+							.addAction(finger2
+									.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x, elementLocation.y))
+							.addAction(finger2.createPointerDown(MouseButton.LEFT.asArg()))
+							.addAction(finger2.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+									elementLocation.x * 2, elementLocation.y))
+							.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
+					appDriver.perform(Arrays.asList(swipeRight));
+					break;
+				} else if (isElementPresent(endElement) == true) {
+					if (action != null) {
+						switch (action) {
+						case "click":
+							clickMethod(endElement, name);
+							break;
+						case "sendkey":
+							sendKeysMethod(endElement, keyToSend);
+							break;
+						case "gettext":
+							text = getTextElement(endElement, name);
+							return text;
+						default:
+							logMessage("Swiped to element ");
+							break;
+						}
+					}
+					break;
+				}
+				rightendPage = rightpreviousSource.equals(appDriver.getPageSource());
+			}
+			if (rightendPage) {
+				logErrorMessage("Element not found in the page");
+			}
+		}
+		return text;
 	}
 }

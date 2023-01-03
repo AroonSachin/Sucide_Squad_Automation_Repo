@@ -36,8 +36,9 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
 				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
-		service.start();
 		service.clearOutPutStreams();
+		service.start();
+		
 	}
 
 	@DataProvider(name = "automation")
