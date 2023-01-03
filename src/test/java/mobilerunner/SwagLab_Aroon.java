@@ -47,7 +47,7 @@ public class SwagLab_Aroon extends CommonActionMethods {
 
 	@BeforeClass
 	public static void setUp() throws IOException, InterruptedException {
-		extentReport("SwaglabMobile.html");
+		extentReports("SwaglabMobile.html");
 		invokeServer();
 		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
