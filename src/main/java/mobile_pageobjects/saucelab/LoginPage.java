@@ -1,4 +1,4 @@
-package mobile_pageobjects.swaglab;
+package mobile_pageobjects.saucelab;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -18,7 +18,7 @@ public class LoginPage extends CommonActionMethods {
 
 	public LoginPage() throws Exception {
 		try {
-			PageFactory.initElements((appdriver), this);
+			PageFactory.initElements((appDriver), this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

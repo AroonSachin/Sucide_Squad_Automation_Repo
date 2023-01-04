@@ -35,13 +35,13 @@ public class Swaglab extends CommonActionMethods {
 
 	@BeforeClass
 	public void extent() {
-		extentReport("Swag_Lab.html");
+		extentReports("Swag_Lab.html");
 		testName = "Swag_Lab";
 	}
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("database.xlsx", "Test");
+		return getTestData("database.xlsx","Test");
 	}
 
 	/**
@@ -86,7 +86,6 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
-			//new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();

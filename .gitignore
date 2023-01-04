@@ -25,10 +25,11 @@ allure-results/
 *.war
 *.ear
 *.nar
+*.html
+*.txt
 hs_err_pid*
 test-output/
 Snaps/*.png
-Yourlogo.html
 Automation.out
 ##############################
 ## Maven

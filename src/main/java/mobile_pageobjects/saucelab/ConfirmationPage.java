@@ -1,4 +1,4 @@
-package mobile_pageobjects.swaglab;
+package mobile_pageobjects.saucelab;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import commonuseractions.CommonActionMethods;
 public class ConfirmationPage extends CommonActionMethods {
 	public ConfirmationPage() throws Exception {
 		try {
-			PageFactory.initElements((appdriver), this);
+			PageFactory.initElements((appDriver), this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -65,7 +65,7 @@ public class ConfirmationPage extends CommonActionMethods {
 		swipeElement(product2Details, "Left");
 		clickMethod(productRemove, "Delete button");
 		swipeElement(product1Details, "Left");
-		appdriver
+		appDriver
 				.findElement(By.xpath("//android.view.ViewGroup[@content-desc='test-Delete']//android.widget.TextView"))
 				.click();
 		swipeUp();

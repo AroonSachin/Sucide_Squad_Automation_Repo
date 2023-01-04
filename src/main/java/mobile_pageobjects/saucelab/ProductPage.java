@@ -1,4 +1,4 @@
-package mobile_pageobjects.swaglab;
+package mobile_pageobjects.saucelab;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -15,7 +15,7 @@ import commonuseractions.CommonActionMethods;
 public class ProductPage extends CommonActionMethods {
 	public ProductPage() throws Exception {
 		try {
-			PageFactory.initElements((appdriver), this);
+			PageFactory.initElements((appDriver), this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

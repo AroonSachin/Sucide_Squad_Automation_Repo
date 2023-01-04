@@ -1,4 +1,4 @@
-package mobile_pageobjects.swaglab;
+package mobile_pageobjects.saucelab;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,7 +19,7 @@ import io.appium.java_client.MobileBy;
 public class InfoPage extends CommonActionMethods {
 	public InfoPage() throws Exception {
 		try {
-			PageFactory.initElements((appdriver), this);
+			PageFactory.initElements((appDriver), this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,7 @@
 package mobilerunner;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,11 +15,14 @@ import org.testng.annotations.Test;
 import commonuseractions.CommonActionMethods;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
-import mobile_pageobjects.swaglab.ConfirmationPage;
-import mobile_pageobjects.swaglab.HomePage;
-import mobile_pageobjects.swaglab.InfoPage;
-import mobile_pageobjects.swaglab.LoginPage;
-import mobile_pageobjects.swaglab.ProductPage;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import mobile_pageobjects.saucelab.ConfirmationPage;
+import mobile_pageobjects.saucelab.HomePage;
+import mobile_pageobjects.saucelab.InfoPage;
+import mobile_pageobjects.saucelab.LoginPage;
+import mobile_pageobjects.saucelab.ProductPage;
 import utils.DriverFactory;
 
 public class SauceLab extends CommonActionMethods {
@@ -32,8 +37,8 @@ public class SauceLab extends CommonActionMethods {
 		UiAutomator2Options opt = new UiAutomator2Options().setApp("D:\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
 				.setAppActivity("com.swaglabsmobileapp.MainActivity").setAppPackage("com.swaglabsmobileapp")
 				.setAutomationName("UiAutomator2").setDeviceName("Pixel 2 XL API 31").eventTimings();
-		appdriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"), opt);
-		DriverFactory.setDriver(appdriver);
+		appDriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"), opt);
+		DriverFactory.setDriver(appDriver);
 	}
 
 	@Test(dataProvider = "automation")
@@ -56,7 +61,7 @@ public class SauceLab extends CommonActionMethods {
 
 	@AfterClass
 	public void tearDown() {
-		appdriver.quit();
+		appDriver.quit();
 	}
 
 }
