@@ -671,10 +671,8 @@ public class CommonActionMethods extends TestListner {
 		String previousSource = null;
 		while (!endPage) {
 			Thread.sleep(1000);
-			System.out.println(element);
 			if (isElementPresent(element) == false) {
 				previousSource = appDriver.getPageSource();
-				System.out.println(windowSize);
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeUp = new Sequence(finger, 1);
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
@@ -683,9 +681,6 @@ public class CommonActionMethods extends TestListner {
 								windowSize.width / 2, windowSize.height / 2 - windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeUp));
-				System.out.println("Start x : " + (windowSize.width / 2) + " Y : " + (windowSize.height / 2));
-				System.out.println("x : " + (windowSize.height / 2 - windowSize.height / 3) + " Y:"
-						+ (windowSize.height / 2 - windowSize.height / 2));
 				logMessage(" Element not in view, Scrolling up ");
 				scrollPoints++;
 				if (scrollPoints > 10) {
@@ -755,10 +750,8 @@ public class CommonActionMethods extends TestListner {
 		boolean endPage = false;
 		String previousSource = null;
 		while (!endPage) {
-			System.out.println(element);
 			if (isElementPresent(element) == false) {
 				previousSource = appDriver.getPageSource();
-				System.out.println(windowSize);
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeDown = new Sequence(finger, 1);
 				swipeDown
@@ -867,7 +860,6 @@ public class CommonActionMethods extends TestListner {
 			while (!leftendPage) {
 				leftpreviousSource=appDriver.getPageSource();
 				if (isElementPresent(endElement)) {
-					System.out.println(elementLocation);
 					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 					Sequence swipeLeft = new Sequence(finger1, 1);
 					swipeLeft
@@ -913,7 +905,6 @@ public class CommonActionMethods extends TestListner {
 			while (!rightendPage) {
 				rightpreviousSource=appDriver.getPageSource();
 				if (isElementPresent(endElement)) {
-					System.out.println(elementLocation);
 					PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 					Sequence swipeRight = new Sequence(finger2, 1);
 					swipeRight
