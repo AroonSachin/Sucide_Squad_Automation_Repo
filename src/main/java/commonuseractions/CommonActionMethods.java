@@ -666,6 +666,7 @@ public class CommonActionMethods extends TestListner {
 	public String swipeUpToElement(WebElement element, String name, String action, String keyToSend) throws Exception {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		String text = null;
+		int scrollPoints = 0;
 		boolean endPage = false;
 		String previousSource = null;
 		while (!endPage) {
@@ -686,6 +687,11 @@ public class CommonActionMethods extends TestListner {
 				System.out.println("x : " + (windowSize.height / 2 - windowSize.height / 3) + " Y:"
 						+ (windowSize.height / 2 - windowSize.height / 2));
 				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if (scrollPoints > 10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
 			} else if (isElementPresent(element) == true) {
 				if (action != null) {
 					switch (action) {
@@ -745,6 +751,7 @@ public class CommonActionMethods extends TestListner {
 			throws Exception {
 		Dimension windowSize = appDriver.manage().window().getSize();
 		String text = null;
+		int scrollPoints = 0;
 		boolean endPage = false;
 		String previousSource = null;
 		while (!endPage) {
@@ -763,6 +770,11 @@ public class CommonActionMethods extends TestListner {
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeDown));
 				logMessage(" Element not in view, Scrolling up ");
+				scrollPoints++;
+				if (scrollPoints > 10) {
+					logErrorMessage(" Element not found ");
+					break;
+				}
 			} else if (isElementPresent(element) == true) {
 				if (action != null) {
 					switch (action) {
@@ -846,6 +858,7 @@ public class CommonActionMethods extends TestListner {
 	public String swipeHorizontalToElement(WebElement startEle, WebElement endElement, String swipedirection,
 			String action, String name, String keyToSend) throws Exception {
 		String text = null;
+		int scrollPoints = 0;
 		Point elementLocation = startEle.getLocation();
 		switch (swipedirection) {
 		case "Left":
@@ -864,7 +877,11 @@ public class CommonActionMethods extends TestListner {
 									.createPointerMove(Duration.ofMillis(700), Origin.viewport(), 0, elementLocation.y))
 							.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
 					appDriver.perform(Arrays.asList(swipeLeft));
-					break;
+					scrollPoints++;
+					if (scrollPoints > 10) {
+						logErrorMessage(" Element not found ");
+						break;
+					}
 				} else if (isElementPresent(endElement) == true) {
 					if (action != null) {
 						switch (action) {
@@ -907,7 +924,11 @@ public class CommonActionMethods extends TestListner {
 									elementLocation.x * 2, elementLocation.y))
 							.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
 					appDriver.perform(Arrays.asList(swipeRight));
-					break;
+					scrollPoints++;
+					if (scrollPoints > 10) {
+						logErrorMessage(" Element not found ");
+						break;
+					}
 				} else if (isElementPresent(endElement) == true) {
 					if (action != null) {
 						switch (action) {
