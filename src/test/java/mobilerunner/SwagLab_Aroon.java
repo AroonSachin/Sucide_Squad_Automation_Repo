@@ -27,64 +27,64 @@ import mobile_pageobjects.SwagLab.OverViewPage;
 import mobile_pageobjects.SwagLab.Products_Page;
 import utils.DriverFactory;
 
-public class SwagLab_Aroon extends CommonActionMethods{
+public class SwagLab_Aroon extends CommonActionMethods {
 	static AppiumDriverLocalService service = null;
 	public static void invokeServer() throws IOException {
-		
+		emptyFile(System.getProperty("user.dir") + "\\AppiumLogs.txt");
 		String nodePath = "C:\\Program Files\\nodejs\\node.exe";
 		String appiumMainJsPath = "C:\\Program Files\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
-		
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
-				.usingDriverExecutable(new File(nodePath))
-				.withAppiumJS(new File(appiumMainJsPath))
-				.withIPAddress("127.0.0.1")
-				.usingPort(4723)
-				.withArgument(GeneralServerFlag.BASEPATH, "wd/hub/")
-				);
+				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
+		service.clearOutPutStreams();
+		service.start();
+		
 	}
-	
+
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("SwagLab","Mobile_Data.xlsx");
+		return getTestData("SwagLab", "Mobile_Data.xlsx");
 	}
-	
+
 	@BeforeClass
-	public static void setUp() throws IOException {
+	public static void setUp() throws IOException, InterruptedException {
+		extentReports("SwaglabMobile.html");
 		invokeServer();
-		service.start();
+		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options()
 				.setApp("D:\\Mobile Automation\\APK\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
-				.setAppActivity("com.swaglabsmobileapp.MainActivity")
-				.setAppPackage("com.swaglabsmobileapp")
-				.setAutomationName("UiAutomator2")
-				.setDeviceName("Pixel 2 XL API 31")
-				.eventTimings();
-		appDriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"),opt);
+				.setAppActivity("com.swaglabsmobileapp.MainActivity").setAppPackage("com.swaglabsmobileapp")
+				.setAutomationName("UiAutomator2").setDeviceName("Pixel 2 XL API 31").eventTimings();
+		appDriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"), opt);
 		DriverFactory.setDriver(appDriver);
 	}
 
 	@Test(dataProvider = "automation")
 	public void logIn(Map<String, String> mapdata) throws Exception {
+		extent("LogIn", "Aroon Sachin", "Login scenario");
 		inputdata.set(mapdata);
 		new Login_Page().logIn();
 		new Login_Page().loginValidation();
-		new Products_Page().shortValidation();
+		new Products_Page().sortValidation();
 	}
-	
+
 	@Test
 	public void orderProduct() throws Exception {
+		extent("Product ordering", "Aroon Sachin", "Product order scenario");
 		new Products_Page().addToCart();
 		new CartPage().productValidation();
 		new CheckOutInfoPage().inputInformation();
 		new OverViewPage().overViewValidation();
 		new CheckOutCompletePage().orderValidation();
-		
+
 	}
-	
+
 	@AfterClass
 	public void tearDown() {
-	 appDriver.quit();
-	 service.stop();
+		extentreport.flush();
+		appDriver.quit();
+		DriverFactory.closeDriver();
+		service.stop();
 	}
 }
