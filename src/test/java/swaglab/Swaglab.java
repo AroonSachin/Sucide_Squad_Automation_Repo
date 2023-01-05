@@ -50,7 +50,9 @@ public class Swaglab extends CommonActionMethods {
 	 */
 	@BeforeMethod(alwaysRun = true)
 	public void startBrowser() throws Exception {
+
 		url.set("https://www.saucedemo.com/");
+
 	}
 
 	/**

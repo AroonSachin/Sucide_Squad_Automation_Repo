@@ -858,7 +858,7 @@ public class CommonActionMethods extends TestListner {
 			boolean leftendPage = false;
 			String leftpreviousSource = null;
 			while (!leftendPage) {
-				leftpreviousSource=appDriver.getPageSource();
+				leftpreviousSource = appDriver.getPageSource();
 				if (isElementPresent(endElement)) {
 					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 					Sequence swipeLeft = new Sequence(finger1, 1);
@@ -903,13 +903,13 @@ public class CommonActionMethods extends TestListner {
 			boolean rightendPage = false;
 			String rightpreviousSource = null;
 			while (!rightendPage) {
-				rightpreviousSource=appDriver.getPageSource();
+				rightpreviousSource = appDriver.getPageSource();
 				if (isElementPresent(endElement)) {
 					PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 					Sequence swipeRight = new Sequence(finger2, 1);
 					swipeRight
-							.addAction(finger2
-									.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x, elementLocation.y))
+							.addAction(finger2.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+									elementLocation.y))
 							.addAction(finger2.createPointerDown(MouseButton.LEFT.asArg()))
 							.addAction(finger2.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
 									elementLocation.x * 2, elementLocation.y))

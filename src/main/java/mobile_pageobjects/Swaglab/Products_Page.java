@@ -1,4 +1,4 @@
-package mobile_pageobjects.SwagLab;
+package mobile_pageobjects.Swaglab;
 
 import java.util.LinkedHashSet;
 import java.util.List;

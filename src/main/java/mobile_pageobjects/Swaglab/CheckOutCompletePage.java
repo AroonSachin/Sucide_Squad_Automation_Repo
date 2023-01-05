@@ -1,4 +1,4 @@
-package mobile_pageobjects.SwagLab;
+package mobile_pageobjects.Swaglab;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
