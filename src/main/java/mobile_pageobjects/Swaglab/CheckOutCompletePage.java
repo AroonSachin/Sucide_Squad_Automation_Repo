@@ -15,7 +15,7 @@ import commonuseractions.CommonActionMethods;
 public class CheckOutCompletePage extends CommonActionMethods {
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-CHECKOUT: COMPLETE!\"]/android.view.ViewGroup/android.widget.TextView[1]")
+	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='test-CHECKOUT: COMPLETE!']/android.view.ViewGroup/android.widget.TextView[1]")
 	WebElement orderConfirmation;
 	
 	public CheckOutCompletePage() {

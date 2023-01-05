@@ -121,7 +121,7 @@ public class Products_Page extends CommonActionMethods {
 	 * @Method To validate Sorting.
 	 * @throws Exception
 	 */
-	public void shortValidation() throws Exception {
+	public void sortValidation() throws Exception {
 		clickMethod(filterButton, " Fliter button ");
 		webWait(sortAtoZ);
 		clickMethod(sortAtoZ, " A to Z short ");
