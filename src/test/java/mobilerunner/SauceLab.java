@@ -26,18 +26,36 @@ import mobile_pageobjects.saucelab.ProductPage;
 import utils.DriverFactory;
 
 public class SauceLab extends CommonActionMethods {
+	static AppiumDriverLocalService service = null;
+
+	public static void invokeServer() throws IOException {
+		emptyFile(System.getProperty("user.dir") + "\\AppiumLogs.txt");
+		String nodePath = "C:\\Program Files\\nodejs\\node.exe";
+		String appiumMainJsPath = "C:\\Users\\svenkateshwaran\\AppData\\Local\\Programs\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
+		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/")
+				.withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
+		service.clearOutPutStreams();
+		service.start();
+
+	}
+
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
 		return getTestData("SauceLab", "Mobile.xlsx");
 	}
 
 	@BeforeClass
-	public static void setUp() throws MalformedURLException {
+	public static void setUp() throws IOException, InterruptedException {
+
+		invokeServer();
+		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options().setApp("D:\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
 				.setAppActivity("com.swaglabsmobileapp.MainActivity").setAppPackage("com.swaglabsmobileapp")
 				.setAutomationName("UiAutomator2").setDeviceName("Pixel 2 XL API 31").eventTimings();
-		appDriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"), opt);
+		appDriver = new AndroidDriver(service.getUrl(), opt);
 		DriverFactory.setDriver(appDriver);
 	}
 
@@ -62,6 +80,7 @@ public class SauceLab extends CommonActionMethods {
 	@AfterClass
 	public void tearDown() {
 		appDriver.quit();
+		service.stop();
 	}
 
 }
