@@ -1,9 +1,7 @@
 package mobilerunner;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -25,6 +23,7 @@ import mobile_pageobjects.swaglab.CheckOutInfoPage;
 import mobile_pageobjects.swaglab.Login_Page;
 import mobile_pageobjects.swaglab.OverViewPage;
 import mobile_pageobjects.swaglab.Products_Page;
+import mobile_pageobjects.swaglab.*;
 import utils.DriverFactory;
 
 public class SwagLab_Aroon extends CommonActionMethods {
