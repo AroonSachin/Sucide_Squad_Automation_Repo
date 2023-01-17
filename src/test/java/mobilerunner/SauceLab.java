@@ -34,7 +34,7 @@ public class SauceLab extends CommonActionMethods {
 		String appiumMainJsPath = "C:\\Users\\svenkateshwaran\\AppData\\Local\\Programs\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
-				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/")
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub")
 				.withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
 		service.clearOutPutStreams();
 		service.start();
@@ -43,7 +43,7 @@ public class SauceLab extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("SauceLab", "Mobile.xlsx");
+		return getTestData("SauceLab", "Mobile_Data.xlsx");
 	}
 
 	@BeforeClass
@@ -59,15 +59,24 @@ public class SauceLab extends CommonActionMethods {
 		DriverFactory.setDriver(appDriver);
 	}
 
-	@Test(dataProvider = "automation")
+	@Test(dataProvider = "automation", priority = 1)
+	public void loginValidation(Map<String, String> mapdata) throws Exception
+	{
+		inputdata.set(mapdata);	
+		new LoginPage().loginValidation();
+	}
+	@Test(dataProvider = "automation", priority = 2)
 	public void loginScenario(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
+		if(getdata("No").equals("4"))
+		{
 		new LoginPage().login();
 		new LoginPage().loginPageValidation();
 		new HomePage().homePageValidation();
+		}
 	}
 
-	@Test
+	@Test (priority = 3)
 	public void orderConfirmation() throws Exception {
 		new HomePage().addProducts();
 		new ProductPage().productValidation();

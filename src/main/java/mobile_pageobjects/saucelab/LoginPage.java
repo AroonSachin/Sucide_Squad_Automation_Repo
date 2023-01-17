@@ -48,15 +48,39 @@ public class LoginPage extends CommonActionMethods {
 	@FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Close\"]/android.widget.ImageView")
 	WebElement closeButton;
 
+	@CacheLookup
+	@FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Error message\"]")
+	WebElement LoginErrorMessage;
+
 	/**
 	 * @this method is used to login the user to the application
 	 * @throws Exception
 	 */
 	public void login() throws Exception {
+		webWait(hamburgerButton);
+		clickMethod(hamburgerButton, "hamburger");
+		webWait(logOutButton);
+		clickMethod(logOutButton, "Log out");
 		webWait(userName);
 		sendKeysMethod(userName, getdata("Username"));
 		sendKeysMethod(passWord, getdata("Password"));
 		clickMethod(loginButton, " Login button ");
+	}
+
+	/**
+	 * @this method is to validate the login functionality
+	 * @throws Exception
+	 */
+	public void loginValidation() throws Exception {
+		webWait(userName);
+		sendKeysMethod(userName, getdata("Username"));
+		sendKeysMethod(passWord, getdata("Password"));
+		clickMethod(loginButton, "Login button ");
+		if (isElementPresent(LoginErrorMessage)) {
+			logMessage("Login failed");
+		} else {
+			logMessage("Logged in successfully");
+		}
 	}
 
 	/**
