@@ -947,4 +947,57 @@ public class CommonActionMethods extends TestListner {
 		}
 		return text;
 	}
+
+	/**
+	 * @this method is to swipe the given element left or right
+	 * @param ele
+	 * @param swipedirection
+	 * @throws Exception
+	 */
+	public void swipeElement(WebElement ele, String swipedirection) throws Exception {
+		if (isElementPresent(ele)) {
+			Dimension windowSize = appDriver.manage().window().getSize();
+			Point elementLocation = ele.getLocation();
+			switch (swipedirection) {
+			case "Left":
+				System.out.println(elementLocation);
+				PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				Sequence swipeLeft = new Sequence(finger1, 1);
+				swipeLeft
+						.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+								elementLocation.y))
+						.addAction(finger1.createPointerDown(MouseButton.LEFT.asArg())).addAction(finger1
+								.createPointerMove(Duration.ofMillis(700), Origin.viewport(), 0, elementLocation.y))
+						.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
+				appDriver.perform(Arrays.asList(swipeLeft));
+				break;
+
+			case "Right":
+				System.out.println(elementLocation);
+				PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				Sequence swipeRight = new Sequence(finger2, 1);
+				swipeRight
+						.addAction(finger2.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
+								elementLocation.y))
+						.addAction(finger2.createPointerDown(MouseButton.LEFT.asArg()))
+						.addAction(finger2.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
+								elementLocation.x * 2, elementLocation.y))
+						.addAction(finger2.createPointerUp(MouseButton.LEFT.asArg()));
+				appDriver.perform(Arrays.asList(swipeRight));
+				break;
+
+			}
+		} else {
+			logErrorMessage("Element not in view");
+		}
+	}
+
+	public void clickByCoordinate(int x, int y) {
+		PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		Sequence swipeLeft = new Sequence(finger1, 1);
+		swipeLeft.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), x, y))
+				.addAction(finger1.createPointerDown(MouseButton.LEFT.asArg()))
+				.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
+		appDriver.perform(Arrays.asList(swipeLeft));
+	}
 }
