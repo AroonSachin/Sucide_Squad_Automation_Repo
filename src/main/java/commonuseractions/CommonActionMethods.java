@@ -1,5 +1,7 @@
 package commonuseractions;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -28,6 +30,8 @@ import org.openqa.selenium.interactions.PointerInput.Origin;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -346,15 +350,9 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isDisplayed(WebElement element, String elementname) throws Exception {
-		try {
-			if (element.isDisplayed()) {
-				logMessage(elementname + " is displayed ");
-			} else {
-				logErrorMessage(elementname + " is not displayed in else block ");
-			}
-		} catch (Exception e) {
-			logErrorMessage(elementname + " is not displayed in catch block ");
-		}
+		
+			Assert.assertTrue(element.isDisplayed(), elementname+ " is not displayed in catch block ");
+			logMessage(elementname + " is displayed ");
 	}
 
 	/**
@@ -365,12 +363,10 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isSelected(WebElement element, String elementname) throws Exception {
-		if (element.isSelected()) {
+		
+			Assert.assertTrue(element.isSelected(), elementname+ " is not selected ");
 			logMessage(elementname + " is selected");
-		} else {
-			logErrorMessage(elementname + " is not selected ");
-		}
-	}
+	}	
 
 	/**
 	 * @This method is for element is enabled
@@ -379,15 +375,9 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isEnabled(WebElement element, String elementname) throws Exception {
-		try {
-			if (element.isEnabled()) {
-				logMessage(elementname + " is enabled ");
-			} else {
-				logErrorMessage(elementname + " is not enabled in else block ");
-			}
-		} catch (Exception e) {
-			logErrorMessage(elementname + " is not enabled in catch block ");
-		}
+			Assert.assertTrue(element.isEnabled(), elementname+" is not enabled in catch block ");
+			logMessage(elementname + " is enabled ");
+		
 	}
 
 	/**
@@ -398,22 +388,24 @@ public class CommonActionMethods extends TestListner {
 	 * @param obj2name-string value about the action being performed
 	 * @throws Exception
 	 */
+
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		if (String.valueOf(intial).trim().toLowerCase().contains(String.valueOf(end).trim().toLowerCase())) {
+
+			Assert.assertTrue(
+					String.valueOf(intial).trim().toLowerCase().contains(String.valueOf(end).trim().toLowerCase()),
+					intial + " & " + end + " is not equal");
 			logMessage(intial + " & " + end + " is equal");
-		} else {
-			logErrorMessage(intial + " & " + end + " is not equal");
-		}
 	}
+	
 
 	/**
-	 * This method for getting the data from the hash map and returns the value
+	 * @This method for getting the data from the hash map and returns the value
 	 *
 	 * @param Name It is the name of the column
 	 * @return
 	 * @throws Exception
 	 */
-	public static synchronized  String getdata(String name) throws Exception {
+	public static synchronized String getdata(String name) throws Exception {
 		String data = "";
 		if (inputdata.get().containsKey(name)) {
 			data = inputdata.get().get(name);
@@ -675,7 +667,7 @@ public class CommonActionMethods extends TestListner {
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
 								windowSize.height / 2 - windowSize.height / 3,
-								windowSize.height / 2 - windowSize.height / 2))
+								(windowSize.height / 2 )- windowSize.height / 2))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeUp));
 				logMessage(" Element not in view, Scrolling up ");
@@ -793,7 +785,7 @@ public class CommonActionMethods extends TestListner {
 				finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2, windowSize.height / 2))
 				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-						windowSize.height / 2 - windowSize.height / 3, windowSize.height / 2 - windowSize.height / 2))
+						windowSize.height / 2 - windowSize.height / 3, (windowSize.height / 2) - windowSize.height / 2))
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeUp));
 		logMessage("Swiped up");

@@ -25,7 +25,6 @@ public class EriBank extends CommonActionMethods {
 	public static void invokeServer() throws IOException {
 		String nodePath = "C:\\Program Files\\nodejs\\node.exe";
 		String appiumMainJsPath = "C:\\Users\\vbaskar\\AppData\\Local\\Programs\\Appium Server GUI\\resources\\app\\node_modules\\appium";
-
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath))
 				.withAppiumJS(new File(appiumMainJsPath))

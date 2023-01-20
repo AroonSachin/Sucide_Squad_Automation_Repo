@@ -38,7 +38,7 @@ public class PaymentPage extends CommonActionMethods {
 
 	@AndroidFindBy(id = "android:id/button1")
 	@CacheLookup
-	WebElement confrompayment;
+	WebElement conformpayment;
 
 	@AndroidFindBy(xpath="//android.view.View[contains(@text,'Your balance is: ')]")
 	@CacheLookup
@@ -61,10 +61,11 @@ public class PaymentPage extends CommonActionMethods {
 		amntslider.dragAndDropBy(amountslider, 100, 0).perform();
 		sliderdollar = getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "");
 		clickMethod(country, "country");
-	    swipeUpToElement(countrycanada, "canadacity","click",null);
+	    swipeUpToElement(countrycanada, "countrycanada","click",null);
 		clickMethod(sendpayment, "sendpayment");
-		clickMethod(confrompayment, "confrompayment");
-		webWait(totalbalance);
+		clickMethod(conformpayment, "conformpayment");
+		//webWait(totalbalance);
+		Thread.sleep(6000);
 		totalbal = getTextElement(totalbalance, "balance").replace("Your balance is: ", "").replace("$", "");
 		double actualamount = Double.valueOf(LoginPage.dollar) - Double.valueOf(PaymentPage.sliderdollar);
 		checkEquality(actualamount, Double.valueOf(totalbal));
