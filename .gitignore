@@ -14,6 +14,8 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+*.output
+allure-results/
 ##############################
 ## Java
 ##############################
@@ -23,8 +25,12 @@ local.properties
 *.war
 *.ear
 *.nar
+*.html
+*.txt
 hs_err_pid*
-
+test-output/
+Snaps/*.png
+Automation.out
 ##############################
 ## Maven
 ##############################
@@ -39,3 +45,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+/Swag_Lab
+/Swag_Lab.html
+
