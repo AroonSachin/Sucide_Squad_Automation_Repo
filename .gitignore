@@ -30,6 +30,7 @@ allure-results/
 hs_err_pid*
 test-output/
 Snaps/*.png
+TC-Recordings/*.avi
 Automation.out
 ##############################
 ## Maven

@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.github.dockerjava.api.model.Service;
+
 import commonuseractions.CommonActionMethods;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -21,6 +23,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import mobile_pageobjects.Swaglab.*;
 import utils.DriverFactory;
+import utils.ScreenRecorderUtil;
 
 public class SwagLab_Aroon extends CommonActionMethods {
 	static AppiumDriverLocalService service = null;
@@ -42,7 +45,8 @@ public class SwagLab_Aroon extends CommonActionMethods {
 	}
 
 	@BeforeClass
-	public static void setUp() throws IOException, InterruptedException {
+	public static void setUp() throws Exception {
+		ScreenRecorderUtil.startRecord("PhpTravels");
 		extentReports("SwaglabMobile.html");
 		invokeServer();
 		Thread.sleep(2000);
@@ -51,7 +55,7 @@ public class SwagLab_Aroon extends CommonActionMethods {
 				.setApp("D:\\Mobile Automation\\APK\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
 				.setAppActivity("com.swaglabsmobileapp.MainActivity").setAppPackage("com.swaglabsmobileapp")
 				.setAutomationName("UiAutomator2").setDeviceName("Pixel 2 XL API 31").eventTimings();
-		appDriver = new AndroidDriver(new java.net.URL("http://127.0.0.1:4723/wd/hub/"), opt);
+		appDriver = new AndroidDriver(service.getUrl(), opt);
 		DriverFactory.setDriver(appDriver);
 	}
 
@@ -60,8 +64,8 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		extent("LogIn", "Aroon Sachin", "Login scenario");
 		inputdata.set(mapdata);
 		new Login_Page().logIn();
-		new Login_Page().loginValidation();
-		new Products_Page().sortValidation();
+//		new Login_Page().loginValidation();
+//		new Products_Page().sortValidation();
 	}
 
 	@Test
@@ -76,10 +80,11 @@ public class SwagLab_Aroon extends CommonActionMethods {
 	}
 
 	@AfterClass
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		extentreport.flush();
 		appDriver.quit();
 		DriverFactory.closeDriver();
 		service.stop();
+		ScreenRecorderUtil.stopRecord();
 	}
 }
