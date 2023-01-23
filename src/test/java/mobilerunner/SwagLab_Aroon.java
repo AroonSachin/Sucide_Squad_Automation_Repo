@@ -1,9 +1,7 @@
 package mobilerunner;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -21,7 +19,13 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import mobile_pageobjects.Swaglab.*;
+import mobile_pageobjects.swaglab.CartPage;
+import mobile_pageobjects.swaglab.CheckOutCompletePage;
+import mobile_pageobjects.swaglab.CheckOutInfoPage;
+import mobile_pageobjects.swaglab.Login_Page;
+import mobile_pageobjects.swaglab.OverViewPage;
+import mobile_pageobjects.swaglab.Products_Page;
+import mobile_pageobjects.swaglab.*;
 import utils.DriverFactory;
 import utils.ScreenRecorderUtil;
 
