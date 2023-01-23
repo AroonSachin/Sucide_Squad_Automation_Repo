@@ -30,6 +30,9 @@ test-output/
 Snaps/*.png
 Yourlogo.html
 Automation.out
+*.txt
+*.html
+*.avi
 ##############################
 ## Maven
 ##############################
