@@ -19,6 +19,7 @@ allure-results/
 ##############################
 ## Java
 ##############################
+node_modules/
 .mtj.tmp/
 *.class
 *.jar
