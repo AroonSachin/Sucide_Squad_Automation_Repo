@@ -19,6 +19,7 @@ allure-results/
 ##############################
 ## Java
 ##############################
+node_modules/
 .mtj.tmp/
 *.class
 *.jar
@@ -31,6 +32,9 @@ hs_err_pid*
 test-output/
 Snaps/*.png
 Automation.out
+*.txt
+*.html
+*.avi
 ##############################
 ## Maven
 ##############################
