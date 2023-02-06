@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ThreadGuard;
  * @author aroon
  */
 public final class DriverFactory {
-
 	private DriverFactory() {}
 
 	// This line creates a separate thread for the given driver
