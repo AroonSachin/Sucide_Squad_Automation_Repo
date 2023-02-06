@@ -16,6 +16,8 @@ local.properties
 .factorypath
 *.output
 allure-results/
+node_modules/
+TC-Recordings/
 ##############################
 ## Java
 ##############################
@@ -28,7 +30,8 @@ allure-results/
 hs_err_pid*
 test-output/
 Snaps/*.png
-Yourlogo.html
+*.html
+*.txt
 Automation.out
 ##############################
 ## Maven
