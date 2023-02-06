@@ -37,7 +37,7 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		String appiumMainJsPath = "C:\\Program Files\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
-				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
 		service.clearOutPutStreams();
 		service.start();
 		
@@ -50,9 +50,10 @@ public class SwagLab_Aroon extends CommonActionMethods {
 
 	@BeforeClass
 	public static void setUp() throws Exception {
+		invokeServer();
 		ScreenRecorderUtil.startRecord("PhpTravels");
 		extentReports("SwaglabMobile.html");
-		invokeServer();
+		
 		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options()
@@ -68,8 +69,8 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		extent("LogIn", "Aroon Sachin", "Login scenario");
 		inputdata.set(mapdata);
 		new Login_Page().logIn();
-//		new Login_Page().loginValidation();
-//		new Products_Page().sortValidation();
+		new Login_Page().loginValidation();
+		new Products_Page().sortValidation();
 	}
 
 	@Test

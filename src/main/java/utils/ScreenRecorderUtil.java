@@ -1,6 +1,9 @@
 package utils;
 
 import org.monte.screenrecorder.ScreenRecorder;
+
+import commonuseractions.CommonActionMethods;
+
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
@@ -62,6 +65,7 @@ public class ScreenRecorderUtil extends ScreenRecorder {
 
 	public static void stopRecord() throws Exception {
 		screenRecorder.stop();
+		CommonActionMethods.logMessage("Screen recorded and can be view at : TC-Recordings folder");
 	}
 
 }

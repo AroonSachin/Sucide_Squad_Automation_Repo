@@ -16,6 +16,7 @@ local.properties
 .factorypath
 *.output
 allure-results/
+node_modules/
 ##############################
 ## Java
 ##############################
