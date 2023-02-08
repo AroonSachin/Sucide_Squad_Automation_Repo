@@ -18,24 +18,24 @@ import utils.DriverFactory;
  *
  */
 public class Orderpage extends CommonActionMethods {
-	public static String product1 = null;
-	public static String price1 = null;
-	public static String product2 = null;
-	public static String price2 = null;
-	public static String address1 = null;
-	public static String address2 = null;
-	public static String address3 = null;
-	public static String address4 = null;
-	public static String address5 = null;
-	public static String address6 = null;
-	public static String billing1 = null;
-	public static String billing2 = null;
-	public static String billing3 = null;
-	public static String billing4 = null;
-	public static String billing5 = null;
-	public static String billing6 = null;
-	public static String totalprice1 = null;
-	public static String totalprice2 = null;
+	 static String product1 = null;
+	 static String price1 = null;
+	 static String product2 = null;
+	 static String price2 = null;
+	 static String address1 = null;
+	 static String address2 = null;
+	 static String address3 = null;
+	 static String address4 = null;
+	 static String address5 = null;
+     static String address6 = null;
+	 static String billing1 = null;
+	 static String billing2 = null;
+	 static String billing3 = null;
+	 static String billing4 = null;
+	 static String billing5 = null;
+	 static String billing6 = null;
+	 static String totalprice1 = null;
+	 static String totalprice2 = null;
 	
 	@FindBy(xpath = "//div[@class='header_user_info']//a[@title='Log in to your customer account']")
 	public static WebElement signin;
