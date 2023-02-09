@@ -1,7 +1,6 @@
 package phptravels;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import org.testng.SkipException;
@@ -21,15 +20,17 @@ import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 import utils.Mail;
+import utils.ScreenRecorderUtil;
 
 @Listeners(Allurelistener.class)
 @Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
 	@BeforeTest
-	public void reportClean() {
+	public void reportClean() throws Exception {
 		invokeMail = true;
 		File allureFile = new File(System.getProperty("user.dir") + "\\allure-results");
 		deleteFolder(allureFile);
+		
 	}
 
 	@BeforeMethod
@@ -40,7 +41,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("database.xlsx","php");
+		return getTestData("php","database.xlsx");
 	}
 
 	@Test(dataProvider = "automation", description = "To verify search functionality")
@@ -99,7 +100,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	}
 
 	@AfterSuite
-	public void afterSuit() throws IOException  {
+	public void afterSuit() throws Exception  {
 		mailFlag = false;
 		Mail.sendReport("Null");
 		scenarioNo.remove();
@@ -107,6 +108,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		scenarioStatus.remove();
 		scenarioComments.remove();
 		FailedScreenShotdestination.remove();
+		
 		
 	}
 }
