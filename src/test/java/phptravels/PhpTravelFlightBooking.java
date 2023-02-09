@@ -1,10 +1,8 @@
 package phptravels;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -13,7 +11,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import commonuseractions.Allurelistener;
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Feature;
@@ -23,33 +20,35 @@ import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 import utils.Mail;
+import utils.ScreenRecorderUtil;
 
 @Listeners(Allurelistener.class)
 @Feature("PhpTravels")
 public class PhpTravelFlightBooking extends CommonActionMethods {
 	@BeforeTest
-	public void reportClean() {
+	public void reportClean() throws Exception {
 		invokeMail = true;
 		File allureFile = new File(System.getProperty("user.dir") + "\\allure-results");
 		deleteFolder(allureFile);
+		
 	}
 
 	@BeforeMethod
 	public void invoke() throws Exception {
-		URL.set("https://phptravels.net/");
+		url.set("https://phptravels.net/");
 		testName = "Php Travels";
 	}
 
 	@DataProvider(name = "automation")
 	public Iterator<Object[]> getTestData() throws Exception {
-		return getTestData("php");
+		return getTestData("php","database.xlsx");
 	}
 
 	@Test(dataProvider = "automation", description = "To verify search functionality")
 	public void searchFlight(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("1")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -63,7 +62,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 	public void booking(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
 		if (getdata("Number").equalsIgnoreCase("2")) {
-			invokeBrowser("Chrome", "Normal", URL.get());
+			invokeBrowser("Chrome", "Normal", url.get());
 			new Homepage().SearchFlight();
 			new Homepage().pax();
 			new Flightchoosepage().flightDetailValidate();
@@ -97,11 +96,11 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		if (DriverFactory.getDriver() != null) {
 			DriverFactory.closeDriver();
 		}
-		URL.remove();
+		url.remove();
 	}
 
 	@AfterSuite
-	public void afterSuit() throws IOException {
+	public void afterSuit() throws Exception  {
 		mailFlag = false;
 		Mail.sendReport("Null");
 		scenarioNo.remove();
@@ -109,6 +108,7 @@ public class PhpTravelFlightBooking extends CommonActionMethods {
 		scenarioStatus.remove();
 		scenarioComments.remove();
 		FailedScreenShotdestination.remove();
-
+		
+		
 	}
 }

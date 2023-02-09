@@ -36,7 +36,12 @@ public class MailBody extends CommonActionMethods{
 				+ "<tr bgcolor='lightgray'><td><b>Test Failed</b></td><td style='color: red;' align='center'>" + failure
 				+ "</td></tr>" + "<tr><td><b>Test Skipped</b></td><td style='color: orange;' align='center'>" + skipping
 				+ "</td></tr>" + "</table><br>";
-		emailScenarioTableCreate();
+		try {
+			emailScenarioTableCreate();
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
 		text = text + mailText + "<p>Thank you</p>";
 
 		if (System.getenv("JOB_NAME") != null && System.getProperty("os.name").contains("Linux")) {
@@ -54,8 +59,9 @@ public class MailBody extends CommonActionMethods{
 	 * @Method create a test table data for email report
 	 *
 	 * @return
+	 * @throws Exception 
 	 */
-	public static void emailScenarioTableCreate() {
+	public static void emailScenarioTableCreate() throws Exception {
 
 		LinkedList<String> testNames = new LinkedList<>(setTestNames);
 		System.out.println(testNumber.length());

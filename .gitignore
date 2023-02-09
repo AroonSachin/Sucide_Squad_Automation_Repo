@@ -22,17 +22,23 @@ TC-Recordings/
 ##############################
 ## Java
 ##############################
+node_modules/
 .mtj.tmp/
 *.class
 *.jar
 *.war
 *.ear
 *.nar
+*.html
+*.txt
 hs_err_pid*
 test-output/
 Snaps/*.png
-Yourlogo.html
+TC-Recordings/*.avi
 Automation.out
+*.txt
+*.html
+*.avi
 ##############################
 ## Maven
 ##############################
