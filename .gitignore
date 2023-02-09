@@ -16,6 +16,9 @@ local.properties
 .factorypath
 *.output
 allure-results/
+node_modules/
+TC-Recordings/
+.txt
 ##############################
 ## Java
 ##############################
