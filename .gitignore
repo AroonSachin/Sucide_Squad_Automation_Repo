@@ -17,10 +17,7 @@ local.properties
 *.output
 allure-results/
 node_modules/
-<<<<<<< HEAD
 TC-Recordings/
-=======
->>>>>>> afce1438396fb69c26d295fa6e1e941fdb94bf24
 ##############################
 ## Java
 ##############################
@@ -35,17 +32,11 @@ node_modules/
 *.txt
 hs_err_pid*
 test-output/
-Snaps/*.png
-<<<<<<< HEAD
-*.html
-*.txt
-=======
-TC-Recordings/*.avi
->>>>>>> afce1438396fb69c26d295fa6e1e941fdb94bf24
-Automation.out
-*.txt
-*.html
+Snaps/
+*.png
+TC-Recordings/
 *.avi
+Automation.out
 ##############################
 ## Maven
 ##############################
