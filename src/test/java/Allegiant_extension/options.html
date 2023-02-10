@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> Allegiant Options </title>
+    <script src="jquery.js"></script>
+    <script src="faker.js"></script>
+    <link rel="stylesheet" href="optionsstyle.css">
+</head>
+
+<body>
+    <style>
+        body {
+            background-image: url('images/PageBGClouds.jpg');
+            background-size: 120% 100%;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <header>
+        <div class="overlay">
+            <h1>
+                Allegiant Options
+            </h1>
+        </div>
+    </header>
+    <h3>Flight details</h3>
+    <p>Departure city <input class="inputBox" type="text" id="DepartureCity" name="DepartureCity"></p>
+    <p>Destination City <input class="inputBox" type="text" id="DestinationCity" name="DestinationCity"></p>
+    <p>Number of Passengers <input class="inputBox" type="number" id="PassengersCount" name="PassengersCount">
+    <div style="color: red ;">* Passengers count will be added only for adult(Maximum of 9 passengers can be added)
+    </div>
+    </p>
+    <h3>Extras</h3>
+    <div class="checkbox-wrapper-10">
+        <input class="tgl tgl-flip" type="checkbox" id="Bag" name="Bag" checked>Add Bag?
+        <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="Bag"></label><br>
+        <input class="tgl tgl-flip" type="checkbox" id="Pet" name="Pet" checked>Pet in cab?
+        <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="Pet"></label><br>
+        <input class="tgl tgl-flip" type="checkbox" id="Hotel" name="Hotel" checked> Add Hotel?
+        <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="Hotel"></label><br>
+        <input class="tgl tgl-flip" type="checkbox" id="Car" name="Car" checked> Add Car?
+        <label class="tgl-btn" data-tg-off="Nope" data-tg-on="Yeah!" for="Car"></label><br>
+    </div>
+    <h3>Payment details</h3>
+    <p>Card Number</p>
+    <input class="inputBoxCardNumber" type="tel" placeholder="xxxx-xxxx-xxxx-xxxx" id="CardNumber"
+        name="CardNumber"></input><br>
+    <p>CVV </p><input class="inputBox" type="text" id="CardCVV" name="CardCVV"></input>
+    <h4>Card Expiry date</h4>
+    <div   class="select-style">Month<select class="SelectBox" id="Cardmonth" value="">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select></div>
+    <pre></pre>
+    <div>Day</div><input class="inputBox" type="number" id="Cardday" name="Cardday">
+    <div>Year</div><input class="inputBox" type="number" id="Cardyear" name="Cardyear">
+    <pre>
+   </pre>
+    <button type="submit" class="button-55" id="Submit" value="save">Submit</button>
+    <button type="button" class="button-55" id="reset" value="reset">Set default</button>
+    <p style="color: red ;">*Please Submit after Setting defaults*</p>
+</body>
+<script src="options.js"></script>
+</html>
