@@ -39,10 +39,12 @@ public class Aroon extends RestAssuredCommons {
 	}
 	
 	@Test
-	public void get() throws Exception {
+	public void testget() throws Exception {
 		
-		Response res = RestAssured.given().header("Content-type", "application/json").and().body("").when().get("/user/1").then().extract().response();
-		logMessage("Respose---"+res.asString());
+		logMessage(get("/users/4"));
+		Delete("/users/4");
+		
+	
 	}
 
 }
