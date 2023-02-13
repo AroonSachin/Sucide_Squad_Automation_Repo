@@ -18,6 +18,7 @@ local.properties
 allure-results/
 node_modules/
 TC-Recordings/
+.txt
 ##############################
 ## Java
 ##############################
@@ -54,3 +55,5 @@ buildNumber.properties
 /Swag_Lab
 /Swag_Lab.html
 
+/AppiumLogs.txt
+/SwaglabMobile.html
