@@ -33,12 +33,11 @@ node_modules/
 *.txt
 hs_err_pid*
 test-output/
-Snaps/*.png
-TC-Recordings/*.avi
-Automation.out
-*.txt
-*.html
+Snaps/
+*.png
+TC-Recordings/
 *.avi
+Automation.out
 ##############################
 ## Maven
 ##############################
