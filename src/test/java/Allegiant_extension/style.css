@@ -1,0 +1,49 @@
+body{
+    background-image: url("images/background.jfif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+button{
+    background-color: #00ccebc9;
+    border: 0 solid #E5E7EB;
+    box-sizing: border-box;
+    color: #000000;
+    display: flex;
+    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: 0.75rem 1.65rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none #000000 solid;
+    text-decoration-thickness: auto;
+    width: 60%;
+    max-width: 460px;
+    position: relative;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+button:hover{
+    box-shadow: rgb(0 0 0 / 30%) 2px 8px 8px -5px;
+    transform: translate3d(0, 2px, 0);       
+}
+    button:active {
+        background-color: #456ef3;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+      .button:active:after {
+        box-shadow: 0 0 0 0 rgb(237, 1, 1);
+        position: absolute;
+        border-radius: 4em;
+        left: 0;
+        top:0;
+        opacity: 1;
+        transition: 0s;
+      }
+

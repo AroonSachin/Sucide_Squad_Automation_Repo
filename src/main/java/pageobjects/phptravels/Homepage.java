@@ -12,14 +12,16 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import commonuseractions.CommonActionMethods;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
+
 /**
  * This class is to search the flight.
+ * 
  * @author amaduraiveeran
  */
 public class Homepage extends CommonActionMethods {
 	static String paxno = "";
-	static String fromCity="";
-	static String toCity="";
+	static String fromCity = "";
+	static String toCity = "";
 	static String departureDate = "";
 	static String departureMonth = "";
 	static String returndepartureDate = "";
@@ -97,9 +99,11 @@ public class Homepage extends CommonActionMethods {
 	public Homepage() {
 		PageFactory.initElements(new AjaxElementLocatorFactory(DriverFactory.getDriver(), 0), this);
 	}
+
 	/**
-	 * method to locate the given month.
-	 * This method should be used within the class.
+	 * method to locate the given month. This method should be used within the
+	 * class.
+	 * 
 	 * @param ele
 	 * @param monthtoselect
 	 * @param nxtbutton
@@ -116,16 +120,19 @@ public class Homepage extends CommonActionMethods {
 			}
 		}
 	}
+
 	public static synchronized String dateSel(int plusdays) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
+		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("MMMMMMMMMM/d/yyyy");
 		String dat = date.format(cal.getTime());
 		return dat;
 	}
+
 	/**
 	 * This method passes the information to search a suitable flight.
+	 * 
 	 * @param dep
 	 * @param des
 	 * @param mnth
@@ -136,13 +143,13 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	@Step("To Search the flight for the given details")
-	public void  SearchFlight() throws Exception {
+	public void SearchFlight() throws Exception {
 		getTitle();
 		getURL();
 		logMessage("Current URL:" + getURL());
 		logMessage("Current page title:" + getTitle());
 		clickMethod(flightbutton, "Flight button");
-		sendKeysMethod(depcity,getdata("Departure"));
+		sendKeysMethod(depcity, getdata("Departure"));
 		listDrop(depcitylist, getdata("Departure"));
 		sendKeysMethod(descity, getdata("Destination"));
 		listDrop(depcitylist, getdata("Destination"));
@@ -172,8 +179,10 @@ public class Homepage extends CommonActionMethods {
 		clickMethod(cookie, "Cookie got it button");
 		clickMethod(paxbotton, "Passenger button");
 	}
+
 	/**
 	 * This method chooses the number of adults,child's and infants.
+	 * 
 	 * @param numofadult
 	 * @param numofchild
 	 * @param numofinfant
@@ -184,17 +193,18 @@ public class Homepage extends CommonActionMethods {
 		int adult = Integer.valueOf(getdata("adult"));
 		int child = Integer.valueOf(getdata("child"));
 		int infant = Integer.valueOf(getdata("infant"));
-			for (int i = 1; i <= adult-1; i++) {
-				clickMethod(adultplus,"Adult plus button");
-			}
-			for (int i = 1; i <=child; i++) {
-				clickMethod(childplus,"Adult plus button");
-			}
-			for (int i = 1; i <=infant; i++) {
-				clickMethod(infantplus,"Adult plus button");
-			}
-			clickMethod(searchbutton, "search button");
+		for (int i = 1; i <= adult - 1; i++) {
+			clickMethod(adultplus, "Adult plus button");
+		}
+		for (int i = 1; i <= child; i++) {
+			clickMethod(childplus, "Adult plus button");
+		}
+		for (int i = 1; i <= infant; i++) {
+			clickMethod(infantplus, "Adult plus button");
+		}
+		clickMethod(searchbutton, "search button");
 	}
+
 	/**
 	 * @method for clicking flights tab.
 	 * @throws Exception
@@ -203,50 +213,53 @@ public class Homepage extends CommonActionMethods {
 		webWait(flightbutton);
 		clickMethod(flightbutton, "Flight button");
 	}
+
 	/**
 	 * @method enter cities in departure and destination.
 	 * @throws Exception
 	 */
-	public void enterCities(String departure , String destination) throws Exception {
+	public void enterCities(String departure, String destination) throws Exception {
 		fromCity = departure;
-		toCity  = destination;
-		sendKeysMethod(depcity,departure);
+		toCity = destination;
+		sendKeysMethod(depcity, departure);
 		listDrop(depcitylist, departure);
 		sendKeysMethod(descity, destination);
 		listDrop(descitylist, destination);
 	}
+
 	/**
 	 * @method to choose triptype.
 	 * @param tripType
 	 * @throws Exception
 	 */
 	public void chooseTrip(String tripType) throws Exception {
-		if(tripType.equalsIgnoreCase("round trip")) {
-		clickMethod(roundtrip, "Round trip button");
+		if (tripType.equalsIgnoreCase("round trip")) {
+			clickMethod(roundtrip, "Round trip button");
 		}
 	}
+
 	/**
-	 * @method selects departure  and destiation dates.
+	 * @method selects departure and destiation dates.
 	 * @param depDate
 	 * @param desDate
 	 * @throws InterruptedException
 	 * @throws Exception
 	 */
-	public void selectDate(String depDate, String desDate,String tripType ) throws InterruptedException, Exception {
-		String[] date = splitString(dateSel(Integer.parseInt(depDate)),"/");
+	public void selectDate(String depDate, String desDate, String tripType) throws InterruptedException, Exception {
+		String[] date = splitString(dateSel(Integer.parseInt(depDate)), "/");
 		String mnth = date[0];
 		String depdate = date[1];
-		departureDate = date[1] ;
-		departureMonth = date[0] ;
-		System.out.println("mnth  "+mnth);
-		System.out.println("depdate  "+depdate);
-		String[] rtrndate = splitString(dateSel(Integer.parseInt(desDate)),"/");
+		departureDate = date[1];
+		departureMonth = date[0];
+		System.out.println("mnth  " + mnth);
+		System.out.println("depdate  " + depdate);
+		String[] rtrndate = splitString(dateSel(Integer.parseInt(desDate)), "/");
 		String returnmonth = rtrndate[0];
 		String returnday = rtrndate[1];
-		returndepartureDate =  rtrndate[1];
+		returndepartureDate = rtrndate[1];
 		returndepartureMonth = rtrndate[0];
-		System.out.println("returnmonth  "+returnmonth);
-		System.out.println("returnday"+returnday);
+		System.out.println("returnmonth  " + returnmonth);
+		System.out.println("returnday" + returnday);
 		if (!tripType.equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
@@ -261,28 +274,30 @@ public class Homepage extends CommonActionMethods {
 			listDrop(datereturn, returnday);
 		}
 	}
+
 	/**
 	 * @method To select the number of passangers.
 	 * @param pax
 	 * @throws Exception
 	 */
-	public void  selectNoOfPax(String pax) throws Exception {
-		paxno=pax;
+	public void selectNoOfPax(String pax) throws Exception {
+		paxno = pax;
 		clickMethod(paxbotton, "Passenger button");
-		String[] passenger = splitString(pax,",");
+		String[] passenger = splitString(pax, ",");
 		int adult = Integer.valueOf(passenger[0]);
 		int child = Integer.valueOf(passenger[1]);
 		int infant = Integer.valueOf(passenger[2]);
-			for (int i = 1; i <= adult-1; i++) {
-				clickMethod(adultplus,"Adult plus button");
-			}
-			for (int i = 1; i <=child; i++) {
-				clickMethod(childplus,"Adult plus button");
-			}
-			for (int i = 1; i <=infant; i++) {
-				clickMethod(infantplus,"Adult plus button");
-			}
+		for (int i = 1; i <= adult - 1; i++) {
+			clickMethod(adultplus, "Adult plus button");
+		}
+		for (int i = 1; i <= child; i++) {
+			clickMethod(childplus, "Adult plus button");
+		}
+		for (int i = 1; i <= infant; i++) {
+			clickMethod(infantplus, "Adult plus button");
+		}
 	}
+
 	/**
 	 * @method clicks the search button.
 	 * @throws Exception

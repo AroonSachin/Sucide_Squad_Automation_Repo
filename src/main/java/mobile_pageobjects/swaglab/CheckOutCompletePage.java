@@ -1,4 +1,4 @@
-package mobile_pageobjects.SwagLab;
+package mobile_pageobjects.swaglab;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -15,7 +15,7 @@ import commonuseractions.CommonActionMethods;
 public class CheckOutCompletePage extends CommonActionMethods {
 
 	@CacheLookup
-	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-CHECKOUT: COMPLETE!\"]/android.view.ViewGroup/android.widget.TextView[1]")
+	@FindBy(xpath = "//android.widget.ScrollView[@content-desc='test-CHECKOUT: COMPLETE!']/android.view.ViewGroup/android.widget.TextView[1]")
 	WebElement orderConfirmation;
 	
 	public CheckOutCompletePage() {

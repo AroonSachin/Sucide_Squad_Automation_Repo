@@ -76,4 +76,3 @@ public final class Browserfactory extends CommonActionMethods{
 		return driver;
 	}
 }
-
