@@ -20,7 +20,7 @@ import mobile_pageobjects.eribank.LoginPage;
 import mobile_pageobjects.eribank.PaymentPage;
 import utils.DriverFactory;
 
-public class EriBank extends CommonActionMethods {
+public class Eribank extends CommonActionMethods {
 	static AppiumDriverLocalService service = null;
 	public static void invokeServer() throws IOException {
 		String nodePath = "C:\\Program Files\\nodejs\\node.exe";

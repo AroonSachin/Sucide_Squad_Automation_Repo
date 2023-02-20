@@ -35,7 +35,7 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("user enter the valid email address")
 	public void user_enter_the_valid_email_address() throws Exception {
-		new LoginPage().email();
+		new LoginPage().emailed();
 
 	}
 
@@ -52,13 +52,13 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("user enter the first name {string}")
 	public void user_enter_the_first_name(String firstName) throws Exception {
-		new LoginPage().firstName(firstName);
+		new LoginPage().firstnaming(firstName);
 
 	}
 
 	@Then("user enter the last name {string}")
 	public void user_enter_the_last_name(String lastname) throws Exception {
-		new LoginPage().lastName(lastname);
+		new LoginPage().lastnaming(lastname);
 
 	}
 
@@ -69,7 +69,7 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("user enter the valid password {string}")
 	public void user_enter_the_valid_password(String Password) throws Exception {
-		new LoginPage().passWord(Password);
+		new LoginPage().passwords(Password);
 	}
 
 	@Then("select the date of birth {string}")
@@ -79,68 +79,68 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the first name")
 	public void click_the_first_name() throws Exception {
-		new LoginPage().addressfirstname();
+		new LoginPage().addressfirstnamed();
 	}
 
 	@Then("click the last name")
 	public void click_the_last_name() throws Exception {
-		new LoginPage().addresslastname();
+		new LoginPage().addresslastnamed();
 	}
 
 	@Then("user enter the company name {string}")
 	public void user_enter_the_company_name_it_trident(String CompanyName) throws Exception {
-		new LoginPage().companyName(CompanyName);
+		new LoginPage().companynames(CompanyName);
 	}
 
 	@Then("user enter the valid address {string}")
 	public void user_enter_the_valid_address(String Address) throws Exception {
-		new LoginPage().address(Address);
+		new LoginPage().addresses(Address);
 	}
 
 	@Then("user enter the city name {string}")
 	public void user_enter_the_city_name_chennai(String CityName) throws Exception {
-		new LoginPage().cityName(CityName);
+		new LoginPage().citynames(CityName);
 	}
 
 	@Then("select the state name {string}")
 	public void select_the_state_name(String StateName) throws Exception {
-		new LoginPage().stateName(StateName);
+		new LoginPage().statenames(StateName);
 	}
 
 	@Then("user enter the valid zip postal code {string}")
 	public void user_enter_the_valid_zip_postal_code(String PostalCode) throws Exception {
-		new LoginPage().postalCode(PostalCode);
+		new LoginPage().postalcodes(PostalCode);
 	}
 
 	@Then("click the country name")
 	public void click_the_country_name() throws Exception {
-		new LoginPage().countryName();
+		new LoginPage().countrynames();
 	}
 
 	@Then("user enter the valid phone number {string}")
 	public void user_enter_the_valid_phone_number(String PhoneNumber) throws Exception {
-		new LoginPage().phoneNumber(PhoneNumber);
+		new LoginPage().phonenumbers(PhoneNumber);
 	}
 
 	@Then("click the register button")
 	public void click_the_register_button() throws Exception {
-		new LoginPage().registerButton();
+		new LoginPage().registerbuttons();
 	}
 
 	@Then("user enter the valid email address {string}")
 	public void user_enter_the_valid_email_address_venkatesh22_gmail_com(String MailAddress) throws Exception {
-		new Orderpage().mailAddress(MailAddress);
+		new Orderpage().mailaddressed(MailAddress);
 	}
 
 	@Then("Click the signin button")
 	public void click_the_signin_button() throws Exception {
-		new Orderpage().submit();
+		new Orderpage().submited();
 		;
 	}
 
 	@Then("click the dresstype")
 	public void click_the_dresstype() throws Exception {
-		new Orderpage().dressType();
+		new Orderpage().dresstypes();
 	}
 
 	@Then("validate the product name")
@@ -151,7 +151,7 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the first product")
 	public void click_the_first_product() throws Exception {
-		new Orderpage().chooseProduct();
+		new Orderpage().chooseproducts();
 	}
 
 	@Then("click the add to card button")
@@ -161,7 +161,7 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the continue shopping")
 	public void click_the_continue_shopping() throws Exception {
-		new Orderpage().continueShopping();
+		new Orderpage().continueshoppings();
 	}
 
 	@Then("validate the product2 name")
@@ -181,7 +181,7 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the continue shopping button")
 	public void click_the_continue_shopping_button() throws Exception {
-		new Orderpage().continueshop();
+		new Orderpage().continueshoping();
 	}
 
 	@Then("select the sort product button {string}")
@@ -208,12 +208,12 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("validate the adress")
 	public void validate_the_adress() throws Exception {
-		new Orderpage().addressValid();
+		new Orderpage().addressvalidations();
 	}
 
 	@Then("click the summary proceed to checkout button")
 	public void click_the_summary_proceed_to_checkout_button() throws Exception {
-		new Orderpage().summaryProceedtoCheckout();
+		new Orderpage().summaryproceedcheckout();
 	}
 
 	@Then("validate the billing address")
@@ -223,17 +223,17 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the address proceed to checkout button")
 	public void click_the_address_proceed_to_checkout_button() throws Exception {
-		new Orderpage().processAddress();
+		new Orderpage().processaddressed();
 	}
 
 	@Then("click the agree shipping checkout")
 	public void click_the_agree_shipping_checkout() throws Exception {
-		new Orderpage().agreeShippingBox();
+		new Orderpage().agreeshippingboxs();
 	}
 
 	@Then("click the shipping proceed to checkout button")
 	public void click_the_shipping_proceed_to_checkout_button() throws Exception {
-		new Orderpage().processShipping();
+		new Orderpage().processshippings();
 	}
 
 	@Then("validate the total price of product")
@@ -243,17 +243,17 @@ public class YourLogo_Steps extends CommonActionMethods {
 
 	@Then("click the pay by bankwire")
 	public void click_the_pay_by_bankwire() throws Exception {
-		new Orderpage().payByBankWire();
+		new Orderpage().paybybankwires();
 	}
 
 	@Then("click the I confrom my order button")
 	public void click_the_i_confrom_my_order_button() throws Exception {
-		new Orderpage().confromOrder();
+		new Orderpage().confromordered();
 	}
 
 	@Then("validate the complete order screen is displayed")
 	public void validate_the_complete_order_screen_is_displayed() throws Exception {
-		new Orderpage().completeorder();
+		new Orderpage().completeordered();
 	}
 
 	@After

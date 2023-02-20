@@ -1,6 +1,5 @@
 package commonuseractions;
 
-import static org.testng.Assert.assertEquals;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -53,7 +52,7 @@ public class CommonActionMethods extends TestListner {
 	protected static ThreadLocal<String> url = new ThreadLocal<>();
 	protected static String testName = null;
 	protected static ExtentReports extentreport;
-	protected static ExtentHtmlReporter HtmlReporter;
+	protected static ExtentHtmlReporter htmlreporter;
 	protected static ExtentTest testcase;
 	protected static String configFilename = "log4j.properties";
 	protected static Logger log = LogManager.getLogger(CommonActionMethods.class);
@@ -82,9 +81,9 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static void extentReports(String name) {
 		extentreport = new ExtentReports();
-		HtmlReporter = new ExtentHtmlReporter(name);
-		HtmlReporter.config().setTheme(Theme.DARK);
-		extentreport.attachReporter(HtmlReporter);
+		htmlreporter = new ExtentHtmlReporter(name);
+		htmlreporter.config().setTheme(Theme.DARK);
+		extentreport.attachReporter(htmlreporter);
 	}
 
 	/**
@@ -105,21 +104,21 @@ public class CommonActionMethods extends TestListner {
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-	public synchronized static void logErrorMessage(String MessageStopExecution) throws Exception {
-		log.error(MessageStopExecution);
+	public synchronized static void logErrorMessage(String messagestopexecution) throws Exception {
+		log.error(messagestopexecution);
 		String shot = takeSnapShot();
 		if (invokeMail) {
 			FailedScreenShotdestination.set(shot);
-			scenarioComments.set(MessageStopExecution);
+			scenarioComments.set(messagestopexecution);
 			scenarioDescription.set(getdata("Scenario"));
 			scenarioNo.set(getdata("Number"));
 			scenarioStatus.set("Failed");
 		}
 		if (extentreport != null) {
-			testcase.log(Status.FAIL, MessageStopExecution);
+			testcase.log(Status.FAIL, messagestopexecution);
 			testcase.addScreenCaptureFromPath(shot);
 		}
-		throw new RuntimeException(MessageStopExecution);
+		throw new RuntimeException(messagestopexecution);
 	}
 
 	/**
@@ -448,8 +447,8 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 */
 	public static String[] splitString(String data, String symbol) {
-		String ar [] = data.split(symbol);
-		return ar ;
+		return  data.split(symbol);
+	
 	}
 
 	public static void scrollToElement(WebElement ele) {
@@ -658,9 +657,7 @@ public class CommonActionMethods extends TestListner {
 		String text = null;
 		while (true) {
 			Thread.sleep(1000);
-			System.out.println(element);
 			if (isElementPresent(element) == false) {
-				System.out.println(windowSize);
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeUp = new Sequence(finger, 1);
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
@@ -730,10 +727,7 @@ public class CommonActionMethods extends TestListner {
 		int scrollPoints = 0;
 		String text = null;
 		while (true) {
-			System.out.println(element);
-			if (isElementPresent(element) == false) {
-
-				System.out.println(windowSize);
+			if (!isElementPresent(element) ) {
 				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeDown = new Sequence(finger, 1);
 				swipeDown
@@ -751,7 +745,7 @@ public class CommonActionMethods extends TestListner {
 					logErrorMessage(" Element not found ");
 					break;
 				}
-			} else if (isElementPresent(element) == true) {
+			} else if (isElementPresent(element)  ) {
 				if (action != null) {
 					switch (action) {
 					case "click":
