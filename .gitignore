@@ -16,6 +16,8 @@ local.properties
 .factorypath
 *.output
 allure-results/
+node_modules/
+TC-Recordings/
 ##############################
 ## Java
 ##############################
@@ -30,6 +32,8 @@ test-output/
 Snaps/*.png
 Yourlogo.html
 Automation.out
+AppiumLogs.txt
+SwaglabMobile.html
 ##############################
 ## Maven
 ##############################
