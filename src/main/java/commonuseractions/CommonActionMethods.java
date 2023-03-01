@@ -992,6 +992,11 @@ public class CommonActionMethods extends TestListner {
 		}
 	}
 
+	/**
+	 * @method Performs click in the given Coordinates.
+	 * @param x
+	 * @param y
+	 */
 	public void clickByCoordinate(int x, int y) {
 		PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 		Sequence swipeLeft = new Sequence(finger1, 1);
@@ -1000,4 +1005,17 @@ public class CommonActionMethods extends TestListner {
 				.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeLeft));
 	}
+	
+	/**
+	 * @method Returns value from json for the given key.
+	 * @param json
+	 * @param key
+	 * @return
+	 */
+	public Object getValuefromJson(JSONObject json, String key) {
+
+		return json.get(key);
+
+	}
+
 }

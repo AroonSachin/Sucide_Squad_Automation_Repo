@@ -38,6 +38,8 @@ Snaps/
 TC-Recordings/
 *.avi
 Automation.out
+AppiumLogs.txt
+SwaglabMobile.html
 ##############################
 ## Maven
 ##############################
@@ -54,6 +56,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 /Swag_Lab
 /Swag_Lab.html
-
 /AppiumLogs.txt
 /SwaglabMobile.html
