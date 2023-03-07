@@ -9,50 +9,53 @@ public class RestAssuredCommons extends CommonActionMethods {
 		RestAssured.baseURI = url;
 	}
 
-	public void put(String page, String body) throws Exception {
+	public Response put(String page, String body) throws Exception {
 		Response res = RestAssured.given().header("Content-type", "application/json").and().body(body).when().put(page)
-				.then().statusCode(200).extract().response();
-		logMessage("Respose---" + res.asString());
+				.then().extract().response();
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
-			logMessage("PUT command sucessfull");
+			logMessage("PUT request sucessfull");
+			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage("Error Code- " + res.getStatusCode());
+			logErrorAndMessage(res.asPrettyString());
 		}
+		return res;
 	}
 
-	public void post(String page, String body) throws Exception {
+	public Response post(String page, String body) throws Exception {
 
 		Response res = RestAssured.given().header("Content-type", "application/json").and().body(body).when().post(page)
 				.then().statusCode(200).extract().response();
-		logMessage("Respose---" + res.asString());
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
-			logMessage("PUT command sucessfull");
+			logMessage("POST request sucessfull");
+			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage("Error Code- " + res.getStatusCode());
+			logErrorAndMessage(res.asPrettyString());
 		}
+		return res;
 
 	}
 
-	public String get(String args) throws Exception {
+	public Response get(String args) throws Exception {
 		Response res = RestAssured.given().header("Content-type", "application/json").when().get(args).then()
 				.extract().response();
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
-			logMessage("GET command sucessfull");
+			logMessage("GET request sucessfull");
+			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage("Error Code- " + res.getStatusCode());
+			logErrorAndMessage(res.asPrettyString());
 		}
-		return res.asString();
+		return res;
 	}
 
-	public void Delete(String args) throws Exception {
+	public Response Delete(String args) throws Exception {
 		Response res = RestAssured.given().header("Content-type", "application/json").when().delete(args).then()
 				.extract().response();
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
-			logMessage("DELETE command sucessfull");
+			logMessage("DELETE request sucessfull");
 		} else {
-			logErrorMessage("Error Code- " + res.getStatusCode());
+			logErrorAndMessage(res.asPrettyString());
 		}
-
+		return res;
 	}
 
 }

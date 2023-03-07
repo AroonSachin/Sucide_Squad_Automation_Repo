@@ -121,6 +121,17 @@ public class CommonActionMethods extends TestListner {
 		}
 		throw new RuntimeException(MessageStopExecution);
 	}
+	
+	/**
+	 * @This method is used to print the log error message in console and stop the
+	 *       execution
+	 * @param MessageStopExecution -string value about the action being performed
+	 * @throws Exception
+	 */
+	public synchronized static void logErrorAndMessage(String MessageStopExecution) throws Exception {
+		log.error(MessageStopExecution);
+		throw new RuntimeException(MessageStopExecution);
+	}
 
 	/**
 	 * @This method is used to invoke the browser
