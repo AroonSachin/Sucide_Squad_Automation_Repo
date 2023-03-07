@@ -1,0 +1,54 @@
+{
+  "name": "Allegiant Airways",
+  "description": " Extention for Allegiant AirWays webNavigation, Please coustomize the script through Extension options to proceed, Allegiant will open in new tab after submiting the options ",
+  "version": "0.1",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "notifications",
+    "webNavigation",
+    "storage"
+  ],
+  "homepage_url": "https://www.allegiantair.com/",
+  "host_permissions": [
+    "https://www.allegiantair.com/*"
+  ],
+  "action": {
+    "default_popup": "PopUp.html",
+    "default_icon": "images/allegiantair.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.allegiantair.com/*"
+      ],
+      "js": [
+        "jquery.js",
+        "commons/commonFunctions.js",
+        "commons/scriptflags.js",
+        "commons/pages/bagsandextras.js",
+        "commons/pages/BundlesPage.js",
+        "commons/pages/carspage.js",
+        "commons/pages/FlaghtsPage.js",
+        "commons/pages/HomePage.js",
+        "commons/pages/hotelspage.js",
+        "commons/pages/paymentpage.js",
+        "commons/pages/seatspage.js",
+        "commons/pages/TravelersPage.js",
+        "faker.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "128": "images/AllegiantAirLOGO.png"
+  }
+}
