@@ -121,6 +121,17 @@ public class CommonActionMethods extends TestListner {
 		}
 		throw new RuntimeException(MessageStopExecution);
 	}
+	
+	/**
+	 * @This method is used to print the log error message in console and stop the
+	 *       execution
+	 * @param MessageStopExecution -string value about the action being performed
+	 * @throws Exception
+	 */
+	public synchronized static void logErrorAndMessage(String MessageStopExecution) throws Exception {
+		log.error(MessageStopExecution);
+		throw new RuntimeException(MessageStopExecution);
+	}
 
 	/**
 	 * @This method is used to invoke the browser
@@ -238,7 +249,7 @@ public class CommonActionMethods extends TestListner {
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			System.out.println(" Screenshot is not taken ");
+			logErrorMessage(" Screenshot is not taken ");
 		}
 		return null;
 	}

@@ -26,9 +26,9 @@ public class Aroon extends RestAssuredCommons {
 		String putBody = "{\"title\":\"Arun\",\"dueDate\":\"2023-03-07T03:16:51.390Z\",\"completed\":true}";
 		Response putRes = put("/Activities/1", putBody);
 		if(JsonPath.from(putRes.asString()).get("title").toString().contains("Arun")) {
-			logMessage("Put request successfully updated");
+			logMessage("Put request successfully updated with response code "+putRes.getStatusCode());
 		}else {
-			logErrorMessage("Update failed--"+putRes.asPrettyString());
+			logErrorAndMessage("Update failed--"+putRes.asPrettyString());
 		}
 		get("/Activities");
 		get("/Activities/1");

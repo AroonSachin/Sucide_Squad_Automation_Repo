@@ -16,7 +16,7 @@ public class RestAssuredCommons extends CommonActionMethods {
 			logMessage("PUT request sucessfull");
 			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage(res.asPrettyString());
+			logErrorAndMessage(res.asPrettyString());
 		}
 		return res;
 	}
@@ -29,7 +29,7 @@ public class RestAssuredCommons extends CommonActionMethods {
 			logMessage("POST request sucessfull");
 			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage(res.asPrettyString());
+			logErrorAndMessage(res.asPrettyString());
 		}
 		return res;
 
@@ -42,7 +42,7 @@ public class RestAssuredCommons extends CommonActionMethods {
 			logMessage("GET request sucessfull");
 			logMessage(res.asPrettyString());
 		} else {
-			logErrorMessage(res.asPrettyString());
+			logErrorAndMessage(res.asPrettyString());
 		}
 		return res;
 	}
@@ -53,7 +53,7 @@ public class RestAssuredCommons extends CommonActionMethods {
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
 			logMessage("DELETE request sucessfull");
 		} else {
-			logErrorMessage(res.asPrettyString());
+			logErrorAndMessage(res.asPrettyString());
 		}
 		return res;
 	}
