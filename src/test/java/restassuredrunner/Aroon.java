@@ -34,4 +34,5 @@ public class Aroon extends RestAssuredCommons {
 		get("/Activities/1");
 		Delete("/Activities/1");
 	}
+	
 }
