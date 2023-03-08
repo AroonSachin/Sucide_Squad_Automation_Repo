@@ -1,22 +1,12 @@
 package mobile_pageobjects.saucelab;
 
-import java.time.Duration;
-import java.util.Arrays;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.interactions.PointerInput.MouseButton;
-import org.openqa.selenium.interactions.PointerInput.Origin;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 /**
  * @this class is used to validate and remove the product and also checks for
@@ -60,8 +50,8 @@ public class ConfirmationPage extends CommonActionMethods {
 
 	public void productDetailsValidation() throws Exception {
 		webWait(product1Details);
-		checkEquality(HomePage.item1, getTextElement(product1Details, " Product 1 heading "));
-		checkEquality(HomePage.item2, getTextElement(product2Details, " Product 2 heading "));
+		checkEquality(CommonVariables.getItem1(), getTextElement(product1Details, " Product 1 heading "));
+		checkEquality(CommonVariables.getItem2(), getTextElement(product2Details, " Product 2 heading "));
 		swipeElement(product2Details, "Left");
 		clickMethod(productRemove, "Delete button");
 		swipeElement(product1Details, "Left");

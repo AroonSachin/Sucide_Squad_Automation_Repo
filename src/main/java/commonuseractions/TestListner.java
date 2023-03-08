@@ -16,53 +16,51 @@ import utils.Mail;
 
 public class TestListner implements ITestListener {
 
-	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
-		Map<String, String> map = new HashMap<>();
-		return map;
+	protected static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
+		return new HashMap<>();	
 	});
 
 	public static Map<String, String> getInputData() {
 		return inputdata.get();
-	}
+	}	
+		
+	protected static String mailText = "";
+	protected static LocalTime startTime;
+	protected static boolean mailFlag = true;
+	protected static ThreadLocal<String> FailedScreenShotdestination = new ThreadLocal<>();
+	protected static JSONObject testNumber = new JSONObject();
+	protected static Set<String> setTestNames = new LinkedHashSet<>();
 
-	CommonActionMethods commonfunctions = null;
-	public static String mailText = "";
-	public static LocalTime startTime;
-	public static boolean mailFlag = true;
-	public static ThreadLocal<String> FailedScreenShotdestination = new ThreadLocal<>();
-	public static JSONObject testNumber = new JSONObject();
-	public static Set<String> setTestNames = new LinkedHashSet<>();
+	protected static int passed = 0;
+	protected static int failure = 0;
+	protected static int skipping = 0;
+	protected static ThreadLocal<String> scenarioIterate = new ThreadLocal<>();
 
-	public static int passed = 0;
-	public static int failure = 0;
-	public static int skipping = 0;
-	public static ThreadLocal<String> scenarioIterate = new ThreadLocal<String>();
+	protected static ThreadLocal<String> scenarioComments = new ThreadLocal<>();
 
-	public static ThreadLocal<String> scenarioComments = new ThreadLocal<String>();
-
-	public static String getScenarioComments() {
+	protected static String getScenarioComments() {
 		return scenarioComments.get();
 	}
 
-	public static ThreadLocal<String> scenarioNo = new ThreadLocal<>();
+	protected static ThreadLocal<String> scenarioNo = new ThreadLocal<>();
 
-	public static String getScenarioNumber() {
+	protected static String getScenarioNumber() {
 		return scenarioNo.get();
 	}
 
-	public static ThreadLocal<String> scenarioDescription = new ThreadLocal<>();
+	protected static ThreadLocal<String> scenarioDescription = new ThreadLocal<>();
 
 	public static String getScenarioDescription() {
 		return scenarioDescription.get();
 	}
 
-	public static ThreadLocal<String> scenarioStatus = new ThreadLocal<>();
+	protected static ThreadLocal<String> scenarioStatus = new ThreadLocal<>();
 
 	public static String getScenarioStatus() {
 		return scenarioStatus.get();
 	}
 
-	public static ThreadLocal<Integer> errorLogCount = ThreadLocal.withInitial(() -> {
+	protected static ThreadLocal<Integer> errorLogCount = ThreadLocal.withInitial(() -> {
 		return Integer.valueOf(0);
 	});
 
@@ -70,7 +68,7 @@ public class TestListner implements ITestListener {
 		return errorLogCount.get();
 	}
 
-	public static ThreadLocal<Integer> totalClassTest = ThreadLocal.withInitial(() -> {
+	protected static ThreadLocal<Integer> totalClassTest = ThreadLocal.withInitial(() -> {
 		return Integer.valueOf(0);
 	});
 
@@ -87,11 +85,6 @@ public class TestListner implements ITestListener {
 	}
 
 	@Override
-	public synchronized void onFinish(ITestContext context) {
-
-	}
-
-	@Override
 	public synchronized void onTestStart(ITestResult result) {
 		totalClassTest.set(getClassTestCount() + 1);
 		errorLogCount.set(0);
@@ -101,26 +94,26 @@ public class TestListner implements ITestListener {
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
 		try {
-			scenarioNo.set(commonfunctions.getdata("Number"));
-			scenarioDescription.set(commonfunctions.getdata("Scenario"));
+			scenarioNo.set(CommonActionMethods.getdata("Number"));
+			scenarioDescription.set(CommonActionMethods.getdata("Scenario"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		scenarioStatus.set("Passed");
 		scenarioComments.set(" Execution Passed successfuly ");
 		passed++;
-		Map<Object, Object> testAttrb = new HashMap<Object, Object>();
+		Map<Object, Object> testAttrb = new HashMap<>();
 		testAttrb.put("scenario_no", getScenarioNumber());
 		testAttrb.put("scenario_description", getScenarioDescription());
 		testAttrb.put("scenario_status", getScenarioStatus());
 		testAttrb.put("scenario_comment", getScenarioComments());
 
-		testNumber.put(getScenarioNumber() + "_" + commonfunctions.testName, testAttrb);
-		setTestNames.add(commonfunctions.testName);
-		scenarioNo.set(null);
-		scenarioDescription.set(null);
-		scenarioStatus.set(null);
-		scenarioComments.set(null);
+		testNumber.put(getScenarioNumber() + "_" + CommonActionMethods.testName, testAttrb);
+		setTestNames.add(CommonActionMethods.testName);
+		scenarioNo.remove();
+		scenarioDescription.remove();
+		scenarioStatus.remove();
+		scenarioComments.remove();
 
 	}
 
@@ -134,26 +127,15 @@ public class TestListner implements ITestListener {
 		testAttrb.put("scenario_comment", getScenarioComments());
 		testNumber.put(getScenarioNumber() + "_" + CommonActionMethods.testName, testAttrb);
 		setTestNames.add(CommonActionMethods.testName);
-		System.out.println(testNumber);
 		try {
 			Mail.sendReport("Null");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		scenarioNo.set(null);
-		scenarioDescription.set(null);
-		scenarioStatus.set(null);
-		scenarioComments.set(null);
-	}
-
-	@Override
-	public synchronized void onTestSkipped(ITestResult result) {
-
-	}
-
-	@Override
-	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-
+		scenarioNo.remove();
+		scenarioDescription.remove();
+		scenarioStatus.remove();
+		scenarioComments.remove();
 	}
 
 }

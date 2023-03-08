@@ -95,8 +95,8 @@ public class LoginPage extends CommonActionMethods {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("ssSS");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
+		
 	}
 
 	/**

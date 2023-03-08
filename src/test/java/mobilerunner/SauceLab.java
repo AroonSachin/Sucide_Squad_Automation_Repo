@@ -50,7 +50,6 @@ public class SauceLab extends CommonActionMethods {
 	public static void setUp() throws IOException, InterruptedException {
 
 		invokeServer();
-		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options().setApp("D:\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")
 				.setAppActivity("com.swaglabsmobileapp.MainActivity").setAppPackage("com.swaglabsmobileapp")

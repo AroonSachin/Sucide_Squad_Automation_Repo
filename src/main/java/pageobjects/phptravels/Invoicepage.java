@@ -53,12 +53,11 @@ public class Invoicepage extends CommonActionMethods{
 	public void invoiceValidation() throws Exception {
 		getTitle();
 		getURL();
-//		isDisplayed(Confirmationele,"Confirmation ");
 		logMessage("Resrvation number: "+getTextElement(reservationnum,"Resrvation number" ));
 		double actlnewtotal = Paxdetailspage.returntotal();
 		String totl = getTextElement(totalprice, " ");
 		String[] finalprz = splitString(totl, " ");
-		double finlprz = Double.valueOf(finalprz[3]);
+		double finlprz = Double.parseDouble(finalprz[3]);
 		checkEquality(actlnewtotal, finlprz);
 	}
 	/**

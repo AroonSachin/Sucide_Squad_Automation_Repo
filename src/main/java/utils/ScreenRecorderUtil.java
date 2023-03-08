@@ -3,6 +3,7 @@ package utils;
 import org.monte.screenrecorder.ScreenRecorder;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
@@ -23,13 +24,10 @@ import static org.monte.media.VideoFormatKeys.*;
 
 public class ScreenRecorderUtil extends ScreenRecorder {
 
-	public static ScreenRecorder screenRecorder;
-	public String name;
-
 	public ScreenRecorderUtil(GraphicsConfiguration cfg, Rectangle captureArea, Format fileFormat, Format screenFormat,
 			Format mouseFormat, Format audioFormat, File movieFolder, String name) throws IOException, AWTException {
 		super(cfg, captureArea, fileFormat, screenFormat, mouseFormat, audioFormat, movieFolder);
-		this.name = name;
+		CommonVariables.setName(name); 
 	}
 
 	@Override
@@ -42,7 +40,7 @@ public class ScreenRecorderUtil extends ScreenRecorder {
 		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
 		return new File(movieFolder,
-				name + "-" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
+				CommonVariables.getName() + "-" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
 	}
 
 	public static void startRecord(String methodName) throws Exception {
@@ -53,18 +51,18 @@ public class ScreenRecorderUtil extends ScreenRecorder {
 		Rectangle captureSize = new Rectangle(0, 0, width, height);
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 				.getDefaultConfiguration();
-		screenRecorder = new ScreenRecorderUtil(gc, captureSize,
-				new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI),
-				new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
-						CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, DepthKey, 24, FrameRateKey,
-						Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60),
-				new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)),
-				null, file, methodName);
-		screenRecorder.start();
+	CommonVariables.setScreenRecorder(new ScreenRecorderUtil(gc, captureSize,
+			new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI),
+			new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
+					CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, DepthKey, 24, FrameRateKey,
+					Rational.valueOf(15), QualityKey, 1.0f, KeyFrameIntervalKey, 15 * 60),
+			new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, "black", FrameRateKey, Rational.valueOf(30)),
+			null, file, methodName));	
+	CommonVariables.getScreenRecorder()	.start();
 	}
 
 	public static void stopRecord() throws Exception {
-		screenRecorder.stop();
+		CommonVariables.getScreenRecorder().stop();
 		CommonActionMethods.logMessage("Screen recorded and can be view at : TC-Recordings folder");
 	}
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 /**
  * @this class is used to validate the product title in cart
@@ -39,8 +40,8 @@ public class ProductPage extends CommonActionMethods {
 	 */
 	public void productValidation() throws Exception {
 		webWait(product1Title);
-		checkEquality(HomePage.item1, getTextElement(product1Title, " Product 1 heading "));
-		checkEquality(HomePage.item2, getTextElement(product2Title, " Product 2 heading "));
+		checkEquality(CommonVariables.getItem1(), getTextElement(product1Title, " Product 1 heading "));
+		checkEquality(CommonVariables.getItem2(), getTextElement(product2Title, " Product 2 heading "));
 		Thread.sleep(2000);
 		swipeUp();
 		logMessage(" Element not in view, Scrolling up ");

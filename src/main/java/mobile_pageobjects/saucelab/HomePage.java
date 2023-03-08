@@ -1,24 +1,15 @@
 package mobile_pageobjects.saucelab;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.interactions.PointerInput.MouseButton;
-import org.openqa.selenium.interactions.PointerInput.Origin;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 /**
  * @this class is used to add the product to cart and to validate sort
@@ -34,9 +25,6 @@ public class HomePage extends CommonActionMethods {
 			e.printStackTrace();
 		}
 	}
-
-	static String item1 = null;
-	static String item2 = null;
 
 	@CacheLookup
 	@FindBy(xpath = "//android.widget.TextView[@text='Sauce Labs Onesie']/following-sibling::android.view.ViewGroup[@content-desc='test-ADD TO CART']")
@@ -93,6 +81,11 @@ public class HomePage extends CommonActionMethods {
 	@CacheLookup
 	@FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-PRODUCTS\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView")
 	WebElement swagBotImage;
+	
+	@CacheLookup
+	@FindBy(xpath = "//android.widget.TextView[@content-desc='test-Price']")
+	List<WebElement> productpricelist;
+
 
 	/**
 	 * @this method is used to add the products to the cart
@@ -100,14 +93,14 @@ public class HomePage extends CommonActionMethods {
 	public void addProducts() throws Exception {
 
 		swipeDownToElement(product1AddToCartButton, " Add to cart button ", "click", "");
-		item1 = getTextElement(product1Text, " Product 1 ");
+		CommonVariables.setItem1(getTextElement(product1Text, " Product 1 ")); 
 		if (isElementPresent(product1RemoveButton)) {
 			logMessage("Remove button appeared");
 		} else {
 			logErrorMessage("Remove button not appeared");
 		}
 		swipeUpToElement(product2AddToCartButton, " Add to cart button ", "click", "");
-		item2 = getTextElement(product2Text, "Product 2");
+		CommonVariables.setItem2(getTextElement(product2Text, "Product 2"));
 		if (isElementPresent(product1RemoveButton)) {
 			logMessage("Remove button appeared");
 		} else {
@@ -141,10 +134,9 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void ascendingValidation() throws Exception {
-		Set<String> titleSet = new LinkedHashSet<String>();
+		Set<String> titleSet = new LinkedHashSet<>();
 		while (true) {
-			for (WebElement element : appDriver
-					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
+			for (WebElement element : productTitleList) {
 				titleSet.add(getTextElement(element, " Product Title "));
 			}
 			swipeUp();
@@ -152,7 +144,7 @@ public class HomePage extends CommonActionMethods {
 				break;
 			}
 		}
-		TreeSet<String> titleTree = new TreeSet<String>(titleSet);
+		TreeSet<String> titleTree = new TreeSet<>(titleSet);
 		if (titleSet.equals(titleTree)) {
 			logMessage("A to Z validation successful and the products are sorted in the ascending order ");
 		} else {
@@ -168,10 +160,9 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void descendingValidation() throws Exception {
-		Set<String> titleSet = new LinkedHashSet<String>();
+		Set<String> titleSet = new LinkedHashSet<>();
 		while (true) {
-			for (WebElement element : appDriver
-					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Item title']"))) {
+			for (WebElement element : productTitleList) {
 				titleSet.add(getTextElement(element, " Product Title "));
 			}
 			swipeUp();
@@ -179,7 +170,7 @@ public class HomePage extends CommonActionMethods {
 				break;
 			}
 		}
-		TreeSet<String> titleTree = new TreeSet<String>(titleSet);
+		TreeSet<String> titleTree = new TreeSet<>(titleSet);
 		TreeSet<String> titleTreeDesend = (TreeSet<String>) titleTree.descendingSet();
 		if (titleSet.equals(titleTreeDesend)) {
 			logMessage("Z to A validation successful and the products are sorted in the ascending order ");
@@ -197,23 +188,21 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void priceValidationAscending() throws NumberFormatException, Exception {
-		Set<Double> priceSet = new LinkedHashSet<Double>();
+		Set<Double> priceSet = new LinkedHashSet<>();
 		while (true) {
-			List<WebElement> priceEle = appDriver
-					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Price']"));
+			List<WebElement> priceEle = productpricelist;
 			for (WebElement ele : priceEle) {
 				priceSet.add(Double.valueOf(getTextElement(ele, " Price element ").replace("$", "")));
 			}
 			swipeUp();
 			if (isElementPresent(swagBotImage)) {
-				for (WebElement ele : appDriver
-						.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Price']"))) {
+				for (WebElement ele : productpricelist) {
 					priceSet.add(Double.valueOf(getTextElement(ele, " Price element ").replace("$", "")));
 				}
 				break;
 			}
 		}
-		TreeSet<Double> priceTree = new TreeSet<Double>(priceSet);
+		TreeSet<Double> priceTree = new TreeSet<>(priceSet);
 		checkEquality(priceSet, priceTree);
 	}
 
@@ -223,17 +212,15 @@ public class HomePage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void priceValidationDescending() throws NumberFormatException, Exception {
-		Set<Double> priceSet = new LinkedHashSet<Double>();
+		Set<Double> priceSet = new LinkedHashSet<>();
 		while (true) {
-			List<WebElement> priceEle = appDriver
-					.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Price']"));
+			List<WebElement> priceEle = productpricelist;
 			for (WebElement ele : priceEle) {
 				priceSet.add(Double.valueOf(getTextElement(ele, " Price element ").replace("$", "")));
 			}
 			swipeUp();
 			if (isElementPresent(swagBotImage)) {
-				for (WebElement ele : appDriver
-						.findElements(By.xpath("//android.widget.TextView[@content-desc='test-Price']"))) {
+				for (WebElement ele : productpricelist) {
 					priceSet.add(Double.valueOf(getTextElement(ele, " Price element ").replace("$", "")));
 				}
 				break;

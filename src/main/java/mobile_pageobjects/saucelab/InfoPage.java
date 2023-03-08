@@ -1,15 +1,12 @@
 package mobile_pageobjects.saucelab;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import com.github.javafaker.Faker;
-
 import commonuseractions.CommonActionMethods;
-import io.appium.java_client.MobileBy;
+
 
 /**
  * @this class used to input the user information

@@ -446,8 +446,8 @@ public class JQueryTest extends CommonActionMethods {
 		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("MMMMMMMMMM/d");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
+		
 	}
 	public void sliders() throws Exception {
 		clickMethod(slider, "slider");

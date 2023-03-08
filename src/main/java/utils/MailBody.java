@@ -43,13 +43,8 @@ public class MailBody extends CommonActionMethods{
 			e.printStackTrace();
 		}
 		text = text + mailText + "<p>Thank you</p>";
-
-		if (System.getenv("JOB_NAME") != null && System.getProperty("os.name").contains("Linux")) {
-
+		
 			text = text + "<p>For more details please look into the extent report attached below.</p>";
-		} else {
-			text = text + "<p>For more details please look into the extent report attached below.</p>";
-		}
 
 		return text;
 	}
@@ -64,12 +59,11 @@ public class MailBody extends CommonActionMethods{
 	public static void emailScenarioTableCreate() throws Exception {
 
 		LinkedList<String> testNames = new LinkedList<>(setTestNames);
-		System.out.println(testNumber.length());
+
 		for (int j = 0; j < testNames.size(); j++) {
 
 			Set<String> allTest = new TreeSet<>(testNumber.keySet());
 			LinkedList<String> listTest = new LinkedList<>(allTest);
-			System.out.println("The list test " + listTest);
 			LinkedList<String> scenarios = new LinkedList<>();
 
 			for (int i = 0; i < listTest.size(); i++) {

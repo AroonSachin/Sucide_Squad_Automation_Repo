@@ -99,10 +99,7 @@ public class Mail extends CommonActionMethods {
 				sb.append(htmlBody);
 				textBodyPart.setContent(sb.toString(), "text/html");
 				if (extentreport != null) {
-					File folder = new File(System.getProperty("user.dir") + reportPath);
-
 					// Attachment body part.
-
 					File attachFiles = new File(System.getProperty("user.dir") +reportPath);
 
 					attachFile(attachFiles, emailContent, new MimeBodyPart());
@@ -201,8 +198,8 @@ public class Mail extends CommonActionMethods {
 
 		}
 
-		String duration = hrs + "hrs " + mins + "mins " + secs + "secs";
-		return duration;
+		return hrs + "hrs " + mins + "mins " + secs + "secs";
+
 	}
 
 }

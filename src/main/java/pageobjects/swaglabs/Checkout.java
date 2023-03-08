@@ -101,7 +101,6 @@ public class Checkout extends CommonActionMethods {
 
 	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
-		//validateQuantity();
 	}
 
 }
