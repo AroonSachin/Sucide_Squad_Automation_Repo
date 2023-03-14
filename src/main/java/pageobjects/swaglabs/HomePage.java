@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -134,7 +135,7 @@ public class HomePage extends CommonActionMethods {
 	 * @this method is used for the validation of the home page
 	 * @throws Exception
 	 */
-
+    @Step("To validating a home page")
 	public void homepageValidation() throws Exception {
 		
 		for(int i=1; i<=2; i++)
@@ -151,10 +152,9 @@ public class HomePage extends CommonActionMethods {
 				verifyPrice("hilo");
 			}
 		}
-		
-//		selectItem();
-//		clickCart();
-//		verifyLogin();
+		verifyLogin();
+		selectItem();
+		clickCart();
 	}
 
 }

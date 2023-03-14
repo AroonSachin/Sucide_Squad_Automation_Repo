@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 /**
  *
@@ -24,7 +25,7 @@ public class Confirmation extends CommonActionMethods {
 	public Confirmation() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
+    @Step("To click on the clickOnFinishButton")
 	public void clickOnFinishButton() throws Exception {
 		clickMethod(finishButton, "finish");
 
@@ -33,7 +34,7 @@ public class Confirmation extends CommonActionMethods {
 	 * @this method is used for validation of the order confirmation
 	 * @throws Exception
 	 */
-
+    @Step("To validating the verifyOrderConfirmation")
 	public void verifyOrderConfirmation() throws Exception {
 		isDisplayed(confirmationMsg, "THANK YOU FOR YOUR ORDER");
 	}

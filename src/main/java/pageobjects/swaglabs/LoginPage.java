@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -32,6 +33,7 @@ public class LoginPage extends CommonActionMethods {
 	 *       application
 	 * @throws Exception
 	 */
+	@Step("To login the user")
 	public synchronized void login() throws Exception {
 		sendKeysMethod(userName, getdata("Username"));
 		sendKeysMethod(passWord, getdata("Password"));

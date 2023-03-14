@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -19,7 +20,7 @@ public class Checkout extends CommonActionMethods {
 
 
 
-	@FindBy(id = "checkout")
+	@FindBy(xpath="//button[@name='checkout']")
 	WebElement checkoutButton;
 
 	@FindBy(className = "inventory_item_name")
@@ -34,7 +35,7 @@ public class Checkout extends CommonActionMethods {
 	public Checkout() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
-
+    @Step("To click a checkout button")
 	public void clickOnCheckoutButton() throws Exception {
 		clickMethod(checkoutButton, "checkout");
 
@@ -98,10 +99,10 @@ public class Checkout extends CommonActionMethods {
 	 * @this method is for validation in checkout page
 	 * @throws Exception
 	 */
-
+    @Step("To validating checkoutvalidation")
 	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
-		//validateQuantity();
+//		validateQuantity();
 	}
 
 }

@@ -1,5 +1,6 @@
 package swaglab;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,10 +11,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.TestListner;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
@@ -29,19 +33,25 @@ import utils.Mail;
  * @this is the runner class that has all the test scenarios
  *
  */
-
+@Listeners(TestListner.class)
 public class Swaglab extends CommonActionMethods {
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
-
+	
 	@BeforeClass
 	public void extent() {
 		extentReports("Swag_Lab.html");
 		testName = "Swag_Lab";
 	}
+	@BeforeTest
+	public void reportClean() {
+		invokeMail = true;
+		File allureFile = new File(System.getProperty("user.dir") + "\\allure-results");
+		deleteFolder(allureFile);
+	}
 
 	@DataProvider(name = "automation")
 	public static Iterator<Object[]> datas() throws Exception {
-		return getTestData("database.xlsx","Test");
+		return getTestData("Test", "database.xlsx");
 	}
 
 	/**
@@ -50,7 +60,6 @@ public class Swaglab extends CommonActionMethods {
 	 */
 	@BeforeMethod(alwaysRun = true)
 	public void startBrowser() throws Exception {
-
 		url.set("https://www.saucedemo.com/");
 
 	}
@@ -61,7 +70,7 @@ public class Swaglab extends CommonActionMethods {
 	 * @throws Exception
 	 */
 
-	@Test(dataProvider = "automation")
+	@Test(dataProvider = "automation",description = "to verify login functionality")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
@@ -77,8 +86,7 @@ public class Swaglab extends CommonActionMethods {
 		}
 	}
 
-	@Test(dataProvider = "automation")
-
+	@Test(dataProvider = "automation",description = "to verify booking functionality")
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
@@ -88,7 +96,9 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			new Checkout().checkoutValidation();
+			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
+			new InfoPage().clickContinue();
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);

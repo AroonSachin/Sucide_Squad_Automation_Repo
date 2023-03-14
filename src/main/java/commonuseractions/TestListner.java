@@ -1,22 +1,30 @@
 package commonuseractions;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.json.JSONObject;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import io.qameta.allure.Allure;
+import utils.DriverFactory;
 import utils.Mail;
 
 public class TestListner implements ITestListener {
+	public static boolean haveallure=false;
 
 	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
+		
 		Map<String, String> map = new HashMap<>();
 		return map;
 	});
@@ -27,7 +35,7 @@ public class TestListner implements ITestListener {
 
 	CommonActionMethods commonfunctions = null;
 	public static String mailText = "";
-	public static LocalTime startTime;
+	public static LocalTime startTime = null;
 	public static boolean mailFlag = true;
 	public static ThreadLocal<String> FailedScreenShotdestination = new ThreadLocal<>();
 	public static JSONObject testNumber = new JSONObject();
@@ -79,20 +87,16 @@ public class TestListner implements ITestListener {
 	}
 
 	// Extent Report Declarations
-
+	
 	@Override
 	public synchronized void onStart(ITestContext context) {
 		startTime = LocalTime.now();
-
 	}
 
-	@Override
-	public synchronized void onFinish(ITestContext context) {
-
-	}
 
 	@Override
 	public synchronized void onTestStart(ITestResult result) {
+		
 		totalClassTest.set(getClassTestCount() + 1);
 		errorLogCount.set(0);
 
@@ -144,6 +148,10 @@ public class TestListner implements ITestListener {
 		scenarioDescription.set(null);
 		scenarioStatus.set(null);
 		scenarioComments.set(null);
+		if(haveallure) {
+			Allure.addAttachment(UUID.randomUUID().toString(),new ByteArrayInputStream(((TakesScreenshot)DriverFactory.getDriver()).getScreenshotAs(OutputType.BYTES)));
+			haveallure=false;
+		}
 	}
 
 	@Override

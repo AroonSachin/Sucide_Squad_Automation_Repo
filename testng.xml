@@ -6,18 +6,8 @@
 		<listener class-name="commonuseractions.TestListner"></listener>
 	</listeners>
 	<test thread-count="5" name="Test">
-		<classes>
-			<class name="jqueryrunner.Venkatesh" />
-			<class name="stepdefinition.PhpTravels_Steps" />
+		<classes>	
 			<class name="swaglab.Swaglab" />
-			<class name="utils.Mail" />
-			<class name="jqueryrunner.AroonSachin" />
-			<class name="mobilerunner.SauceLab_Aroon" />
-			<class name="stepdefinition.YourLogo_Steps" />
-			<class name="jqueryrunner.JQueryTest" />
-			<class name="yourlogo.YourLogo" />
-			<class name="runner.CucumberTestRunner" />
-			<class name="phptravels.PhpTravelFlightBooking" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
