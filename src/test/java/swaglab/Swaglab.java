@@ -78,7 +78,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			invokeBrowser("firefox", "Windows", url.get());
+			invokeBrowser("chrome", "Windows", url.get());
 			extent(" Login ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
@@ -94,7 +94,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			invokeBrowser("firefox", "Windows", url.get());
+			invokeBrowser("chrome", "Windows", url.get());
 			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();

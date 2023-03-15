@@ -44,7 +44,9 @@ public final class Browserfactory extends CommonActionMethods{
 				break;
 			} else {
 				WebDriverManager.chromedriver().setup();
-				
+				ChromeOptions opt = new ChromeOptions();
+				opt.addArguments("--remote-allow-origins=*");
+				driver = new ChromeDriver(opt);
 				break;
 			}
 			// To launch Fire fox
