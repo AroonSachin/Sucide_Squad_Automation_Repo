@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import commonuseractions.CommonActionMethods;
@@ -39,7 +40,7 @@ public final class Browserfactory extends CommonActionMethods{
 				WebDriverManager.chromedriver().setup();
 				ChromeOptions opt = new ChromeOptions();
 				opt.addArguments("--" + browsertype);
-				driver = new ChromeDriver();
+				driver = new RemoteWebDriver(opt);
 				break;
 			} else {
 				WebDriverManager.chromedriver().setup();

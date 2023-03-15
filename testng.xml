@@ -8,7 +8,10 @@
 	<test thread-count="5" name="Test" parallel="methods">
 		<classes>	
 			<class name="swaglab.Swaglab">
-			
+			  <methods>
+			  	<include name="testCase1"></include>
+			  	<include name="testCase2"></include>
+			  </methods>
 			</class>
 		</classes>
 	</test> <!-- Test -->

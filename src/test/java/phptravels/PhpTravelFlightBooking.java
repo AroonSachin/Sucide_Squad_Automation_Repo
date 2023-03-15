@@ -20,7 +20,6 @@ import pageobjects.phptravels.Invoicepage;
 import pageobjects.phptravels.Paxdetailspage;
 import utils.DriverFactory;
 import utils.Mail;
-import utils.ScreenRecorderUtil;
 
 @Listeners(Allurelistener.class)
 @Feature("PhpTravels")
