@@ -16,8 +16,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import commonuseractions.Allurelistener;
 import commonuseractions.CommonActionMethods;
 import commonuseractions.TestListner;
+import io.qameta.allure.Feature;
 import pageobjects.swaglabs.Checkout;
 import pageobjects.swaglabs.Confirmation;
 import pageobjects.swaglabs.HomePage;
@@ -34,7 +36,9 @@ import utils.Mail;
  *
  */
 @Listeners(TestListner.class)
+@Feature("Swag-Labs")
 public class Swaglab extends CommonActionMethods {
+	
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 	
 	@BeforeClass
@@ -74,7 +78,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
-			invokeBrowser("chrome", "Windows", url.get());
+			invokeBrowser("firefox", "Windows", url.get());
 			extent(" Login ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
@@ -90,7 +94,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			invokeBrowser("chrome", "Windows", url.get());
+			invokeBrowser("firefox", "Windows", url.get());
 			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();

@@ -5,9 +5,14 @@
 		<!--<listener class-name="yourlogo.Transformer"></listener> -->
 		<listener class-name="commonuseractions.TestListner"></listener>
 	</listeners>
-	<test thread-count="5" name="Test">
+	<test thread-count="5" name="Test" parallel="methods">
 		<classes>	
-			<class name="swaglab.Swaglab" />
+			<class name="swaglab.Swaglab">
+			  <methods>
+			  	<include name="testCase1"></include>
+			  	<include name="testCase2"></include>
+			  </methods>
+			</class>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
