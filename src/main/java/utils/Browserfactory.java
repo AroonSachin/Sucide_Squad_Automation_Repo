@@ -43,7 +43,7 @@ public final class Browserfactory extends CommonActionMethods{
 				break;
 			} else {
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+				
 				break;
 			}
 			// To launch Fire fox

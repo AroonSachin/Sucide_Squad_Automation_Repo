@@ -141,7 +141,7 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 
-	public synchronized void invokeBrowser(String browser, String browsertype, String url) throws Exception {
+	public  void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();

@@ -90,7 +90,7 @@ public class Swaglab extends CommonActionMethods {
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
-			invokeBrowser("chrome", "Windows", url.get());
+			invokeBrowser("firefox", "Windows", url.get());
 			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
