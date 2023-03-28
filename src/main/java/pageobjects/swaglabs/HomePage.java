@@ -76,9 +76,10 @@ public class HomePage extends CommonActionMethods {
 	 * @this method is used to verify the user has logged in successfully
 	 * @throws Exception
 	 */
-
 	public void verifyLogin() throws Exception {
+		webWait(hamburgerButton);
 		clickMethod(hamburgerButton, "hamburger");
+		Thread.sleep(3000);
 		webWait(logout);
 		isDisplayed(logout, "Logout button");
 	}

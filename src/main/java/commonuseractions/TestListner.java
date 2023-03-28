@@ -138,12 +138,11 @@ public class TestListner implements ITestListener {
 		testAttrb.put("scenario_comment", getScenarioComments());
 		testNumber.put(getScenarioNumber() + "_" + CommonActionMethods.testName, testAttrb);
 		setTestNames.add(CommonActionMethods.testName);
-		System.out.println(testNumber);
-		try {
-			Mail.sendReport("Null");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Mail.sendReport("Null");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		scenarioNo.set(null);
 		scenarioDescription.set(null);
 		scenarioStatus.set(null);

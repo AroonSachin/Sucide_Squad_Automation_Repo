@@ -249,7 +249,7 @@ public class CommonActionMethods extends TestListner {
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			logErrorMessage(" Screenshot is not taken ");
+			System.out.println(" Screenshot is not taken ");
 		}
 		return null;
 	}

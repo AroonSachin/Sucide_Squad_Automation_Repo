@@ -1,6 +1,9 @@
 package utils;
 
 
+import java.net.URL;
+import java.util.HashMap;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,7 +24,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public final class Browserfactory extends CommonActionMethods{
 
 	private Browserfactory() {}
-
+	static String hubUrl = "https://arunsachin.m:t55RwNbMOGuB11M8gFUyh7Z5n6jzBy2Rp5o1T0YATdsMte2NDd@hub.lambdatest.com/wd/hub";
 	private static WebDriver driver;
 	/**
 	 * The method will invoke the requested browser in the requested browsertype
@@ -31,7 +34,7 @@ public final class Browserfactory extends CommonActionMethods{
 	 * @return
 	 * @throws Exception
 	 */
-	public static WebDriver createBrowser(String browser, String browsertype) throws Exception {
+	public synchronized static WebDriver createBrowser(String browser, String browsertype) throws Exception {
 		// To lauunch the requested browser in the requested type
 		switch (browser.toUpperCase()) {
 		// To launch Chrome.
@@ -43,9 +46,22 @@ public final class Browserfactory extends CommonActionMethods{
 				driver = new RemoteWebDriver(opt);
 				break;
 			} else {
-				ChromeOptions opt = new ChromeOptions();
-				opt.addArguments("--remote-allow-origins=*");
-				driver = new ChromeDriver(opt);
+//				WebDriverManager.chromedriver().setup();
+				ChromeOptions browserOptions = new ChromeOptions();
+				browserOptions.setPlatformName("Windows 10");
+				browserOptions.setBrowserVersion("109.0");
+				HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+				ltOptions.put("username", "arunsachin.m");
+				ltOptions.put("accessKey", "t55RwNbMOGuB11M8gFUyh7Z5n6jzBy2Rp5o1T0YATdsMte2NDd");
+				ltOptions.put("project", "Untitled");
+				ltOptions.put("w3c", true);
+				ltOptions.put("plugin", "java-testNG");
+				ltOptions.put("selenium_version", "4.7.0");
+				browserOptions.setCapability("LT:Options", ltOptions);
+//				ChromeOptions opt = new ChromeOptions();
+//				opt.addArguments("--remote-allow-origins=*");
+				driver = new RemoteWebDriver(new URL(hubUrl) ,browserOptions);
+//				driver = new ChromeDriver(opt);
 				break;
 			}
 			// To launch Fire fox

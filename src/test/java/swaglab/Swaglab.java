@@ -38,14 +38,15 @@ import utils.Mail;
 @Listeners(TestListner.class)
 @Feature("Swag-Labs")
 public class Swaglab extends CommonActionMethods {
-	
+
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
-	
+
 	@BeforeClass
 	public void extent() {
 		extentReports("Swag_Lab.html");
 		testName = "Swag_Lab";
 	}
+
 	@BeforeTest
 	public void reportClean() {
 		invokeMail = true;
@@ -73,8 +74,7 @@ public class Swaglab extends CommonActionMethods {
 	 * @param mapData
 	 * @throws Exception
 	 */
-
-	@Test(dataProvider = "automation",description = "to verify login functionality")
+	@Test(dataProvider = "automation", description = "to verify login functionality")
 	public void testCase1(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("1")) {
@@ -84,13 +84,10 @@ public class Swaglab extends CommonActionMethods {
 			new LoginPage().login();
 			new HomePage().homepageValidation();
 			status.set(true);
-
-		} else {
-			throw new SkipException("Skip test");
 		}
 	}
 
-	@Test(dataProvider = "automation",description = "to verify booking functionality")
+	@Test(dataProvider = "automation", description = "to verify booking functionality")
 	public void testCase2(Map<String, String> mapData) throws Exception {
 		inputdata.set(mapData);
 		if (CommonActionMethods.getdata("Number").equals("2")) {
@@ -106,10 +103,7 @@ public class Swaglab extends CommonActionMethods {
 			new Confirmation().clickOnFinishButton();
 			new Confirmation().verifyOrderConfirmation();
 			status.set(true);
-		} else {
-			throw new SkipException("Skip test");
-		}
-
+		} 
 	}
 
 	@AfterMethod

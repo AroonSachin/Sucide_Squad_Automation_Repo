@@ -26,6 +26,7 @@ import mobile_pageobjects.saucelab.ProductPage;
 import utils.DriverFactory;
 
 public class SauceLab extends CommonActionMethods {
+	
 	static AppiumDriverLocalService service = null;
 
 	public static void invokeServer() throws IOException {
@@ -48,7 +49,6 @@ public class SauceLab extends CommonActionMethods {
 
 	@BeforeClass
 	public static void setUp() throws IOException, InterruptedException {
-
 		invokeServer();
 		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
@@ -65,6 +65,7 @@ public class SauceLab extends CommonActionMethods {
 		inputdata.set(mapdata);	
 		new LoginPage().loginValidation();
 	}
+
 	@Test(dataProvider = "automation", priority = 2)
 	public void loginScenario(Map<String, String> mapdata) throws Exception {
 		inputdata.set(mapdata);
@@ -83,7 +84,6 @@ public class SauceLab extends CommonActionMethods {
 		new InfoPage().Info();
 		new ConfirmationPage().productDetailsValidation();
 		new ConfirmationPage().validateConfirmation();
-
 	}
 
 	@AfterClass

@@ -55,7 +55,6 @@ public class SwagLab_Steps {
 
 	@Then("I validate whether I have logged into the website successfully.")
 	public void i_validate_whether_i_have_logged_into_the_website_successfully() throws Exception {
-	     
 	     home.verifyLogin();
 	}
 

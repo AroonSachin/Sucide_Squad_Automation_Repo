@@ -37,10 +37,9 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		String appiumMainJsPath = "C:\\Program Files\\Appium Server GUI\\resources\\app\\node_modules\\appium\\build\\lib\\main.js";
 		service = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
 				.usingDriverExecutable(new File(nodePath)).withAppiumJS(new File(appiumMainJsPath))
-				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
+				.withIPAddress("127.0.0.1").usingPort(4723).withArgument(GeneralServerFlag.BASEPATH, "wd/hub/").withLogFile(new File(System.getProperty("user.dir") + "\\AppiumLogs.txt")));
 		service.clearOutPutStreams();
 		service.start();
-		
 	}
 
 	@DataProvider(name = "automation")
@@ -53,8 +52,7 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		invokeServer();
 		ScreenRecorderUtil.startRecord("PhpTravels");
 		extentReports("SwaglabMobile.html");
-		
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options()
 				.setApp("D:\\Mobile Automation\\APK\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")

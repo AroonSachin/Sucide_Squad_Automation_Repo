@@ -2,7 +2,7 @@
 Feature: To test the functionality of buying products in Swaglab application.
 
   Background: 
-    Given I launch the "firefox" browser.
+    Given I launch the "chrome" browser.
     And I Enter the URL "https://www.saucedemo.com/".
 
   Scenario: As an end user, I select product to buy in Swaglab.
@@ -25,6 +25,7 @@ Feature: To test the functionality of buying products in Swaglab application.
     And I enter the personal information
     Then I complete the checkout process by clicking Continue button.
     And I click on the Finish button and complete the payment process.
+    
     Then I check whether THANK YOU FOR YOUR ORDER message is displayed which confirms that the desired products are ordered successfully.
 
     Examples: 
