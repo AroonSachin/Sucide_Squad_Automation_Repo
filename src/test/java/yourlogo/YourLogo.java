@@ -21,7 +21,7 @@ public class YourLogo extends CommonActionMethods {
      */
 	@BeforeClass
 	private void extentReport() {
-		extentReport("Yourlogo.html");
+		extentReports("Yourlogo.html");
 
 	}
 
@@ -41,7 +41,7 @@ public class YourLogo extends CommonActionMethods {
 	 */
 	@DataProvider(name = "yolo")
 	private Iterator<Object[]> sheet() throws Exception {
-		return getTestData("yolo");
+		return getTestData("database.xlsx","yolo");
 
 	}
 

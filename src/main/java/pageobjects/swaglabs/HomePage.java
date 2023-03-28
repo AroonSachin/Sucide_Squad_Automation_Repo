@@ -96,7 +96,6 @@ public class HomePage extends CommonActionMethods {
 	 * @this method is to validate the price of the product
 	 * @throws Exception
 	 */
-
 	public void verifyPrice(String type) throws Exception {
 		List<Double> pricearr = new ArrayList<Double>();
 
