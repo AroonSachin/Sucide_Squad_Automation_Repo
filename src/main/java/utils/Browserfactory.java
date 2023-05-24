@@ -46,22 +46,10 @@ public final class Browserfactory extends CommonActionMethods{
 				driver = new RemoteWebDriver(opt);
 				break;
 			} else {
-//				WebDriverManager.chromedriver().setup();
-				ChromeOptions browserOptions = new ChromeOptions();
-				browserOptions.setPlatformName("Windows 10");
-				browserOptions.setBrowserVersion("109.0");
-				HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-				ltOptions.put("username", "arunsachin.m");
-				ltOptions.put("accessKey", "t55RwNbMOGuB11M8gFUyh7Z5n6jzBy2Rp5o1T0YATdsMte2NDd");
-				ltOptions.put("project", "Untitled");
-				ltOptions.put("w3c", true);
-				ltOptions.put("plugin", "java-testNG");
-				ltOptions.put("selenium_version", "4.7.0");
-				browserOptions.setCapability("LT:Options", ltOptions);
-//				ChromeOptions opt = new ChromeOptions();
-//				opt.addArguments("--remote-allow-origins=*");
-				driver = new RemoteWebDriver(new URL(hubUrl) ,browserOptions);
-//				driver = new ChromeDriver(opt);
+				WebDriverManager.chromedriver().setup();
+				ChromeOptions opt = new ChromeOptions();
+				opt.addArguments("--remote-allow-origins=*");
+				driver = new ChromeDriver(opt);
 				break;
 			}
 			// To launch Fire fox
