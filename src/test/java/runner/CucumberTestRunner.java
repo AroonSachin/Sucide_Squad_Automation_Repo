@@ -9,7 +9,7 @@ import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 
-@CucumberOptions(tags = "@PhpTravels or @YourLogo or @SwagLab", features = {"src/test/resources/features"}, glue = {
+@CucumberOptions(tags = "@SwagLab", features = {"src/test/resources/features"}, glue = {
 		"stepdefinition" }, monochrome = true)
 public class CucumberTestRunner {
 

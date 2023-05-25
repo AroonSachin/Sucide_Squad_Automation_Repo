@@ -2,7 +2,7 @@
 Feature: To test the functionality of buying products in Swaglab application.
 
   Background: 
-    Given I launch the "firefox" browser.
+    Given I launch the "chrome" browser.
     And I Enter the URL "https://www.saucedemo.com/".
 
   Scenario: As an end user, I select product to buy in Swaglab.
