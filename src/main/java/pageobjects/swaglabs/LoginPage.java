@@ -36,7 +36,7 @@ public class LoginPage extends CommonActionMethods {
 	@Step("To login the user")
 	public synchronized void login() throws Exception {
 		sendKeysMethod(userName, getdata("Username"));
-		//sendKeysMethod(passWord, getdata("Password"));
+		sendKeysMethod(passWord, getdata("Password"));
 		clickMethod(loginButton, "login");
 	}
 	
