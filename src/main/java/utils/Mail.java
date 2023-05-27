@@ -30,7 +30,7 @@ public class Mail extends CommonActionMethods {
 	public static void sendReport(String reportPath) throws IOException {
 		// authentication info
 		final String username = "arunsachin.m@tridentsqa.com";
-		final String password = "seyvyczdmcpdnsnj";
+		final String password = "tnascmznrrbxxfwr";
 		String fromEmail = "arunsachin.m@tridentsqa.com";
 		String toEmail = "sowmya.venkateshwaran@tridentsqa.com";
 
@@ -52,7 +52,7 @@ public class Mail extends CommonActionMethods {
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			 msg.addRecipients(Message.RecipientType.CC,
-			 "vinoth.velayutham@tridentsqa.com,vinoth.raj@tridentsqa.com,venkatesh.b@tridentsqa.com");
+			 "vinoth.velayutham@tridentsqa.com,venkatesh.b@tridentsqa.com");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MMM/YYYY");
 			Date date = new Date();
