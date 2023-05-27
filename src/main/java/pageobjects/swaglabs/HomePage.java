@@ -152,7 +152,6 @@ public class HomePage extends CommonActionMethods {
 				verifyPrice("hilo");
 			}
 		}
-		verifyLogin();
 		selectItem();
 		clickCart();
 	}

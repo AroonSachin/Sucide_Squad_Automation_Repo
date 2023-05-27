@@ -82,6 +82,7 @@ public class Swaglab extends CommonActionMethods {
 			extent(" Login ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
+			new HomePage().verifyLogin();
 			new HomePage().homepageValidation();
 			status.set(true);
 
