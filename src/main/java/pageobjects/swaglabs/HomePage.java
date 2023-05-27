@@ -32,7 +32,7 @@ public class HomePage extends CommonActionMethods {
 	@FindBy(xpath = "//button[contains(@id,'add-to-cart') or (text()='Remove')]")
 	List<WebElement> addItems;
 
-	@FindBy(xpath = "//span[@class='shopping_cart_badge']")
+	@FindBy(xpath = "//a[@class='shopping_cart_link']")
 	WebElement cart;
 
 	@FindBy(id = "logout_sidebar_link")
@@ -68,7 +68,7 @@ public class HomePage extends CommonActionMethods {
 		for (int q = 0; q < Integer.parseInt("2"); q++) {
 			getproductName().add(getTextElement(itemName.get(q), "item name"));
 			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
-			clickMethod(addItems.get(q), "product " + (q + 1));
+			clickMethod(addItems.get(q), "product " + (q));
 		}
 	}
 
@@ -152,8 +152,6 @@ public class HomePage extends CommonActionMethods {
 				verifyPrice("hilo");
 			}
 		}
-		selectItem();
-		clickCart();
 	}
 
 }

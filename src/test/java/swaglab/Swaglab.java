@@ -1,7 +1,6 @@
 package swaglab;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -28,6 +27,7 @@ import pageobjects.swaglabs.LoginPage;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import utils.Mail;
+import utils.ScreenRecorderUtil;
 
 /**
  *
@@ -42,7 +42,8 @@ public class Swaglab extends CommonActionMethods {
 	private static ThreadLocal<Boolean> status = new ThreadLocal<>();
 	
 	@BeforeClass
-	public void extent() {
+	public void extent() throws Exception {
+		ScreenRecorderUtil.startRecord("Swaglabs");
 		extentReports("Swag_Lab.html");
 		testName = "Swag_Lab";
 	}
@@ -99,7 +100,10 @@ public class Swaglab extends CommonActionMethods {
 			extent(" Order Confirmation ", "Sowmya", "Functional Test");
 			status.set(false);
 			new LoginPage().login();
+			new HomePage().verifyLogin();
 			new HomePage().homepageValidation();
+			new HomePage().selectItem();
+			new HomePage().clickCart();
 			new Checkout().checkoutValidation();
 			new Checkout().clickOnCheckoutButton();
 			new InfoPage().info();
@@ -134,7 +138,7 @@ public class Swaglab extends CommonActionMethods {
 	}
 
 	@AfterSuite
-	public void afterSuit() throws IOException {
+	public void afterSuit() throws Exception {
 		mailFlag = false;
 		Mail.sendReport("/Swag_Lab.html");
 		scenarioNo.remove();
@@ -142,5 +146,6 @@ public class Swaglab extends CommonActionMethods {
 		scenarioStatus.remove();
 		scenarioComments.remove();
 		FailedScreenShotdestination.remove();
+		ScreenRecorderUtil.stopRecord();
 	}
 }

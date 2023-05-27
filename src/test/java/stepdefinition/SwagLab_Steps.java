@@ -53,11 +53,10 @@ public class SwagLab_Steps {
 	     login.clickLogin();
 	}
 
-	
 	@Then("I validate whether I have logged into the website successfully.")
 	public void i_validate_whether_i_have_logged_into_the_website_successfully() throws Exception {
-
-		home.verifyLogin();
+	     
+	     home.verifyLogin();
 	}
 
 	@Then("I validate the prices of the product and check if the products are sorted correctly.")
@@ -81,10 +80,10 @@ public class SwagLab_Steps {
 	}
 
 
-	@Then("I validate product information and the product quantity {int}.")
-	public void i_validate_product_information_and_the_product_quantity(int qty) throws Exception {
+	@Then("I validate product information and the product quantity {string}.")
+	public void i_validate_product_information_and_the_product_quantity(String qty) throws Exception {
 	     check.validateProductInfo();
-	     check.validateQuantity(String.valueOf(qty));
+	     check.validateQuantity(qty);
 	     
 	}
 
