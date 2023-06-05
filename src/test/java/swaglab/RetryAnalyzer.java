@@ -1,4 +1,4 @@
-package yourlogo;
+package swaglab;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

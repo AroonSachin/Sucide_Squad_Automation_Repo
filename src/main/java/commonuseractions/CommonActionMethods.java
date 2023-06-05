@@ -53,7 +53,7 @@ public class CommonActionMethods extends TestListner {
 	protected static AppiumDriver appDriver = null;
 	protected static boolean invokeMail = false;
 	protected static ThreadLocal<String> url = new ThreadLocal<>();
-	protected static String testName = null;
+	protected static String testName = "";
 	protected static ExtentReports extentreport;
 	protected static ExtentHtmlReporter htmlreporter;
 	protected static ExtentTest testcase;
@@ -123,7 +123,7 @@ public class CommonActionMethods extends TestListner {
 		}
 		throw new RuntimeException(messagestopexecution);
 	}
-	
+
 	/**
 	 * @This method is used to print the log error message in console and stop the
 	 *       execution
@@ -143,7 +143,8 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 
-	public synchronized void invokeBrowser(String browser, String browsertype, String url) throws Exception {
+
+	public void invokeBrowser(String browser, String browsertype, String url) throws Exception {
 		PropertyConfigurator.configure(configFilename);
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, browsertype));
 		DriverFactory.getDriver().manage().window().maximize();
@@ -251,7 +252,7 @@ public class CommonActionMethods extends TestListner {
 			logMessage(" Screenshot taken-stored in the given path ");
 			return pathlocation;
 		} catch (Exception e) {
-			logErrorMessage(" Screenshot is not taken ");
+			System.err.println(" Screenshot is not taken ");
 		}
 		return null;
 	}
@@ -544,23 +545,25 @@ public class CommonActionMethods extends TestListner {
 	 * @param file
 	 */
 	public static void deleteFolder(File file) {
-		for (File subFile : file.listFiles()) {
-			if (subFile.isDirectory()) {
-				deleteFolder(subFile);
-			} else {
-				boolean del = subFile.delete();
-				if (del) {
-					logMessage("sub files deleted successfully");
+		if (file.length() != 0) {
+			for (File subFile : file.listFiles()) {
+				if (subFile.isDirectory()) {
+					deleteFolder(subFile);
 				} else {
-					logMessage("sub files not deleted ");
+					boolean del = subFile.delete();
+					if (del) {
+						logMessage("sub files deleted successfully");
+					} else {
+						logMessage("sub files not deleted ");
+					}
 				}
 			}
-		}
-		boolean del = file.delete();
-		if (del) {
-			logMessage("File deleted successfully");
-		} else {
-			logMessage("File not deleted ");
+			boolean del = file.delete();
+			if (del) {
+				logMessage("File deleted successfully");
+			} else {
+				logMessage("File not deleted ");
+			}
 		}
 
 	}
@@ -1006,7 +1009,7 @@ public class CommonActionMethods extends TestListner {
 				.addAction(finger1.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeLeft));
 	}
-	
+
 	/**
 	 * @method Returns value from json for the given key.
 	 * @param json

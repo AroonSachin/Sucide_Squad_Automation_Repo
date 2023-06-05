@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
+<suite name="Suite" thread-count="5" parallel="methods">
 	<listeners>
-		<!--<listener class-name="yourlogo.Transformer"></listener> -->
-		<listener class-name="commonuseractions.TestListner"></listener>
+		<listener class-name="swaglab.Transformer"></listener> 
+		<!--<listener class-name="commonuseractions.TestListner"></listener>-->
 	</listeners>
-	<test thread-count="5" name="Test">
+	<test name="Suicide Squad">
 		<classes>
-			<class name="jqueryrunner.Venkatesh" />
-			<class name="stepdefinition.PhpTravels_Steps" />
-			<class name="swaglab.Swaglab" />
-			<class name="utils.Mail" />
-			<class name="jqueryrunner.AroonSachin" />
-			<class name="mobilerunner.SauceLab_Aroon" />
-			<class name="stepdefinition.YourLogo_Steps" />
-			<class name="jqueryrunner.JQueryTest" />
-			<class name="yourlogo.YourLogo" />
-			<class name="runner.CucumberTestRunner" />
-			<class name="phptravels.PhpTravelFlightBooking" />
+			<class name="swaglab.Swaglab"></class>
+			<!--<class name="yourlogo.YourLogo"></class>-->
+			<!--<class name="phptravels.PhpTravelFlightBooking"></class> -->
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

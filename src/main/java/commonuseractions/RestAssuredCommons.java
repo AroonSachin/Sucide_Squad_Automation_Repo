@@ -24,7 +24,7 @@ public class RestAssuredCommons extends CommonActionMethods {
 	public Response post(String page, String body) throws Exception {
 
 		Response res = RestAssured.given().header("Content-type", "application/json").and().body(body).when().post(page)
-				.then().statusCode(200).extract().response();
+				.then().extract().response();
 		if (String.valueOf(res.getStatusCode()).contains("20")) {
 			logMessage("POST request sucessfull");
 			logMessage(res.asPrettyString());

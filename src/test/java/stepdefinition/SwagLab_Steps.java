@@ -14,11 +14,15 @@ import utils.Browserfactory;
 import utils.DriverFactory;
 
 public class SwagLab_Steps {
+	
+	
 	LoginPage login;
 	HomePage home;
 	Checkout check;
 	InfoPage info;
 	Confirmation confirm;
+	
+	
 	@Given("I launch the {string} browser.")
 	public void i_launch_the_chrome_browser(String browser) throws Exception {
 		DriverFactory.setDriver(Browserfactory.createBrowser(browser, "normal"));
@@ -76,7 +80,7 @@ public class SwagLab_Steps {
 	}
 
 
-	@Then("I validate product information and the product quantity {String}.")
+	@Then("I validate product information and the product quantity {string}.")
 	public void i_validate_product_information_and_the_product_quantity(String qty) throws Exception {
 	     check.validateProductInfo();
 	     check.validateQuantity(qty);

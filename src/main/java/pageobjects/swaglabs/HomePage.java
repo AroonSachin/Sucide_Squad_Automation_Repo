@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import io.qameta.allure.Step;
 import utils.DriverFactory;
 
 /**
@@ -31,7 +32,7 @@ public class HomePage extends CommonActionMethods {
 	@FindBy(xpath = "//button[contains(@id,'add-to-cart') or (text()='Remove')]")
 	List<WebElement> addItems;
 
-	@FindBy(xpath = "//span[@class='shopping_cart_badge']")
+	@FindBy(xpath = "//a[@class='shopping_cart_link']")
 	WebElement cart;
 
 	@FindBy(id = "logout_sidebar_link")
@@ -67,7 +68,7 @@ public class HomePage extends CommonActionMethods {
 		for (int q = 0; q < Integer.parseInt("2"); q++) {
 			getproductName().add(getTextElement(itemName.get(q), "item name"));
 			getproductPrice().add(getTextElement(itemPrice.get(q), "item price"));
-			clickMethod(addItems.get(q), "product " + (q + 1));
+			clickMethod(addItems.get(q), "product " + (q));
 		}
 	}
 
@@ -134,7 +135,7 @@ public class HomePage extends CommonActionMethods {
 	 * @this method is used for the validation of the home page
 	 * @throws Exception
 	 */
-
+    @Step("To validating a home page")
 	public void homepageValidation() throws Exception {
 		
 		for(int i=1; i<=2; i++)
@@ -151,10 +152,6 @@ public class HomePage extends CommonActionMethods {
 				verifyPrice("hilo");
 			}
 		}
-		
-//		selectItem();
-//		clickCart();
-//		verifyLogin();
 	}
 
 }
