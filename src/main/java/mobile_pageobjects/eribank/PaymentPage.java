@@ -4,11 +4,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class PaymentPage extends CommonActionMethods {
-	 public static String sliderdollar = null;
+	
      String totalbal = null;
 	 String name=null;
 
@@ -38,7 +39,7 @@ public class PaymentPage extends CommonActionMethods {
 
 	@AndroidFindBy(id = "android:id/button1")
 	@CacheLookup
-	WebElement confrompayment;
+	WebElement conformpayment;
 
 	@AndroidFindBy(xpath="//android.view.View[contains(@text,'Your balance is: ')]")
 	@CacheLookup
@@ -59,14 +60,14 @@ public class PaymentPage extends CommonActionMethods {
 		sendKeysMethod(customername, getdata("Name"));
 		Actions amntslider = new Actions(appDriver);
 		amntslider.dragAndDropBy(amountslider, 100, 0).perform();
-		sliderdollar = getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "");
+		CommonVariables.setSliderdollar(getTextElement(slideramount, "balance").replace("Amount (", "").replace("$)", "")); 
 		clickMethod(country, "country");
-	    swipeUpToElement(countrycanada, "canadacity","click",null);
+	    swipeUpToElement(countrycanada, "countrycanada","click",null);
 		clickMethod(sendpayment, "sendpayment");
-		clickMethod(confrompayment, "confrompayment");
+		clickMethod(conformpayment, "conformpayment");
 		webWait(totalbalance);
 		totalbal = getTextElement(totalbalance, "balance").replace("Your balance is: ", "").replace("$", "");
-		double actualamount = Double.valueOf(LoginPage.dollar) - Double.valueOf(PaymentPage.sliderdollar);
+		double actualamount = Double.valueOf(CommonVariables.getDollar()) - Double.valueOf(CommonVariables.getSliderdollar());
 		checkEquality(actualamount, Double.valueOf(totalbal));
 
 	}

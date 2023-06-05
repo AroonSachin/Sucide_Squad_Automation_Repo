@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import utils.DriverFactory;
 
 /**
@@ -18,156 +19,147 @@ import utils.DriverFactory;
  *
  */
 public class Orderpage extends CommonActionMethods {
-	public static String product1 = null;
-	public static String price1 = null;
-	public static String product2 = null;
-	public static String price2 = null;
-	public static String address1 = null;
-	public static String address2 = null;
-	public static String address3 = null;
-	public static String address4 = null;
-	public static String address5 = null;
-	public static String address6 = null;
-	public static String billing1 = null;
-	public static String billing2 = null;
-	public static String billing3 = null;
-	public static String billing4 = null;
-	public static String billing5 = null;
-	public static String billing6 = null;
-	public static String totalprice1 = null;
-	public static String totalprice2 = null;
+	
+	 
+	 static String billing1 = null;
+	 static String billing2 = null;
+	 static String billing3 = null;
+	 static String billing4 = null;
+	 static String billing5 = null;
+	 static String billing6 = null;
+	 
 	
 	@FindBy(xpath = "//div[@class='header_user_info']//a[@title='Log in to your customer account']")
-	public static WebElement signin;
+	public  WebElement signin;
 	
 	@FindBy(id="email")
-	public static WebElement mailaddress;
+	public  WebElement mailaddress;
 	
 	@FindBy(id="passwd")
-	public static WebElement mailpassword;
+	public  WebElement mailpassword;
 	
 	@FindBy(id="SubmitLogin")
-	public static WebElement submit;
+	public  WebElement submit;
 
 	@FindBy(xpath = "//div[@id='block_top_menu']//a[@title='Women']")
-	public static WebElement dresstype;
+	public  WebElement dresstype;
 
 	@FindBy(xpath = "//div[@id='uniform-selectProductSort']//select")
-	public static WebElement sortproduct;
+	public  WebElement sortproduct;
 
 	@FindBy(xpath = "//div[@class='product-container']//img[@title='Faded Short Sleeve T-shirts']")
-	public static WebElement chooseproduct;
+	public  WebElement chooseproduct;
 
 	@FindBy(xpath = "//iframe[@id='fancybox-frame1658215203142']")
-	public static WebElement frame;
+	public  WebElement frame;
 
 	@FindBy(id = "add_to_cart")
-	public static WebElement addcart;
+	public  WebElement addcart;
 
 	@FindBy(xpath = "//div[@class='button-container']//span[@title='Continue shopping']")
-	public static WebElement continueshopping;
+	public  WebElement continueshopping;
 
 	@FindBy(xpath = "//ul[@class='product_list grid row']//li[@class='ajax_block_product col-xs-12 col-sm-6 col-md-4 last-item-of-tablet-line']")
-	public static WebElement choosingproduct;
+	public  WebElement choosingproduct;
 
 	@FindBy(xpath = "//button[@name='Submit']")
-	public static WebElement addtocart;
+	public  WebElement addtocart;
 
 	@FindBy(xpath = "//span[@title='Continue shopping']")
-	public static WebElement continueshop;
+	public  WebElement continueshop;
 
 	@FindBy(xpath = "//a[@title='View my shopping cart']")
-	public static WebElement cart;
+	public  WebElement cart;
 
 	@FindBy(xpath = "//div[@class='button-container']//a[@title='Proceed to checkout']")
-	public static WebElement proceedtocheckout;
+	public  WebElement proceedtocheckout;
 
 	@FindBy(xpath = "//p[@class='cart_navigation clearfix']//a[@title='Proceed to checkout']")
-	public static WebElement summaryproceedtocheckout;
+	public  WebElement summaryproceedtocheckout;
 
 	@FindBy(xpath = "//p[@class='cart_navigation clearfix']//button[@name='processAddress']")
-	public static WebElement processaddress;
+	public  WebElement processaddress;
 
 	@FindBy(xpath = "//div[@class='checker']//input[@id='cgv']")
-	public static WebElement agreeshippingbox;
+	public  WebElement agreeshippingbox;
 
 	@FindBy(xpath = "//p[@class='cart_navigation clearfix']//button[@type='submit']")
-	public static WebElement processshipping;
+	public  WebElement processshipping;
 
 	@FindBy(xpath = "//div[@class='col-xs-12 col-md-6']//a[@title='Pay by bank wire']")
-	public static WebElement paybybankwire;
+	public  WebElement paybybankwire;
 
 	@FindBy(xpath = "//p[@id='cart_navigation']//button[@type='submit']")
-	public static WebElement confromorder;
+	public  WebElement confromorder;
 
 	@FindBy(xpath = "(//a[@title='Faded Short Sleeve T-shirts'])[2]")
-	public static WebElement namevalidation;
+	public  WebElement namevalidation;
 
 	@FindBy(xpath = "(//span[@class='price product-price'])[2]")
-	public static WebElement pricevalidation;
+	public  WebElement pricevalidation;
 
 	@FindBy(xpath = "//a[text()='Faded Short Sleeve T-shirts']")
-	public static WebElement cartvalidation;
+	public  WebElement cartvalidation;
 
 	@FindBy(xpath = "(//span[@class='price'])[5]")
-	public static WebElement cardpricevalidation;
+	public  WebElement cardpricevalidation;
 
 	@FindBy(xpath = "(//a[@title=\"Blouse\"])[2]")
-	public static WebElement nametwovalidation;
+	public  WebElement nametwovalidation;
 
 	@FindBy(xpath = "(//span[@class='price product-price'])[4]")
-	public static WebElement pricetwovalidation;
+	public  WebElement pricetwovalidation;
 
 	@FindBy(xpath = "(//a[text()='Blouse'])[2]")
-	public static WebElement cardtwovalidation;
+	public  WebElement cardtwovalidation;
 
 	@FindBy(xpath = "(//span[@class='price'])[8]")
-	public static WebElement cardprice2;
+	public  WebElement cardprice2;
 
 	@FindBy(xpath = "//strong[text()='Your order on My Store is complete.']")
-	public static WebElement completeorder;
+	public  WebElement completeorder;
 
 	@FindBy(xpath = "(//span[@class='address_name'])[1]")
-	public static WebElement addressname;
+	public  WebElement addressname;
 
 	@FindBy(xpath = "(//span[@class='address_company'])[1]")
-	public static WebElement addresscompany;
+	public  WebElement addresscompany;
 
 	@FindBy(xpath = "(//span[@class='address_address1'])[1]")
-	public static WebElement addressvalidation;
+	public  WebElement addressvalidation;
 
 	@FindBy(xpath = "(//span[@class='address_city'])[1]")
-	public static WebElement addresscity;
+	public  WebElement addresscity;
 
 	@FindBy(xpath = "//ul[@class='address first_item item box']//li[6]")
-	public static WebElement addressstate;
+	public  WebElement addressstate;
 
 	@FindBy(xpath = "(//span[@class='address_phone_mobile'])[1]")
-	public static WebElement addressmobilenumber;
+	public  WebElement addressmobilenumber;
 
 	@FindBy(xpath = "(//li[@class='address_firstname address_lastname'])[2]")
-	public static WebElement billingaddressname;
+	public  WebElement billingaddressname;
 
 	@FindBy(xpath = "(//li[@class='address_company'])[2]")
-	public static WebElement billingaddresscompany;
+	public  WebElement billingaddresscompany;
 
 	@FindBy(xpath = "(//li[@class='address_address1 address_address2'])[2]")
-	public static WebElement billingaddressvalidation;
+	public  WebElement billingaddressvalidation;
 
 	@FindBy(xpath = "(//li[@class='address_city address_state_name address_postcode'])[2]")
-	public static WebElement billingaddresscity;
+	public  WebElement billingaddresscity;
 
 	@FindBy(xpath = "(//li[@class='address_country_name'])[2]")
-	public static WebElement billingaddressstate;
+	public  WebElement billingaddressstate;
 
 	@FindBy(xpath = "(//li[@class='address_phone_mobile'])[2]")
-	public static WebElement billingaddressmobilenumber;
+	public  WebElement billingaddressmobilenumber;
 
 	@FindBy(xpath = "//span[@id=\"total_price\"]")
-	public static WebElement totalprice;
+	public  WebElement totalprice;
 
 	@FindBy(id = "total_price_container")
-	public static WebElement finalprice;
+	public  WebElement finalprice;
 
 	@FindBy(xpath = "//ul[@class='product_list grid row']//a[@class='product-name']")
 	List<WebElement> productname;
@@ -200,7 +192,7 @@ public class Orderpage extends CommonActionMethods {
 		selectByVisibleText(sortproduct, "Product Name: A to Z");
 		verifyProductName();
 		clickMethod(cart, "shopping cart");
-		nameValidation();
+		namevalidating();
 		priceValidation();
 		addressvalid();
 		clickMethod(summaryproceedtocheckout, "summaryproceedtocheckout");
@@ -219,8 +211,8 @@ public class Orderpage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	private void fadedShortValidation() throws Exception {
-		product1 = getTextElement(namevalidation, "product1");
-		price1 = getTextElement(pricevalidation, "price1");
+		CommonVariables.setProduct1(getTextElement(namevalidation, "product1")); 
+		CommonVariables.setPrice1(getTextElement(pricevalidation, "price1")); 
 	}
 
 	/**
@@ -228,19 +220,19 @@ public class Orderpage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	private void blouseValidation() throws Exception {
-		product2 = getTextElement(nametwovalidation, "product2");
-		price2 = getTextElement(pricetwovalidation, "price2");
+		CommonVariables.setProduct2(getTextElement(nametwovalidation, "product2")); 
+		CommonVariables.setPrice2(getTextElement(pricetwovalidation, "price2")); 
 	}
 
 	/**
 	 * @This method validate the product name and price
 	 * @throws Exception
 	 */
-	public void nameValidation() throws Exception {
-		checkEquality(product1, getTextElement(cartvalidation, "product1"));
-		checkEquality(price1, getTextElement(cardpricevalidation, "price1"));
-		checkEquality(product2, getTextElement(cardtwovalidation, "product2"));
-		checkEquality(price2, getTextElement(cardprice2, "price2"));
+	public void namevalidating() throws Exception {
+		checkEquality(CommonVariables.getProduct1(), getTextElement(cartvalidation, "product1"));
+		checkEquality(CommonVariables.getPrice1(), getTextElement(cardpricevalidation, "price1"));
+		checkEquality(CommonVariables.getProduct2(), getTextElement(cardtwovalidation, "product2"));
+		checkEquality(CommonVariables.getPrice2(), getTextElement(cardprice2, "price2"));
 	}
 
 	/**
@@ -249,12 +241,12 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	private void addressvalid() throws Exception {
-		address1 = getTextElement(addressname, "addressvalidation2");
-		address2 = getTextElement(addresscompany, "addressvalidation3");
-		address3 = getTextElement(addressvalidation, "addressvalidation4");
-		address4 = getTextElement( addresscity, "addressvalidation5");
-		address5 = getTextElement(addressstate, "addressvalidation6");
-		address6 = getTextElement(addressmobilenumber, "addressvalidation7");
+		CommonVariables.setAddress1(getTextElement(addressname, "addressvalidation2")); 
+		CommonVariables.setAddress2( getTextElement(addresscompany, "addressvalidation3")); 
+		CommonVariables.setAddress3(getTextElement(addressvalidation, "addressvalidation4"));
+		CommonVariables.setAddress4(getTextElement( addresscity, "addressvalidation5")); 
+		CommonVariables.setAddress5(getTextElement(addressstate, "addressvalidation6")); 
+		CommonVariables.setAddress6(getTextElement(addressmobilenumber, "addressvalidation7")); 
 	}
 
 	/**
@@ -263,12 +255,12 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	private void billingAddress() throws Exception {
-		checkEquality(address1, getTextElement(billingaddressname, "billing1"));
-		checkEquality(address2, getTextElement(billingaddresscompany, "billing2"));
-		checkEquality(address3, getTextElement(billingaddressvalidation, "billing3"));
-		checkEquality(address4, getTextElement(billingaddresscity, "billing4"));
-		checkEquality(address5, getTextElement(billingaddressstate, "billing5"));
-		checkEquality(address6, getTextElement(billingaddressmobilenumber, "billing6"));
+		checkEquality(CommonVariables.getAddress1(), getTextElement(billingaddressname, "billing1"));
+		checkEquality(CommonVariables.getAddress2(), getTextElement(billingaddresscompany, "billing2"));
+		checkEquality(CommonVariables.getAddress3(), getTextElement(billingaddressvalidation, "billing3"));
+		checkEquality(CommonVariables.getAddress4(), getTextElement(billingaddresscity, "billing4"));
+		checkEquality(CommonVariables.getAddress5(), getTextElement(billingaddressstate, "billing5"));
+		checkEquality(CommonVariables.getAddress6(), getTextElement(billingaddressmobilenumber, "billing6"));
 	}
 
 	/**
@@ -277,7 +269,7 @@ public class Orderpage extends CommonActionMethods {
 	 */
 
 	private void priceValidation() throws Exception {
-		totalprice1 = getTextElement(totalprice, "totalprice");
+		CommonVariables.setTotalprice1( getTextElement(totalprice, "totalprice")); 
 	}
 
 	/**
@@ -285,7 +277,7 @@ public class Orderpage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	private void totalPriceValidation() throws Exception {
-		checkEquality(totalprice1, getTextElement(finalprice, "totalprice2"));
+		checkEquality(CommonVariables.getTotalprice1(), getTextElement(finalprice, "totalprice2"));
 
 	}
 
@@ -314,21 +306,21 @@ public class Orderpage extends CommonActionMethods {
 	 * @This method for enter the valid mail address
 	 * @throws Exception
 	 */
-	public void mailAddress(String mail) throws Exception {
+	public void mailaddressed(String mail) throws Exception {
 		sendKeysMethod(mailaddress, mail);
 	}
 	/**
 	 * @This method for Clicking a submit button
 	 * @throws Exception
 	 */
-    public void submit() throws Exception {
+    public void submited() throws Exception {
 		clickMethod(submit,"submitbutton");
 	}
     /**
      * @This method for Clicking a dresstype button
      * @throws Exception
      */
-    public void dressType() throws Exception {
+    public void dresstypes() throws Exception {
     	clickMethod(dresstype, "dresstype");
 	}
     /**
@@ -343,7 +335,7 @@ public class Orderpage extends CommonActionMethods {
      * @This method for Clicking a product button
      * @throws Exception
      */
-    public void chooseProduct() throws Exception {
+    public void chooseproducts() throws Exception {
     	clickMethod(chooseproduct, "chooseproduct");
 
 	}
@@ -359,7 +351,7 @@ public class Orderpage extends CommonActionMethods {
      * @This method for Clicking a continue shopping button
      * @throws Exception
      */
-    public void continueShopping() throws Exception {
+    public void continueshoppings() throws Exception {
 		defaultwindow();
 		webWait(continueshopping);
     	clickMethod(continueshopping, "continueshopping");
@@ -392,7 +384,7 @@ public class Orderpage extends CommonActionMethods {
      * @This method for Clicking a continue shopping button
      * @throws Exception
      */
-    public void continueshop() throws Exception {
+    public void continueshoping() throws Exception {
     	defaultwindow();
     	clickMethod(continueshop, "continueshop");
 	}
@@ -416,7 +408,7 @@ public class Orderpage extends CommonActionMethods {
      * @throws Exception
      */
     public void totalNameValidation() throws Exception {
-    	nameValidation();
+    	namevalidating();
 	}
     /**
      * @This method validate a productPrice
@@ -429,14 +421,14 @@ public class Orderpage extends CommonActionMethods {
       * @This method validate a address
       * @throws Exception
       */
-     public void addressValid() throws Exception {
+     public void addressvalidations() throws Exception {
     	 addressvalid();
 	}
      /**
       * @This method for Clicking a summaryProceedtoCheckout button
       * @throws Exception
       */
-     public void summaryProceedtoCheckout() throws Exception {
+     public void summaryproceedcheckout() throws Exception {
     	 clickMethod(summaryproceedtocheckout, "summaryproceedtocheckout");
 	}
      /**
@@ -450,21 +442,21 @@ public class Orderpage extends CommonActionMethods {
       * @This method for Clicking a processAddress button
       * @throws Exception
       */
-    public void processAddress() throws Exception {
+    public void processaddressed() throws Exception {
     	clickMethod(processaddress, "processaddress");	
 	}
     /**
      * @This method for Clicking a agreeShippingBox button
      * @throws Exception
      */
-    public void agreeShippingBox() throws Exception {
+    public void agreeshippingboxs() throws Exception {
     	clickMethod(agreeshippingbox, "agreeshippingbox");
 	}
     /**
      * @This method for Clicking a processShipping button
      * @throws Exception
      */
-    public void processShipping() throws Exception {
+    public void processshippings() throws Exception {
 		clickMethod(processshipping, "processshipping");
 	}
     /**
@@ -478,21 +470,21 @@ public class Orderpage extends CommonActionMethods {
 	 * @This method for Clicking a payByBankWire button
 	 * @throws Exception
 	 */
-    public void payByBankWire() throws Exception {
+    public void paybybankwires() throws Exception {
     	clickMethod(paybybankwire, "paybybankwire");
 	}
     /**
      * @This method for Clicking a confromOrder button
      * @throws Exception
      */
-    public void confromOrder() throws Exception {
+    public void confromordered() throws Exception {
 		clickMethod(confromorder, "confromorder");
 	}
     /**
      * @This method validate a completeorder screen will be displayed or not
      * @throws Exception
      */
-    public void completeorder() throws Exception {
+    public void completeordered() throws Exception {
 		isDisplayed(completeorder, "completeorder");
 	}
 }

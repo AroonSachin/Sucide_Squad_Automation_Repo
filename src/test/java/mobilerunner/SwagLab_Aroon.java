@@ -53,8 +53,6 @@ public class SwagLab_Aroon extends CommonActionMethods {
 		invokeServer();
 		ScreenRecorderUtil.startRecord("PhpTravels");
 		extentReports("SwaglabMobile.html");
-		
-		Thread.sleep(2000);
 		PropertyConfigurator.configure(configFilename);
 		UiAutomator2Options opt = new UiAutomator2Options()
 				.setApp("D:\\Mobile Automation\\APK\\Android.SauceLabs.Mobile.Sample.app.2.7.1.apk")

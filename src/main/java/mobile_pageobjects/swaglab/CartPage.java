@@ -5,6 +5,7 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 /**
  * @Class To Validate the products in the cart and click on checkout button.
@@ -43,11 +44,11 @@ public class CartPage extends CommonActionMethods {
 	 */
 	public void productValidation() throws Exception {
 		webWait(product1Head);
-		checkEquality(Products_Page.product1Name, getTextElement(product1Head, " Product 1 heading "));
-		checkEquality(Products_Page.product2Name, getTextElement(product2Head, " Product 2 heading "));
-		checkEquality(Double.valueOf(getTextElement(cartProd1Price, " Product 1 price ").replace("$","")), Products_Page.product1Pricevalue);
+		checkEquality(CommonVariables.getProduct1Name(), getTextElement(product1Head, " Product 1 heading "));
+		checkEquality(CommonVariables.getProduct2Name(), getTextElement(product2Head, " Product 2 heading "));
+		checkEquality(Double.valueOf(getTextElement(cartProd1Price, " Product 1 price ").replace("$","")), CommonVariables.getProduct1Pricevalue());
 		swipeUpToElement(cartProd2Price, " Product 2 ", null, null);
-		checkEquality(Double.valueOf(getTextElement(cartProd2Price, " Product 2 price ").replace("$","")), Products_Page.product2Pricevalue);
+		checkEquality(Double.valueOf(getTextElement(cartProd2Price, " Product 2 price ").replace("$","")), CommonVariables.getProduct2Pricevalue());
 		Thread.sleep(2000);
 		swipeUp();
 		logMessage(" Element not in view, Scrolling up ");

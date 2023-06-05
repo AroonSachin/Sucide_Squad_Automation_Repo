@@ -102,9 +102,9 @@ public class Swaglab extends CommonActionMethods {
 	public void logStatus() throws Exception {
 		if (status.get() != null) {
 			if (status.get()) {
-				ExcelReader.xlWriteStatus("database.xlsx", "Test", "Pass");
+				ExcelReader.xlWriteStatus("database.xlsx", "Pass");
 			} else {
-				ExcelReader.xlWriteStatus("database.xlsx", "Test", "Fail");
+				ExcelReader.xlWriteStatus("database.xlsx", "Fail");
 			}
 		}
 		if (DriverFactory.getDriver() != null) {

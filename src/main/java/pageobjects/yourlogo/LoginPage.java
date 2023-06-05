@@ -18,67 +18,67 @@ import utils.DriverFactory;
  */
 public class LoginPage extends CommonActionMethods {
 	@FindBy(xpath = "//div[@class='header_user_info']//a[@title='Log in to your customer account']")
-	public static WebElement signin;
+	public  WebElement signin;
 
 	@FindBy(id = "email_create")
-	public static WebElement emailaddress;
+	public  WebElement emailaddress;
 
 	@FindBy(id = "SubmitCreate")
-	public static WebElement submitbutton;
+	public  WebElement submitbutton;
 
 	@FindBy(xpath = "//label[@for='id_gender1']")
-	public static WebElement selectgender;
+	public  WebElement selectgender;
 
 	@FindBy(id = "customer_firstname")
-	public static WebElement firstname;
+	public  WebElement firstname;
 
 	@FindBy(id = "customer_lastname")
-	public static WebElement lastname;
+	public  WebElement lastname;
 
 	@FindBy(id = "email")
-	public static WebElement email;
+	public  WebElement email;
 
 	@FindBy(id = "passwd")
-	public static WebElement password;
+	public  WebElement password;
 
 	@FindBy(xpath = "//div[@class='col-xs-4']//select[@id='days']")
-	public static WebElement birthdate;
+	public  WebElement birthdate;
 
 	@FindBy(xpath = "//div[@id='uniform-months']//select[@id='months']")
-	public static WebElement birthmonth;
+	public  WebElement birthmonth;
 
 	@FindBy(id = "years")
-	public static WebElement birthyear;
+	public  WebElement birthyear;
 
 	@FindBy(id = "firstname")
-	public static WebElement addressfirstname;
+	public  WebElement addressfirstname;
 
 	@FindBy(id = "lastname")
-	public static WebElement addresslastname;
+	public  WebElement addresslastname;
 
 	@FindBy(id = "company")
-	public static WebElement companyname;
+	public  WebElement companyname;
 
 	@FindBy(id = "address1")
-	public static WebElement address;
+	public  WebElement address;
 
 	@FindBy(id = "city")
-	public static WebElement cityname;
+	public  WebElement cityname;
 
 	@FindBy(id = "id_state")
-	public static WebElement statename;
+	public  WebElement statename;
 
 	@FindBy(id = "postcode")
-	public static WebElement postalcode;
+	public  WebElement postalcode;
 
 	@FindBy(id = "id_country")
-	public static WebElement countryname;
+	public  WebElement countryname;
 
 	@FindBy(id = "phone_mobile")
-	public static WebElement phonenumber;
+	public  WebElement phonenumber;
 
 	@FindBy(id = "submitAccount")
-	public static WebElement registerbutton;
+	public  WebElement registerbutton;
 
 	public LoginPage() {
 
@@ -95,8 +95,8 @@ public class LoginPage extends CommonActionMethods {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("ssSS");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
+		
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class LoginPage extends CommonActionMethods {
 	 * @This method for enter the valid mail address
 	 * @throws Exception
 	 */
-	public void email() throws Exception {
+	public void emailed() throws Exception {
 		String mail = "venkatesh22+" + mail() + "@gmail.com";
 		sendKeysMethod(emailaddress, mail);
 	}
@@ -167,7 +167,7 @@ public class LoginPage extends CommonActionMethods {
 	 * @param firstName
 	 * @throws Exception
 	 */
-	public void firstName(String firstName) throws Exception {
+	public void firstnaming(String firstName) throws Exception {
 		sendKeysMethod(firstname, firstName);
 
 	}
@@ -175,8 +175,8 @@ public class LoginPage extends CommonActionMethods {
 	 * @This method for entered the last name 
 	 * @throws Exception
 	 */
-	public void lastName(String LastName) throws Exception {
-		sendKeysMethod(lastname, LastName);
+	public void lastnaming(String lastName) throws Exception {
+		sendKeysMethod(lastname, lastName);
 	}
 	/**
 	 * @This method for clicking a emailcheckbox
@@ -190,7 +190,7 @@ public class LoginPage extends CommonActionMethods {
 	 * @param passWord
 	 * @throws Exception
 	 */
-	public void passWord(String passWord) throws Exception {
+	public void passwords(String passWord) throws Exception {
 		sendKeysMethod(password, passWord);
 
 	}
@@ -202,23 +202,23 @@ public class LoginPage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void dateOfBirth(String date) throws Exception {
-		String[] DOB=splitString(date, "/");
-		selectByValue(birthdate,DOB[0]);
-		selectByValue(birthmonth, DOB[1] );
-		selectByValue(birthyear, DOB[2] );
+		String[] dob=splitString(date, "/");
+		selectByValue(birthdate,dob[0]);
+		selectByValue(birthmonth, dob[1] );
+		selectByValue(birthyear, dob[2] );
 	}
 	/**
 	 * @This method for clicking a address firstname
 	 * @throws Exception
 	 */
-	public void addressfirstname() throws Exception {
+	public void addressfirstnamed() throws Exception {
 		clickMethod(addressfirstname, "addressfirstname");
 	}
 	/**
 	 * @This method for clicking a address lastname
 	 * @throws Exception
 	 */
-	public void addresslastname() throws Exception {
+	public void addresslastnamed() throws Exception {
 		clickMethod(addresslastname, "addresslastname");
 	}
 	/**
@@ -226,7 +226,7 @@ public class LoginPage extends CommonActionMethods {
 	 * @param companyName
 	 * @throws Exception
 	 */
-	public void companyName(String companyName) throws Exception {
+	public void companynames(String companyName) throws Exception {
 		sendKeysMethod(companyname, companyName);
 	}
 	/**
@@ -234,15 +234,15 @@ public class LoginPage extends CommonActionMethods {
 	 * @param Address
 	 * @throws Exception
 	 */
-	public void address(String Address) throws Exception {
-		sendKeysMethod(address,Address );
+	public void addresses(String addresses) throws Exception {
+		sendKeysMethod(address,addresses );
 	}
 	/**
 	 * @This method for entered the cityname
 	 * @param cityName
 	 * @throws Exception
 	 */
-	public void cityName(String cityName) throws Exception {
+	public void citynames(String cityName) throws Exception {
 		sendKeysMethod(cityname,cityName );
 	}
 	/**
@@ -250,7 +250,7 @@ public class LoginPage extends CommonActionMethods {
 	 * @param stateName
 	 * @throws Exception
 	 */
-	public void stateName(String stateName ) throws Exception {
+	public void statenames(String stateName ) throws Exception {
 		selectByValue(statename, stateName);
 	}
 	/**
@@ -258,14 +258,14 @@ public class LoginPage extends CommonActionMethods {
 	 * @param postalCode
 	 * @throws Exception
 	 */
-	public void postalCode(String postalCode) throws Exception {
+	public void postalcodes(String postalCode) throws Exception {
 		sendKeysMethod(postalcode, postalCode);
 	}
 	/**
 	 * @This method for clicking a country name
 	 * @throws Exception
 	 */
-	public void countryName() throws Exception {
+	public void countrynames() throws Exception {
 		clickMethod(countryname, "countryname");
 		
 	}
@@ -274,14 +274,14 @@ public class LoginPage extends CommonActionMethods {
 	 * @param phoneNumber
 	 * @throws Exception
 	 */
-	public void phoneNumber(String phoneNumber) throws Exception {
+	public void phonenumbers(String phoneNumber) throws Exception {
 		sendKeysMethod(phonenumber, phoneNumber);
 	}
 	/**
 	 * @This method for clicking a register button
 	 * @throws Exception
 	 */
-	public void registerButton() throws Exception {
+	public void registerbuttons() throws Exception {
 		clickMethod(registerbutton, "registerbutton");
 	}
 	}

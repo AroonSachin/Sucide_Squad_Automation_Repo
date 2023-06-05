@@ -8,7 +8,7 @@ import commonuseractions.CommonActionMethods;
 import jqueryautomation.venkatesh.JQueryTest;
 import utils.DriverFactory;
 
-public class Venkatesh extends CommonActionMethods {
+public class Runner extends CommonActionMethods {
 
 	@BeforeMethod
 	public void browser() throws Exception {
@@ -23,12 +23,12 @@ public class Venkatesh extends CommonActionMethods {
 
 	@Test
 	private void drop() throws Exception {
-		new JQueryTest().droppable();
+		new JQueryTest().droppables();
 	}
 
 	@Test
 	private void resize() throws Exception {
-		new JQueryTest().resize();
+		new JQueryTest().resizes();
 	}
 
 	@Test
@@ -49,72 +49,72 @@ public class Venkatesh extends CommonActionMethods {
 
 	@Test
 	private void autoComplete() throws Exception {
-		new JQueryTest().autocomplete();
+		new JQueryTest().autocompletes();
 	}
 
 	@Test
 	private void button() throws Exception {
-		new JQueryTest().button();
+		new JQueryTest().buttons();
 	}
 
 	@Test
 	private void Checkboxradio() throws Exception {
-		new JQueryTest().checkBoxRadio();
+		new JQueryTest().checkBoxRadios();
 
 	}
 
 	@Test
 	private void controlGroup() throws Exception {
-		new JQueryTest().controlgroup();
+		new JQueryTest().controlgroups();
 	}
 
 	@Test
 	private void diaLog() throws Exception {
-		new JQueryTest().dialog();
+		new JQueryTest().dialogs();
 	}
 
 	@Test
 	private void menu() throws Exception {
-		new JQueryTest().menu();
+		new JQueryTest().menus();
 
 	}
 
 	@Test
 	private void progressBar() throws Exception {
-		new JQueryTest().progressbar();
+		new JQueryTest().progressbars();
 	}
 
 	@Test
 	private void datePicker() throws Exception {
-		new JQueryTest().datepicker();
+		new JQueryTest().datepickeres();
 
 	}
 
 	@Test
 	private void selectMenu() throws Exception {
-		new JQueryTest().selectMenu();
+		new JQueryTest().selectMenus();
 	}
 
 	@Test
 	private void slider() throws Exception {
-		new JQueryTest().slider();
+		new JQueryTest().sliders();
 
 	}
 
 	@Test
 	private void spinner() throws Exception {
-		new JQueryTest().spinner();
+		new JQueryTest().spinneres();
 	}
 
 	@Test
 	private void tabs() throws Exception {
-		new JQueryTest().tabs();
+		new JQueryTest().tabed();
 
 	}
 
 	@Test
 	private void toolTip() throws Exception {
-		new JQueryTest().toolTip();
+		new JQueryTest().toolTips();
 	}
 
 	@Test
@@ -125,13 +125,13 @@ public class Venkatesh extends CommonActionMethods {
 
 	@Test
 	private void position() throws Exception {
-		new JQueryTest().position();
+		new JQueryTest().positions();
 
 	}
 
 	@Test
 	public void widgetFactory() throws Exception {
-		new JQueryTest().widgetFactory();
+		new JQueryTest().widgetFactories();
 
 	}
 

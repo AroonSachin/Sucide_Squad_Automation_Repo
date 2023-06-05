@@ -4,12 +4,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class LoginPage extends CommonActionMethods {
 
-	public static String dollar = null;
 
 	@AndroidFindBy(id = "android:id/button1")
 	@CacheLookup
@@ -47,7 +47,7 @@ public class LoginPage extends CommonActionMethods {
 		sendKeysMethod(pass, getdata("Password"));
 		clickMethod(sigin, "sigin");
 		webWait(totalamount);
-		dollar = getTextElement(totalamount, "totalamount").replace("Your balance is: ", "").replace("$", "");
+		CommonVariables.setDollar(getTextElement(totalamount, "totalamount").replace("Your balance is: ", "").replace("$", "")); 
 		clickMethod(makepayment, "makepayment");
 
 	}

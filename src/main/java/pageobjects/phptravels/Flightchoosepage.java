@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
 
@@ -87,8 +88,7 @@ public class Flightchoosepage extends CommonActionMethods {
 		cal.add(7, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("dd/MMM/yyyy");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
 	}
 
 	/**
@@ -154,26 +154,22 @@ public class Flightchoosepage extends CommonActionMethods {
 		String rtrnto = rtrntoarr[0];
 		String dateval = datearr[0];
 		String mnthval = datearr[1];
-		String actldayval =  Homepage.departureDate;
-		String actlmnthval = Homepage.departureMonth;
-		String rtrndayval = rtrndatearr[0];
+		String actldayval =  CommonVariables.getDepartureDate();
+		String actlmnthval = CommonVariables.getDepartureMonth();
 		String rtrnmnthval = rtrndatearr[1];
-		String rtrnactldayval = Homepage.returndepartureDate;
-		String rtrnactlmnthval = Homepage.returndepartureMonth;
+		String rtrnactlmnthval = CommonVariables.getReturndepartureMonth();
 		if (!tripType.equalsIgnoreCase("round trip")) {
-			checkEquality(frm, Homepage.fromCity);
-			checkEquality(to, Homepage.toCity.replace("Mc ", ""));
+			checkEquality(frm, CommonVariables.getFromCity());
+			checkEquality(to, CommonVariables.getToCity().replace("Mc ", ""));
 			checkEquality(dateval, actldayval);
 			checkEquality(mnthval, actlmnthval.substring(1, 3));
 		} else {
-			checkEquality(frm, Homepage.fromCity);
-			checkEquality(to, Homepage.toCity.replace("Mc ", ""));
-			checkEquality(rtrnfrm, Homepage.toCity.replace("Mc ", ""));
-			checkEquality(rtrnto, Homepage.fromCity);
-//			checkEquality(dateval, actldayval);
+			checkEquality(frm, CommonVariables.getFromCity());
+			checkEquality(to, CommonVariables.getToCity().replace("Mc ", ""));
+			checkEquality(rtrnfrm, CommonVariables.getToCity().replace("Mc ", ""));
+			checkEquality(rtrnto, CommonVariables.getFromCity());
 			checkEquality(mnthval, actlmnthval.substring(1, 3));
 			checkEquality(rtrnmnthval, rtrnactlmnthval.substring(1, 3));
-//			checkEquality(rtrndayval.replace("0",""), rtrnactldayval);
 		}
 	}
 }

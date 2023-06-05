@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 
 /**
  * @Class To Validate Product name , price and Total price then click on finnish button. 
@@ -56,13 +57,13 @@ public class OverViewPage extends CommonActionMethods {
 	 */
 	public void overViewValidation() throws Exception {
 		webWait(product1Description);
-		checkEquality(Products_Page.product1Name, getTextElement(product1Description, " Product 1 heading "));
-		checkEquality(Products_Page.product2Name, getTextElement(product2Description, " Product 2 heading "));
-		checkEquality(Double.valueOf(getTextElement(cartProd1Price, " Product 1 price ").replace("$","")), Products_Page.product1Pricevalue);
+		checkEquality(CommonVariables.getProduct1Name(), getTextElement(product1Description, " Product 1 heading "));
+		checkEquality(CommonVariables.getProduct2Name(), getTextElement(product2Description, " Product 2 heading "));
+		checkEquality(Double.valueOf(getTextElement(cartProd1Price, " Product 1 price ").replace("$","")), CommonVariables.getProduct1Pricevalue());
 		swipeUpToElement(cartProd2Price, " Product 2 ", null, null);
-		checkEquality(Double.valueOf(getTextElement(cartProd2Price, " Product 2 price ").replace("$","")), Products_Page.product2Pricevalue);
+		checkEquality(Double.valueOf(getTextElement(cartProd2Price, " Product 2 price ").replace("$","")), CommonVariables.getProduct2Pricevalue());
 		swipeUpToElement(itemTotal, " Ite total ", null, null);
-		checkEquality(Double.valueOf(getTextElement(itemTotal, " Item total ").replace("Item total: $", "")), (Products_Page.product1Pricevalue+Products_Page.product2Pricevalue));
+		checkEquality(Double.valueOf(getTextElement(itemTotal, " Item total ").replace("Item total: $", "")), (CommonVariables.getProduct1Pricevalue()+CommonVariables.getProduct2Pricevalue()));
 		checkEquality((Double.valueOf(getTextElement(tax, " Tax ").replace("Tax: $", ""))+Double.valueOf(getTextElement(itemTotal, " Item total ").replace("Item total: $", ""))), Double.valueOf(getTextElement(totalPrice, " Item total ").replace("Total: $", "")));
 		swipeUp();
 		swipeUpToElement(finishButton, "Finish button ", "click","");

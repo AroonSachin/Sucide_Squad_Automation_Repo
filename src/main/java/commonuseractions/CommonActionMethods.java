@@ -31,6 +31,8 @@ import org.openqa.selenium.interactions.PointerInput.Origin;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -53,13 +55,13 @@ public class CommonActionMethods extends TestListner {
 	protected static ThreadLocal<String> url = new ThreadLocal<>();
 	protected static String testName = null;
 	protected static ExtentReports extentreport;
-	protected static ExtentHtmlReporter HtmlReporter;
+	protected static ExtentHtmlReporter htmlreporter;
 	protected static ExtentTest testcase;
 	protected static String configFilename = "log4j.properties";
 	protected static Logger log = LogManager.getLogger(CommonActionMethods.class);
-	public static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
-		Map<String, String> map = new HashMap<>();
-		return map;
+	protected static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
+		 return new HashMap<>();
+		
 	});
 
 	public static Map<String, String> getInputData() {
@@ -82,9 +84,9 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static void extentReports(String name) {
 		extentreport = new ExtentReports();
-		HtmlReporter = new ExtentHtmlReporter(name);
-		HtmlReporter.config().setTheme(Theme.DARK);
-		extentreport.attachReporter(HtmlReporter);
+		htmlreporter = new ExtentHtmlReporter(name);
+		htmlreporter.config().setTheme(Theme.DARK);
+		extentreport.attachReporter(htmlreporter);
 	}
 
 	/**
@@ -105,21 +107,21 @@ public class CommonActionMethods extends TestListner {
 	 * @param MessageStopExecution -string value about the action being performed
 	 * @throws Exception
 	 */
-	public synchronized static void logErrorMessage(String MessageStopExecution) throws Exception {
-		log.error(MessageStopExecution);
+	public static synchronized  void logErrorMessage(String messagestopexecution) throws Exception {
+		log.error(messagestopexecution);
 		String shot = takeSnapShot();
 		if (invokeMail) {
 			FailedScreenShotdestination.set(shot);
-			scenarioComments.set(MessageStopExecution);
+			scenarioComments.set(messagestopexecution);
 			scenarioDescription.set(getdata("Scenario"));
 			scenarioNo.set(getdata("Number"));
 			scenarioStatus.set("Failed");
 		}
 		if (extentreport != null) {
-			testcase.log(Status.FAIL, MessageStopExecution);
+			testcase.log(Status.FAIL, messagestopexecution);
 			testcase.addScreenCaptureFromPath(shot);
 		}
-		throw new RuntimeException(MessageStopExecution);
+		throw new RuntimeException(messagestopexecution);
 	}
 	
 	/**
@@ -361,15 +363,9 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isDisplayed(WebElement element, String elementname) throws Exception {
-		try {
-			if (element.isDisplayed()) {
-				logMessage(elementname + " is displayed ");
-			} else {
-				logErrorMessage(elementname + " is not displayed in else block ");
-			}
-		} catch (Exception e) {
-			logErrorMessage(elementname + " is not displayed in catch block ");
-		}
+
+		Assert.assertTrue(element.isDisplayed(), elementname + " is not displayed in catch block ");
+		logMessage(elementname + " is displayed ");
 	}
 
 	/**
@@ -380,11 +376,9 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isSelected(WebElement element, String elementname) throws Exception {
-		if (element.isSelected()) {
-			logMessage(elementname + " is selected");
-		} else {
-			logErrorMessage(elementname + " is not selected ");
-		}
+
+		Assert.assertTrue(element.isSelected(), elementname + " is not selected ");
+		logMessage(elementname + " is selected");
 	}
 
 	/**
@@ -394,15 +388,9 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isEnabled(WebElement element, String elementname) throws Exception {
-		try {
-			if (element.isEnabled()) {
-				logMessage(elementname + " is enabled ");
-			} else {
-				logErrorMessage(elementname + " is not enabled in else block ");
-			}
-		} catch (Exception e) {
-			logErrorMessage(elementname + " is not enabled in catch block ");
-		}
+		Assert.assertTrue(element.isEnabled(), elementname + " is not enabled in catch block ");
+		logMessage(elementname + " is enabled ");
+
 	}
 
 	/**
@@ -413,16 +401,17 @@ public class CommonActionMethods extends TestListner {
 	 * @param obj2name-string value about the action being performed
 	 * @throws Exception
 	 */
+
 	public static void checkEquality(Object intial, Object end) throws Exception {
-		if (String.valueOf(intial).trim().toLowerCase().contains(String.valueOf(end).trim().toLowerCase())) {
-			logMessage(intial + " & " + end + " is equal");
-		} else {
-			logErrorMessage(intial + " & " + end + " is not equal");
-		}
+
+		Assert.assertTrue(
+				String.valueOf(intial).trim().toLowerCase().contains(String.valueOf(end).trim().toLowerCase()),
+				intial + " & " + end + " is not equal");
+		logMessage(intial + " & " + end + " is equal");
 	}
 
 	/**
-	 * This method for getting the data from the hash map and returns the value
+	 * @This method for getting the data from the hash map and returns the value
 	 *
 	 * @param Name It is the name of the column
 	 * @return
@@ -471,8 +460,8 @@ public class CommonActionMethods extends TestListner {
 	 * @return
 	 */
 	public static String[] splitString(String data, String symbol) {
-		String ar[] = data.split(symbol);
-		return ar;
+
+		return data.split(symbol);
 	}
 
 	public static void scrollToElement(WebElement ele) {
@@ -630,7 +619,7 @@ public class CommonActionMethods extends TestListner {
 			jsonObj = restConvertTextAsJson(jsonString);
 			jsonItr = jsonObj.keys();
 			while (jsonItr.hasNext()) {
-				String keyvalue = jsonItr.next().toString();
+				String keyvalue = jsonItr.next();
 				if (keyvalue.equals(matchKey)) {
 					jsonString = jsonObj.get(keyvalue).toString();
 					flag = false;
@@ -658,8 +647,7 @@ public class CommonActionMethods extends TestListner {
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern(format);
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
 	}
 
 	/**
@@ -682,14 +670,14 @@ public class CommonActionMethods extends TestListner {
 		String previousSource = null;
 		while (!endPage) {
 			Thread.sleep(1000);
-			if (isElementPresent(element) == false) {
+			if (!isElementPresent(element)) {
 				previousSource = appDriver.getPageSource();
-				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeUpToElement");
 				Sequence swipeUp = new Sequence(finger, 1);
 				swipeUp.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 						windowSize.height / 2)).addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.width / 2, windowSize.height / 2 - windowSize.height / 2))
+								windowSize.width / 2, 0))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeUp));
 				logMessage(" Element not in view, Scrolling up ");
@@ -698,7 +686,7 @@ public class CommonActionMethods extends TestListner {
 					logErrorMessage(" Element not found ");
 					break;
 				}
-			} else if (isElementPresent(element) == true) {
+			} else if (isElementPresent(element)) {
 				if (action != null) {
 					switch (action) {
 					case "click":
@@ -717,7 +705,10 @@ public class CommonActionMethods extends TestListner {
 				}
 				break;
 			}
-			endPage = previousSource.equals(appDriver.getPageSource());
+				if (previousSource != null) {
+					endPage = previousSource.equals(appDriver.getPageSource());
+				}
+			
 		}
 		if (endPage) {
 			logErrorMessage("Element not found in the page");
@@ -734,7 +725,7 @@ public class CommonActionMethods extends TestListner {
 		boolean flag = true;
 		try {
 
-			logMessage(" presence of Element is " + String.valueOf(element.isDisplayed()));
+			logMessage(" presence of Element is " + (element.isDisplayed()));
 		} catch (Exception e) {
 			flag = false;
 		}
@@ -761,16 +752,16 @@ public class CommonActionMethods extends TestListner {
 		boolean endPage = false;
 		String previousSource = null;
 		while (!endPage) {
-			if (isElementPresent(element) == false) {
+			if (!isElementPresent(element)) {
 				previousSource = appDriver.getPageSource();
-				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeDownToElement");
 				Sequence swipeDown = new Sequence(finger, 1);
 				swipeDown
 						.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
 								windowSize.height / 2))
 						.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
 						.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(),
-								windowSize.width / 2, windowSize.height / 2 + windowSize.height / 2))
+								windowSize.width / 2, windowSize.height / 2 + (windowSize.height / 2)))
 						.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 				appDriver.perform(Arrays.asList(swipeDown));
 				logMessage(" Element not in view, Scrolling up ");
@@ -779,7 +770,7 @@ public class CommonActionMethods extends TestListner {
 					logErrorMessage(" Element not found ");
 					break;
 				}
-			} else if (isElementPresent(element) == true) {
+			} else if (isElementPresent(element)) {
 				if (action != null) {
 					switch (action) {
 					case "click":
@@ -798,7 +789,10 @@ public class CommonActionMethods extends TestListner {
 				}
 				break;
 			}
-			endPage = previousSource.equals(appDriver.getPageSource());
+				if (previousSource != null) {
+					endPage = previousSource.equals(appDriver.getPageSource());
+				}
+			
 		}
 		if (endPage) {
 			logErrorMessage("Element not found in the page");
@@ -811,13 +805,12 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public void swipeUp() {
 		Dimension windowSize = appDriver.manage().window().getSize();
-		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeUp");
 		Sequence swipeUp = new Sequence(finger, 1);
 		swipeUp.addAction(
 				finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2, windowSize.height / 2))
 				.addAction(finger.createPointerDown(MouseButton.LEFT.asArg()))
-				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(), windowSize.width / 2,
-						windowSize.height / 2 - windowSize.height / 2))
+				.addAction(finger.createPointerMove(Duration.ofMillis(700), Origin.viewport(), windowSize.width / 2, 0))
 				.addAction(finger.createPointerUp(MouseButton.LEFT.asArg()));
 		appDriver.perform(Arrays.asList(swipeUp));
 		logMessage("Swiped up");
@@ -828,7 +821,7 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public void swipeDown() {
 		Dimension windowSize = appDriver.manage().window().getSize();
-		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+		PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeDown");
 		Sequence swipeDown = new Sequence(finger, 1);
 		swipeDown
 				.addAction(finger.createPointerMove(Duration.ZERO, Origin.viewport(), windowSize.width / 2,
@@ -870,8 +863,8 @@ public class CommonActionMethods extends TestListner {
 			String leftpreviousSource = null;
 			while (!leftendPage) {
 				leftpreviousSource = appDriver.getPageSource();
-				if (isElementPresent(endElement)) {
-					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				if (!isElementPresent(endElement)) {
+					PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeHorizontal");
 					Sequence swipeLeft = new Sequence(finger1, 1);
 					swipeLeft
 							.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
@@ -885,7 +878,7 @@ public class CommonActionMethods extends TestListner {
 						logErrorMessage(" Element not found ");
 						break;
 					}
-				} else if (isElementPresent(endElement) == true) {
+				} else if (isElementPresent(endElement)) {
 					if (action != null) {
 						switch (action) {
 						case "click":
@@ -915,7 +908,7 @@ public class CommonActionMethods extends TestListner {
 			String rightpreviousSource = null;
 			while (!rightendPage) {
 				rightpreviousSource = appDriver.getPageSource();
-				if (isElementPresent(endElement)) {
+				if (!isElementPresent(endElement)) {
 					PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 					Sequence swipeRight = new Sequence(finger2, 1);
 					swipeRight
@@ -931,7 +924,7 @@ public class CommonActionMethods extends TestListner {
 						logErrorMessage(" Element not found ");
 						break;
 					}
-				} else if (isElementPresent(endElement) == true) {
+				} else if (isElementPresent(endElement)) {
 					if (action != null) {
 						switch (action) {
 						case "click":
@@ -966,13 +959,11 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public void swipeElement(WebElement ele, String swipedirection) throws Exception {
-		if (isElementPresent(ele)) {
-			Dimension windowSize = appDriver.manage().window().getSize();
+		if (!isElementPresent(ele)) {
 			Point elementLocation = ele.getLocation();
 			switch (swipedirection) {
 			case "Left":
-				System.out.println(elementLocation);
-				PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+				PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "fingerswipeElement");
 				Sequence swipeLeft = new Sequence(finger1, 1);
 				swipeLeft
 						.addAction(finger1.createPointerMove(Duration.ZERO, Origin.viewport(), elementLocation.x,
@@ -984,7 +975,6 @@ public class CommonActionMethods extends TestListner {
 				break;
 
 			case "Right":
-				System.out.println(elementLocation);
 				PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 				Sequence swipeRight = new Sequence(finger2, 1);
 				swipeRight
