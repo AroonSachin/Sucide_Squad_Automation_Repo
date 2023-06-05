@@ -8,15 +8,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-
-import com.github.javafaker.Country;
 import com.github.javafaker.Faker;
-import com.github.javafaker.IdNumber;
-import com.github.javafaker.PhoneNumber;
-
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import io.qameta.allure.Step;
-import net.bytebuddy.agent.builder.AgentBuilder.FallbackStrategy.Simple;
 import utils.DriverFactory;
 
 /**
@@ -30,9 +25,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	String adltNO="";
 	String chldNO="";
 	String infNO="";
-	static Double adltpreprz =0.0;
-	static Double chldpreprz =0.0;
-	static Double inftpreprz=0.0;
+	
 	Double totalprz =0.0;
 	Faker fake = new Faker(new Locale("en-IN"));
 
@@ -105,7 +98,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	@Step("To input title of every passenger")
 	public void title() throws Exception {
 		int titleitrt = 1;
-		String titlearr[] = splitString(getdata("paxtitle"),",");
+		String[] titlearr = splitString(getdata("paxtitle"),",");
 		for (String title : titlearr) {
 			WebElement Title = DriverFactory.getDriver()
 					.findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='title_" + titleitrt + "']"));
@@ -231,7 +224,6 @@ public class Paxdetailspage extends CommonActionMethods {
 	 */
 	@Step("To input Passport expiry year of every passenger")
 	public void pedYear() throws Exception {
-		SimpleDateFormat smp = new SimpleDateFormat("YYYY");
 		int pedyearitrt = 1;
 		for(int i = 1;i<=totPAX;i++) {
 			WebElement ele = DriverFactory.getDriver().findElement(By.xpath("(//div[@class='card-body'])[1]//select[@name='passport_year_"+pedyearitrt+"']"));
@@ -367,9 +359,9 @@ public class Paxdetailspage extends CommonActionMethods {
 		String[] Cprz= splitString(chldprz," ");
 		String[] Iprz= splitString(inftprz," ");
 		String[] totprz = splitString(getTextElement(totlprice, "Total price"), " ");
-		adltpreprz = Double.valueOf(Aprz[1]);
-		chldpreprz = Double.valueOf(Cprz[1]);
-		inftpreprz = Double.valueOf(Iprz[1]);
+		CommonVariables.setAdltpreprz(Double.valueOf(Aprz[1])); 
+		CommonVariables.setChldpreprz( Double.valueOf(Cprz[1])); 
+		CommonVariables.setInftpreprz(Double.valueOf(Iprz[1])); 
 		totalprz = Double.valueOf(totprz[1]);
 	}
 	/**
@@ -379,7 +371,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	@Step("To validate total price")
 	public void validatePrice() throws Exception {
 		splitPrice();
-		double acttotal = adltpreprz+chldpreprz+inftpreprz;
+		double acttotal  =CommonVariables.getAdltpreprz() +CommonVariables.getChldpreprz()+CommonVariables.getInftpreprz();
 		checkEquality(acttotal, totalprz);
 	}
 	/**
@@ -387,8 +379,8 @@ public class Paxdetailspage extends CommonActionMethods {
 	 * @return
 	 */
 	public static double returntotal() {
-		double acttotal = adltpreprz+chldpreprz+inftpreprz;
-		return acttotal;
+		return CommonVariables.getAdltpreprz() +CommonVariables.getChldpreprz()+CommonVariables.getInftpreprz();
+
 	}
 	
 	public String fakefirstName() {
@@ -423,7 +415,7 @@ public class Paxdetailspage extends CommonActionMethods {
 		sendKeysMethod(peremail, fakeMail());
 		sendKeysMethod(perphone, fakePhone());
 		sendKeysMethod(peraddress, fakeAddress());
-		System.out.println(fakeCountry());
+		logMessage(fakeCountry());
 		try {
 		selectByVisibleText(percountry,fakeCountry());
 		selectByVisibleText(pernationality,fakeCountry());
@@ -449,7 +441,7 @@ public class Paxdetailspage extends CommonActionMethods {
 	}
 	
 	public void paxTitle() throws Exception {
-		String[] paxARR = splitString(Homepage.paxno, ",");
+		String[] paxARR = splitString(CommonVariables.getPaxno(),",");
 		adltNO=paxARR[0];
 		chldNO=paxARR[1];
 		infNO=paxARR[2];

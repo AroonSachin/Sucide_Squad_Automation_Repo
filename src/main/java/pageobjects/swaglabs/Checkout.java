@@ -102,7 +102,6 @@ public class Checkout extends CommonActionMethods {
     @Step("To validating checkoutvalidation")
 	public synchronized void checkoutValidation() throws Exception {
 		validateProductInfo();
-//		validateQuantity();
 	}
 
 }

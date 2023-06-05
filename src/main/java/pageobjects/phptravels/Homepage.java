@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import commonuseractions.CommonActionMethods;
+import commonuseractions.CommonVariables;
 import io.qameta.allure.Step;
 import utils.DriverFactory;
 
@@ -19,13 +20,6 @@ import utils.DriverFactory;
  * @author amaduraiveeran
  */
 public class Homepage extends CommonActionMethods {
-	static String paxno = "";
-	static String fromCity = "";
-	static String toCity = "";
-	static String departureDate = "";
-	static String departureMonth = "";
-	static String returndepartureDate = "";
-	static String returndepartureMonth = "";
 
 	@FindBy(xpath = "//button[@aria-controls='flights']")
 	WebElement flightbutton;
@@ -126,8 +120,8 @@ public class Homepage extends CommonActionMethods {
 		cal.add(Calendar.DAY_OF_MONTH, +plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("MMMMMMMMMM/d/yyyy");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
+		
 	}
 
 	/**
@@ -156,13 +150,9 @@ public class Homepage extends CommonActionMethods {
 		String[] date = splitString(dateSel(Integer.parseInt(getdata("date"))),"/");
 		String mnth = date[0];
 		String depdate = date[1];
-		System.out.println("mnth  "+mnth);
-		System.out.println("depdate  "+depdate);
 		String[] rtrndate = splitString(dateSel(Integer.parseInt(getdata("returndate"))),"/");
 		String returnmonth = rtrndate[0];
 		String returnday = rtrndate[1];
-		System.out.println("returnmonth  "+returnmonth);
-		System.out.println("returnday"+returnday);
 		if (!getdata("trip") .equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
@@ -190,9 +180,9 @@ public class Homepage extends CommonActionMethods {
 	 */
 	@Step("To Input number of passanger")
 	public void pax() throws Exception {
-		int adult = Integer.valueOf(getdata("adult"));
-		int child = Integer.valueOf(getdata("child"));
-		int infant = Integer.valueOf(getdata("infant"));
+		int adult = Integer.parseInt(getdata("adult"));
+		int child = Integer.parseInt(getdata("child"));
+		int infant = Integer.parseInt(getdata("infant"));
 		for (int i = 1; i <= adult - 1; i++) {
 			clickMethod(adultplus, "Adult plus button");
 		}
@@ -219,8 +209,8 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void enterCities(String departure, String destination) throws Exception {
-		fromCity = departure;
-		toCity = destination;
+		CommonVariables.setFromCity(departure);
+		CommonVariables.setToCity(destination); 
 		sendKeysMethod(depcity, departure);
 		listDrop(depcitylist, departure);
 		sendKeysMethod(descity, destination);
@@ -249,17 +239,13 @@ public class Homepage extends CommonActionMethods {
 		String[] date = splitString(dateSel(Integer.parseInt(depDate)), "/");
 		String mnth = date[0];
 		String depdate = date[1];
-		departureDate = date[1];
-		departureMonth = date[0];
-		System.out.println("mnth  " + mnth);
-		System.out.println("depdate  " + depdate);
+		CommonVariables.setDepartureDate(date[1]);
+		CommonVariables.setDepartureMonth(date[0]);
 		String[] rtrndate = splitString(dateSel(Integer.parseInt(desDate)), "/");
 		String returnmonth = rtrndate[0];
 		String returnday = rtrndate[1];
-		returndepartureDate = rtrndate[1];
-		returndepartureMonth = rtrndate[0];
-		System.out.println("returnmonth  " + returnmonth);
-		System.out.println("returnday" + returnday);
+		CommonVariables.setReturndepartureDate( rtrndate[1]);
+		CommonVariables.setReturndepartureMonth(rtrndate[0]);
 		if (!tripType.equalsIgnoreCase("round trip")) {
 			clickMethod(calenderbox, "Calender box");
 			monthloc(month, mnth, nextarrow);
@@ -281,12 +267,12 @@ public class Homepage extends CommonActionMethods {
 	 * @throws Exception
 	 */
 	public void selectNoOfPax(String pax) throws Exception {
-		paxno = pax;
+		CommonVariables.setPaxno(pax);
 		clickMethod(paxbotton, "Passenger button");
 		String[] passenger = splitString(pax, ",");
-		int adult = Integer.valueOf(passenger[0]);
-		int child = Integer.valueOf(passenger[1]);
-		int infant = Integer.valueOf(passenger[2]);
+		int adult = Integer.parseInt(passenger[0]);
+		int child = Integer.parseInt(passenger[1]);
+		int infant = Integer.parseInt(passenger[2]);
 		for (int i = 1; i <= adult - 1; i++) {
 			clickMethod(adultplus, "Adult plus button");
 		}

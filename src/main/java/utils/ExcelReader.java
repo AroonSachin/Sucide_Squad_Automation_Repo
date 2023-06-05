@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,9 @@ import commonuseractions.CommonActionMethods;
  *
  */
 public class ExcelReader {
-	public String path;
-	public FileInputStream fis = null;
-	public FileOutputStream fileOut = null;
+	 String path = null;
+	 FileInputStream fis = null;
+	 FileOutputStream fileOut = null;
 	private static XSSFWorkbook workbook = null;
 	private static XSSFSheet sheet = null;
 
@@ -46,7 +47,7 @@ public class ExcelReader {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Error(e.getStackTrace().toString());
+			throw new Error(Arrays.toString(e.getStackTrace()) );
 		}
 
 		return dataMap;
@@ -54,8 +55,8 @@ public class ExcelReader {
 	}
 
 	public int getRowCount() {
-		int rows = sheet.getLastRowNum() + 1;
-		return rows;
+		return sheet.getLastRowNum() + 1;
+		
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class ExcelReader {
 	 * @throws Exception
 	 */
 
-	public static synchronized void xlWriteStatus(String excelname, String sheetName, String value) throws Exception
+	public static synchronized void xlWriteStatus(String excelname, String value) throws Exception
 	{
 
 
@@ -74,7 +75,6 @@ public class ExcelReader {
 		for(int h = 0; h < sheet.getRow(0).getLastCellNum(); h++) {
 			header.put(sheet.getRow(0).getCell(h).getStringCellValue(), h);
 		}
-		System.out.println(header);
 
 		for (int i = 1; i < sheet.getLastRowNum()+1; i++) {
 				 if(sheet.getRow(i).getCell(0).getStringCellValue().equalsIgnoreCase(CommonActionMethods.getdata("Number"))) {

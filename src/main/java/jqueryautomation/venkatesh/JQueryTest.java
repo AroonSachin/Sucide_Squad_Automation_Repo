@@ -273,36 +273,35 @@ public class JQueryTest extends CommonActionMethods {
 	public void dragDropBy() throws Exception {
 		frameByIndex(0);
 		webWait(draggable);
-		Actions drag=new Actions(DriverFactory.getDriver());
+		Actions draged=new Actions(DriverFactory.getDriver());
 		int x= draggable.getLocation().getX();
 		int y=draggable.getLocation().getY();
-		drag.dragAndDropBy(draggable, x+45,y+65).perform();
+		draged.dragAndDropBy(draggable, x+45,y+65).perform();
 		defaultwindow();
 	}
-	public void droppable() throws Exception {
+	public void droppables() throws Exception {
 		clickMethod(drop, "droppable");
 		frameByIndex(0);
 		webWait(drag);
-		Actions drop=new Actions(DriverFactory.getDriver());
-		drop.dragAndDrop(drag,droppable ).perform();
+		Actions droped=new Actions(DriverFactory.getDriver());
+		droped.dragAndDrop(drag,droppable ).perform();
 		defaultwindow();
 	}
-	public void resize() throws Exception {
+	public void resizes() throws Exception {
 		clickMethod(resize, "resizable");
 		frameByIndex(0);
-		Actions size=new Actions(DriverFactory.getDriver());
+		Actions sized=new Actions(DriverFactory.getDriver());
 		webWait(resizable);
-		//size.dragAndDropBy(resizable, 100,50).perform();
-		size.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
-		System.out.println("height&width:"+resizable.getSize());
+		sized.clickAndHold(resizable).moveByOffset(100,60).release(resizable).perform();
+		logMessage("height&width:"+resizable.getSize());
 		defaultwindow();
 
 	}
 	public void selectable() throws Exception {
 		clickMethod(select, "selectable");
 		frameByIndex(0);
-		Actions select=new Actions(DriverFactory.getDriver());
-		select.keyDown(Keys.CONTROL).click(selectable.get(0)).click(selectable.get(1)).perform();
+		Actions selected=new Actions(DriverFactory.getDriver());
+		selected.keyDown(Keys.CONTROL).click(selectable.get(0)).click(selectable.get(1)).perform();
 		defaultwindow();
 	}
 	public void sortable() throws Exception {
@@ -310,9 +309,9 @@ public class JQueryTest extends CommonActionMethods {
 		frameByIndex(0);
 		WebElement from=sortable.get(5);
 		WebElement to=sortable.get(0);
-		Actions sort=new Actions(DriverFactory.getDriver());
+		Actions sorted=new Actions(DriverFactory.getDriver());
 		Thread.sleep(5000);
-        sort.clickAndHold(from).moveToElement(to).release().perform();
+        sorted.clickAndHold(from).moveToElement(to).release().perform();
         defaultwindow();
 	}
 	public void accordion() throws Exception {
@@ -323,7 +322,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(sec3, "section3");
 		defaultwindow();
 	}
-	public void autocomplete() throws Exception {
+	public void autocompletes() throws Exception {
 		clickMethod(autocomplete, "autocomplete");
 		frameByIndex(0);
 		sendKeysMethod(tag, "java");
@@ -331,7 +330,7 @@ public class JQueryTest extends CommonActionMethods {
 		auto.keyDown(Keys.CONTROL).click(tagname.get(0)).perform();
 		defaultwindow();
 	}
-	public void button() throws Exception {
+	public void buttons() throws Exception {
 		clickMethod(button, "button");
 		frameByIndex(0);
 		clickMethod(buttonelement, "buttonelement");
@@ -339,7 +338,7 @@ public class JQueryTest extends CommonActionMethods {
 		defaultwindow();
 	}
 
-	public void checkBoxRadio() throws Exception {
+	public void checkBoxRadios() throws Exception {
        clickMethod(checkboxradio, "Checkboxradio");
        frameByIndex(0);
        clickMethod(newyork, "newyork");
@@ -348,7 +347,7 @@ public class JQueryTest extends CommonActionMethods {
        defaultwindow();
 	}
 
-	public void controlgroup() throws Exception {
+	public void controlgroups() throws Exception {
 		clickMethod(controlgroup, "control");
 		frameByIndex(0);
 		webWait(cartype);
@@ -360,7 +359,7 @@ public class JQueryTest extends CommonActionMethods {
         clickMethod(booknow, "booknow");
         defaultwindow();
 	}
-	public void dialog() throws Exception {
+	public void dialogs() throws Exception {
 		clickMethod(dialog, "dialog");
 		clickMethod(defaultfunction, "defaultfunction");
 		frameByIndex(0);
@@ -389,7 +388,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(okmodal, "okmodalmessage");
 		defaultwindow();
 	}
-	public void menu() throws Exception {
+	public void menus() throws Exception {
 		clickMethod(menu, "Menu");
 		clickMethod(menudefault, "Default function");
 		frameByIndex(0);
@@ -397,7 +396,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(rock, "Rock");
 		defaultwindow();
 	}
-	public void progressbar() throws Exception {
+	public void progressbars() throws Exception {
 		clickMethod(progressbar, "progressbar");
 		clickMethod(indeterminate, "indeterminate value");
 		frameByIndex(0);
@@ -408,7 +407,7 @@ public class JQueryTest extends CommonActionMethods {
 		defaultwindow();
 
 	}
-	public  void selectMenu() throws Exception {
+	public  void selectMenus() throws Exception {
 		clickMethod(selectmenu, "selectmenu");
 		clickMethod(productselection, "product selection");
 		frameByIndex(0);
@@ -420,14 +419,14 @@ public class JQueryTest extends CommonActionMethods {
 		defaultwindow();
 
 	}
-	public void datepicker() throws Exception {
+	public void datepickeres() throws Exception {
 		clickMethod(datepicker, "datepicker");
 		clickMethod(defaultfunctionality, "default");
 		frameByIndex(0);
 		clickMethod(datebox, "datebox");
-		System.out.println(currentdate(5));
-		String[]date = splitString(currentdate(5), "/");
-		System.out.println(month.getText());
+		logMessage(currentdates(5));
+		String[]date = splitString(currentdates(5), "/");
+		logMessage(month.getText());
 		String text=getTextElement(month, "month");
 		while (true) {
 			if(text.equalsIgnoreCase(date[0])) {
@@ -442,25 +441,25 @@ public class JQueryTest extends CommonActionMethods {
 		defaultwindow();
 
 	}
-	public String currentdate(int plusdays) {
+	public String currentdates(int plusdays) {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH,+plusdays);
 		SimpleDateFormat date = new SimpleDateFormat();
 		date.applyPattern("MMMMMMMMMM/d");
-		String dat = date.format(cal.getTime());
-		return dat;
+		return date.format(cal.getTime());
+		
 	}
-	public void slider() throws Exception {
+	public void sliders() throws Exception {
 		clickMethod(slider, "slider");
 		clickMethod(colorpicker, "colorpicker");
 		frameByIndex(0);
 		Actions greenslider=new Actions(DriverFactory.getDriver());
 		Thread.sleep(3000);
 		greenslider.dragAndDropBy(green, -100, 0).perform();
-		System.out.println("height&width:"+green.getSize());
+		logMessage("height&width:"+green.getSize());
 		defaultwindow();
 	}
-	public void spinner() throws Exception {
+	public void spinneres() throws Exception {
 		clickMethod(spinner, "spinner");
 		clickMethod(currency, "currency");
 		frameByIndex(0);
@@ -470,7 +469,7 @@ public class JQueryTest extends CommonActionMethods {
 		listDrop(currencytype, "EUR €");
 		defaultwindow();
 	}
-	public void tabs() throws Exception {
+	public void tabed() throws Exception {
 		clickMethod(tabs, "tabs");
 		clickMethod(collapse, "collapse");
 		frameByIndex(0);
@@ -483,12 +482,12 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(add, "tabadded");
 		defaultwindow();
 	}
-	public void toolTip() throws Exception {
+	public void toolTips() throws Exception {
 		clickMethod(tooltip, "tooltip");
 		clickMethod(defaulttool, "defaulttool");
 		frameByIndex(0);
 		String tooltiptext=agetool.getAttribute("title");
-		System.out.println("tooltil text is :"+tooltiptext);
+		logMessage("tooltil text is :"+tooltiptext);
 
 	}
 	public void effects() throws Exception {
@@ -541,7 +540,7 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(toggleclassbutton, "toggleclass");
 		defaultwindow();
 	}
-	public void position() throws Exception {
+	public void positions() throws Exception {
 		clickMethod(position, "position");
 		clickMethod(positiondefault, "positiondefault");
 		frameByIndex(0);
@@ -556,14 +555,14 @@ public class JQueryTest extends CommonActionMethods {
 		clickMethod(imageprevious, "imagepervious");
 		defaultwindow();
 	}
-	public void widgetFactory() throws Exception {
+	public void widgetFactories() throws Exception {
 		clickMethod(widgetfactory, "widfactory");
 		clickMethod(widgetdefault, "widgetdefault");
 		frameByIndex(0);
 		clickMethod(widgetchange1, "color1");
-		System.out.println("color name:"+widgetchange1.getText());
+		logMessage("color name:"+widgetchange1.getText());
 		clickMethod(widgetchange2, "color2");
-		System.out.println("color name:"+widgetchange2.getText());
+		logMessage("color name:"+widgetchange2.getText());
 		clickMethod(widgetgreen, "gogreen");
 		defaultwindow();
 

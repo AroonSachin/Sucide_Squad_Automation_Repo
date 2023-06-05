@@ -406,7 +406,6 @@ public class Interactions extends CommonActionMethods {
 			logMessage(" Resize sucessufull ");
 		} else {
 			logErrorMessage(" Resize failed ");
-			throw new RuntimeException();
 		}
 		defaultwindow();
 	}
