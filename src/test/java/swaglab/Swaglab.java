@@ -35,7 +35,7 @@ import utils.ScreenRecorderUtil;
  * @this is the runner class that has all the test scenarios
  *
  */
-@Listeners(TestListner.class)
+@Listeners(Allurelistener.class)
 @Feature("Swag-Labs")
 public class Swaglab extends CommonActionMethods {
 	
