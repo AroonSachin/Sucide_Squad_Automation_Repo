@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>SucideSquadSeleniumAutomation</groupId>
 	<artifactId>SucideSquadSeleniumAutomation</artifactId>
@@ -14,19 +16,22 @@
 			<artifactId>rest-assured</artifactId>
 			<version>5.3.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
+		<!--
+		https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
 		<dependency>
 			<groupId>com.github.stephenc.monte</groupId>
 			<artifactId>monte-screen-recorder</artifactId>
 			<version>0.7.7.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api -->
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-api</artifactId>
 			<version>4.7.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
@@ -50,7 +55,8 @@
 			<artifactId>javafaker</artifactId>
 			<version>1.0.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -91,13 +97,15 @@
 			<version>3.10.1</version>
 			<type>maven-plugin</type>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api -->
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-api</artifactId>
 			<version>4.7.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
@@ -173,6 +181,15 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -189,10 +206,29 @@
 				<version>2.20</version>
 				<configuration>
 					<argLine>
-                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar"
-                </argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar"
+					</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+
+				</executions>
+				<configuration>
+					<finalName>
+						ProjectJARs/project
+					</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
+
 	</build>
 </project>

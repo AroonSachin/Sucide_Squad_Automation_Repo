@@ -57,7 +57,7 @@ public class CommonActionMethods extends TestListner {
 	protected static ExtentReports extentreport;
 	protected static ExtentHtmlReporter htmlreporter;
 	protected static ExtentTest testcase;
-	protected static String configFilename = "log4j.properties";
+	protected static String configFilename = "C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\src\\main\\java\\log4j.properties";
 	protected static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	protected static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		 return new HashMap<>();
