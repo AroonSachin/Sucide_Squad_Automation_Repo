@@ -69,8 +69,6 @@ public class ExcelReader {
 
 	public static synchronized void xlWriteStatus(String excelname, String value) throws Exception
 	{
-
-
 		Map<String,Integer> header = new HashMap<>();
 		for(int h = 0; h < sheet.getRow(0).getLastCellNum(); h++) {
 			header.put(sheet.getRow(0).getCell(h).getStringCellValue(), h);

@@ -30,7 +30,7 @@ public class Mail extends CommonActionMethods {
 	public static void sendReport(String reportPath) throws IOException {
 		// authentication info
 		final String username = "arunsachin.m@tridentsqa.com";
-		final String password = "tnascmznrrbxxfwr";
+		final String password = "loqyimxnrcwilemq";
 		String fromEmail = "arunsachin.m@tridentsqa.com";
 		String toEmail = "sowmya.venkateshwaran@tridentsqa.com";
 
@@ -52,7 +52,7 @@ public class Mail extends CommonActionMethods {
 			msg.setFrom(new InternetAddress(fromEmail));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
 			 msg.addRecipients(Message.RecipientType.CC,
-			 "vinoth.velayutham@tridentsqa.com,venkatesh.b@tridentsqa.com");
+			 "vinoth.velayutham@tridentsqa.com,venkatesh.b@tridentsqa.com,rahmankhan.m@tridentsqa.com");
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MMM/YYYY");
 			Date date = new Date();
@@ -69,7 +69,9 @@ public class Mail extends CommonActionMethods {
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			String htmlBody;
 			if (mailFlag) {
-				File file = new File(FailedScreenShotdestination.get());
+				System.out.println(FailedScreenShotdestination.get());
+				File file= new File(FailedScreenShotdestination.get());
+				
 				htmlBody = "<h4>Hello Team,</h4><p><b>Alert!!!</b> The following scenario \"<b>"
 						+ getScenarioDescription() + "</b>\" has failed due to <b>" + getScenarioComments()
 						+ "</b></p><p>Please find the screenshot for the current failed scenario</p><img src=\"cid:image\"alt=\"Barcode\" width=\"350\" height=\"250\" align=\"left\">";
@@ -83,8 +85,9 @@ public class Mail extends CommonActionMethods {
 
 				// second part (the image)
 				messageBodyPart = new MimeBodyPart();
-				DataSource source = new FileDataSource(file);
-				messageBodyPart.setDataHandler(new DataHandler(source));
+				
+			    DataSource source = new FileDataSource(file);
+			    messageBodyPart.setDataHandler(new DataHandler(source));
 				messageBodyPart.setHeader("Content-ID", "<image>");
 
 				// add image to the multipart

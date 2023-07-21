@@ -57,7 +57,7 @@ public class CommonActionMethods extends TestListner {
 	protected static ExtentReports extentreport;
 	protected static ExtentHtmlReporter htmlreporter;
 	protected static ExtentTest testcase;
-	protected static String configFilename = "C:\\AutomationTask\\Sucide_Squad_Automation_Repo\\src\\main\\java\\log4j.properties";
+	protected static String configFilename = "log4j.properties";
 	protected static Logger log = LogManager.getLogger(CommonActionMethods.class);
 	protected static ThreadLocal<Map<String, String>> inputdata = ThreadLocal.withInitial(() -> {
 		 return new HashMap<>();
@@ -109,7 +109,7 @@ public class CommonActionMethods extends TestListner {
 	 */
 	public static synchronized  void logErrorMessage(String messagestopexecution) throws Exception {
 		log.error(messagestopexecution);
-		String shot = takeSnapShot();
+		String shot = takeSnapShot();	
 		if (invokeMail) {
 			FailedScreenShotdestination.set(shot);
 			scenarioComments.set(messagestopexecution);
@@ -117,13 +117,14 @@ public class CommonActionMethods extends TestListner {
 			scenarioNo.set(getdata("Number"));
 			scenarioStatus.set("Failed");
 		}
+
 		if (extentreport != null) {
 			testcase.log(Status.FAIL, messagestopexecution);
 			testcase.addScreenCaptureFromPath(shot);
 		}
 		throw new RuntimeException(messagestopexecution);
 	}
-
+	
 	/**
 	 * @This method is used to print the log error message in console and stop the
 	 *       execution
@@ -244,17 +245,19 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static String takeSnapShot() throws Exception {
+		String pathlocation =null;
 		try {
 			File srcfile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 			File filepath = new File("./Snaps/" + System.currentTimeMillis() + ".png");
-			String pathlocation = filepath.getAbsolutePath();
+			 pathlocation = filepath.getAbsolutePath();
 			FileUtils.copyFile(srcfile, filepath);
-			logMessage(" Screenshot taken-stored in the given path ");
-			return pathlocation;
+			logMessage(" Screenshot taken-stored in the given path ");	
+			
 		} catch (Exception e) {
 			System.err.println(" Screenshot is not taken ");
 		}
-		return null;
+		return pathlocation;
+		
 	}
 
 	/**
@@ -391,7 +394,6 @@ public class CommonActionMethods extends TestListner {
 	public static void isEnabled(WebElement element, String elementname) throws Exception {
 		Assert.assertTrue(element.isEnabled(), elementname + " is not enabled in catch block ");
 		logMessage(elementname + " is enabled ");
-
 	}
 
 	/**
