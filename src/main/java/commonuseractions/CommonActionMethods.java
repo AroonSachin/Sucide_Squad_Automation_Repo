@@ -367,7 +367,6 @@ public class CommonActionMethods extends TestListner {
 	 * @throws Exception
 	 */
 	public static void isDisplayed(WebElement element, String elementname) throws Exception {
-
 		Assert.assertTrue(element.isDisplayed(), elementname + " is not displayed in catch block ");
 		logMessage(elementname + " is displayed ");
 	}
